@@ -118,3 +118,30 @@ WHERE admission_cycles.is_open = true]
 2025-10-12 03:06:18 | INFO     | database | Database connection verified successfully
 2025-10-12 03:06:18 | INFO     | main | ✅ Database connection successful
 2025-10-12 03:06:18 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 03:06:41 | ERROR    | api | Failed to get admission info: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 03:06:41 | ERROR    | database | Database session error: 500: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 03:06:51 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 03:06:51 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 03:07:19 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 03:07:19 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 03:09:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:12:20 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:12:20 | INFO     | main | Running prerequisite checks...
+2025-10-12 03:12:20 | INFO     | main | Verifying database connection...
+2025-10-12 03:12:26 | INFO     | database | Database connection verified successfully
+2025-10-12 03:12:26 | INFO     | main | ✅ Database connection successful
+2025-10-12 03:12:26 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000

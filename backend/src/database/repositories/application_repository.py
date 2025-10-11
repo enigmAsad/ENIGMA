@@ -406,3 +406,101 @@ class ApplicationRepository(BaseRepository[Application]):
 
         result = self.db.execute(stmt)
         return list(result.scalars().all())
+
+    def get_total_count(self) -> int:
+        """Get total number of applications."""
+        stmt = select(func.count()).select_from(Application)
+        result = self.db.execute(stmt)
+        return result.scalar()
+
+    def get_completed_evaluations_count(self) -> int:
+        """Get number of applications with completed evaluations."""
+        stmt = select(func.count()).select_from(Application).where(
+            Application.status.in_([
+                ApplicationStatusEnum.SCORED,
+                ApplicationStatusEnum.SELECTED,
+                ApplicationStatusEnum.NOT_SELECTED,
+                ApplicationStatusEnum.PUBLISHED
+            ])
+        )
+        result = self.db.execute(stmt)
+        return result.scalar()
+
+    def get_average_final_score(self) -> Optional[float]:
+        """Get average final score for completed evaluations."""
+        stmt = select(func.avg(FinalScore.final_score)).select_from(
+            FinalScore
+        ).join(
+            AnonymizedApplication,
+            FinalScore.anonymized_id == AnonymizedApplication.anonymized_id
+        ).join(
+            Application,
+            AnonymizedApplication.application_id == Application.application_id
+        ).where(
+            Application.status.in_([
+                ApplicationStatusEnum.SCORED,
+                ApplicationStatusEnum.SELECTED,
+                ApplicationStatusEnum.NOT_SELECTED,
+                ApplicationStatusEnum.PUBLISHED
+            ])
+        )
+
+        result = self.db.execute(stmt)
+        return result.scalar()
+
+    def get_score_distribution(self) -> Dict[str, int]:
+        """Get score distribution by ranges."""
+        distribution = {
+            "90-100": 0,
+            "80-89": 0,
+            "70-79": 0,
+            "60-69": 0,
+            "below-60": 0
+        }
+
+        # Get all final scores
+        stmt = select(FinalScore.final_score).select_from(
+            FinalScore
+        ).join(
+            AnonymizedApplication,
+            FinalScore.anonymized_id == AnonymizedApplication.anonymized_id
+        ).join(
+            Application,
+            AnonymizedApplication.application_id == Application.application_id
+        ).where(
+            Application.status.in_([
+                ApplicationStatusEnum.SCORED,
+                ApplicationStatusEnum.SELECTED,
+                ApplicationStatusEnum.NOT_SELECTED,
+                ApplicationStatusEnum.PUBLISHED
+            ])
+        )
+
+        result = self.db.execute(stmt)
+        scores = [row[0] for row in result.all()]
+
+        # Count by ranges
+        for score in scores:
+            if score >= 90:
+                distribution["90-100"] += 1
+            elif score >= 80:
+                distribution["80-89"] += 1
+            elif score >= 70:
+                distribution["70-79"] += 1
+            elif score >= 60:
+                distribution["60-69"] += 1
+            else:
+                distribution["below-60"] += 1
+
+        return distribution
+
+    def get_status_distribution(self) -> Dict[str, int]:
+        """Get application count by status."""
+        stmt = select(Application.status, func.count()).select_from(
+            Application
+        ).group_by(Application.status)
+
+        result = self.db.execute(stmt)
+        status_counts = {status.value: count for status, count in result.all()}
+
+        return status_counts

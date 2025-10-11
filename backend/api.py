@@ -398,23 +398,17 @@ async def verify_entire_chain():
 
 
 @app.get("/dashboard/stats", response_model=DashboardStatsResponse)
-async def get_dashboard_stats():
+async def get_dashboard_stats(db: Session = Depends(get_db)):
     """Get aggregate statistics for public dashboard."""
     try:
-        csv_handler = CSVHandler()
+        app_repo = ApplicationRepository(db)
 
         # Get counts
-        all_apps = csv_handler._read_csv(csv_handler.APPLICATIONS_CSV)
-        final_scores_data = csv_handler._read_csv(csv_handler.FINAL_SCORES_CSV)
-
-        total_applications = len(all_apps)
-        completed_evaluations = len(final_scores_data)
+        total_applications = app_repo.get_total_count()
+        completed_evaluations = app_repo.get_completed_evaluations_count()
 
         # Calculate average score
-        average_score = None
-        if final_scores_data:
-            scores = [float(s["final_score"]) for s in final_scores_data]
-            average_score = sum(scores) / len(scores)
+        average_score = app_repo.get_average_final_score()
 
         # Score distribution (by ranges)
         score_distribution = {
@@ -425,24 +419,11 @@ async def get_dashboard_stats():
             "below-60": 0
         }
 
-        for score_data in final_scores_data:
-            score = float(score_data["final_score"])
-            if score >= 90:
-                score_distribution["90-100"] += 1
-            elif score >= 80:
-                score_distribution["80-89"] += 1
-            elif score >= 70:
-                score_distribution["70-79"] += 1
-            elif score >= 60:
-                score_distribution["60-69"] += 1
-            else:
-                score_distribution["below-60"] += 1
+        distribution = app_repo.get_score_distribution()
+        score_distribution.update(distribution)
 
         # Processing stats by status
-        processing_stats = {}
-        for app in all_apps:
-            status = app.get("status", "unknown")
-            processing_stats[status] = processing_stats.get(status, 0) + 1
+        processing_stats = app_repo.get_status_distribution()
 
         return DashboardStatsResponse(
             total_applications=total_applications,

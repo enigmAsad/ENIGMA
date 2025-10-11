@@ -17,3 +17,104 @@
 2025-10-12 02:49:34 | INFO     | database | Database connection verified successfully
 2025-10-12 02:49:34 | INFO     | main | ✅ Database connection successful
 2025-10-12 02:49:34 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 02:50:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:50:47 | INFO     | main | Running prerequisite checks...
+2025-10-12 02:50:47 | INFO     | main | Verifying database connection...
+2025-10-12 02:50:53 | INFO     | database | Database connection verified successfully
+2025-10-12 02:50:53 | INFO     | main | ✅ Database connection successful
+2025-10-12 02:50:53 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 02:51:42 | ERROR    | api | Failed to get admission info: 'Settings' object has no attribute 'data_dir'
+2025-10-12 02:52:01 | ERROR    | api | Failed to get admission info: 'Settings' object has no attribute 'data_dir'
+2025-10-12 02:55:48 | ERROR    | api | Failed to get admission info: 'Settings' object has no attribute 'data_dir'
+2025-10-12 02:56:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:56:06 | INFO     | main | Running prerequisite checks...
+2025-10-12 02:56:06 | INFO     | main | Verifying database connection...
+2025-10-12 02:56:12 | INFO     | database | Database connection verified successfully
+2025-10-12 02:56:12 | INFO     | main | ✅ Database connection successful
+2025-10-12 02:56:12 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 02:56:30 | ERROR    | api | Failed to get admission info: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:56:30 | ERROR    | database | Database session error: 500: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:57:29 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:57:34 | INFO     | database | Database connection verified successfully
+2025-10-12 02:58:41 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:58:41 | INFO     | main | Running prerequisite checks...
+2025-10-12 02:58:41 | INFO     | main | Verifying database connection...
+2025-10-12 02:58:46 | INFO     | database | Database connection verified successfully
+2025-10-12 02:58:46 | INFO     | main | ✅ Database connection successful
+2025-10-12 02:58:46 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 02:59:08 | ERROR    | api | Failed to get admission info: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:08 | ERROR    | database | Database session error: 500: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:40 | ERROR    | api | Failed to get admission info: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:40 | ERROR    | database | Database session error: 500: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:41 | ERROR    | api | Failed to get admission info: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:41 | ERROR    | database | Database session error: 500: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:53 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 02:59:53 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 02:59:55 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 03:01:51 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:02:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:03:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:04:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:05:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:06:13 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:06:13 | INFO     | main | Running prerequisite checks...
+2025-10-12 03:06:13 | INFO     | main | Verifying database connection...
+2025-10-12 03:06:18 | INFO     | database | Database connection verified successfully
+2025-10-12 03:06:18 | INFO     | main | ✅ Database connection successful
+2025-10-12 03:06:18 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000

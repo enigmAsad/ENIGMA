@@ -23,9 +23,13 @@ from src.models.schemas import (
 from src.services.application_collector import ApplicationCollector
 from src.services.hash_chain import HashChainGenerator
 from src.services.admin_auth import AdminAuthService
+from src.services.admin_auth_v2 import AdminAuthServiceV2
+from src.database.engine import get_db
+from src.database.repositories import AdminRepository
 from src.utils.csv_handler import CSVHandler
 from src.utils.logger import get_logger, AuditLogger
 from src.orchestration.phase1_pipeline import run_pipeline
+from sqlalchemy.orm import Session
 
 # Initialize
 logger = get_logger("api")
@@ -685,11 +689,11 @@ async def get_active_cycle_admin(admin: AdminUser = Depends(get_current_admin)):
 
 # Public admission info (no auth required)
 @app.get("/admission/info", response_model=AdmissionInfoResponse)
-async def get_admission_info():
+async def get_admission_info(db: Session = Depends(get_db)):
     """Get public admission information."""
     try:
-        csv_handler = CSVHandler()
-        active_cycle = csv_handler.get_active_cycle()
+        admin_repo = AdminRepository(db)
+        active_cycle = admin_repo.get_active_cycle()
 
         if not active_cycle:
             return AdmissionInfoResponse(
@@ -732,11 +736,11 @@ async def get_admission_info():
 
 
 @app.get("/admission/status", response_model=Dict[str, Any])
-async def get_admission_status():
+async def get_admission_status(db: Session = Depends(get_db)):
     """Check if admissions are open (simple boolean)."""
     try:
-        csv_handler = CSVHandler()
-        active_cycle = csv_handler.get_active_cycle()
+        admin_repo = AdminRepository(db)
+        active_cycle = admin_repo.get_active_cycle()
 
         if not active_cycle:
             return {"is_open": False}

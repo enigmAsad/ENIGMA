@@ -5,3 +5,15 @@
 2025-10-12 02:40:22 | ERROR    | database | Database connection failed: Not an executable object: 'SELECT 1'
 2025-10-12 02:40:22 | ERROR    | main | Failed to connect to database
 2025-10-12 02:40:22 | ERROR    | main | Please check your DATABASE_URL in .env file
+2025-10-12 02:44:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:44:44 | ERROR    | database | Database connection failed: Not an executable object: 'SELECT 1'
+2025-10-12 02:48:32 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:48:36 | ERROR    | database | Database connection failed: Not an executable object: 'SELECT 1'
+2025-10-12 02:48:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:49:03 | INFO     | database | Database connection verified successfully
+2025-10-12 02:49:29 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:49:29 | INFO     | main | Running prerequisite checks...
+2025-10-12 02:49:29 | INFO     | main | Verifying database connection...
+2025-10-12 02:49:34 | INFO     | database | Database connection verified successfully
+2025-10-12 02:49:34 | INFO     | main | ✅ Database connection successful
+2025-10-12 02:49:34 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000

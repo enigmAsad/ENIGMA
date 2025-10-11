@@ -26,6 +26,7 @@ def get_engine():
     """
     settings = get_settings()
 
+    # For Supabase transaction pooler, use simpler configuration
     engine = create_engine(
         settings.database_url,
         poolclass=QueuePool,
@@ -34,10 +35,7 @@ def get_engine():
         pool_timeout=settings.database_pool_timeout,
         pool_pre_ping=True,  # Verify connections before using
         echo=settings.database_echo,  # Log SQL statements (for debugging)
-        connect_args={
-            "connect_timeout": int(settings.database_pool_timeout),
-            "options": "-c timezone=utc"  # Ensure UTC timezone
-        }
+        # Remove connect_args for Supabase transaction pooler compatibility
     )
 
     # Log pool status on checkout (for monitoring)
@@ -155,7 +153,10 @@ def verify_connection():
     """
     try:
         with engine.connect() as conn:
-            conn.execute("SELECT 1")
+            # Use text() for proper SQL execution with Supabase
+            from sqlalchemy import text
+            result = conn.execute(text("SELECT 1"))
+            result.fetchone()  # Consume the result
         logger.info("Database connection verified successfully")
         return True
     except Exception as e:

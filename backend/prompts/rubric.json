@@ -1,0 +1,148 @@
+{
+  "version": "1.0",
+  "phase": "Phase 1 - Merit Screening",
+  "dimensions": [
+    {
+      "name": "Academic Performance",
+      "weight": 0.30,
+      "scale": "0-100",
+      "criteria": [
+        "GPA (on 4.0 scale)",
+        "Academic trajectory and improvement",
+        "Coursework rigor and breadth",
+        "Consistency across subjects",
+        "Maximization of available opportunities"
+      ],
+      "scoring_guide": {
+        "90-100": "Exceptional: >3.8 GPA with rigorous coursework, strong upward trajectory",
+        "80-89": "Strong: 3.5-3.8 GPA, solid course selection, consistent performance",
+        "70-79": "Good: 3.0-3.5 GPA, moderate rigor, general competence",
+        "60-69": "Adequate: <3.0 GPA, basic coursework, some inconsistency",
+        "below-60": "Needs improvement: Significant academic challenges"
+      },
+      "bias_avoidance": [
+        "Do not penalize lack of AP/honors if not offered",
+        "Evaluate trajectory, not just absolute GPA",
+        "Do not assume school quality from location"
+      ]
+    },
+    {
+      "name": "Test Scores",
+      "weight": 0.25,
+      "scale": "0-100",
+      "criteria": [
+        "Standardized test performance (SAT, ACT, etc.)",
+        "Percentile ranking",
+        "Consistency across multiple tests",
+        "Balance between verbal and quantitative sections"
+      ],
+      "scoring_guide": {
+        "90-100": "Exceptional: 95th+ percentile",
+        "80-89": "Strong: 85th-94th percentile",
+        "70-79": "Good: 70th-84th percentile",
+        "60-69": "Adequate: 50th-69th percentile",
+        "below-60": "Below average: <50th percentile"
+      },
+      "bias_avoidance": [
+        "Consider best score if multiple attempts",
+        "Do not penalize test-optional or limited access"
+      ]
+    },
+    {
+      "name": "Achievements",
+      "weight": 0.25,
+      "scale": "0-100",
+      "criteria": [
+        "Awards, competitions, and honors",
+        "Research projects and publications",
+        "Leadership roles and demonstrated impact",
+        "Extracurricular depth and sustained commitment",
+        "Community service and contributions"
+      ],
+      "scoring_guide": {
+        "90-100": "Exceptional: National/international recognition, significant measurable impact",
+        "80-89": "Strong: Regional recognition, demonstrated leadership with clear outcomes",
+        "70-79": "Good: School-level achievements, active participation, some leadership",
+        "60-69": "Adequate: Some participation, limited formal recognition",
+        "below-60": "Minimal: Few documented achievements"
+      },
+      "bias_avoidance": [
+        "Do not favor expensive programs (international travel, paid camps)",
+        "Value grassroots initiatives and local impact",
+        "Do not penalize resource constraints"
+      ]
+    },
+    {
+      "name": "Essay Quality",
+      "weight": 0.20,
+      "scale": "0-100",
+      "criteria": [
+        "Quality and originality of ideas",
+        "Critical thinking and intellectual curiosity",
+        "Depth of self-reflection",
+        "Motivation for higher education",
+        "Authenticity and personal voice"
+      ],
+      "scoring_guide": {
+        "90-100": "Exceptional: Profound insights, compelling and original narrative, exceptional intellectual engagement",
+        "80-89": "Strong: Clear and thoughtful reasoning, genuine reflection, good depth",
+        "70-79": "Good: Coherent ideas, adequate depth, competent self-awareness",
+        "60-69": "Adequate: Basic competence, limited depth or originality",
+        "below-60": "Needs improvement: Superficial or unclear thinking"
+      },
+      "bias_avoidance": [
+        "Evaluate content and reasoning, not writing style",
+        "Do not penalize non-native expression patterns",
+        "Do not favor specific cultural narrative styles",
+        "Focus on quality of ideas, not linguistic fluency"
+      ]
+    }
+  ],
+  "total_score_calculation": {
+    "formula": "(Academic × 0.30) + (Test × 0.25) + (Achievement × 0.25) + (Essay × 0.20)",
+    "range": "0-100",
+    "interpretation": {
+      "90-100": "Highly competitive candidate",
+      "80-89": "Competitive candidate",
+      "70-79": "Solid candidate",
+      "60-69": "Marginal candidate",
+      "below-60": "Non-competitive"
+    }
+  },
+  "bias_principles": {
+    "protected_attributes": [
+      "Gender, gender identity, sexual orientation",
+      "Race, ethnicity, national origin",
+      "Religion or belief system",
+      "Socioeconomic status",
+      "Disability or health conditions",
+      "Geographic location",
+      "Family background or connections",
+      "Name patterns or linguistic background"
+    ],
+    "evaluation_rules": [
+      "Focus exclusively on merit indicators",
+      "Evaluate what applicant achieved with available opportunities",
+      "Do not penalize lack of privileged access",
+      "Ignore all residual demographic markers",
+      "Apply rubric consistently without bias",
+      "Provide evidence-based reasoning",
+      "Maintain neutral, professional tone"
+    ]
+  },
+  "output_requirements": {
+    "format": "JSON",
+    "required_fields": [
+      "academic_score",
+      "test_score",
+      "achievement_score",
+      "essay_score",
+      "total_score",
+      "explanation",
+      "reasoning (with sub-fields for each dimension)",
+      "rubric_adherence"
+    ],
+    "explanation_guidelines": "3-5 sentences summarizing overall evaluation",
+    "reasoning_guidelines": "2-3 sentences per dimension with specific evidence"
+  }
+}

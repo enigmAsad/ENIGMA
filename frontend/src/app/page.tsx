@@ -1,103 +1,230 @@
-import Image from "next/image";
+/**
+ * Landing page - ENIGMA mission and overview
+ */
+
+import Link from 'next/link';
+import Button from '@/components/Button';
+import Card from '@/components/Card';
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center">
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">
+              ENIGMA
+            </h1>
+            <p className="text-2xl md:text-3xl mb-4 text-blue-100">
+              Bias-Free AI Admissions
+            </p>
+            <p className="text-xl md:text-2xl mb-8 text-blue-200 max-w-3xl mx-auto">
+              Fair, transparent, and merit-based university admissions powered by AI
+            </p>
+            <div className="flex gap-4 justify-center flex-wrap">
+              <Link href="/apply">
+                <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+                  Apply Now
+                </Button>
+              </Link>
+              <Link href="/dashboard">
+                <Button variant="outline" size="lg" className="border-white text-white hover:bg-blue-700">
+                  View Dashboard
+                </Button>
+              </Link>
+            </div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Mission Section */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">Our Mission</h2>
+          <p className="text-lg text-gray-700 text-center max-w-4xl mx-auto leading-relaxed">
+            ENIGMA eliminates bias from university admissions through blind AI evaluation and
+            real-time monitoring. We ensure every applicant is judged solely on merit, with
+            complete transparency and cryptographic proof of integrity.
+          </p>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Phase 1 */}
+            <Card title="Phase 1: AI Screening">
+              <div className="text-4xl mb-4">🎓</div>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Identity scrubbing removes all personal information</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>AI Worker evaluates merit: GPA, tests, achievements, essay</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>AI Judge validates for bias and quality</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Retry loop ensures fair evaluation</span>
+                </li>
+              </ul>
+            </Card>
+
+            {/* Phase 2 */}
+            <Card title="Phase 2: Monitored Interviews">
+              <div className="text-4xl mb-4">👥</div>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Live interviews with human evaluators</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Real-time AI monitors evaluator language for bias</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Instant nudges for inappropriate questions</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Statistical validation ensures consistency</span>
+                </li>
+              </ul>
+            </Card>
+
+            {/* Transparency */}
+            <Card title="Cryptographic Audit">
+              <div className="text-4xl mb-4">🔒</div>
+              <ul className="space-y-3 text-gray-700">
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Every decision is hashed with SHA-256</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Public verification portal for integrity checks</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Tamper-evident audit trail</span>
+                </li>
+                <li className="flex items-start">
+                  <span className="text-blue-600 mr-2">•</span>
+                  <span>Complete transparency and accountability</span>
+                </li>
+              </ul>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Trust Signals */}
+      <section className="py-16 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">Why Trust ENIGMA?</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="flex items-start">
+              <div className="text-3xl mr-4">✅</div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Blind Evaluation</h3>
+                <p className="text-gray-700">
+                  All identifying information is removed before AI evaluation.
+                  No names, gender, ethnicity, or location data reaches the evaluation system.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start">
+              <div className="text-3xl mr-4">📊</div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Statistical Validation</h3>
+                <p className="text-gray-700">
+                  Inter-rater agreement checks, outlier detection, and drift monitoring
+                  ensure consistent and fair evaluations across all applicants.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start">
+              <div className="text-3xl mr-4">🔍</div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Complete Transparency</h3>
+                <p className="text-gray-700">
+                  Every applicant receives detailed explanations with score breakdowns,
+                  strengths identified, and constructive feedback.
+                </p>
+              </div>
+            </div>
+
+            <div className="flex items-start">
+              <div className="text-3xl mr-4">🛡️</div>
+              <div>
+                <h3 className="text-xl font-semibold mb-2">Cryptographic Proof</h3>
+                <p className="text-gray-700">
+                  SHA-256 hash chain provides tamper-evident logging. Anyone can verify
+                  the integrity of decisions through our public verification portal.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-16 bg-blue-600 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="text-3xl font-bold mb-6">Ready to Experience Fair Admissions?</h2>
+          <p className="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
+            Submit your application and be evaluated purely on merit, with complete transparency and integrity.
+          </p>
+          <Link href="/apply">
+            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+              Start Your Application
+            </Button>
+          </Link>
+        </div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-16 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-3xl font-bold text-center mb-12">Platform Features</h2>
+          <div className="grid md:grid-cols-4 gap-6">
+            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+              <div className="text-3xl mb-3">🎯</div>
+              <h3 className="font-semibold mb-2">Merit-Based</h3>
+              <p className="text-sm text-gray-600">Pure merit evaluation with no demographic factors</p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+              <div className="text-3xl mb-3">⚡</div>
+              <h3 className="font-semibold mb-2">Fast Results</h3>
+              <p className="text-sm text-gray-600">AI-powered processing delivers results quickly</p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+              <div className="text-3xl mb-3">📈</div>
+              <h3 className="font-semibold mb-2">Detailed Feedback</h3>
+              <p className="text-sm text-gray-600">Comprehensive explanations and improvement areas</p>
+            </div>
+
+            <div className="bg-white p-6 rounded-lg shadow-sm text-center">
+              <div className="text-3xl mb-3">🌐</div>
+              <h3 className="font-semibold mb-2">Public Dashboard</h3>
+              <p className="text-sm text-gray-600">Aggregate fairness metrics available to everyone</p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

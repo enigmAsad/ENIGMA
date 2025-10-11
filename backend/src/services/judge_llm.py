@@ -5,7 +5,7 @@ import time
 from typing import Dict, Any, Optional
 from datetime import datetime
 
-from anthropic import Anthropic, APIError, RateLimitError, APITimeoutError
+from openai import OpenAI, APIError, RateLimitError, APITimeoutError
 
 from src.models.schemas import (
     AnonymizedApplication,
@@ -22,7 +22,7 @@ logger = get_logger("judge_llm")
 
 
 class JudgeLLM:
-    """Judge LLM for validating Worker evaluations and detecting bias."""
+    """Judge LLM for validating Worker evaluations and detecting bias using GPT-5-mini."""
 
     def __init__(
         self,
@@ -39,8 +39,8 @@ class JudgeLLM:
         self.csv_handler = csv_handler
         self.audit_logger = audit_logger
 
-        # Initialize Anthropic client
-        self.client = Anthropic(api_key=self.settings.anthropic_api_key)
+        # Initialize OpenAI client
+        self.client = OpenAI(api_key=self.settings.openai_api_key)
 
         # Load judge prompt
         try:
@@ -201,7 +201,7 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
         prompt: str,
         attempt: int = 1
     ) -> str:
-        """Call Anthropic Claude API with retry logic.
+        """Call OpenAI GPT API with retry logic.
 
         Args:
             prompt: Validation prompt
@@ -217,12 +217,15 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
             raise APIError(f"Max retries ({self.settings.api_max_retries}) exceeded")
 
         try:
-            response = self.client.messages.create(
+            response = self.client.chat.completions.create(
                 model=self.settings.judge_model,
                 max_tokens=self.settings.max_tokens,
                 temperature=self.settings.temperature,
-                system=self.system_prompt,
                 messages=[
+                    {
+                        "role": "system",
+                        "content": self.system_prompt
+                    },
                     {
                         "role": "user",
                         "content": prompt
@@ -231,7 +234,7 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
             )
 
             # Extract text from response
-            response_text = response.content[0].text
+            response_text = response.choices[0].message.content
 
             logger.debug(f"LLM response ({len(response_text)} chars)")
 

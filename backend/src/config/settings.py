@@ -18,20 +18,20 @@ class Settings(BaseSettings):
         extra="ignore"
     )
 
-    # Anthropic API Configuration
-    anthropic_api_key: str = Field(
+    # OpenAI API Configuration
+    openai_api_key: str = Field(
         ...,
-        description="Anthropic API key for Claude models"
+        description="OpenAI API key for GPT models"
     )
 
     # LLM Model Configuration
     worker_model: str = Field(
-        default="claude-3-5-sonnet-20241022",
-        description="Claude model for Worker evaluation"
+        default="gpt-5",
+        description="GPT model for Worker evaluation (gpt-5 for complex reasoning)"
     )
     judge_model: str = Field(
-        default="claude-3-5-sonnet-20241022",
-        description="Claude model for Judge validation"
+        default="gpt-5-mini",
+        description="GPT model for Judge validation (gpt-5-mini for efficient validation)"
     )
     temperature: float = Field(
         default=0.1,

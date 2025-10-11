@@ -24,12 +24,12 @@ Phase 1 implements AI-powered merit screening with blind evaluation, worker-judg
 │         ↓                                                        │
 │  ┌──────────────────┐                                           │
 │  │ Worker LLM       │ → phase1_worker_results.csv               │
-│  │ (Claude Sonnet)  │   (Merit scoring with explanations)       │
+│  │ (GPT-5)          │   (Merit scoring with explanations)       │
 │  └──────────────────┘                                           │
 │         ↓                                                        │
 │  ┌──────────────────┐                                           │
 │  │ Judge LLM        │ → phase1_judge_results.csv                │
-│  │ (Claude Sonnet)  │   (Bias validation, approve/reject)       │
+│  │ (GPT-5-mini)     │   (Bias validation, approve/reject)       │
 │  └──────────────────┘                                           │
 │         ↓                                                        │
 │    Decision Gate                                                 │
@@ -63,7 +63,7 @@ Phase 1 implements AI-powered merit screening with blind evaluation, worker-judg
 - **Python 3.11+**: Core language with type hints
 - **LangChain/LangGraph**: Orchestration and state management
 - **Pydantic v2**: Data validation and serialization
-- **Anthropic Claude API**: LLM provider for Worker and Judge
+- **OpenAI GPT API**: LLM provider (GPT-5 for Worker, GPT-5-mini for Judge)
 - **CSV**: Data persistence layer (atomic writes)
 - **hashlib**: SHA-256 for hash chain
 - **python-dotenv**: Environment configuration
@@ -311,9 +311,9 @@ log_action("AFTER_UPDATE", entity_id, new_state)
 ### Environment Variables
 ```bash
 # .env file
-ANTHROPIC_API_KEY=sk-ant-...
-WORKER_MODEL=claude-3-5-sonnet-20241022
-JUDGE_MODEL=claude-3-5-sonnet-20241022
+OPENAI_API_KEY=sk-...
+WORKER_MODEL=gpt-5
+JUDGE_MODEL=gpt-5-mini
 TEMPERATURE=0.1
 MAX_RETRY_ATTEMPTS=3
 DATA_DIR=./data
@@ -330,9 +330,9 @@ EMAIL_PASSWORD=...
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    anthropic_api_key: str
-    worker_model: str = "claude-3-5-sonnet-20241022"
-    judge_model: str = "claude-3-5-sonnet-20241022"
+    openai_api_key: str
+    worker_model: str = "gpt-5"
+    judge_model: str = "gpt-5-mini"
     temperature: float = 0.1
     max_retry_attempts: int = 3
     data_dir: Path = Path("./data")

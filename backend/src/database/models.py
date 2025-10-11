@@ -300,7 +300,7 @@ class BatchRun(Base):
 
     triggered_by = Column(String(50), ForeignKey("admin_users.admin_id"), nullable=False)
     error_log = Column(Text, nullable=True)
-    metadata = Column(JSONB, nullable=True)
+    batch_metadata = Column(JSONB, nullable=True)
 
     # Relationships
     cycle = relationship("AdmissionCycle", back_populates="batch_runs")
@@ -483,7 +483,7 @@ class AuditLog(Base):
     actor = Column(String(100), nullable=False)
 
     details = Column(JSONB, nullable=True)
-    metadata = Column(JSONB, nullable=True)
+    log_metadata = Column(JSONB, nullable=True)
 
     previous_hash = Column(String(64), nullable=True)
     current_hash = Column(String(64), nullable=True)

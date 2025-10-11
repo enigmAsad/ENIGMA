@@ -10,17 +10,65 @@ import uuid
 # Enums
 
 class ApplicationStatus(str, Enum):
-    """Application processing status."""
-    SUBMITTED = "submitted"
-    SCRUBBING = "identity_scrubbing"
+    """Application processing status aligned with batch workflow."""
+    SUBMITTED = "submitted"              # Phase 1: Initial submission
+    FINALIZED = "finalized"              # Phase 2: Data freeze complete
+    PREPROCESSING = "preprocessing"      # Phase 3: Computing deterministic metrics
+    BATCH_READY = "batch_ready"          # Phase 4: Ready for LLM batch
+    PROCESSING = "processing"            # Phase 5: LLM batch in progress
+    SCORED = "scored"                    # Phase 6: LLM scores integrated
+    SELECTED = "selected"                # Phase 7: Top-K selection complete
+    NOT_SELECTED = "not_selected"        # Phase 7: Not selected
+    PUBLISHED = "published"              # Phase 8: Results published to student
+    FAILED = "failed"                    # Error state
+
+
+class AdmissionPhase(str, Enum):
+    """Admission cycle workflow phases."""
+    SUBMISSION = "submission"            # Phase 1: Accepting applications
+    FROZEN = "frozen"                    # Phase 2: Data locked, no more submissions
+    PREPROCESSING = "preprocessing"      # Phase 3: Computing deterministic metrics
+    BATCH_PREP = "batch_prep"            # Phase 4: Exporting JSONL
+    PROCESSING = "processing"            # Phase 5: LLM batch running
+    SCORED = "scored"                    # Phase 6: Results integrated
+    SELECTION = "selection"              # Phase 7: Top-K selection
+    PUBLISHED = "published"              # Phase 8: Results available to students
+    COMPLETED = "completed"              # Phase 9: Cycle fully closed
+
+
+class BatchType(str, Enum):
+    """Type of batch processing run."""
     WORKER_EVALUATION = "worker_evaluation"
     JUDGE_REVIEW = "judge_review"
-    RETRY = "retry"
-    FINAL_SCORING = "final_scoring"
-    HASH_GENERATION = "hash_generation"
-    NOTIFICATION = "notification"
+
+
+class BatchStatus(str, Enum):
+    """Status of a batch processing run."""
+    PENDING = "pending"
+    RUNNING = "running"
     COMPLETED = "completed"
     FAILED = "failed"
+    CANCELLED = "cancelled"
+
+
+class AdminRole(str, Enum):
+    """Admin user roles for RBAC."""
+    ADMIN = "admin"
+    SUPER_ADMIN = "super_admin"
+    AUDITOR = "auditor"
+
+
+class AuditAction(str, Enum):
+    """Audit log action types."""
+    CREATE = "create"
+    UPDATE = "update"
+    DELETE = "delete"
+    EVALUATE = "evaluate"
+    FINALIZE = "finalize"
+    SELECT = "select"
+    PUBLISH = "publish"
+    LOGIN = "login"
+    LOGOUT = "logout"
 
 
 class JudgeDecision(str, Enum):
@@ -178,9 +226,10 @@ class JudgeResult(BaseModel):
 
 
 class FinalScore(BaseModel):
-    """Final aggregated Phase 1 score."""
+    """Final aggregated score with LLM results."""
     model_config = ConfigDict(validate_assignment=True)
 
+    score_id: int
     anonymized_id: str
 
     # Final scores
@@ -189,6 +238,10 @@ class FinalScore(BaseModel):
     test_score: float = Field(..., ge=0.0, le=100.0)
     achievement_score: float = Field(..., ge=0.0, le=100.0)
     essay_score: float = Field(..., ge=0.0, le=100.0)
+
+    # LLM-generated fields (Phase 6)
+    llm_score: Optional[float] = Field(None, ge=0.0, le=100.0, description="Score from batch LLM evaluation")
+    llm_explanation: Optional[str] = Field(None, description="Explanation from batch LLM")
 
     # Explanations
     explanation: str = Field(..., min_length=50, description="Comprehensive evaluation summary")
@@ -203,13 +256,14 @@ class FinalScore(BaseModel):
     timestamp: datetime = Field(default_factory=datetime.utcnow)
     hash: Optional[str] = Field(None, description="SHA-256 hash for audit trail")
     worker_attempts: int = Field(..., ge=1, description="Number of worker attempts before approval")
+    status: ApplicationStatus = Field(default=ApplicationStatus.SCORED, description="Selection status")
 
 
 class AuditLog(BaseModel):
     """Audit log entry for all system actions."""
     model_config = ConfigDict(validate_assignment=True)
 
-    log_id: str = Field(default_factory=lambda: f"LOG_{uuid.uuid4().hex[:12].upper()}")
+    log_id: int
     timestamp: datetime = Field(default_factory=datetime.utcnow)
 
     # Entity information
@@ -217,8 +271,8 @@ class AuditLog(BaseModel):
     entity_id: str = Field(..., description="ID of the affected entity")
 
     # Action details
-    action: str = Field(..., description="Action performed (CREATE, UPDATE, DELETE, EVALUATE, etc.)")
-    actor: str = Field(..., description="Who/what performed the action (system, worker_llm, judge_llm)")
+    action: AuditAction = Field(..., description="Action performed")
+    actor: str = Field(..., description="Who/what performed the action (system, admin_id, worker_llm, judge_llm)")
 
     # Additional context
     details: Optional[Dict[str, Any]] = Field(None, description="Action-specific details")
@@ -316,20 +370,72 @@ class VerificationResponse(BaseModel):
 
 # Admin Portal Models
 
+class DeterministicMetrics(BaseModel):
+    """Pre-computed deterministic metrics for Phase 3."""
+    model_config = ConfigDict(validate_assignment=True)
+
+    metric_id: int
+    application_id: str
+    test_average: float = Field(..., ge=0.0, description="Average of all test scores")
+    academic_score_computed: float = Field(..., ge=0.0, le=100.0, description="GPA normalized to 0-100")
+    percentile_rank: Optional[float] = Field(None, ge=0.0, le=100.0, description="Percentile within cohort")
+    computed_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class BatchRun(BaseModel):
+    """LLM batch processing run tracking."""
+    model_config = ConfigDict(validate_assignment=True)
+
+    batch_id: int
+    admission_cycle_id: str
+    batch_type: BatchType
+    model_name: str = Field(..., description="e.g., gpt-5, gpt-5-mini")
+    model_version: Optional[str] = None
+    input_file_path: str = Field(..., description="Path to input JSONL file")
+    output_file_path: Optional[str] = None
+    total_records: int = Field(..., ge=0)
+    processed_records: int = Field(default=0, ge=0)
+    failed_records: int = Field(default=0, ge=0)
+    status: BatchStatus = Field(default=BatchStatus.PENDING)
+    started_at: Optional[datetime] = None
+    completed_at: Optional[datetime] = None
+    triggered_by: str = Field(..., description="Admin ID who triggered the batch")
+    error_log: Optional[str] = None
+    metadata: Optional[Dict[str, Any]] = None
+
+
+class SelectionLog(BaseModel):
+    """Top-K selection audit log for Phase 7."""
+    model_config = ConfigDict(validate_assignment=True)
+
+    selection_id: int
+    admission_cycle_id: str
+    program_name: Optional[str] = Field(None, description="For multi-program institutions")
+    selected_count: int = Field(..., ge=0)
+    selection_criteria: Dict[str, Any] = Field(..., description="Top-K algorithm details")
+    cutoff_score: float = Field(..., description="Minimum score for selection")
+    executed_at: datetime = Field(default_factory=datetime.utcnow)
+    executed_by: str = Field(..., description="Admin ID who executed selection")
+
+
 class AdmissionCycle(BaseModel):
-    """Admission cycle configuration."""
+    """Admission cycle configuration with phase tracking."""
     model_config = ConfigDict(validate_assignment=True)
 
     cycle_id: str = Field(default_factory=lambda: f"CYC_{uuid.uuid4().hex[:8].upper()}")
     cycle_name: str = Field(..., min_length=3, max_length=100, description="e.g., 'Fall 2025 Admissions'")
+    phase: AdmissionPhase = Field(default=AdmissionPhase.SUBMISSION, description="Current workflow phase")
     is_open: bool = Field(default=False, description="Whether admissions are currently open")
     max_seats: int = Field(..., gt=0, description="Maximum number of admissions")
     current_seats: int = Field(default=0, ge=0, description="Current number of applications")
+    selected_count: int = Field(default=0, ge=0, description="Number of selected applicants")
     result_date: datetime = Field(..., description="When results will be announced")
     start_date: datetime = Field(..., description="Admission window start")
     end_date: datetime = Field(..., description="Admission window end")
     created_at: datetime = Field(default_factory=datetime.utcnow)
     created_by: str = Field(..., description="Admin username who created this cycle")
+    closed_at: Optional[datetime] = None
+    closed_by: Optional[str] = None
 
     @field_validator('end_date')
     @classmethod
@@ -342,14 +448,14 @@ class AdmissionCycle(BaseModel):
 
 
 class AdminUser(BaseModel):
-    """Admin user account."""
+    """Admin user account with RBAC."""
     model_config = ConfigDict(validate_assignment=True)
 
     admin_id: str = Field(default_factory=lambda: f"ADM_{uuid.uuid4().hex[:8].upper()}")
     username: str = Field(..., min_length=3, max_length=50, description="Unique username")
     password_hash: str = Field(..., description="bcrypt hashed password")
     email: EmailStr
-    role: str = Field(default="admin", description="admin | super_admin")
+    role: AdminRole = Field(default=AdminRole.ADMIN, description="User role for RBAC")
     is_active: bool = Field(default=True, description="Account active status")
     created_at: datetime = Field(default_factory=datetime.utcnow)
     last_login: Optional[datetime] = None
@@ -366,6 +472,7 @@ class AdminSession(BaseModel):
     created_at: datetime = Field(default_factory=datetime.utcnow)
     ip_address: Optional[str] = None
     user_agent: Optional[str] = None
+    revoked: bool = Field(default=False, description="Whether session has been revoked")
 
 
 # Admin API Request/Response Models

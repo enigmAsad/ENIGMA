@@ -66,11 +66,35 @@ class Settings(BaseSettings):
         description="Maximum API call retries for transient errors"
     )
 
-    # Data Paths
-    data_dir: Path = Field(
-        default=Path("./data"),
-        description="Directory for CSV data storage"
+    # Database Configuration
+    database_url: str = Field(
+        ...,
+        description="PostgreSQL database URL (Supabase transaction pooler)"
     )
+    database_pool_size: int = Field(
+        default=20,
+        ge=5,
+        le=50,
+        description="Database connection pool size"
+    )
+    database_max_overflow: int = Field(
+        default=0,
+        ge=0,
+        le=20,
+        description="Maximum overflow connections beyond pool size"
+    )
+    database_pool_timeout: float = Field(
+        default=30.0,
+        ge=5.0,
+        le=60.0,
+        description="Database connection timeout in seconds"
+    )
+    database_echo: bool = Field(
+        default=False,
+        description="Echo SQL statements (for debugging)"
+    )
+
+    # Data Paths
     prompt_dir: Path = Field(
         default=Path("./prompts"),
         description="Directory for LLM prompts"
@@ -78,6 +102,10 @@ class Settings(BaseSettings):
     log_dir: Path = Field(
         default=Path("./logs"),
         description="Directory for application logs"
+    )
+    batch_export_dir: Path = Field(
+        default=Path("./batch_exports"),
+        description="Directory for batch JSONL exports"
     )
 
     # Email Configuration (SMTP)
@@ -105,13 +133,13 @@ class Settings(BaseSettings):
     )
 
     # Security
-    identity_mapping_encryption_key: Optional[str] = Field(
-        default=None,
-        description="32-byte hex key for identity mapping encryption"
+    encryption_key: str = Field(
+        ...,
+        description="Fernet encryption key for PII (generate with: Fernet.generate_key())"
     )
     jwt_secret: str = Field(
-        default="your-secret-key-change-in-production-please",
-        description="JWT secret key for admin authentication"
+        ...,
+        description="JWT secret key for admin authentication (256-bit random)"
     )
     admin_token_expiry_hours: int = Field(
         default=24,
@@ -178,7 +206,7 @@ class Settings(BaseSettings):
             raise ValueError(f"log_level must be one of {valid_levels}")
         return v_upper
 
-    @field_validator('data_dir', 'prompt_dir', 'log_dir')
+    @field_validator('prompt_dir', 'log_dir', 'batch_export_dir')
     @classmethod
     def ensure_path_exists(cls, v: Path) -> Path:
         """Create directories if they don't exist."""
@@ -186,19 +214,25 @@ class Settings(BaseSettings):
         v.mkdir(parents=True, exist_ok=True)
         return v
 
-    @field_validator('identity_mapping_encryption_key')
+    @field_validator('encryption_key')
     @classmethod
-    def validate_encryption_key(cls, v: Optional[str]) -> Optional[str]:
-        """Validate encryption key format if provided."""
-        if v is None:
-            return v
-        if len(v) != 64:  # 32 bytes in hex = 64 characters
-            raise ValueError("encryption_key must be 64 hex characters (32 bytes)")
+    def validate_encryption_key(cls, v: str) -> str:
+        """Validate Fernet encryption key format."""
+        from cryptography.fernet import Fernet
         try:
-            int(v, 16)  # Verify it's valid hex
-        except ValueError:
-            raise ValueError("encryption_key must be valid hexadecimal string")
-        return v.lower()
+            # Test if it's a valid Fernet key
+            Fernet(v.encode())
+        except Exception as e:
+            raise ValueError(f"Invalid Fernet encryption key: {e}")
+        return v
+
+    @field_validator('database_url')
+    @classmethod
+    def validate_database_url(cls, v: str) -> str:
+        """Validate database URL format."""
+        if not v or not v.startswith(('postgresql://', 'postgresql+psycopg2://')):
+            raise ValueError("database_url must be a valid PostgreSQL connection string")
+        return v
 
     def validate_scoring_weights(self) -> None:
         """Ensure scoring weights sum to approximately 1.0."""
@@ -214,10 +248,6 @@ class Settings(BaseSettings):
                 f"Current: academic={self.weight_academic}, test={self.weight_test}, "
                 f"achievement={self.weight_achievement}, essay={self.weight_essay}"
             )
-
-    def get_csv_path(self, csv_name: str) -> Path:
-        """Get full path for a CSV file."""
-        return self.data_dir / csv_name
 
     def get_prompt_path(self, prompt_name: str) -> Path:
         """Get full path for a prompt file."""
@@ -262,11 +292,6 @@ def get_settings() -> Settings:
 
 # Convenience functions
 
-def get_data_dir() -> Path:
-    """Get data directory path."""
-    return get_settings().data_dir
-
-
 def get_prompt_dir() -> Path:
     """Get prompt directory path."""
     return get_settings().prompt_dir
@@ -298,13 +323,13 @@ def _init_directories():
     settings = get_settings()
 
     # Ensure all directories exist
-    settings.data_dir.mkdir(parents=True, exist_ok=True)
     settings.prompt_dir.mkdir(parents=True, exist_ok=True)
     settings.log_dir.mkdir(parents=True, exist_ok=True)
+    settings.batch_export_dir.mkdir(parents=True, exist_ok=True)
 
     # Create .gitkeep files if they don't exist
-    (settings.data_dir / ".gitkeep").touch(exist_ok=True)
     (settings.log_dir / ".gitkeep").touch(exist_ok=True)
+    (settings.batch_export_dir / ".gitkeep").touch(exist_ok=True)
 
 
 # Auto-initialize on import (only if .env exists)

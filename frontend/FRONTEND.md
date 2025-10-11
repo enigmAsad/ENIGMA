@@ -1,10 +1,10 @@
-# ENIGMA Phase 1 Frontend Implementation
+# ENIGMA Frontend Implementation (Phase 1 + Admin Portal)
 
 Complete documentation of the frontend implementation for ENIGMA's bias-free admissions system.
 
-**Implementation Date:** 2025-10-11
+**Implementation Date:** 2025-10-11 (Phase 1), 2025-10-12 (Admin Portal)
 **Framework:** Next.js 15 + React 19 + TypeScript + Tailwind CSS
-**Status:** ✅ Complete - Production Ready
+**Status:** ✅ Phase 1 Complete + Admin Portal Complete
 
 ---
 
@@ -52,15 +52,22 @@ frontend/
 ├── src/
 │   ├── app/                    # Next.js App Router pages
 │   │   ├── layout.tsx          # Root layout with Navigation
-│   │   ├── page.tsx            # Landing page (/)
+│   │   ├── page.tsx            # Landing page (/) - Updated with admission status
 │   │   ├── apply/
-│   │   │   └── page.tsx        # Application form
+│   │   │   └── page.tsx        # Application form - Updated with admission checks
 │   │   ├── status/
 │   │   │   └── page.tsx        # Status checker & results
 │   │   ├── verify/
 │   │   │   └── page.tsx        # Hash verification portal
 │   │   ├── dashboard/
 │   │   │   └── page.tsx        # Public fairness dashboard
+│   │   ├── admin/              # ⭐ NEW: Admin portal
+│   │   │   ├── login/
+│   │   │   │   └── page.tsx    # Admin login page
+│   │   │   ├── dashboard/
+│   │   │   │   └── page.tsx    # Admin dashboard (overview)
+│   │   │   └── cycles/
+│   │   │       └── page.tsx    # Admission cycle management
 │   │   └── globals.css         # Global styles
 │   │
 │   ├── components/             # Reusable UI components
@@ -70,15 +77,19 @@ frontend/
 │   │   ├── TextArea.tsx        # Multi-line input with char counter
 │   │   └── Navigation.tsx      # Top navigation bar
 │   │
+│   ├── hooks/                  # ⭐ NEW: Custom React hooks
+│   │   └── useAdminAuth.ts     # Admin authentication hook
+│   │
 │   └── lib/
-│       └── api.ts              # API client & TypeScript types
+│       ├── api.ts              # Public API client & TypeScript types
+│       └── adminApi.ts         # ⭐ NEW: Admin API client
 │
 ├── public/                     # Static assets
 ├── .env.local.example          # Environment variables template
 ├── package.json                # Dependencies
 ├── tsconfig.json               # TypeScript configuration
 ├── tailwind.config.ts          # Tailwind configuration
-└── IMPLEMENTATION.md           # This file
+└── FRONTEND.md                 # This file
 ```
 
 ### Design Principles
@@ -671,6 +682,464 @@ Display comprehensive results
 - No individual applicant data exposed
 - Aggregate statistics only
 - Anonymized throughout
+
+---
+
+### 6. Admin Portal (`src/app/admin/*`)
+
+**⭐ NEW: Complete admin portal for managing admissions cycles**
+
+#### Admin Login (`src/app/admin/login/page.tsx`)
+
+**Route:** `/admin/login`
+
+**Purpose:** Secure authentication for administrative users
+
+**Features:**
+- Username/password authentication
+- JWT token-based session management
+- Error handling for invalid credentials
+- Automatic redirect to dashboard on success
+- Clean gradient design matching main site
+
+**Form Fields:**
+- Username (required)
+- Password (required, password type)
+
+**Authentication Flow:**
+```
+User enters credentials →
+POST /admin/auth/login →
+Backend validates & generates JWT →
+Frontend stores token in localStorage →
+Redirect to /admin/dashboard
+```
+
+**Security:**
+- Tokens stored in localStorage
+- Bearer token authentication
+- 24-hour token expiry (configurable)
+- Secure HTTP-only cookies (recommended for production)
+
+---
+
+#### Admin Dashboard (`src/app/admin/dashboard/page.tsx`)
+
+**Route:** `/admin/dashboard`
+
+**Purpose:** Overview of current admission cycle and system status
+
+**Authentication:** Protected route (requires valid JWT token)
+
+**Sections:**
+
+**1. Active Cycle Status Card**
+- Cycle name and open/closed status
+- Current seat occupancy (filled/total)
+- Application window dates (start, end, result)
+- Visual status indicator (green=open, red=closed)
+
+**2. Statistics Overview (3 cards)**
+- Total Applications: Count of all submissions
+- Completed Evaluations: Finished assessments
+- Average Score: Mean across all completed evaluations
+
+**3. Quick Actions**
+- Manage Cycles: Navigate to cycle management
+- View Applications: (Future feature)
+- System Settings: (Future feature)
+
+**Data Flow:**
+```
+Page load →
+Check authentication (useAdminAuth hook) →
+Fetch active cycle (GET /admin/cycles/active/current) →
+Fetch dashboard stats (GET /dashboard/stats) →
+Display overview
+```
+
+**Features:**
+- Auto-redirect to /admin/login if not authenticated
+- Loading states while fetching data
+- Error handling for API failures
+- Logout functionality
+- Real-time data refresh
+
+---
+
+#### Admission Cycles Management (`src/app/admin/cycles/page.tsx`)
+
+**Route:** `/admin/cycles`
+
+**Purpose:** Complete CRUD operations for admission cycles
+
+**Authentication:** Protected route (requires valid JWT token)
+
+**Key Features:**
+
+**1. Create New Cycle**
+- Toggle-able creation form
+- Required fields:
+  - Cycle Name (e.g., "Fall 2025 Admissions")
+  - Maximum Seats (integer, min 1)
+  - Start Date (datetime-local)
+  - End Date (datetime-local)
+  - Result Date (datetime-local)
+- Client-side validation
+- Success feedback and auto-refresh
+
+**2. List All Cycles**
+- Displays all admission cycles (past and present)
+- Each cycle shows:
+  - Cycle name and open/closed status badge
+  - Seat occupancy: X / Y (Z available)
+  - Start, end, and result dates with times
+  - Unique cycle ID
+  - Open/Close toggle button
+- Color-coded status badges (green=open, red=closed)
+- Real-time seat tracking
+
+**3. Open/Close Cycles**
+- One-click buttons to toggle cycle status
+- Only one cycle can be open at a time (enforced by backend)
+- Loading states during API calls
+- Immediate UI update on success
+
+**Data Flow:**
+```
+Page load →
+Authenticate →
+GET /admin/cycles (fetch all cycles) →
+Display cycle list →
+
+User creates cycle →
+POST /admin/cycles →
+Reload cycle list →
+
+User opens cycle →
+PUT /admin/cycles/{id}/open →
+Backend closes other cycles →
+Reload cycle list
+```
+
+**Empty State:**
+- Displays when no cycles exist
+- Encourages creation of first cycle
+
+**Error Handling:**
+- Form validation errors displayed inline
+- API errors shown as alerts
+- Network failures handled gracefully
+
+---
+
+### 7. Admin API Client (`src/lib/adminApi.ts`)
+
+**Purpose:** Type-safe API client for admin operations
+
+**Key Features:**
+- Singleton pattern (single exported instance)
+- Automatic JWT token injection via Authorization header
+- Token management (storage, retrieval, removal)
+- Full TypeScript interfaces
+
+**Authentication Methods:**
+```typescript
+// Login
+async login(username: string, password: string): Promise<AdminLoginResponse>
+  → POST /admin/auth/login
+  → Stores JWT token in localStorage
+  → Returns { token, expires_at, admin: { username, email, ... } }
+
+// Logout
+async logout(): Promise<void>
+  → POST /admin/auth/logout
+  → Removes token from localStorage
+
+// Check if authenticated
+isAuthenticated(): boolean
+  → Checks if token exists in localStorage
+
+// Get current admin
+async getCurrentAdmin(): Promise<AdminUser>
+  → GET /admin/auth/me
+  → Returns admin details
+```
+
+**Cycle Management Methods:**
+```typescript
+// Get all cycles
+async getAllCycles(): Promise<AdmissionCycle[]>
+  → GET /admin/cycles
+
+// Create cycle
+async createCycle(data: CreateCycleRequest): Promise<AdmissionCycle>
+  → POST /admin/cycles
+
+// Get cycle by ID
+async getCycle(id: string): Promise<AdmissionCycle>
+  → GET /admin/cycles/{id}
+
+// Update cycle
+async updateCycle(id: string, data: UpdateCycleRequest): Promise<AdmissionCycle>
+  → PUT /admin/cycles/{id}
+
+// Open cycle
+async openCycle(id: string): Promise<AdmissionCycle>
+  → PUT /admin/cycles/{id}/open
+
+// Close cycle
+async closeCycle(id: string): Promise<AdmissionCycle>
+  → PUT /admin/cycles/{id}/close
+
+// Get active cycle
+async getActiveCycle(): Promise<AdmissionCycle | null>
+  → GET /admin/cycles/active/current
+```
+
+**Public Admission Info (No Auth Required):**
+```typescript
+// Get admission info for public display
+async getAdmissionInfo(): Promise<AdmissionInfo>
+  → GET /admission/info
+  → Returns { is_open, cycle_name, max_seats, seats_available, end_date, message }
+```
+
+**TypeScript Interfaces:**
+```typescript
+interface AdmissionCycle {
+  cycle_id: string;
+  cycle_name: string;
+  is_open: boolean;
+  max_seats: number;
+  current_seats: number;
+  result_date: string;
+  start_date: string;
+  end_date: string;
+  created_at: string;
+  created_by: string;
+}
+
+interface CreateCycleRequest {
+  cycle_name: string;
+  max_seats: number;
+  result_date: string;
+  start_date: string;
+  end_date: string;
+}
+
+interface AdmissionInfo {
+  is_open: boolean;
+  cycle_name?: string;
+  max_seats?: number;
+  seats_available?: number;
+  start_date?: string;
+  end_date?: string;
+  result_date?: string;
+  message?: string;
+}
+```
+
+**Error Handling:**
+```typescript
+try {
+  const cycles = await adminApiClient.getAllCycles();
+} catch (error: any) {
+  if (error.status === 401) {
+    // Unauthorized - redirect to login
+  } else {
+    // Other error - display message
+  }
+}
+```
+
+---
+
+### 8. Admin Authentication Hook (`src/hooks/useAdminAuth.ts`)
+
+**Purpose:** Reusable React hook for admin authentication state
+
+**Features:**
+- Automatic authentication check on mount
+- Auto-redirect to login if not authenticated
+- Centralized auth state management
+- Logout functionality
+
+**Usage:**
+```typescript
+import { useAdminAuth } from '@/hooks/useAdminAuth';
+
+function AdminPage() {
+  const { isAuthenticated, isLoading, admin, logout } = useAdminAuth();
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  return (
+    <div>
+      <p>Welcome, {admin?.username}</p>
+      <button onClick={logout}>Logout</button>
+    </div>
+  );
+}
+```
+
+**Return Values:**
+```typescript
+{
+  isAuthenticated: boolean;    // True if valid token exists
+  isLoading: boolean;           // True while checking auth status
+  admin: AdminUser | null;      // Admin user details
+  logout: () => Promise<void>;  // Logout function
+}
+```
+
+**Authentication Flow:**
+```
+Hook mounts →
+Check localStorage for token →
+If no token: redirect to /admin/login →
+If token exists: GET /admin/auth/me →
+If valid: set admin state →
+If invalid: remove token, redirect to login
+```
+
+**Automatic Redirect:**
+- Protects admin pages from unauthorized access
+- Seamless redirect to login when token expires
+- Preserves user experience
+
+---
+
+### 9. Updated Public Pages
+
+#### Landing Page Updates (`src/app/page.tsx`)
+
+**NEW: Admission Status Banner**
+- Displays at top of page (above hero section)
+- Shows current admission cycle status:
+  - **Green banner** (open): "Admissions are OPEN for [Cycle Name]! X of Y seats available."
+  - **Red banner** (closed): "Admissions are currently CLOSED. [Message]"
+- Fetches data from GET /admission/info on page load
+- Real-time seat availability display
+- Application deadline shown when open
+
+**Hero Section Updates:**
+- "Apply Now" button disabled when admissions closed
+- Button text changes: "Apply Now" → "Applications Closed"
+- Deadline information displayed when open
+
+**Data Fetching:**
+```typescript
+useEffect(() => {
+  const fetchAdmissionInfo = async () => {
+    const info = await adminApiClient.getAdmissionInfo();
+    setAdmissionInfo(info);
+  };
+  fetchAdmissionInfo();
+}, []);
+```
+
+---
+
+#### Application Form Updates (`src/app/apply/page.tsx`)
+
+**NEW: Admission Status Enforcement**
+
+**1. Status Check on Load**
+- Fetches admission info before rendering form
+- Shows loading state while checking
+- Displays "Admissions Closed" message if not accepting applications
+- Only renders form if admissions are open
+
+**2. Closed State Display:**
+```typescript
+if (!admissionInfo?.is_open) {
+  return (
+    <Card>
+      <div className="text-center py-8">
+        <div className="text-6xl mb-4">🚫</div>
+        <h2 className="text-3xl font-bold text-red-600 mb-4">
+          Admissions Closed
+        </h2>
+        <p className="text-lg text-gray-700 mb-6">
+          {admissionInfo?.message || 'Applications not being accepted'}
+        </p>
+        <Button onClick={() => router.push('/')}>
+          Return to Home
+        </Button>
+      </div>
+    </Card>
+  );
+}
+```
+
+**3. Open State Banner:**
+- Green banner at top of form
+- Shows cycle name, seat availability, deadline
+- Encourages timely submission
+
+**4. Backend Validation:**
+- Form submission triggers backend checks:
+  - Is cycle open?
+  - Is current date within application window?
+  - Are seats available?
+- Backend increments seat counter on successful submission
+- Frontend displays appropriate error messages
+
+**User Flow:**
+```
+User visits /apply →
+Check admission status →
+If closed: Show closed message →
+If open: Show form with status banner →
+User submits →
+Backend validates cycle status →
+Backend checks seat availability →
+Backend increments seat counter →
+Return success/error
+```
+
+---
+
+## Features
+
+### NEW: Admin Portal Features
+
+**1. Admission Cycle Management**
+- Create multiple admission cycles
+- Set maximum seats per cycle
+- Define application windows (start/end dates)
+- Set result announcement dates
+- Open/close cycles with one click
+- Only one cycle can be active at a time
+- Real-time seat tracking
+
+**2. Seat Management**
+- Automatic seat counting on application submission
+- Visual seat availability display
+- Prevents applications when seats full
+- Real-time updates across admin portal
+
+**3. Admin Authentication**
+- JWT token-based authentication
+- 24-hour token expiry (configurable)
+- Secure password hashing (bcrypt)
+- Session management via localStorage
+- Auto-logout on token expiration
+
+**4. Admission Window Enforcement**
+- Application form checks cycle status
+- Date range validation (start/end dates)
+- Automatic closure when deadline passes
+- User-friendly closed state messaging
+
+**5. Public Transparency**
+- Landing page shows admission status
+- Real-time seat availability display
+- Application deadlines prominently displayed
+- Clear messaging when closed
 
 ---
 
@@ -1443,6 +1912,44 @@ GET /results/ANON_1234567890_ABC123
 
 ## Changelog
 
+### v1.1.0 (2025-10-12) - Admin Portal Release
+
+**Added:**
+- Complete admin portal with authentication
+- Admin login page (`/admin/login`)
+- Admin dashboard page (`/admin/dashboard`)
+- Admission cycles management page (`/admin/cycles`)
+- Admin API client (`src/lib/adminApi.ts`)
+- Admin authentication hook (`src/hooks/useAdminAuth.ts`)
+- JWT token-based authentication system
+- Protected routes with auto-redirect
+- Admission cycle CRUD operations
+- Seat management and tracking
+- Real-time admission status enforcement
+
+**Updated:**
+- Landing page: Added admission status banner
+- Application form: Added admission status checks and enforcement
+- Public pages now display real-time admission cycle information
+- Backend integration with admin endpoints
+
+**Security:**
+- Bearer token authentication for admin operations
+- JWT token storage in localStorage
+- Protected admin routes
+- Session expiration handling (24-hour tokens)
+
+**Features:**
+- Create and manage multiple admission cycles
+- Open/close admissions with one click
+- Set maximum seats and track availability
+- Define application windows (start/end dates)
+- Prevent applications when cycles closed or seats full
+- Public visibility of admission status
+- Admin logout functionality
+
+---
+
 ### v1.0.0 (2025-10-11) - Initial Release
 
 **Added:**
@@ -1477,6 +1984,6 @@ Copyright © 2025 ENIGMA Team. All rights reserved.
 
 ---
 
-**Last Updated:** 2025-10-11
-**Version:** 1.0.0
-**Status:** Production Ready ✅
+**Last Updated:** 2025-10-12
+**Version:** 1.1.0
+**Status:** Production Ready (Phase 1 + Admin Portal) ✅

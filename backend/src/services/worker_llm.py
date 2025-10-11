@@ -204,10 +204,9 @@ This is attempt #{attempt_number}. Please address the following feedback:
             raise APIError(f"Max retries ({self.settings.api_max_retries}) exceeded")
 
         try:
+            # Note: GPT-5 series does not support temperature, max_tokens, or max_completion_tokens parameters
             response = self.client.chat.completions.create(
                 model=self.settings.worker_model,
-                max_tokens=self.settings.max_tokens,
-                temperature=self.settings.temperature,
                 messages=[
                     {
                         "role": "system",

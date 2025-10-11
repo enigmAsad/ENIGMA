@@ -37,13 +37,13 @@ class Settings(BaseSettings):
         default=0.1,
         ge=0.0,
         le=2.0,
-        description="LLM temperature for consistency"
+        description="LLM temperature for consistency (NOTE: Not supported by GPT-5 series, kept for compatibility)"
     )
     max_tokens: int = Field(
         default=4096,
         ge=1024,
         le=8192,
-        description="Maximum tokens for LLM responses"
+        description="Maximum tokens for LLM responses (NOTE: Not supported by GPT-5 series, kept for compatibility)"
     )
 
     # Retry Configuration

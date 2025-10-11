@@ -64,6 +64,7 @@ Phase 1 implements AI-powered merit screening with blind evaluation, worker-judg
 - **LangChain/LangGraph**: Orchestration and state management
 - **Pydantic v2**: Data validation and serialization
 - **OpenAI GPT API**: LLM provider (GPT-5 for Worker, GPT-5-mini for Judge)
+  - **Note**: GPT-5 series does not support `temperature`, `max_tokens`, or `max_completion_tokens` parameters
 - **CSV**: Data persistence layer (atomic writes)
 - **hashlib**: SHA-256 for hash chain
 - **python-dotenv**: Environment configuration
@@ -314,7 +315,11 @@ log_action("AFTER_UPDATE", entity_id, new_state)
 OPENAI_API_KEY=sk-...
 WORKER_MODEL=gpt-5
 JUDGE_MODEL=gpt-5-mini
+
+# NOTE: GPT-5 series does not support these parameters - kept for compatibility only
 TEMPERATURE=0.1
+MAX_TOKENS=4096
+
 MAX_RETRY_ATTEMPTS=3
 DATA_DIR=./data
 PROMPT_DIR=./prompts

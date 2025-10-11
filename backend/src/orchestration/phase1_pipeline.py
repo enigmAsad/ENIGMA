@@ -23,7 +23,7 @@ from src.services.worker_llm import WorkerLLM
 from src.services.judge_llm import JudgeLLM
 from src.services.hash_chain import HashChainGenerator
 from src.services.email_service import EmailService
-from src.utils.csv_handler import CSVHandler
+from src.database.repositories import ApplicationRepository
 from src.utils.logger import get_logger, AuditLogger
 from src.config.settings import get_settings
 
@@ -36,7 +36,7 @@ class Phase1Pipeline:
 
     def __init__(
         self,
-        csv_handler: CSVHandler,
+        db,
         audit_logger: AuditLogger,
         application_collector: ApplicationCollector,
         identity_scrubber: IdentityScrubber,
@@ -48,7 +48,7 @@ class Phase1Pipeline:
         """Initialize Phase 1 pipeline.
 
         Args:
-            csv_handler: CSVHandler instance
+            db: Database session
             audit_logger: AuditLogger instance
             application_collector: ApplicationCollector instance
             identity_scrubber: IdentityScrubber instance
@@ -58,7 +58,8 @@ class Phase1Pipeline:
             email_service: EmailService instance
         """
         self.settings = get_settings()
-        self.csv_handler = csv_handler
+        self.db = db
+        self.app_repo = ApplicationRepository(db)
         self.audit_logger = audit_logger
         self.app_collector = application_collector
         self.identity_scrubber = identity_scrubber
@@ -127,7 +128,7 @@ class Phase1Pipeline:
             # Get application
             application = state.application_data
             if not application:
-                application = self.csv_handler.get_application_by_id(state.application_id)
+                application = self.app_repo.get_by_application_id(state.application_id)
                 if not application:
                     raise ValueError(f"Application not found: {state.application_id}")
 
@@ -297,7 +298,7 @@ class Phase1Pipeline:
             )
 
             # Persist final score
-            self.csv_handler.append_final_score(final_score)
+            self.app_repo.create(final_score)
 
             # Update state
             state.final_score = final_score
@@ -502,46 +503,47 @@ def run_pipeline(application: Application) -> PipelineState:
         PipelineState: Final pipeline state
     """
     # Initialize all components
-    csv_handler = CSVHandler()
-    audit_logger = AuditLogger(csv_handler=csv_handler)
+    from src.database.engine import get_db_context
+    with get_db_context() as db:
+        audit_logger = AuditLogger()
 
-    app_collector = ApplicationCollector(
-        csv_handler=csv_handler,
-        audit_logger=audit_logger
-    )
+        app_collector = ApplicationCollector(
+            db=db,
+            audit_logger=audit_logger
+        )
 
-    identity_scrubber = IdentityScrubber(
-        csv_handler=csv_handler,
-        audit_logger=audit_logger
-    )
+        identity_scrubber = IdentityScrubber(
+            db=db,
+            audit_logger=audit_logger
+        )
 
-    worker_llm = WorkerLLM(
-        csv_handler=csv_handler,
-        audit_logger=audit_logger
-    )
+        worker_llm = WorkerLLM(
+            db=db,
+            audit_logger=audit_logger
+        )
 
-    judge_llm = JudgeLLM(
-        csv_handler=csv_handler,
-        audit_logger=audit_logger
-    )
+        judge_llm = JudgeLLM(
+            db=db,
+            audit_logger=audit_logger
+        )
 
-    hash_chain = HashChainGenerator(
-        csv_handler=csv_handler,
-        audit_logger=audit_logger
-    )
+        hash_chain = HashChainGenerator(
+            db=db,
+            audit_logger=audit_logger
+        )
 
-    email_service = EmailService(audit_logger=audit_logger)
+        email_service = EmailService(audit_logger=audit_logger)
 
-    # Create and run pipeline
-    pipeline = Phase1Pipeline(
-        csv_handler=csv_handler,
-        audit_logger=audit_logger,
-        application_collector=app_collector,
-        identity_scrubber=identity_scrubber,
-        worker_llm=worker_llm,
-        judge_llm=judge_llm,
-        hash_chain=hash_chain,
-        email_service=email_service
-    )
+        # Create and run pipeline
+        pipeline = Phase1Pipeline(
+            db=db,
+            audit_logger=audit_logger,
+            application_collector=app_collector,
+            identity_scrubber=identity_scrubber,
+            worker_llm=worker_llm,
+            judge_llm=judge_llm,
+            hash_chain=hash_chain,
+            email_service=email_service
+        )
 
     return pipeline.run(application)

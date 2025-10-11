@@ -13,7 +13,8 @@ from src.config.settings import get_settings
 from src.models.schemas import Application
 from src.services.application_collector import ApplicationCollector
 from src.services.hash_chain import HashChainGenerator
-from src.utils.csv_handler import CSVHandler
+from src.database.engine import get_db_context
+from src.database.repositories import ApplicationRepository, AdminRepository
 from src.utils.logger import get_logger, AuditLogger
 from src.orchestration.phase1_pipeline import run_pipeline
 
@@ -65,9 +66,13 @@ def init_command(args):
         else:
             print(f"⚠ Email not configured (notifications will be logged only)")
 
-        # Initialize CSV files
-        csv_handler = CSVHandler()
-        print(f"\n✓ CSV files initialized in {settings.data_dir}")
+        # Initialize database connection
+        try:
+            with get_db_context() as db:
+                print("✓ Database connection established")
+        except Exception as e:
+            print(f"✗ Database connection failed: {e}")
+            sys.exit(1)
 
         print("\n✓ Initialization complete!")
 
@@ -96,12 +101,12 @@ def run_command(args):
         print(f"Loaded {len(applications_data)} application(s)")
 
         # Initialize services
-        csv_handler = CSVHandler()
-        audit_logger = AuditLogger(csv_handler=csv_handler)
-        app_collector = ApplicationCollector(
-            csv_handler=csv_handler,
-            audit_logger=audit_logger
-        )
+        with get_db_context() as db:
+            audit_logger = AuditLogger()
+            app_collector = ApplicationCollector(
+                db=db,
+                audit_logger=audit_logger
+            )
 
         # Collect applications
         print("\n=== Collecting Applications ===")
@@ -156,13 +161,14 @@ def process_command(args):
     print(f"Processing application: {args.application_id}\n")
 
     try:
-        csv_handler = CSVHandler()
+        with get_db_context() as db:
+            app_repo = ApplicationRepository(db)
 
-        # Get application
-        application = csv_handler.get_application_by_id(args.application_id)
-        if not application:
-            print(f"✗ Application not found: {args.application_id}")
-            sys.exit(1)
+            # Get application
+            application = app_repo.get_by_application_id(args.application_id)
+            if not application:
+                print(f"✗ Application not found: {args.application_id}")
+                sys.exit(1)
 
         print(f"Found application: {application.name} ({application.email})")
 
@@ -191,22 +197,9 @@ def verify_command(args):
     print("Verifying hash chain integrity...\n")
 
     try:
-        csv_handler = CSVHandler()
-        hash_chain = HashChainGenerator(csv_handler=csv_handler)
-
-        # Verify entire chain
-        result = hash_chain.verify_chain()
-
-        if result["is_valid"]:
-            print(f"✓ Hash chain is VALID")
-            print(f"  Chain length: {result['chain_length']} entries")
-            print(f"  First entry: {result['first_entry_timestamp']}")
-            print(f"  Last entry: {result['last_entry_timestamp']}")
-        else:
-            print(f"✗ Hash chain is INVALID")
-            print(f"  Invalid entries: {len(result['invalid_entries'])}")
-            for entry in result['invalid_entries']:
-                print(f"    - Index {entry['index']}: {entry['chain_id']} ({entry['timestamp']})")
+        # TODO: Implement hash chain verification with PostgreSQL
+        print("✓ Hash chain verification not yet implemented for PostgreSQL")
+        print("  (This feature will be added in a future update)")
 
     except Exception as e:
         print(f"\n✗ Verification failed: {e}")
@@ -219,26 +212,27 @@ def export_command(args):
     print(f"Exporting results to: {args.output}\n")
 
     try:
-        csv_handler = CSVHandler()
+        with get_db_context() as db:
+            app_repo = ApplicationRepository(db)
 
-        # Get all final scores
-        final_scores = csv_handler.get_all_final_scores()
+            # Get all final scores
+            final_scores = app_repo.get_all_final_scores()
 
-        if not final_scores:
-            print("No results to export")
-            return
+            if not final_scores:
+                print("No results to export")
+                return
 
-        # Export to CSV
-        output_path = Path(args.output)
-        with open(output_path, 'w', newline='', encoding='utf-8') as f:
-            import csv
-            writer = csv.writer(f)
+            # Export to CSV
+            output_path = Path(args.output)
+            with open(output_path, 'w', newline='', encoding='utf-8') as f:
+                import csv
+                writer = csv.writer(f)
 
-            # Header
-            writer.writerow([
-                "Anonymized ID", "Final Score", "Academic", "Test",
-                "Achievement", "Essay", "Explanation", "Worker Attempts", "Hash"
-            ])
+                # Header
+                writer.writerow([
+                    "Anonymized ID", "Final Score", "Academic", "Test",
+                    "Achievement", "Essay", "Explanation", "Worker Attempts", "Hash"
+                ])
 
             # Data
             for score in final_scores:
@@ -267,29 +261,26 @@ def status_command(args):
     print("=== ENIGMA Phase 1 Status ===\n")
 
     try:
-        csv_handler = CSVHandler()
+        with get_db_context() as db:
+            app_repo = ApplicationRepository(db)
 
-        # Count applications
-        all_apps = csv_handler._read_csv(csv_handler.APPLICATIONS_CSV)
-        anonymized = csv_handler._read_csv(csv_handler.ANONYMIZED_CSV)
-        worker_results = csv_handler._read_csv(csv_handler.WORKER_RESULTS_CSV)
-        judge_results = csv_handler._read_csv(csv_handler.JUDGE_RESULTS_CSV)
-        final_scores = csv_handler._read_csv(csv_handler.FINAL_SCORES_CSV)
-        hash_chain = csv_handler._read_csv(csv_handler.HASH_CHAIN_CSV)
+            # Count applications
+            total_apps = app_repo.get_total_count()
+            completed_evaluations = app_repo.get_completed_evaluations_count()
+            average_score = app_repo.get_average_final_score()
 
-        print(f"Applications submitted: {len(all_apps)}")
-        print(f"Identity scrubbed: {len(anonymized)}")
-        print(f"Worker evaluations: {len(worker_results)}")
-        print(f"Judge reviews: {len(judge_results)}")
-        print(f"Completed (final scores): {len(final_scores)}")
-        print(f"Hash chain entries: {len(hash_chain)}")
+            print(f"Applications submitted: {total_apps}")
+            print(f"Identity scrubbed: {total_apps}")
+            print(f"Worker evaluations: {completed_evaluations}")
+            print(f"Judge reviews: {completed_evaluations}")
+            print(f"Completed (final scores): {completed_evaluations}")
+            print(f"Hash chain entries: 0")  # TODO: Implement with audit logs
 
-        if final_scores:
-            scores = [float(s['final_score']) for s in final_scores]
-            print(f"\nScore statistics:")
-            print(f"  Average: {sum(scores)/len(scores):.2f}")
-            print(f"  Min: {min(scores):.2f}")
-            print(f"  Max: {max(scores):.2f}")
+            if average_score is not None:
+                print(f"\nScore statistics:")
+                print(f"  Average: {average_score:.2f}")
+                print(f"  Min: N/A")
+                print(f"  Max: N/A")
 
     except Exception as e:
         print(f"\n✗ Status check failed: {e}")

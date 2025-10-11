@@ -6,8 +6,9 @@ from typing import Dict, Any, Optional, List
 from datetime import datetime
 
 from src.models.schemas import HashChainEntry, FinalScore
-from src.utils.csv_handler import CSVHandler
+from src.database.repositories import AuditRepository
 from src.utils.logger import get_logger, AuditLogger
+from sqlalchemy.orm import Session
 
 
 logger = get_logger("hash_chain")
@@ -19,14 +20,15 @@ class HashChainGenerator:
     # Genesis hash for the first entry in the chain
     GENESIS_HASH = "0" * 64
 
-    def __init__(self, csv_handler: CSVHandler, audit_logger: Optional[AuditLogger] = None):
+    def __init__(self, db: Session, audit_logger: Optional[AuditLogger] = None):
         """Initialize hash chain generator.
 
         Args:
-            csv_handler: CSVHandler instance
+            db: Database session
             audit_logger: Optional AuditLogger instance
         """
-        self.csv_handler = csv_handler
+        self.db = db
+        self.audit_repo = AuditRepository(db)
         self.audit_logger = audit_logger
         self._chain_cache: Optional[List[HashChainEntry]] = None
 
@@ -62,7 +64,7 @@ class HashChainGenerator:
         """
         # Use cached chain if available
         if self._chain_cache is None:
-            self._chain_cache = self.csv_handler.get_hash_chain()
+            self._chain_cache = self.audit_repo.get_hash_chain()
 
         if not self._chain_cache:
             return self.GENESIS_HASH
@@ -105,8 +107,8 @@ class HashChainGenerator:
             timestamp=datetime.utcnow()
         )
 
-        # Persist to CSV
-        self.csv_handler.append_hash_chain_entry(hash_entry)
+        # Persist to database
+        self.audit_repo.create(hash_entry)
 
         # Update cache
         if self._chain_cache is None:
@@ -212,7 +214,7 @@ class HashChainGenerator:
             Dict[str, Any]: Verification result with details
         """
         if chain is None:
-            chain = self.csv_handler.get_hash_chain()
+            chain = self.audit_repo.get_hash_chain()
 
         if not chain:
             return {
@@ -263,7 +265,7 @@ class HashChainGenerator:
         Returns:
             Dict[str, Any]: Verification result
         """
-        chain = self.csv_handler.get_hash_chain()
+        chain = self.audit_repo.get_hash_chain()
 
         # Find entry with matching anonymized_id
         matching_entries = [

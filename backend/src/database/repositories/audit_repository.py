@@ -326,3 +326,9 @@ class AuditRepository(BaseRepository[AuditLog]):
                 return False
 
         return True
+
+    def get_hash_chain(self) -> List[HashChain]:
+        """Get all hash chain entries ordered by timestamp."""
+        stmt = select(HashChain).order_by(HashChain.timestamp.asc())
+        result = self.db.execute(stmt)
+        return list(result.scalars().all())

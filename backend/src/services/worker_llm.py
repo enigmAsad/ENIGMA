@@ -9,8 +9,9 @@ from openai import OpenAI, APIError, RateLimitError, APITimeoutError
 
 from src.models.schemas import AnonymizedApplication, WorkerResult
 from src.config.settings import get_settings
-from src.utils.csv_handler import CSVHandler
+from src.database.repositories import ApplicationRepository
 from src.utils.logger import get_logger, AuditLogger
+from sqlalchemy.orm import Session
 
 
 logger = get_logger("worker_llm")
@@ -21,17 +22,18 @@ class WorkerLLM:
 
     def __init__(
         self,
-        csv_handler: CSVHandler,
+        db: Session,
         audit_logger: Optional[AuditLogger] = None
     ):
         """Initialize Worker LLM service.
 
         Args:
-            csv_handler: CSVHandler instance
+            db: Database session
             audit_logger: Optional AuditLogger instance
         """
         self.settings = get_settings()
-        self.csv_handler = csv_handler
+        self.db = db
+        self.app_repo = ApplicationRepository(db)
         self.audit_logger = audit_logger
 
         # Initialize OpenAI client
@@ -324,7 +326,7 @@ This is attempt #{attempt_number}. Please address the following feedback:
         )
 
         # Persist result
-        self.csv_handler.append_worker_result(worker_result)
+        self.app_repo.create(worker_result)
 
         # Audit log
         if self.audit_logger:

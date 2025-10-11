@@ -504,3 +504,30 @@ class ApplicationRepository(BaseRepository[Application]):
         status_counts = {status.value: count for status, count in result.all()}
 
         return status_counts
+
+    def get_final_score_by_anonymized_id(self, anonymized_id: str) -> Optional[FinalScore]:
+        """Get final score by anonymized ID."""
+        stmt = select(FinalScore).where(FinalScore.anonymized_id == anonymized_id)
+        result = self.db.execute(stmt)
+        return result.scalar_one_or_none()
+
+    def get_all_final_scores(self) -> List[FinalScore]:
+        """Get all final scores."""
+        stmt = select(FinalScore).order_by(FinalScore.final_score.desc())
+        result = self.db.execute(stmt)
+        return list(result.scalars().all())
+
+    def create_anonymized(self, anonymized: AnonymizedApplication) -> AnonymizedApplication:
+        """Create anonymized application."""
+        return self.create(anonymized)
+
+    def create_identity_mapping(self, anonymized_id: str, application_id: str, encrypted_pii: str) -> IdentityMapping:
+        """Create identity mapping."""
+        from src.database.models import IdentityMapping
+        mapping = IdentityMapping(
+            mapping_id=f"MAP_{anonymized_id}_{application_id}",
+            anonymized_id=anonymized_id,
+            application_id=application_id,
+            encrypted_pii=encrypted_pii
+        )
+        return self.create(mapping)

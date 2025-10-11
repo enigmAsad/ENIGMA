@@ -246,6 +246,43 @@ class AdminRepository(BaseRepository[AdminUser]):
         result = self.db.execute(stmt)
         return result.scalar_one_or_none()
 
+    def update_cycle(self, cycle_id: str, update_data: Dict[str, Any]) -> Optional[AdmissionCycle]:
+        """Update admission cycle with provided data.
+
+        Args:
+            cycle_id: Cycle ID to update
+            update_data: Dictionary of fields to update
+
+        Returns:
+            Optional[AdmissionCycle]: Updated cycle or None if not found
+        """
+        stmt = (
+            update(AdmissionCycle)
+            .where(AdmissionCycle.cycle_id == cycle_id)
+            .values(**update_data)
+            .returning(AdmissionCycle)
+        )
+        result = self.db.execute(stmt)
+        self.db.flush()
+        return result.scalar_one_or_none()
+
+    def increment_cycle_seats(self, cycle_id: str) -> bool:
+        """Increment current seats for a cycle.
+
+        Args:
+            cycle_id: Cycle ID to increment
+
+        Returns:
+            bool: True if successful
+        """
+        stmt = update(AdmissionCycle).where(
+            AdmissionCycle.cycle_id == cycle_id
+        ).values(
+            current_seats=AdmissionCycle.current_seats + 1
+        )
+        result = self.db.execute(stmt)
+        return result.rowcount > 0
+
     def get_all_cycles(self, skip: int = 0, limit: int = 100) -> List[AdmissionCycle]:
         """Get all admission cycles ordered by created_at desc."""
         stmt = (

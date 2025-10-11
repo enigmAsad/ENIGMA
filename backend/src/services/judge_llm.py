@@ -14,8 +14,9 @@ from src.models.schemas import (
     JudgeDecision
 )
 from src.config.settings import get_settings
-from src.utils.csv_handler import CSVHandler
+from src.database.repositories import ApplicationRepository
 from src.utils.logger import get_logger, AuditLogger
+from sqlalchemy.orm import Session
 
 
 logger = get_logger("judge_llm")
@@ -26,17 +27,18 @@ class JudgeLLM:
 
     def __init__(
         self,
-        csv_handler: CSVHandler,
+        db: Session,
         audit_logger: Optional[AuditLogger] = None
     ):
         """Initialize Judge LLM service.
 
         Args:
-            csv_handler: CSVHandler instance
+            db: Database session
             audit_logger: Optional AuditLogger instance
         """
         self.settings = get_settings()
-        self.csv_handler = csv_handler
+        self.db = db
+        self.app_repo = ApplicationRepository(db)
         self.audit_logger = audit_logger
 
         # Initialize OpenAI client
@@ -323,7 +325,7 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
         )
 
         # Persist result
-        self.csv_handler.append_judge_result(judge_result)
+        self.app_repo.create(judge_result)
 
         # Audit log
         if self.audit_logger:

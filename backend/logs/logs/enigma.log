@@ -145,3 +145,7 @@ WHERE admission_cycles.is_open = true]
 2025-10-12 03:12:26 | INFO     | database | Database connection verified successfully
 2025-10-12 03:12:26 | INFO     | main | ✅ Database connection successful
 2025-10-12 03:12:26 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 03:13:09 | ERROR    | api | Dashboard stats failed: name 'ApplicationRepository' is not defined
+2025-10-12 03:13:09 | ERROR    | database | Database session error: 500: name 'ApplicationRepository' is not defined
+2025-10-12 03:13:09 | ERROR    | api | Dashboard stats failed: name 'ApplicationRepository' is not defined
+2025-10-12 03:13:09 | ERROR    | database | Database session error: 500: name 'ApplicationRepository' is not defined

@@ -4,8 +4,9 @@ from typing import Dict, Any, Optional, List
 from datetime import datetime
 
 from src.models.schemas import Application, ApplicationStatus
-from src.utils.csv_handler import CSVHandler
+from src.database.repositories import ApplicationRepository
 from src.utils.logger import get_logger, AuditLogger
+from sqlalchemy.orm import Session
 
 
 logger = get_logger("application_collector")
@@ -14,14 +15,15 @@ logger = get_logger("application_collector")
 class ApplicationCollector:
     """Service for collecting and validating applications."""
 
-    def __init__(self, csv_handler: CSVHandler, audit_logger: Optional[AuditLogger] = None):
+    def __init__(self, db: Session, audit_logger: Optional[AuditLogger] = None):
         """Initialize application collector.
 
         Args:
-            csv_handler: CSVHandler instance
+            db: Database session
             audit_logger: Optional AuditLogger instance
         """
-        self.csv_handler = csv_handler
+        self.db = db
+        self.app_repo = ApplicationRepository(db)
         self.audit_logger = audit_logger
 
     def collect_application(self, application_data: Dict[str, Any]) -> Application:
@@ -47,7 +49,7 @@ class ApplicationCollector:
             raise ValueError(f"Invalid application data: {e}")
 
         # Check for duplicate
-        existing = self.csv_handler.get_application_by_id(application.application_id)
+        existing = self.app_repo.get_by_application_id(application.application_id)
         if existing:
             logger.warning(f"Duplicate application ID detected: {application.application_id}")
             # In production, you might want to handle this differently
@@ -56,7 +58,7 @@ class ApplicationCollector:
             application.application_id = f"APP_{uuid.uuid4().hex[:8].upper()}"
 
         # Persist application
-        self.csv_handler.append_application(application)
+        self.app_repo.create(application)
 
         # Audit log
         if self.audit_logger:

@@ -6,6 +6,9 @@ import argparse
 from pathlib import Path
 from typing import Dict, Any, List
 
+# Add parent directory to path for module imports
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
 from src.config.settings import get_settings
 from src.models.schemas import Application
 from src.services.application_collector import ApplicationCollector
@@ -51,10 +54,10 @@ def init_command(args):
             print(f"✗ Rubric missing: {rubric}")
 
         # Check API key
-        if settings.anthropic_api_key:
-            print(f"✓ Anthropic API key configured")
+        if settings.openai_api_key:
+            print(f"✓ OpenAI API key configured")
         else:
-            print(f"✗ Anthropic API key not configured")
+            print(f"✗ OpenAI API key not configured")
 
         # Check email
         if settings.is_email_configured():

@@ -21,6 +21,9 @@ from src.models.schemas import (
     FinalScore,
     AuditLog,
     HashChainEntry,
+    AdmissionCycle,
+    AdminUser,
+    AdminSession,
 )
 from src.utils.logger import get_logger
 
@@ -42,6 +45,9 @@ class CSVHandler:
     FINAL_SCORES_CSV = "phase1_final_scores.csv"
     AUDIT_LOG_CSV = "audit_log.csv"
     HASH_CHAIN_CSV = "hash_chain.csv"
+    ADMISSION_CYCLES_CSV = "admission_cycles.csv"
+    ADMIN_USERS_CSV = "admin_users.csv"
+    ADMIN_SESSIONS_CSV = "admin_sessions.csv"
 
     def __init__(self):
         """Initialize CSV handler."""
@@ -110,6 +116,18 @@ class CSVHandler:
             self.HASH_CHAIN_CSV: [
                 "chain_id", "anonymized_id", "decision_type", "data_json",
                 "data_hash", "previous_hash", "timestamp"
+            ],
+            self.ADMISSION_CYCLES_CSV: [
+                "cycle_id", "cycle_name", "is_open", "max_seats", "current_seats",
+                "result_date", "start_date", "end_date", "created_at", "created_by"
+            ],
+            self.ADMIN_USERS_CSV: [
+                "admin_id", "username", "password_hash", "email", "role",
+                "is_active", "created_at", "last_login"
+            ],
+            self.ADMIN_SESSIONS_CSV: [
+                "session_id", "admin_id", "token", "expires_at", "created_at",
+                "ip_address", "user_agent"
             ],
         }
 
@@ -320,7 +338,7 @@ class CSVHandler:
         for row in rows:
             if row['application_id'] == application_id:
                 # Parse JSON fields
-                row['test_scores_json'] = json.loads(row.get('test_scores_json', '{}'))
+                row['test_scores'] = json.loads(row.get('test_scores_json', '{}'))
                 return Application(**row)
         return None
 
@@ -336,7 +354,7 @@ class CSVHandler:
         rows = self._read_csv(self.ANONYMIZED_CSV)
         for row in rows:
             if row['anonymized_id'] == anonymized_id:
-                row['test_scores_json'] = json.loads(row.get('test_scores_json', '{}'))
+                row['test_scores'] = json.loads(row.get('test_scores_json', '{}'))
                 return AnonymizedApplication(**row)
         return None
 
@@ -433,3 +451,227 @@ class CSVHandler:
             row['worker_attempts'] = int(row['worker_attempts'])
             scores.append(FinalScore(**row))
         return scores
+
+    # Admin Portal Methods
+
+    def append_admission_cycle(self, cycle: AdmissionCycle):
+        """Append admission cycle to CSV.
+
+        Args:
+            cycle: AdmissionCycle model
+        """
+        lock = self._get_lock(self.ADMISSION_CYCLES_CSV)
+        with lock:
+            csv_path = self._get_csv_path(self.ADMISSION_CYCLES_CSV)
+            row = self._model_to_csv_row(cycle)
+            self._atomic_write(csv_path, [row], mode='a')
+        logger.debug(f"Appended admission cycle: {cycle.cycle_id}")
+
+    def get_all_admission_cycles(self) -> List[AdmissionCycle]:
+        """Get all admission cycles.
+
+        Returns:
+            List[AdmissionCycle]: All admission cycles
+        """
+        rows = self._read_csv(self.ADMISSION_CYCLES_CSV)
+        cycles = []
+        for row in rows:
+            row['is_open'] = row['is_open'].lower() == 'true'
+            row['max_seats'] = int(row['max_seats'])
+            row['current_seats'] = int(row['current_seats'])
+            cycles.append(AdmissionCycle(**row))
+        return sorted(cycles, key=lambda c: c.created_at, reverse=True)
+
+    def get_cycle_by_id(self, cycle_id: str) -> Optional[AdmissionCycle]:
+        """Get admission cycle by ID.
+
+        Args:
+            cycle_id: Cycle ID
+
+        Returns:
+            Optional[AdmissionCycle]: Cycle if found
+        """
+        rows = self._read_csv(self.ADMISSION_CYCLES_CSV)
+        for row in rows:
+            if row['cycle_id'] == cycle_id:
+                row['is_open'] = row['is_open'].lower() == 'true'
+                row['max_seats'] = int(row['max_seats'])
+                row['current_seats'] = int(row['current_seats'])
+                return AdmissionCycle(**row)
+        return None
+
+    def get_active_cycle(self) -> Optional[AdmissionCycle]:
+        """Get the currently active (open) admission cycle.
+
+        Returns:
+            Optional[AdmissionCycle]: Active cycle if found
+        """
+        rows = self._read_csv(self.ADMISSION_CYCLES_CSV)
+        for row in rows:
+            if row['is_open'].lower() == 'true':
+                row['is_open'] = True
+                row['max_seats'] = int(row['max_seats'])
+                row['current_seats'] = int(row['current_seats'])
+                return AdmissionCycle(**row)
+        return None
+
+    def update_cycle(self, cycle: AdmissionCycle):
+        """Update admission cycle in CSV.
+
+        Args:
+            cycle: Updated AdmissionCycle model
+        """
+        lock = self._get_lock(self.ADMISSION_CYCLES_CSV)
+        with lock:
+            csv_path = self._get_csv_path(self.ADMISSION_CYCLES_CSV)
+            rows = self._read_csv(self.ADMISSION_CYCLES_CSV)
+            updated_rows = []
+
+            # Get headers
+            with open(csv_path, 'r', encoding='utf-8') as f:
+                reader = csv.reader(f)
+                headers = next(reader)
+                updated_rows.append(headers)
+
+            # Update matching row
+            for row_dict in rows:
+                if row_dict['cycle_id'] == cycle.cycle_id:
+                    updated_row = self._model_to_csv_row(cycle)
+                    updated_rows.append(updated_row)
+                else:
+                    updated_rows.append(list(row_dict.values()))
+
+            self._atomic_write(csv_path, updated_rows, mode='w')
+        logger.debug(f"Updated admission cycle: {cycle.cycle_id}")
+
+    def increment_cycle_seats(self, cycle_id: str):
+        """Increment current_seats counter for a cycle.
+
+        Args:
+            cycle_id: Cycle ID
+        """
+        cycle = self.get_cycle_by_id(cycle_id)
+        if cycle:
+            cycle.current_seats += 1
+            self.update_cycle(cycle)
+
+    def append_admin_user(self, admin: AdminUser):
+        """Append admin user to CSV.
+
+        Args:
+            admin: AdminUser model
+        """
+        lock = self._get_lock(self.ADMIN_USERS_CSV)
+        with lock:
+            csv_path = self._get_csv_path(self.ADMIN_USERS_CSV)
+            row = self._model_to_csv_row(admin)
+            self._atomic_write(csv_path, [row], mode='a')
+        logger.debug(f"Appended admin user: {admin.username}")
+
+    def get_admin_by_username(self, username: str) -> Optional[AdminUser]:
+        """Get admin user by username.
+
+        Args:
+            username: Admin username
+
+        Returns:
+            Optional[AdminUser]: Admin if found
+        """
+        rows = self._read_csv(self.ADMIN_USERS_CSV)
+        for row in rows:
+            if row['username'] == username:
+                row['is_active'] = row['is_active'].lower() == 'true'
+                return AdminUser(**row)
+        return None
+
+    def get_admin_by_id(self, admin_id: str) -> Optional[AdminUser]:
+        """Get admin user by ID.
+
+        Args:
+            admin_id: Admin ID
+
+        Returns:
+            Optional[AdminUser]: Admin if found
+        """
+        rows = self._read_csv(self.ADMIN_USERS_CSV)
+        for row in rows:
+            if row['admin_id'] == admin_id:
+                row['is_active'] = row['is_active'].lower() == 'true'
+                return AdminUser(**row)
+        return None
+
+    def update_admin_user(self, admin: AdminUser):
+        """Update admin user in CSV.
+
+        Args:
+            admin: Updated AdminUser model
+        """
+        lock = self._get_lock(self.ADMIN_USERS_CSV)
+        with lock:
+            csv_path = self._get_csv_path(self.ADMIN_USERS_CSV)
+            rows = self._read_csv(self.ADMIN_USERS_CSV)
+            updated_rows = []
+
+            # Get headers
+            with open(csv_path, 'r', encoding='utf-8') as f:
+                reader = csv.reader(f)
+                headers = next(reader)
+                updated_rows.append(headers)
+
+            # Update matching row
+            for row_dict in rows:
+                if row_dict['admin_id'] == admin.admin_id:
+                    updated_row = self._model_to_csv_row(admin)
+                    updated_rows.append(updated_row)
+                else:
+                    updated_rows.append(list(row_dict.values()))
+
+            self._atomic_write(csv_path, updated_rows, mode='w')
+        logger.debug(f"Updated admin user: {admin.username}")
+
+    def append_admin_session(self, session: AdminSession):
+        """Append admin session to CSV.
+
+        Args:
+            session: AdminSession model
+        """
+        lock = self._get_lock(self.ADMIN_SESSIONS_CSV)
+        with lock:
+            csv_path = self._get_csv_path(self.ADMIN_SESSIONS_CSV)
+            row = self._model_to_csv_row(session)
+            self._atomic_write(csv_path, [row], mode='a')
+        logger.debug(f"Appended admin session: {session.session_id}")
+
+    def get_session_by_token(self, token: str) -> Optional[AdminSession]:
+        """Get admin session by token.
+
+        Args:
+            token: Session token
+
+        Returns:
+            Optional[AdminSession]: Session if found
+        """
+        rows = self._read_csv(self.ADMIN_SESSIONS_CSV)
+        for row in rows:
+            if row['token'] == token:
+                return AdminSession(**row)
+        return None
+
+    def get_anonymized_by_application_id(self, application_id: str) -> Optional[Dict[str, str]]:
+        """Get anonymized application by original application ID.
+
+        Args:
+            application_id: Original application ID
+
+        Returns:
+            Optional[Dict[str, str]]: Anonymized row if found
+        """
+        rows = self._read_csv(self.ANONYMIZED_CSV)
+        for row in rows:
+            if row['application_id'] == application_id:
+                return row
+        return None
+
+    def get_final_score(self, anonymized_id: str) -> Optional[FinalScore]:
+        """Alias for get_final_score_by_id for consistency."""
+        return self.get_final_score_by_id(anonymized_id)

@@ -109,6 +109,16 @@ class Settings(BaseSettings):
         default=None,
         description="32-byte hex key for identity mapping encryption"
     )
+    jwt_secret: str = Field(
+        default="your-secret-key-change-in-production-please",
+        description="JWT secret key for admin authentication"
+    )
+    admin_token_expiry_hours: int = Field(
+        default=24,
+        ge=1,
+        le=168,  # Max 1 week
+        description="Admin JWT token expiry time in hours"
+    )
 
     # Logging
     log_level: str = Field(

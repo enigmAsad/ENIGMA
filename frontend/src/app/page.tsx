@@ -2,13 +2,51 @@
  * Landing page - ENIGMA mission and overview
  */
 
+'use client';
+
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
+import { adminApiClient, type AdmissionInfo } from '@/lib/adminApi';
 
 export default function Home() {
+  const [admissionInfo, setAdmissionInfo] = useState<AdmissionInfo | null>(null);
+
+  useEffect(() => {
+    const fetchAdmissionInfo = async () => {
+      try {
+        const info = await adminApiClient.getAdmissionInfo();
+        setAdmissionInfo(info);
+      } catch (error) {
+        console.error('Failed to fetch admission info:', error);
+      }
+    };
+    fetchAdmissionInfo();
+  }, []);
+
   return (
     <div className="min-h-screen">
+      {/* Admission Status Banner */}
+      {admissionInfo && (
+        <div className={`${admissionInfo.is_open ? 'bg-green-600' : 'bg-red-600'} text-white py-3`}>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p className="font-semibold">
+              {admissionInfo.is_open ? (
+                <>
+                  Admissions are OPEN for {admissionInfo.cycle_name}!
+                  {admissionInfo.seats_available !== undefined && (
+                    <> {admissionInfo.seats_available} of {admissionInfo.max_seats} seats available.</>
+                  )}
+                </>
+              ) : (
+                <>Admissions are currently CLOSED. {admissionInfo.message}</>
+              )}
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Hero Section */}
       <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -24,8 +62,12 @@ export default function Home() {
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
               <Link href="/apply">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-                  Apply Now
+                <Button
+                  size="lg"
+                  className="bg-white text-blue-600 hover:bg-gray-100"
+                  disabled={!admissionInfo?.is_open}
+                >
+                  {admissionInfo?.is_open ? 'Apply Now' : 'Applications Closed'}
                 </Button>
               </Link>
               <Link href="/dashboard">
@@ -34,6 +76,11 @@ export default function Home() {
                 </Button>
               </Link>
             </div>
+            {admissionInfo?.is_open && admissionInfo.end_date && (
+              <p className="mt-4 text-blue-200">
+                Application deadline: {new Date(admissionInfo.end_date).toLocaleDateString()}
+              </p>
+            )}
           </div>
         </div>
       </section>

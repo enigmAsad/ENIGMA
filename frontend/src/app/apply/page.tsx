@@ -4,13 +4,14 @@
 
 'use client';
 
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Card from '@/components/Card';
 import Input from '@/components/Input';
 import TextArea from '@/components/TextArea';
 import Button from '@/components/Button';
 import { apiClient, ApplicationSubmitRequest } from '@/lib/api';
+import { adminApiClient, type AdmissionInfo } from '@/lib/adminApi';
 
 export default function ApplyPage() {
   const router = useRouter();
@@ -18,6 +19,22 @@ export default function ApplyPage() {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [applicationId, setApplicationId] = useState<string | null>(null);
+  const [admissionInfo, setAdmissionInfo] = useState<AdmissionInfo | null>(null);
+  const [loadingAdmissionInfo, setLoadingAdmissionInfo] = useState(true);
+
+  useEffect(() => {
+    const fetchAdmissionInfo = async () => {
+      try {
+        const info = await adminApiClient.getAdmissionInfo();
+        setAdmissionInfo(info);
+      } catch (error) {
+        console.error('Failed to fetch admission info:', error);
+      } finally {
+        setLoadingAdmissionInfo(false);
+      }
+    };
+    fetchAdmissionInfo();
+  }, []);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -171,8 +188,57 @@ export default function ApplyPage() {
     );
   }
 
+  // Show loading state while checking admission status
+  if (loadingAdmissionInfo) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-16 text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+        <p className="text-gray-600">Checking admission status...</p>
+      </div>
+    );
+  }
+
+  // Show closed message if admissions are not open
+  if (!admissionInfo?.is_open) {
+    return (
+      <div className="max-w-4xl mx-auto px-4 py-16">
+        <Card>
+          <div className="text-center py-8">
+            <div className="text-6xl mb-4">🚫</div>
+            <h2 className="text-3xl font-bold text-red-600 mb-4">Admissions Closed</h2>
+            <p className="text-lg text-gray-700 mb-6">
+              {admissionInfo?.message || 'Applications are not being accepted at this time.'}
+            </p>
+            <Button onClick={() => router.push('/')}>
+              Return to Home
+            </Button>
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+      {/* Admission Status Banner */}
+      {admissionInfo && (
+        <div className="mb-6 bg-green-50 border border-green-200 rounded-lg p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="font-semibold text-green-900">
+                Admissions Open for {admissionInfo.cycle_name}
+              </p>
+              <p className="text-sm text-green-700 mt-1">
+                {admissionInfo.seats_available} of {admissionInfo.max_seats} seats available
+                {admissionInfo.end_date && (
+                  <> • Deadline: {new Date(admissionInfo.end_date).toLocaleDateString()}</>
+                )}
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="mb-8 text-center">
         <h1 className="text-4xl font-bold mb-4">Submit Your Application</h1>
         <p className="text-lg text-gray-600">

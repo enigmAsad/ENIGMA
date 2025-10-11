@@ -1,6 +1,6 @@
 """FastAPI REST API wrapper for ENIGMA Phase 1 backend."""
 
-from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi import FastAPI, HTTPException, BackgroundTasks, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field
 from typing import Dict, Any, List, Optional
@@ -9,9 +9,20 @@ import asyncio
 import logging
 
 from src.config.settings import get_settings
-from src.models.schemas import Application, ApplicationStatus
+from src.models.schemas import (
+    Application,
+    ApplicationStatus,
+    AdminUser,
+    AdmissionCycle,
+    AdminLoginRequest,
+    AdminLoginResponse,
+    CreateCycleRequest,
+    UpdateCycleRequest,
+    AdmissionInfoResponse,
+)
 from src.services.application_collector import ApplicationCollector
 from src.services.hash_chain import HashChainGenerator
+from src.services.admin_auth import AdminAuthService
 from src.utils.csv_handler import CSVHandler
 from src.utils.logger import get_logger, AuditLogger
 from src.orchestration.phase1_pipeline import run_pipeline
@@ -106,6 +117,32 @@ class DashboardStatsResponse(BaseModel):
     timestamp: datetime
 
 
+# Admin Authentication Dependency
+async def get_current_admin(authorization: str = Header(None)) -> AdminUser:
+    """Dependency to get current authenticated admin.
+
+    Args:
+        authorization: Authorization header (Bearer token)
+
+    Returns:
+        AdminUser: Authenticated admin user
+
+    Raises:
+        HTTPException: If authentication fails
+    """
+    if not authorization or not authorization.startswith('Bearer '):
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    token = authorization.replace('Bearer ', '')
+    auth_service = AdminAuthService()
+    admin = auth_service.get_current_admin(token)
+
+    if not admin:
+        raise HTTPException(status_code=401, detail="Invalid or expired token")
+
+    return admin
+
+
 # Background task to process application
 async def process_application_background(application: Application):
     """Process application in background."""
@@ -157,8 +194,39 @@ async def submit_application(
     Processing happens asynchronously in the background.
     """
     try:
-        # Initialize services
         csv_handler = CSVHandler()
+
+        # Check if admissions are open
+        active_cycle = csv_handler.get_active_cycle()
+        if not active_cycle:
+            raise HTTPException(
+                status_code=400,
+                detail="Admissions are currently closed. Please check back later."
+            )
+
+        # Check if cycle is actually open
+        if not active_cycle.is_open:
+            raise HTTPException(
+                status_code=400,
+                detail="Admissions are currently closed."
+            )
+
+        # Check if within date range
+        now = datetime.utcnow()
+        if not (active_cycle.start_date <= now <= active_cycle.end_date):
+            raise HTTPException(
+                status_code=400,
+                detail=f"Admissions window is closed. Opens on {active_cycle.start_date.date()}, closes on {active_cycle.end_date.date()}."
+            )
+
+        # Check if seats available
+        if active_cycle.current_seats >= active_cycle.max_seats:
+            raise HTTPException(
+                status_code=400,
+                detail="Admissions are full. No seats available."
+            )
+
+        # Initialize services
         audit_logger = AuditLogger(csv_handler=csv_handler)
         app_collector = ApplicationCollector(
             csv_handler=csv_handler,
@@ -169,10 +237,13 @@ async def submit_application(
         app_data = request.model_dump()
         application = app_collector.collect_application(app_data)
 
+        # Increment seat counter
+        csv_handler.increment_cycle_seats(active_cycle.cycle_id)
+
         # Queue for background processing
         background_tasks.add_task(process_application_background, application)
 
-        logger.info(f"Application submitted: {application.application_id}")
+        logger.info(f"Application submitted: {application.application_id} (Cycle: {active_cycle.cycle_name})")
 
         return ApplicationSubmitResponse(
             success=True,
@@ -182,6 +253,8 @@ async def submit_application(
             timestamp=datetime.utcnow()
         )
 
+    except HTTPException:
+        raise
     except Exception as e:
         logger.error(f"Application submission failed: {e}")
         raise HTTPException(status_code=400, detail=str(e))
@@ -378,6 +451,306 @@ async def get_dashboard_stats():
 
     except Exception as e:
         logger.error(f"Dashboard stats failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
+# ADMIN ENDPOINTS
+# ============================================================================
+
+@app.post("/admin/auth/login", response_model=AdminLoginResponse)
+async def admin_login(request: AdminLoginRequest):
+    """Admin login endpoint."""
+    try:
+        auth_service = AdminAuthService()
+        result = auth_service.login(request.username, request.password)
+
+        if not result:
+            raise HTTPException(status_code=401, detail="Invalid credentials")
+
+        admin, token, expires_at = result
+
+        return AdminLoginResponse(
+            success=True,
+            token=token,
+            admin_id=admin.admin_id,
+            username=admin.username,
+            email=admin.email,
+            role=admin.role,
+            expires_at=expires_at
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Admin login error: {e}")
+        raise HTTPException(status_code=500, detail="Login failed")
+
+
+@app.post("/admin/auth/logout")
+async def admin_logout(admin: AdminUser = Depends(get_current_admin)):
+    """Admin logout endpoint."""
+    return {"success": True, "message": "Logged out successfully"}
+
+
+@app.get("/admin/auth/me")
+async def get_current_admin_info(admin: AdminUser = Depends(get_current_admin)):
+    """Get current admin user info."""
+    return {
+        "admin_id": admin.admin_id,
+        "username": admin.username,
+        "email": admin.email,
+        "role": admin.role
+    }
+
+
+# Admission Cycles
+@app.get("/admin/cycles", response_model=List[AdmissionCycle])
+async def get_all_cycles(admin: AdminUser = Depends(get_current_admin)):
+    """Get all admission cycles."""
+    try:
+        csv_handler = CSVHandler()
+        cycles = csv_handler.get_all_admission_cycles()
+        return cycles
+    except Exception as e:
+        logger.error(f"Failed to get cycles: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/admin/cycles", response_model=AdmissionCycle)
+async def create_cycle(
+    request: CreateCycleRequest,
+    admin: AdminUser = Depends(get_current_admin)
+):
+    """Create new admission cycle."""
+    try:
+        csv_handler = CSVHandler()
+
+        # Close any open cycles
+        active_cycle = csv_handler.get_active_cycle()
+        if active_cycle:
+            active_cycle.is_open = False
+            csv_handler.update_cycle(active_cycle)
+
+        # Create new cycle
+        cycle = AdmissionCycle(
+            cycle_name=request.cycle_name,
+            max_seats=request.max_seats,
+            result_date=request.result_date,
+            start_date=request.start_date,
+            end_date=request.end_date,
+            created_by=admin.username
+        )
+
+        csv_handler.append_admission_cycle(cycle)
+        logger.info(f"Created admission cycle: {cycle.cycle_name}")
+
+        return cycle
+
+    except Exception as e:
+        logger.error(f"Failed to create cycle: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/admin/cycles/{cycle_id}", response_model=AdmissionCycle)
+async def get_cycle(
+    cycle_id: str,
+    admin: AdminUser = Depends(get_current_admin)
+):
+    """Get admission cycle by ID."""
+    try:
+        csv_handler = CSVHandler()
+        cycle = csv_handler.get_cycle_by_id(cycle_id)
+
+        if not cycle:
+            raise HTTPException(status_code=404, detail="Cycle not found")
+
+        return cycle
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to get cycle: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.put("/admin/cycles/{cycle_id}", response_model=AdmissionCycle)
+async def update_cycle(
+    cycle_id: str,
+    request: UpdateCycleRequest,
+    admin: AdminUser = Depends(get_current_admin)
+):
+    """Update admission cycle."""
+    try:
+        csv_handler = CSVHandler()
+        cycle = csv_handler.get_cycle_by_id(cycle_id)
+
+        if not cycle:
+            raise HTTPException(status_code=404, detail="Cycle not found")
+
+        # Update fields if provided
+        if request.cycle_name:
+            cycle.cycle_name = request.cycle_name
+        if request.max_seats:
+            cycle.max_seats = request.max_seats
+        if request.result_date:
+            cycle.result_date = request.result_date
+        if request.start_date:
+            cycle.start_date = request.start_date
+        if request.end_date:
+            cycle.end_date = request.end_date
+
+        csv_handler.update_cycle(cycle)
+        logger.info(f"Updated admission cycle: {cycle_id}")
+
+        return cycle
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to update cycle: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.put("/admin/cycles/{cycle_id}/open", response_model=AdmissionCycle)
+async def open_cycle(
+    cycle_id: str,
+    admin: AdminUser = Depends(get_current_admin)
+):
+    """Open admission cycle."""
+    try:
+        csv_handler = CSVHandler()
+
+        # Close any currently open cycles
+        active_cycle = csv_handler.get_active_cycle()
+        if active_cycle and active_cycle.cycle_id != cycle_id:
+            active_cycle.is_open = False
+            csv_handler.update_cycle(active_cycle)
+
+        # Open the requested cycle
+        cycle = csv_handler.get_cycle_by_id(cycle_id)
+        if not cycle:
+            raise HTTPException(status_code=404, detail="Cycle not found")
+
+        cycle.is_open = True
+        csv_handler.update_cycle(cycle)
+        logger.info(f"Opened admission cycle: {cycle.cycle_name}")
+
+        return cycle
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to open cycle: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.put("/admin/cycles/{cycle_id}/close", response_model=AdmissionCycle)
+async def close_cycle(
+    cycle_id: str,
+    admin: AdminUser = Depends(get_current_admin)
+):
+    """Close admission cycle."""
+    try:
+        csv_handler = CSVHandler()
+        cycle = csv_handler.get_cycle_by_id(cycle_id)
+
+        if not cycle:
+            raise HTTPException(status_code=404, detail="Cycle not found")
+
+        cycle.is_open = False
+        csv_handler.update_cycle(cycle)
+        logger.info(f"Closed admission cycle: {cycle.cycle_name}")
+
+        return cycle
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to close cycle: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/admin/cycles/active/current", response_model=Optional[AdmissionCycle])
+async def get_active_cycle_admin(admin: AdminUser = Depends(get_current_admin)):
+    """Get currently active cycle (admin endpoint)."""
+    try:
+        csv_handler = CSVHandler()
+        cycle = csv_handler.get_active_cycle()
+        return cycle
+    except Exception as e:
+        logger.error(f"Failed to get active cycle: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# Public admission info (no auth required)
+@app.get("/admission/info", response_model=AdmissionInfoResponse)
+async def get_admission_info():
+    """Get public admission information."""
+    try:
+        csv_handler = CSVHandler()
+        active_cycle = csv_handler.get_active_cycle()
+
+        if not active_cycle:
+            return AdmissionInfoResponse(
+                is_open=False,
+                message="Admissions are currently closed. Please check back later."
+            )
+
+        # Check if within date range
+        now = datetime.utcnow()
+        is_in_range = active_cycle.start_date <= now <= active_cycle.end_date
+        seats_available = active_cycle.current_seats < active_cycle.max_seats
+
+        is_open = active_cycle.is_open and is_in_range and seats_available
+
+        if not is_open:
+            if not is_in_range:
+                message = "Admissions window is currently closed"
+            elif not seats_available:
+                message = "Admissions are full - no seats available"
+            else:
+                message = "Admissions are currently closed"
+        else:
+            message = "Admissions are open!"
+
+        return AdmissionInfoResponse(
+            is_open=is_open,
+            cycle_name=active_cycle.cycle_name,
+            seats_available=active_cycle.max_seats - active_cycle.current_seats,
+            max_seats=active_cycle.max_seats,
+            current_seats=active_cycle.current_seats,
+            start_date=active_cycle.start_date,
+            end_date=active_cycle.end_date,
+            result_date=active_cycle.result_date,
+            message=message
+        )
+
+    except Exception as e:
+        logger.error(f"Failed to get admission info: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/admission/status", response_model=Dict[str, Any])
+async def get_admission_status():
+    """Check if admissions are open (simple boolean)."""
+    try:
+        csv_handler = CSVHandler()
+        active_cycle = csv_handler.get_active_cycle()
+
+        if not active_cycle:
+            return {"is_open": False}
+
+        now = datetime.utcnow()
+        is_in_range = active_cycle.start_date <= now <= active_cycle.end_date
+        seats_available = active_cycle.current_seats < active_cycle.max_seats
+
+        return {
+            "is_open": active_cycle.is_open and is_in_range and seats_available
+        }
+
+    except Exception as e:
+        logger.error(f"Failed to get admission status: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 

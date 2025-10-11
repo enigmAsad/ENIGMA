@@ -312,3 +312,107 @@ class VerificationResponse(BaseModel):
     hash: str
     verification_details: Dict[str, Any]
     timestamp: datetime = Field(default_factory=datetime.utcnow)
+
+
+# Admin Portal Models
+
+class AdmissionCycle(BaseModel):
+    """Admission cycle configuration."""
+    model_config = ConfigDict(validate_assignment=True)
+
+    cycle_id: str = Field(default_factory=lambda: f"CYC_{uuid.uuid4().hex[:8].upper()}")
+    cycle_name: str = Field(..., min_length=3, max_length=100, description="e.g., 'Fall 2025 Admissions'")
+    is_open: bool = Field(default=False, description="Whether admissions are currently open")
+    max_seats: int = Field(..., gt=0, description="Maximum number of admissions")
+    current_seats: int = Field(default=0, ge=0, description="Current number of applications")
+    result_date: datetime = Field(..., description="When results will be announced")
+    start_date: datetime = Field(..., description="Admission window start")
+    end_date: datetime = Field(..., description="Admission window end")
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    created_by: str = Field(..., description="Admin username who created this cycle")
+
+    @field_validator('end_date')
+    @classmethod
+    def validate_dates(cls, v: datetime, info) -> datetime:
+        """Ensure end_date is after start_date."""
+        if hasattr(info, 'data') and 'start_date' in info.data:
+            if v <= info.data['start_date']:
+                raise ValueError("end_date must be after start_date")
+        return v
+
+
+class AdminUser(BaseModel):
+    """Admin user account."""
+    model_config = ConfigDict(validate_assignment=True)
+
+    admin_id: str = Field(default_factory=lambda: f"ADM_{uuid.uuid4().hex[:8].upper()}")
+    username: str = Field(..., min_length=3, max_length=50, description="Unique username")
+    password_hash: str = Field(..., description="bcrypt hashed password")
+    email: EmailStr
+    role: str = Field(default="admin", description="admin | super_admin")
+    is_active: bool = Field(default=True, description="Account active status")
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    last_login: Optional[datetime] = None
+
+
+class AdminSession(BaseModel):
+    """Admin session for authentication."""
+    model_config = ConfigDict(validate_assignment=True)
+
+    session_id: str = Field(default_factory=lambda: f"SES_{uuid.uuid4().hex[:8].upper()}")
+    admin_id: str
+    token: str = Field(..., description="JWT token")
+    expires_at: datetime
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    ip_address: Optional[str] = None
+    user_agent: Optional[str] = None
+
+
+# Admin API Request/Response Models
+
+class AdminLoginRequest(BaseModel):
+    """Admin login request."""
+    username: str
+    password: str
+
+
+class AdminLoginResponse(BaseModel):
+    """Admin login response."""
+    success: bool
+    token: str
+    admin_id: str
+    username: str
+    email: str
+    role: str
+    expires_at: datetime
+
+
+class CreateCycleRequest(BaseModel):
+    """Request to create admission cycle."""
+    cycle_name: str = Field(..., min_length=3, max_length=100)
+    max_seats: int = Field(..., gt=0)
+    result_date: datetime
+    start_date: datetime
+    end_date: datetime
+
+
+class UpdateCycleRequest(BaseModel):
+    """Request to update admission cycle."""
+    cycle_name: Optional[str] = Field(None, min_length=3, max_length=100)
+    max_seats: Optional[int] = Field(None, gt=0)
+    result_date: Optional[datetime] = None
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+
+
+class AdmissionInfoResponse(BaseModel):
+    """Public admission information."""
+    is_open: bool
+    cycle_name: Optional[str] = None
+    seats_available: Optional[int] = None
+    max_seats: Optional[int] = None
+    current_seats: Optional[int] = None
+    start_date: Optional[datetime] = None
+    end_date: Optional[datetime] = None
+    result_date: Optional[datetime] = None
+    message: str

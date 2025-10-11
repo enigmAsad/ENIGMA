@@ -23,7 +23,7 @@ from src.models.schemas import (
 from src.services.application_collector import ApplicationCollector
 from src.services.hash_chain import HashChainGenerator
 from src.services.admin_auth import AdminAuthService
-from src.services.admin_auth_v2 import AdminAuthServiceV2
+from src.services.admin_auth import AdminAuthService
 from src.database.engine import get_db
 from src.database.repositories import AdminRepository, ApplicationRepository
 from src.utils.logger import get_logger, AuditLogger
@@ -138,8 +138,8 @@ async def get_current_admin(authorization: str = Header(None), db: Session = Dep
         raise HTTPException(status_code=401, detail="Not authenticated")
 
     token = authorization.replace('Bearer ', '')
-    from src.services.admin_auth_v2 import AdminAuthServiceV2
-    auth_service = AdminAuthServiceV2(db)
+    from src.services.admin_auth import AdminAuthService
+    auth_service = AdminAuthService(db)
     admin = auth_service.get_current_admin(token)
 
     if not admin:
@@ -448,8 +448,8 @@ async def get_dashboard_stats(db: Session = Depends(get_db)):
 async def admin_login(request: AdminLoginRequest, db: Session = Depends(get_db)):
     """Admin login endpoint."""
     try:
-        from src.services.admin_auth_v2 import AdminAuthServiceV2
-        auth_service = AdminAuthServiceV2(db)
+        from src.services.admin_auth import AdminAuthService
+        auth_service = AdminAuthService(db)
         result = auth_service.login(request.username, request.password)
 
         if not result:

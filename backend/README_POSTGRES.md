@@ -254,9 +254,9 @@ decrypted = service.decrypt_pii(encrypted)
 
 ### 2. JWT Authentication
 ```python
-from src.services.admin_auth_v2 import AdminAuthServiceV2
+from src.services.admin_auth import AdminAuthService
 
-auth = AdminAuthServiceV2(db)
+auth = AdminAuthService(db)
 result = auth.login(username="admin", password="secret")
 # Returns: {"token": "...", "expires_at": "..."}
 ```
@@ -530,7 +530,7 @@ backend/
 │   │   └── schemas.py         # Pydantic schemas
 │   ├── services/
 │   │   ├── identity_scrubber_v2.py  # PII removal
-│   │   ├── admin_auth_v2.py         # JWT auth
+│   │   ├── admin_auth.py         # JWT auth
 │   │   ├── batch_processor.py       # JSONL export/import
 │   │   └── phase_manager.py         # Workflow transitions
 │   └── utils/

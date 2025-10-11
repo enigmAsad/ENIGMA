@@ -40,7 +40,7 @@ Successfully migrated the ENIGMA backend from CSV-based storage to a production-
 
 #### Services Layer (5 files)
 11. `src/services/identity_scrubber_v2.py` - PostgreSQL-based PII removal
-12. `src/services/admin_auth_v2.py` - JWT authentication service
+12. `src/services/admin_auth.py` - JWT authentication service
 13. `src/services/batch_processor.py` - JSONL export/import
 14. `src/services/phase_manager.py` - 9-phase workflow transitions
 15. `src/utils/encryption.py` - Fernet encryption utility

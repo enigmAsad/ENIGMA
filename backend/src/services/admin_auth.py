@@ -1,37 +1,33 @@
-"""Admin authentication service for ENIGMA."""
+"""Admin authentication service using PostgreSQL and JWT."""
+
+from typing import Optional, Dict, Any
+from datetime import datetime, timedelta
 
 import bcrypt
 import jwt
-from datetime import datetime, timedelta
-from typing import Optional, Tuple
+from sqlalchemy.orm import Session
 
+from src.database.repositories import AdminRepository, AuditRepository
+from src.database.models import AdminRoleEnum, AuditActionEnum
 from src.config.settings import get_settings
-from src.models.schemas import AdminUser, AdminSession
-from src.utils.csv_handler import CSVHandler
 from src.utils.logger import get_logger
 
 logger = get_logger("admin_auth")
 
 
 class AdminAuthService:
-    """Admin authentication and session management."""
+    """PostgreSQL-based service for admin authentication and session management."""
 
-    def __init__(self, csv_handler: Optional[CSVHandler] = None):
+    def __init__(self, db: Session):
         """Initialize admin auth service.
 
         Args:
-            csv_handler: CSV handler instance (optional, will create if not provided)
+            db: Database session
         """
-        self.csv_handler = csv_handler or CSVHandler()
+        self.db = db
+        self.admin_repo = AdminRepository(db)
+        self.audit_repo = AuditRepository(db)
         self.settings = get_settings()
-
-        # JWT secret from settings (fallback to a default for development)
-        self.jwt_secret = getattr(
-            self.settings,
-            'jwt_secret',
-            'your-secret-key-change-in-production-please'
-        )
-        self.token_expiry_hours = getattr(self.settings, 'admin_token_expiry_hours', 24)
 
     def hash_password(self, password: str) -> str:
         """Hash a password using bcrypt.
@@ -40,7 +36,7 @@ class AdminAuthService:
             password: Plain text password
 
         Returns:
-            str: Hashed password
+            str: Bcrypt hashed password
         """
         salt = bcrypt.gensalt()
         hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
@@ -51,10 +47,10 @@ class AdminAuthService:
 
         Args:
             password: Plain text password
-            password_hash: Hashed password
+            password_hash: Bcrypt hash
 
         Returns:
-            bool: True if password matches, False otherwise
+            bool: True if password matches
         """
         try:
             return bcrypt.checkpw(
@@ -65,45 +61,63 @@ class AdminAuthService:
             logger.error(f"Password verification error: {e}")
             return False
 
-    def create_token(self, admin_id: str, username: str) -> Tuple[str, datetime]:
-        """Create a JWT token for admin user.
+    def generate_jwt_token(
+        self,
+        admin_id: str,
+        username: str,
+        role: AdminRoleEnum
+    ) -> tuple[str, datetime]:
+        """Generate JWT token for admin user.
 
         Args:
             admin_id: Admin user ID
             username: Admin username
+            role: Admin role
 
         Returns:
-            Tuple[str, datetime]: (JWT token, expiration datetime)
+            tuple[str, datetime]: (JWT token, expiration datetime)
         """
-        expires_at = datetime.utcnow() + timedelta(hours=self.token_expiry_hours)
+        expiry_hours = self.settings.admin_token_expiry_hours
+        expires_at = datetime.utcnow() + timedelta(hours=expiry_hours)
 
         payload = {
-            'admin_id': admin_id,
-            'username': username,
-            'exp': expires_at,
-            'iat': datetime.utcnow()
+            "admin_id": admin_id,
+            "username": username,
+            "role": role.value,
+            "exp": expires_at,
+            "iat": datetime.utcnow(),
+            "type": "admin_access"
         }
 
-        token = jwt.encode(payload, self.jwt_secret, algorithm='HS256')
+        token = jwt.encode(
+            payload,
+            self.settings.jwt_secret,
+            algorithm="HS256"
+        )
+
         return token, expires_at
 
-    def verify_token(self, token: str) -> Optional[dict]:
-        """Verify and decode a JWT token.
+    def verify_jwt_token(self, token: str) -> Optional[Dict[str, Any]]:
+        """Verify and decode JWT token.
 
         Args:
-            token: JWT token
+            token: JWT token string
 
         Returns:
-            Optional[dict]: Decoded payload if valid, None otherwise
+            Optional[Dict]: Decoded payload or None if invalid
         """
         try:
-            payload = jwt.decode(token, self.jwt_secret, algorithms=['HS256'])
+            payload = jwt.decode(
+                token,
+                self.settings.jwt_secret,
+                algorithms=["HS256"]
+            )
             return payload
         except jwt.ExpiredSignatureError:
-            logger.warning("Token expired")
+            logger.warning("JWT token expired")
             return None
         except jwt.InvalidTokenError as e:
-            logger.warning(f"Invalid token: {e}")
+            logger.warning(f"Invalid JWT token: {e}")
             return None
 
     def login(
@@ -112,132 +126,265 @@ class AdminAuthService:
         password: str,
         ip_address: Optional[str] = None,
         user_agent: Optional[str] = None
-    ) -> Optional[Tuple[AdminUser, str, datetime]]:
+    ) -> Optional[Dict[str, Any]]:
         """Authenticate admin user and create session.
 
         Args:
             username: Admin username
             password: Plain text password
-            ip_address: Client IP address (optional)
-            user_agent: Client user agent (optional)
+            ip_address: Optional client IP
+            user_agent: Optional user agent string
 
         Returns:
-            Optional[Tuple[AdminUser, str, datetime]]:
-                (admin user, token, expires_at) if successful, None otherwise
+            Optional[Dict]: Login result with token or None if failed
         """
+        logger.info(f"Login attempt for username: {username}")
+
         # Get admin user
-        admin = self.csv_handler.get_admin_by_username(username)
+        admin = self.admin_repo.get_by_username(username)
         if not admin:
-            logger.warning(f"Login failed: User '{username}' not found")
+            logger.warning(f"Login failed: user {username} not found")
             return None
 
-        # Check if account is active
+        # Check if active
         if not admin.is_active:
-            logger.warning(f"Login failed: User '{username}' is inactive")
+            logger.warning(f"Login failed: user {username} is inactive")
             return None
 
         # Verify password
         if not self.verify_password(password, admin.password_hash):
-            logger.warning(f"Login failed: Invalid password for '{username}'")
+            logger.warning(f"Login failed: invalid password for {username}")
+            # Audit failed login attempt
+            self.audit_repo.create_audit_log(
+                entity_type="AdminUser",
+                entity_id=admin.admin_id,
+                action=AuditActionEnum.LOGIN,
+                actor=username,
+                details={"success": False, "reason": "invalid_password"}
+            )
+            self.db.commit()
             return None
 
-        # Create token
-        token, expires_at = self.create_token(admin.admin_id, admin.username)
+        # Generate JWT token
+        token, expires_at = self.generate_jwt_token(
+            admin.admin_id,
+            admin.username,
+            admin.role
+        )
 
-        # Create session record
-        session = AdminSession(
+        # Create session
+        import uuid
+        session_id = f"SES_{uuid.uuid4().hex[:8].upper()}"
+
+        session = self.admin_repo.create_session(
+            session_id=session_id,
             admin_id=admin.admin_id,
             token=token,
             expires_at=expires_at,
             ip_address=ip_address,
             user_agent=user_agent
         )
-        self.csv_handler.append_admin_session(session)
 
         # Update last login
-        admin.last_login = datetime.utcnow()
-        self.csv_handler.update_admin_user(admin)
+        self.admin_repo.update_last_login(admin.admin_id)
 
-        logger.info(f"Admin login successful: {username}")
-        return admin, token, expires_at
+        # Audit successful login
+        self.audit_repo.create_audit_log(
+            entity_type="AdminUser",
+            entity_id=admin.admin_id,
+            action=AuditActionEnum.LOGIN,
+            actor=username,
+            details={
+                "success": True,
+                "session_id": session_id,
+                "ip_address": ip_address
+            }
+        )
 
-    def get_current_admin(self, token: str) -> Optional[AdminUser]:
+        self.db.commit()
+
+        logger.info(f"Login successful for {username}")
+
+        return {
+            "success": True,
+            "token": token,
+            "admin_id": admin.admin_id,
+            "username": admin.username,
+            "email": admin.email,
+            "role": admin.role.value,
+            "expires_at": expires_at.isoformat()
+        }
+
+    def logout(self, token: str) -> bool:
+        """Logout admin user by revoking session.
+
+        Args:
+            token: JWT token
+
+        Returns:
+            bool: True if logout successful
+        """
+        logger.info("Logout attempt")
+
+        # Verify token first
+        payload = self.verify_jwt_token(token)
+        if not payload:
+            return False
+
+        # Revoke session
+        revoked = self.admin_repo.revoke_session(token)
+
+        if revoked:
+            # Audit logout
+            self.audit_repo.create_audit_log(
+                entity_type="AdminUser",
+                entity_id=payload.get("admin_id"),
+                action=AuditActionEnum.LOGOUT,
+                actor=payload.get("username"),
+                details={"success": True}
+            )
+            self.db.commit()
+            logger.info(f"Logout successful for {payload.get('username')}")
+
+        return revoked
+
+    def validate_session(self, token: str) -> Optional[Dict[str, Any]]:
+        """Validate admin session.
+
+        Args:
+            token: JWT token
+
+        Returns:
+            Optional[Dict]: Admin info if session valid, None otherwise
+        """
+        # Verify JWT token
+        payload = self.verify_jwt_token(token)
+        if not payload:
+            return None
+
+        # Check if session is revoked
+        if not self.admin_repo.is_session_valid(token):
+            return None
+
+        # Get admin user
+        admin = self.admin_repo.get_by_id(payload.get("admin_id"), "admin_id")
+        if not admin or not admin.is_active:
+            return None
+
+        return {
+            "admin_id": admin.admin_id,
+            "username": admin.username,
+            "email": admin.email,
+            "role": admin.role.value,
+            "is_active": admin.is_active
+        }
+
+    def get_current_admin(self, token: str) -> Optional[Dict[str, Any]]:
         """Get current admin user from token.
 
         Args:
             token: JWT token
 
         Returns:
-            Optional[AdminUser]: Admin user if token valid, None otherwise
+            Optional[Dict]: Admin user info
         """
-        payload = self.verify_token(token)
-        if not payload:
-            return None
+        return self.validate_session(token)
 
-        admin_id = payload.get('admin_id')
-        if not admin_id:
-            return None
-
-        admin = self.csv_handler.get_admin_by_id(admin_id)
-        if not admin or not admin.is_active:
-            return None
-
-        return admin
-
-    def create_admin_user(
+    def change_password(
         self,
-        username: str,
-        password: str,
-        email: str,
-        role: str = "admin"
-    ) -> AdminUser:
-        """Create a new admin user.
+        admin_id: str,
+        old_password: str,
+        new_password: str
+    ) -> bool:
+        """Change admin password.
 
         Args:
-            username: Admin username
-            password: Plain text password
-            email: Admin email
-            role: Admin role (default: "admin")
+            admin_id: Admin ID
+            old_password: Current password
+            new_password: New password
 
         Returns:
-            AdminUser: Created admin user
-
-        Raises:
-            ValueError: If username already exists
+            bool: True if password changed successfully
         """
-        # Check if username exists
-        existing = self.csv_handler.get_admin_by_username(username)
-        if existing:
-            raise ValueError(f"Username '{username}' already exists")
+        admin = self.admin_repo.get_by_id(admin_id, "admin_id")
+        if not admin:
+            return False
 
-        # Hash password
-        password_hash = self.hash_password(password)
+        # Verify old password
+        if not self.verify_password(old_password, admin.password_hash):
+            logger.warning(f"Password change failed for {admin.username}: invalid old password")
+            return False
 
-        # Create admin user
-        admin = AdminUser(
-            username=username,
-            password_hash=password_hash,
-            email=email,
-            role=role
+        # Hash new password
+        new_password_hash = self.hash_password(new_password)
+
+        # Update admin
+        updated = self.admin_repo.update(
+            admin_id,
+            {"password_hash": new_password_hash},
+            "admin_id"
         )
 
-        self.csv_handler.append_admin_user(admin)
-        logger.info(f"Created admin user: {username}")
+        if updated:
+            # Revoke all existing sessions for security
+            self.admin_repo.revoke_all_user_sessions(admin_id)
+
+            # Audit password change
+            self.audit_repo.create_audit_log(
+                entity_type="AdminUser",
+                entity_id=admin_id,
+                action=AuditActionEnum.UPDATE,
+                actor=admin.username,
+                details={"action": "password_change"}
+            )
+
+            self.db.commit()
+            logger.info(f"Password changed for {admin.username}")
+
+        return updated is not None
+
+    def cleanup_expired_sessions(self) -> int:
+        """Clean up expired sessions.
+
+        Returns:
+            int: Number of sessions removed
+        """
+        count = self.admin_repo.cleanup_expired_sessions()
+        if count > 0:
+            self.db.commit()
+            logger.info(f"Cleaned up {count} expired sessions")
+        return count
+
+
+# FastAPI dependency for protecting routes
+def get_current_admin_dependency(db: Session):
+    """FastAPI dependency to get current admin from request header.
+
+    Usage:
+        @app.get("/admin/endpoint")
+        def protected_route(admin: dict = Depends(get_current_admin_dependency)):
+            # admin contains the validated admin user info
+            pass
+    """
+    from fastapi import Depends, HTTPException, status
+    from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+    security = HTTPBearer()
+
+    def get_current_admin(
+        credentials: HTTPAuthorizationCredentials = Depends(security),
+        db: Session = Depends(db)
+    ):
+        token = credentials.credentials
+        auth_service = AdminAuthService(db)
+        admin = auth_service.validate_session(token)
+
+        if not admin:
+            raise HTTPException(
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Invalid or expired token"
+            )
 
         return admin
 
-    def logout(self, token: str):
-        """Logout admin user (invalidate session).
-
-        Note: Currently, we don't actively invalidate tokens in CSV.
-        Tokens expire naturally based on JWT exp claim.
-        For full invalidation, consider adding a blacklist CSV or token revocation.
-
-        Args:
-            token: JWT token
-        """
-        # For now, just log the logout
-        # In a full implementation, you could add token to a blacklist CSV
-        payload = self.verify_token(token)
-        if payload:
-            logger.info(f"Admin logout: {payload.get('username')}")
+    return get_current_admin

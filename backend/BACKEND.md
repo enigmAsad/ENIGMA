@@ -168,7 +168,7 @@ backend/
 │   │   └── schemas.py         # Pydantic models + enums
 │   ├── services/              # Core business logic
 │   │   ├── identity_scrubber_v2.py    # PII removal + Fernet
-│   │   ├── admin_auth_v2.py           # JWT authentication
+│   │   ├── admin_auth.py           # JWT authentication
 │   │   ├── batch_processor.py         # JSONL export/import
 │   │   ├── phase_manager.py           # 9-phase workflow
 │   │   ├── worker_llm.py              # (Legacy - use batch)
@@ -251,7 +251,7 @@ with get_db_context() as db:
     # Returns AnonymizedApplication with PII encrypted
 ```
 
-### 4. Admin Authentication V2 (`src/services/admin_auth_v2.py`)
+### 4. Admin Authentication (`src/services/admin_auth.py`)
 **Purpose:** JWT-based authentication with PostgreSQL session management.
 
 **Features:**
@@ -264,10 +264,10 @@ with get_db_context() as db:
 
 **Example:**
 ```python
-from src.services.admin_auth_v2 import AdminAuthServiceV2
+from src.services.admin_auth import AdminAuthService
 
 with get_db_context() as db:
-    auth = AdminAuthServiceV2(db)
+    auth = AdminAuthService(db)
     result = auth.login(username="admin", password="secret")
     # Returns: {"token": "...", "admin_id": "...", "expires_at": "..."}
 ```
@@ -1355,9 +1355,9 @@ python scripts/generate_keys.py
 # Clean up expired sessions
 python -c "
 from src.database.engine import get_db_context
-from src.services.admin_auth_v2 import AdminAuthServiceV2
+from src.services.admin_auth import AdminAuthService
 with get_db_context() as db:
-    auth = AdminAuthServiceV2(db)
+    auth = AdminAuthService(db)
     count = auth.cleanup_expired_sessions()
     print(f'Cleaned up {count} expired sessions')
 "
@@ -1467,7 +1467,7 @@ with get_db_context() as db:
 
 **New Services:**
 - `IdentityScrubberV2` - PostgreSQL-based PII removal
-- `AdminAuthServiceV2` - JWT authentication
+- `AdminAuthService` - JWT authentication
 - `BatchProcessingService` - JSONL export/import
 - `PhaseManager` - 9-phase workflow manager
 - `EncryptionService` - Fernet encryption utility

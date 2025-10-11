@@ -94,9 +94,11 @@ This plan outlines the Minimum Viable Product (MVP) for ENIGMA - a fairness-firs
 - `phase1_worker_results.csv` - AI merit evaluations
 - `phase1_judge_results.csv` - AI merit validation
 - `phase2_videos.csv` - Video submission metadata
+- `video_transcripts.csv` - Whisper STT transcriptions of interview videos
 - `evaluator_assignments.csv` - Video-to-evaluator mapping
-- `evaluator_scores.csv` - Human evaluator scores (raw)
-- `bias_flags.csv` - AI-detected bias incidents
+- `evaluator_scores.csv` - Human evaluator scores + written justifications
+- `llm_bias_analysis.csv` - LLM bias detection results (bias_detected, evidence, reasoning)
+- `bias_flags.csv` - AI-detected bias incidents with explanations
 - `phase2_final_scores.csv` - Validated interview scores (after bias correction)
 - `final_scores.csv` - Combined Phase 1 + Phase 2 scores
 - `audit_log.csv` - Full audit trail with timestamps
@@ -112,19 +114,23 @@ This plan outlines the Minimum Viable Product (MVP) for ENIGMA - a fairness-firs
 - **Identity scrubber**: Rule-based PII removal
 
 **Phase 2 (AI Monitors Humans)**:
-- **Bias detection engine**: Statistical analysis (NOT LLM-based for MVP)
-  - Chi-square tests (demographic parity)
-  - Inter-rater reliability (Cronbach's alpha)
-  - Outlier detection (Z-score analysis)
-  - Correlation analysis (scores vs. protected attributes)
-- **Anomaly detector**: Flags suspicious evaluator patterns
+- **Speech-to-Text**: OpenAI Whisper (transcribe video submissions)
+- **Bias detection LLM**: GPT-5-nano or similar (analyzes evaluator reasoning and video content)
+  - Analyzes evaluator justifications for language bias signals
+  - Cross-references justifications with video transcripts
+  - Detects protected attribute mentions (gender, accent, appearance)
+  - Validates score consistency (does reasoning match score?)
+  - Provides transparent reasoning for bias flags
+- **Statistical validation**: Chi-square, inter-rater reliability, outlier detection (complementary)
 - **Hash generator**: SHA-256 cryptographic verification
 
 ### 2.6 Integration Points
 - **Email service**: SendGrid/AWS SES (bulk result delivery)
-- **LLM API**: Anthropic Claude Batch API (Phase 1 only - 50% cheaper than real-time)
+- **Phase 1 LLM API**: Anthropic Claude Batch API (merit evaluation - 50% cheaper than real-time)
+- **Phase 2 STT API**: OpenAI Whisper (video transcription)
+- **Phase 2 LLM API**: OpenAI GPT-5-nano or Claude 3.5 Haiku (bias detection and reasoning)
 - **Hosting**: Vercel/Netlify (frontend), Python cloud function (batch processor)
-- **Storage**: AWS S3/Google Cloud (video submissions)
+- **Storage**: AWS S3/Google Cloud (video submissions + transcripts)
 
 ---
 
@@ -181,7 +187,8 @@ This plan outlines the Minimum Viable Product (MVP) for ENIGMA - a fairness-firs
 2. **Evaluator Scoring**:
    - Evaluators watch videos independently
    - Score using digital rubric (Google Forms or custom app)
-   - Submit scores + brief justification
+   - **Submit scores + detailed written justification** (required for AI analysis)
+   - Justification must explain reasoning for each rubric category
    - Evaluators blinded to applicant identities (anonymized IDs only)
 
 **AI Bias Monitoring (Week 13, Day 4, real-time during evaluation)**
@@ -319,52 +326,148 @@ If REJECT: Retry worker with feedback OR human review
 4. **Few-shot examples**: Provide 5-10 anchor evaluations
 5. **Constitutional AI**: "Evaluate as if you knew nothing except their work"
 
-### 4.2 Phase 2: AI-Monitored Human Evaluation
+### 4.2 Phase 2: AI-Monitored Human Evaluation (STT + LLM Pipeline)
 
-**Core Approach**: Statistical bias detection + rule-based anomaly detection (NOT LLM-based for MVP)
+**Core Approach**: Speech-to-Text transcription + LLM analysis of evaluator reasoning + statistical validation
 
-**Bias Detection Methods**:
+**Three-Layer Bias Detection Architecture**:
 
-1. **Demographic Parity Analysis**:
-   - Chi-square test: Do scores differ by gender/region/accent?
-   - Target: p > 0.05 (no statistically significant difference)
-   - Automatic alert if p < 0.05
+### **Layer 1: Video Transcription (Whisper STT)**
+```
+Video submission → OpenAI Whisper API →
+Transcript: Full text of applicant's interview responses →
+Store in `video_transcripts.csv` with anonymized ID
+```
 
-2. **Inter-Rater Reliability**:
-   - Cronbach's alpha: Should be >0.7 (evaluators agree)
+**Purpose**: Create text baseline of what applicant actually said (for validation against evaluator claims)
+
+### **Layer 2: LLM Bias Analysis (GPT-5-nano or Claude 3.5 Haiku)**
+
+**For Each Evaluator Submission**:
+```
+Input to LLM:
+1. Evaluator score (e.g., Communication: 30/40, Critical Thinking: 28/35, Motivation: 20/25)
+2. Evaluator written justification (e.g., "Applicant seemed hesitant and unclear in responses...")
+3. Video transcript (what applicant actually said)
+4. Rubric criteria (objective standards for scoring)
+
+LLM Analysis Prompt:
+"You are a fairness auditor reviewing an interview evaluation for bias.
+
+Evaluator Justification:
+[Evaluator's written reasoning]
+
+Video Transcript:
+[What applicant actually said]
+
+Rubric Criteria:
+- Communication (0-40): Clarity, articulation, coherence
+- Critical Thinking (0-35): Problem-solving, logical reasoning
+- Motivation (0-25): Genuine interest, alignment with goals
+
+Task: Analyze for bias signals:
+1. Protected Attribute Mentions: Did evaluator reference gender, accent, appearance, or other protected attributes?
+2. Language Bias: Does justification use gendered or biased language? (e.g., 'too emotional', 'not assertive enough', 'accent was distracting')
+3. Score-Justification Mismatch: Does the written justification support the numeric score, or is there a disconnect?
+4. Transcript Validation: Does the evaluator's claim match what the applicant actually said in the transcript?
+5. Rubric Adherence: Did evaluator score based on rubric criteria, or introduce subjective/irrelevant factors?
+
+Output (JSON):
+{
+  "bias_detected": true/false,
+  "bias_type": ["gender_language", "accent_bias", "appearance_mention"],
+  "evidence": ["Quote from evaluator justification showing bias"],
+  "severity": "low" | "medium" | "high",
+  "reasoning": "Detailed explanation of why this is biased",
+  "transcript_mismatch": "Evaluator claimed X, but transcript shows Y",
+  "recommendation": "re_evaluate" | "accept_with_warning" | "accept"
+}
+```
+
+**Example Bias Detection**:
+```json
+{
+  "bias_detected": true,
+  "bias_type": ["accent_bias", "score_justification_mismatch"],
+  "evidence": [
+    "Evaluator wrote: 'Accent made it difficult to understand responses'",
+    "Score: Communication 25/40 (below average)"
+  ],
+  "severity": "high",
+  "reasoning": "Evaluator penalized applicant for accent, which is not in rubric criteria. Transcript shows responses were coherent and well-structured. This is accent bias.",
+  "transcript_mismatch": "Evaluator claimed responses were unclear, but transcript shows clear, articulate answers with proper structure.",
+  "recommendation": "re_evaluate"
+}
+```
+
+### **Layer 3: Statistical Validation (Complementary)**
+
+**After LLM analysis**, run statistical checks:
+
+1. **Inter-Rater Reliability**:
+   - Cronbach's alpha: Should be >0.7 (evaluators generally agree)
    - Flag videos with >20 point disagreement between evaluators
 
-3. **Outlier Detection**:
-   - Z-score analysis: Flag evaluators who score >2 SD from mean
-   - Pattern detection: Flag systematic bias (e.g., always scoring one demographic higher)
+2. **Outlier Detection**:
+   - Z-score analysis: Flag evaluators who consistently score >2 SD from mean
+   - Pattern detection: Flag systematic deviations
 
-4. **Correlation Analysis**:
-   - Pearson correlation: Score correlation with protected attributes
-   - Target: r < 0.3 (low correlation)
-   - Alert if r > 0.5 (high correlation = likely bias)
+3. **Demographic Parity**:
+   - Chi-square test: Do scores correlate with protected attributes?
+   - Target: p > 0.05 (no statistically significant bias)
 
 **Bias Flagging Workflow**:
 ```python
-# Pseudo-code for bias detection
-for evaluator in evaluators:
-    if detect_gender_bias(evaluator.scores):
-        flag_evaluator(evaluator, "Gender bias detected")
-        reassign_videos(evaluator.videos, other_evaluators)
+# Pseudo-code for STT + LLM bias detection pipeline
+for video in shortlisted_videos:
+    # Step 1: Transcribe video
+    transcript = whisper_api.transcribe(video.url)
 
-    if detect_outlier_pattern(evaluator.scores):
-        flag_evaluator(evaluator, "Systematic scoring anomaly")
-        trigger_human_review(evaluator)
+    # Step 2: Collect evaluator submissions
+    evaluations = get_evaluations(video.id)  # 2 evaluators per video
 
-    if inter_rater_disagreement(video) > 20:
-        assign_third_evaluator(video)
-        investigate_discrepancy()
+    for evaluation in evaluations:
+        # Step 3: LLM bias analysis
+        llm_analysis = gpt5_nano.analyze_bias(
+            evaluator_score=evaluation.score,
+            evaluator_justification=evaluation.justification,
+            video_transcript=transcript,
+            rubric_criteria=INTERVIEW_RUBRIC
+        )
+
+        # Step 4: Flag if bias detected
+        if llm_analysis.bias_detected and llm_analysis.severity in ["medium", "high"]:
+            flag_evaluation(
+                video_id=video.id,
+                evaluator_id=evaluation.evaluator_id,
+                bias_type=llm_analysis.bias_type,
+                evidence=llm_analysis.evidence,
+                reasoning=llm_analysis.reasoning
+            )
+
+            # Re-assign to different evaluator
+            reassign_video(video.id, exclude_evaluator=evaluation.evaluator_id)
+
+    # Step 5: Statistical validation (check inter-rater reliability)
+    if inter_rater_disagreement(evaluations) > 20:
+        assign_third_evaluator(video.id)  # Tie-breaker
+
+# Step 6: Pattern analysis across all evaluators
+for evaluator in all_evaluators:
+    evaluator_bias_flags = get_bias_flags(evaluator.id)
+
+    if len(evaluator_bias_flags) > 3:  # Consistently biased
+        remove_from_pool(evaluator.id)
+        re_evaluate_all_videos(evaluator.id)  # Re-score all their videos
 ```
 
 **Success Criteria**:
-- Bias detection rate: Flag >80% of synthetic bias in testing
-- False positive rate: <10% (don't over-flag legitimate disagreements)
-- Inter-rater reliability: Cronbach's alpha >0.7
-- Demographic parity: p > 0.05 across all protected attributes
+- **LLM Bias Detection**: Flag >80% of synthetic bias in testing (adversarial testing with planted biased justifications)
+- **False Positive Rate**: <10% (don't over-flag legitimate disagreements)
+- **Explanation Quality**: >90% of flagged cases have clear, understandable reasoning
+- **Transcript Validation Accuracy**: >95% of transcript-justification mismatches correctly identified
+- **Inter-Rater Reliability**: Cronbach's alpha >0.7 after bias correction
+- **Demographic Parity**: p > 0.05 across all protected attributes (statistical test)
 
 ### 4.3 LangGraph Workflow (Two-Phase State Machine)
 
@@ -441,9 +544,10 @@ State 18: COMPLETED
 
 **Phase 2 Costs (3,500 shortlisted)**:
 - Human evaluators: 5 evaluators × $300 = **$1,500**
+- **Whisper STT API**: 3,500 videos × 5 min avg × $0.006/min = **~$105**
+- **LLM Bias Analysis (GPT-5-nano)**: 7,000 evaluations (2 per video) × ~1K tokens = 7M tokens → **~$70** (at $0.01/1K tokens)
 - Video storage: $20
-- Bias monitoring (statistical): $0 (rule-based, no API costs)
-- **Phase 2 Total: ~$1,520**
+- **Phase 2 Total: ~$1,695**
 
 **Development Costs**:
 - Phase 1 (merit screening): $25K
@@ -452,22 +556,29 @@ State 18: COMPLETED
 - **Total: $34K development**
 
 **Operational** (per cycle):
-- Phase 1 LLM API: $175
-- Phase 2 evaluator compensation: $1,500
+- Phase 1 LLM API (Claude): $175
+- Phase 2 human evaluators: $1,500
+- Phase 2 Whisper STT API: $105
+- Phase 2 LLM bias analysis (GPT-5-nano): $70
 - Infrastructure: $50/month
 - Video storage: $20
 - Email service: $20
-- **Total: ~$1,765/cycle** (vs. $320 AI-only)
+- **Total: ~$1,940/cycle** (vs. $320 AI-only, vs. $1,765 statistical-only)
 
-**Trade-off Analysis**:
-- Higher operational cost (+$1,445/cycle)
-- BUT: Tests actual "sifarish" problem (human bias detection)
-- Stronger proof point for universities ("We catch interviewer favoritism")
-- More realistic (humans will conduct interviews in production)
+**Trade-off Analysis (STT + LLM vs. Statistical-Only)**:
+- Additional cost: +$175/cycle (Whisper + GPT-5-nano)
+- **Massive advantage**: LLM understands context and language bias (not just numbers)
+- **Explainability**: Provides reasoning and evidence for each bias flag (not just "statistically significant")
+- **Catches subtle bias**: Detects gendered language ("too emotional"), accent comments, appearance mentions
+- **Validates justifications**: Cross-references evaluator claims with actual video transcripts
+- **Modern approach**: State-of-the-art bias detection (used by top companies)
+- **Stronger proof point**: "AI detected 'accent bias' in evaluator's justification and corrected it" (concrete example)
+- **Lower false positives**: LLM can distinguish legitimate disagreement from bias
 
 **Scale Economics**:
-- At 100K applications: ~$17,650/cycle (evaluator cost scales linearly)
-- At 1M applications: Transition to AI-assisted live interviews (evaluator cost prohibitive)
+- At 100K applications (35K shortlisted): ~$52,500 evaluators + $3,675 STT + $2,450 LLM = **~$58,625/cycle**
+- At 1M applications (350K shortlisted): ~$525K evaluators + $36,750 STT + $24,500 LLM = **~$586K/cycle**
+- Transition point: ~50K applications → shift to AI-assisted live interviews or self-hosted STT+LLM models
 
 ### 4.7 Evaluation & Quality Assurance
 
@@ -514,10 +625,12 @@ State 18: COMPLETED
 
 **Weeks 5-6: Phase 2 Development**
 - Build video submission portal
-- Build evaluator dashboard (video viewer + digital rubric)
-- Implement bias monitoring engine (statistical analysis)
+- Integrate OpenAI Whisper API (STT transcription)
+- Build evaluator dashboard (video viewer + digital rubric with justification field)
+- Integrate GPT-5-nano/Claude Haiku (LLM bias analysis)
+- Implement bias monitoring pipeline (Whisper → LLM → statistical validation)
 - Build evaluator assignment system
-- Test bias detection on synthetic data
+- Test bias detection on synthetic data (plant biased justifications)
 
 **Weeks 6-7: Evaluator Recruitment** ⚡ NEW
 - Recruit 5-7 human evaluators (professors, HR professionals, admissions staff)
@@ -551,11 +664,13 @@ State 18: COMPLETED
 - Assign videos to evaluators (2 evaluators per video)
 
 **Week 13: Phase 2 Human Evaluation + AI Monitoring**
-- Day 1-3: Evaluators watch videos, submit scores
-- Day 4: AI bias monitoring (real-time analysis of evaluator patterns)
-- Day 4: Bias correction (re-evaluate flagged videos)
+- Day 1: Whisper STT transcription (3.5K videos → text transcripts)
+- Day 2-3: Evaluators watch videos, submit scores + written justifications
+- Day 4: LLM bias analysis (GPT-5-nano analyzes justifications vs. transcripts)
+- Day 4: Statistical validation + bias flagging
+- Day 4: Bias correction (re-evaluate flagged videos with different evaluators)
 - Day 5: Combine Phase 1 + Phase 2 scores, generate hash chain
-- Day 6: Send final results to all applicants, publish fairness dashboard
+- Day 6: Send final results to all applicants, publish fairness dashboard with bias detection metrics
 
 **Week 14-15: Analysis & Outreach**
 - Analyze fairness metrics + bias detection effectiveness
@@ -636,9 +751,10 @@ State 18: COMPLETED
 
 ### 6.6 Cost Success
 - Phase 1 LLM costs <$200 per 10K applications
-- Phase 2 evaluator costs <$2,000 per 3.5K shortlisted
+- Phase 2 evaluator costs <$1,600 per 3.5K shortlisted (evaluators + STT + LLM)
 - Total operational costs <$2,000/cycle
 - Development completed within $34K budget
+- STT + LLM bias detection <$200 per 3.5K shortlisted (proves cost-effective transparency)
 
 ---
 
@@ -692,12 +808,14 @@ State 18: COMPLETED
 - **Total Development: $34,000**
 
 ### 8.2 Operational Costs (Per Cycle)
-- Phase 1 LLM API (10K applications): $175
-- Phase 2 evaluator compensation (5 evaluators): $1,500
+- Phase 1 LLM API (Claude - 10K applications): $175
+- Phase 2 human evaluators (5 evaluators): $1,500
+- Phase 2 Whisper STT (3.5K videos): $105
+- Phase 2 GPT-5-nano bias analysis (7K evaluations): $70
 - Video storage: $20
 - Infrastructure: $50/month
 - Email service: $20
-- **Total Operational: ~$1,765/cycle**
+- **Total Operational: ~$1,940/cycle**
 
 ### 8.3 Team (Lean MVP)
 **Option A: Solo Founder** (Recommended)
@@ -771,16 +889,18 @@ State 18: COMPLETED
 4. ✅ Draft Phase 1 Judge prompt (bias detection)
 
 **Day 3-4**:
-5. ✅ Design bias detection algorithms (chi-square, inter-rater reliability formulas)
-6. ✅ Draft evaluator rubric (digital scoring form)
-7. ✅ Create 10 synthetic applications (varied merit levels)
-8. ✅ Test Phase 1 pipeline on synthetic data
+5. ✅ Sign up for OpenAI API (Whisper STT + GPT-5-nano access)
+6. ✅ Design LLM bias analysis prompt (evaluator justification → bias detection)
+7. ✅ Draft evaluator rubric (digital scoring form with required justification field)
+8. ✅ Create 10 synthetic applications (varied merit levels)
+9. ✅ Test Phase 1 pipeline on synthetic data
 
 **Day 5-7**:
-9. ✅ Implement basic hash chain generator (SHA-256)
-10. ✅ Draft evaluator recruitment materials (job posting, training docs)
-11. ✅ Create project structure (frontend, backend, evaluator dashboard, bias monitoring)
-12. ✅ Begin landing page design
+10. ✅ Implement basic hash chain generator (SHA-256)
+11. ✅ Test Whisper API on sample video (transcription quality check)
+12. ✅ Draft evaluator recruitment materials (job posting, training docs emphasizing written justifications)
+13. ✅ Create project structure (frontend, backend, evaluator dashboard, bias monitoring pipeline)
+14. ✅ Begin landing page design
 
 ### 10.3 Success Vision
 
@@ -792,23 +912,36 @@ If this MVP succeeds, you will have proven that:
 - **Technology** can address deep cultural challenges (sifarish)
 
 **The Compelling Pitch to Universities**:
-> "We processed 5,000 applications. AI scored merit fairly. Then 5 human evaluators conducted 1,750 interviews. Our AI detected 12 instances of potential bias (0.7%) - evaluators scoring differently based on gender/accent - and we corrected them via re-evaluation. This is how we eliminate sifarish."
+> "We processed 5,000 applications. AI scored merit fairly. Then 5 human evaluators conducted 1,750 interviews. Our AI (using Whisper STT + GPT-5-nano) analyzed every evaluator justification:
+>
+> - Transcribed 1,750 videos to validate what applicants actually said
+> - Detected 12 instances of bias (0.7%): evaluators penalizing accents, using gendered language, or making claims unsupported by transcripts
+> - **Example**: Evaluator wrote 'accent made responses unclear' → AI cross-checked transcript → responses were actually clear and well-structured → flagged as accent bias → re-evaluated fairly
+>
+> Every bias flag came with transparent reasoning and evidence. This is how we eliminate sifarish with explainable AI."
 
 This proof of concept paves the way for national transformation, where every opportunity is awarded on **competence, not connections**.
 
 ---
 
-**Document Version**: 5.0 (AI-Assisted Interview Monitoring)
+**Document Version**: 6.0 (STT + LLM Bias Detection)
 **Last Updated**: 2025-10-11
 **Owner**: ENIGMA Core Team
 **Status**: Ready for Implementation
 
-**Major Changes in v5.0:**
-- ✅ **CRITICAL**: Changed Phase 2 from "AI-conducted" to "AI-assisted" interviews
-- ✅ **Human evaluators score interviews**, AI monitors evaluators for bias patterns
-- ✅ Added bias detection engine (statistical analysis, not LLM-based)
-- ✅ Added evaluator management system and digital rubric
-- ✅ Updated costs: $34K development, $1,765/cycle operational (includes evaluator compensation)
-- ✅ Added evaluator recruitment to timeline (Weeks 6-7)
-- ✅ Enhanced proof point: "AI detects human bias" (tackles sifarish directly)
-- ✅ More realistic institutional fit (humans conduct interviews, AI provides oversight)
+**Major Changes in v6.0:**
+- ✅ **CRITICAL**: Phase 2 now uses **OpenAI Whisper (STT) + GPT-5-nano (LLM)** for bias detection
+- ✅ **Three-layer architecture**: Video transcription → LLM bias analysis → Statistical validation
+- ✅ **Explainable bias detection**: LLM provides reasoning and evidence for each flag (not just statistics)
+- ✅ **Context understanding**: Detects language bias ("too emotional"), accent comments, appearance mentions
+- ✅ **Transcript validation**: Cross-references evaluator claims with actual video content
+- ✅ **Evaluators submit written justifications** (required for LLM analysis)
+- ✅ Updated costs: $34K development, $1,940/cycle operational (+$175 for STT + LLM vs. statistical-only)
+- ✅ Modern, transparent approach: "AI detected 'accent bias' in justification and corrected it" (concrete evidence)
+- ✅ Stronger differentiation: State-of-the-art bias detection used by top companies
+
+**Previous Changes (v5.0)**:
+- Changed Phase 2 from "AI-conducted" to "AI-assisted" interviews
+- Human evaluators score interviews, AI monitors evaluators for bias patterns
+- Added evaluator management system and digital rubric
+- Enhanced proof point: "AI detects human bias" (tackles sifarish directly)

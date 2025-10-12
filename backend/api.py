@@ -522,7 +522,12 @@ async def create_cycle(
             end_date=request.end_date,
             created_by=admin["admin_id"]
         )
-        logger.info(f"Created admission cycle: {cycle.cycle_name}")
+
+        # Automatically open the newly created cycle
+        admin_repo.update_cycle(cycle.cycle_id, {"is_open": True})
+        cycle.is_open = True  # Update the object to reflect the change
+
+        logger.info(f"Created and opened admission cycle: {cycle.cycle_name}")
 
         return cycle
 

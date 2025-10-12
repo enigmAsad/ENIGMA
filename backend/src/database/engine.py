@@ -85,6 +85,7 @@ def get_db() -> Generator[Session, None, None]:
     db = SessionLocal()
     try:
         yield db
+        db.commit()  # Commit transaction on successful completion
     except Exception as e:
         logger.error(f"Database session error: {e}")
         db.rollback()

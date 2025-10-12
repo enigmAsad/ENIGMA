@@ -156,3 +156,19 @@ WHERE admission_cycles.is_open = true]
 2025-10-12 03:49:46 | INFO     | main | ✅ Database connection successful
 2025-10-12 03:49:46 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
 2025-10-12 03:49:47 | ERROR    | main | Failed to start server: name 'Dict' is not defined
+2025-10-12 12:00:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:00:50 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:00:50 | INFO     | main | Verifying database connection...
+2025-10-12 12:00:55 | INFO     | database | Database connection verified successfully
+2025-10-12 12:00:55 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:00:55 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:00:55 | ERROR    | main | Failed to start server: name 'Dict' is not defined
+2025-10-12 12:01:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:02:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:03:42 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:04:03 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:04:03 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:04:03 | INFO     | main | Verifying database connection...
+2025-10-12 12:04:07 | INFO     | database | Database connection verified successfully
+2025-10-12 12:04:07 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:04:07 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000

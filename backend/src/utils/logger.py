@@ -9,7 +9,82 @@ from functools import lru_cache
 
 from src.config.settings import get_settings
 from src.models.schemas import AuditLog
-from src.database.repositories import AuditRepository
+
+
+@lru_cache()
+def get_logger(name: str = "enigma") -> logging.Logger:
+    """Get configured logger instance.
+
+    Args:
+        name: Logger name
+
+    Returns:
+        logging.Logger: Configured logger
+    """
+    logger = logging.getLogger(name)
+
+    # Avoid adding handlers multiple times
+    if logger.handlers:
+        return logger
+
+    settings = get_settings()
+
+    # Set log level
+    logger.setLevel(getattr(logging, settings.log_level))
+
+    # Create formatter
+    formatter = logging.Formatter(
+        fmt="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S"
+    )
+
+    # Console handler
+    console_handler = logging.StreamHandler(sys.stdout)
+    console_handler.setFormatter(formatter)
+    logger.addHandler(console_handler)
+
+    # File handler (if configured)
+    if settings.log_file:
+        log_file_path = settings.log_file
+        if not log_file_path.is_absolute():
+            log_file_path = settings.log_dir / log_file_path
+
+        # Ensure log directory exists
+        log_file_path.parent.mkdir(parents=True, exist_ok=True)
+
+        file_handler = logging.FileHandler(log_file_path, encoding="utf-8")
+        file_handler.setFormatter(formatter)
+        logger.addHandler(file_handler)
+
+    # Prevent propagation to root logger
+    logger.propagate = False
+
+    return logger
+
+
+def log_info(message: str, logger_name: str = "enigma"):
+    """Log info message."""
+    get_logger(logger_name).info(message)
+
+
+def log_warning(message: str, logger_name: str = "enigma"):
+    """Log warning message."""
+    get_logger(logger_name).warning(message)
+
+
+def log_error(message: str, logger_name: str = "enigma"):
+    """Log error message."""
+    get_logger(logger_name).error(message)
+
+
+def log_debug(message: str, logger_name: str = "enigma"):
+    """Log debug message."""
+    get_logger(logger_name).debug(message)
+
+
+def log_critical(message: str, logger_name: str = "enigma"):
+    """Log critical message."""
+    get_logger(logger_name).critical(message)
 
 
 class AuditLogger:
@@ -201,79 +276,3 @@ class AuditLogger:
                 "error_details": error_details or {}
             }
         )
-
-
-@lru_cache()
-def get_logger(name: str = "enigma") -> logging.Logger:
-    """Get configured logger instance.
-
-    Args:
-        name: Logger name
-
-    Returns:
-        logging.Logger: Configured logger
-    """
-    logger = logging.getLogger(name)
-
-    # Avoid adding handlers multiple times
-    if logger.handlers:
-        return logger
-
-    settings = get_settings()
-
-    # Set log level
-    logger.setLevel(getattr(logging, settings.log_level))
-
-    # Create formatter
-    formatter = logging.Formatter(
-        fmt="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S"
-    )
-
-    # Console handler
-    console_handler = logging.StreamHandler(sys.stdout)
-    console_handler.setFormatter(formatter)
-    logger.addHandler(console_handler)
-
-    # File handler (if configured)
-    if settings.log_file:
-        log_file_path = settings.log_file
-        if not log_file_path.is_absolute():
-            log_file_path = settings.log_dir / log_file_path
-
-        # Ensure log directory exists
-        log_file_path.parent.mkdir(parents=True, exist_ok=True)
-
-        file_handler = logging.FileHandler(log_file_path, encoding="utf-8")
-        file_handler.setFormatter(formatter)
-        logger.addHandler(file_handler)
-
-    # Prevent propagation to root logger
-    logger.propagate = False
-
-    return logger
-
-
-def log_info(message: str, logger_name: str = "enigma"):
-    """Log info message."""
-    get_logger(logger_name).info(message)
-
-
-def log_warning(message: str, logger_name: str = "enigma"):
-    """Log warning message."""
-    get_logger(logger_name).warning(message)
-
-
-def log_error(message: str, logger_name: str = "enigma"):
-    """Log error message."""
-    get_logger(logger_name).error(message)
-
-
-def log_debug(message: str, logger_name: str = "enigma"):
-    """Log debug message."""
-    get_logger(logger_name).debug(message)
-
-
-def log_critical(message: str, logger_name: str = "enigma"):
-    """Log critical message."""
-    get_logger(logger_name).critical(message)

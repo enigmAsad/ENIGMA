@@ -1,6 +1,6 @@
 """Admin repository for managing admin users, cycles, and sessions."""
 
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
 from datetime import datetime, timedelta
 from sqlalchemy.orm import Session
 from sqlalchemy import select, update, and_

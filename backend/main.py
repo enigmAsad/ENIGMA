@@ -2,12 +2,13 @@
 """ENIGMA Backend - Main Entry Point
 
 This is the main entry point for the ENIGMA backend application.
-Running this file will start the FastAPI server.
+Running this file will start the FastAPI server with auto-reload enabled by default.
 
 Usage:
-    python main.py                  # Start in production mode
-    python main.py --reload         # Start in development mode with auto-reload
+    python main.py                  # Start with auto-reload (development mode)
+    python main.py --no-reload      # Start without auto-reload (production mode)
     python main.py --port 8080      # Start on custom port
+    python main.py --host 0.0.0.0   # Start on specific host
 """
 
 import sys
@@ -82,7 +83,13 @@ def main():
     parser.add_argument(
         "--reload",
         action="store_true",
-        help="Enable auto-reload for development"
+        default=True,
+        help="Enable auto-reload for development (default: enabled)"
+    )
+    parser.add_argument(
+        "--no-reload",
+        action="store_true",
+        help="Disable auto-reload for production"
     )
     parser.add_argument(
         "--skip-checks",
@@ -93,7 +100,7 @@ def main():
     args = parser.parse_args()
 
     print("=" * 70)
-    print("ENIGMA Backend v2.0.0 - PostgreSQL Edition")
+    print("ENIGMA Backend v2.0.2 - PostgreSQL Edition")
     print("AI-Powered Blind Merit Screening System")
     print("=" * 70)
     print()
@@ -118,12 +125,17 @@ def main():
             print()
             return 1
 
+    # Determine reload mode
+    reload_enabled = args.reload and not args.no_reload
+
     # Start server
     print()
     logger.info(f"Starting ENIGMA Backend on {args.host}:{args.port}")
 
-    if args.reload:
+    if reload_enabled:
         logger.info("Development mode: Auto-reload enabled")
+    else:
+        logger.info("Production mode: Auto-reload disabled")
 
     print()
     print(f"🚀 Server starting at http://{args.host}:{args.port}")
@@ -139,7 +151,7 @@ def main():
             "api:app",
             host=args.host,
             port=args.port,
-            reload=args.reload,
+            reload=reload_enabled,
             log_level="info"
         )
     except KeyboardInterrupt:

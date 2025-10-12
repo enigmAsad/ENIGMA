@@ -149,3 +149,10 @@ WHERE admission_cycles.is_open = true]
 2025-10-12 03:13:09 | ERROR    | database | Database session error: 500: name 'ApplicationRepository' is not defined
 2025-10-12 03:13:09 | ERROR    | api | Dashboard stats failed: name 'ApplicationRepository' is not defined
 2025-10-12 03:13:09 | ERROR    | database | Database session error: 500: name 'ApplicationRepository' is not defined
+2025-10-12 03:49:41 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:49:41 | INFO     | main | Running prerequisite checks...
+2025-10-12 03:49:41 | INFO     | main | Verifying database connection...
+2025-10-12 03:49:46 | INFO     | database | Database connection verified successfully
+2025-10-12 03:49:46 | INFO     | main | ✅ Database connection successful
+2025-10-12 03:49:46 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 03:49:47 | ERROR    | main | Failed to start server: name 'Dict' is not defined

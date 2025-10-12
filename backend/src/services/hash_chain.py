@@ -208,7 +208,7 @@ class HashChainGenerator:
         """Verify integrity of entire hash chain.
 
         Args:
-            chain: Optional chain to verify (defaults to full chain from CSV)
+            chain: Optional chain to verify (defaults to full chain from database)
 
         Returns:
             Dict[str, Any]: Verification result with details

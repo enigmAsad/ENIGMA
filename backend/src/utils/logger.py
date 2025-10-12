@@ -9,6 +9,7 @@ from functools import lru_cache
 
 from src.config.settings import get_settings
 from src.models.schemas import AuditLog
+from src.database.repositories import AuditRepository
 
 
 class AuditLogger:

@@ -1,32 +1,33 @@
-"""Identity scrubbing engine for PII removal and anonymization."""
+"""Identity scrubbing engine for PII removal using PostgreSQL and Fernet encryption."""
 
 import re
-import json
-from typing import List, Dict, Any, Optional
+from typing import Optional, Dict, Any
 from datetime import datetime
 
-from src.models.schemas import Application, AnonymizedApplication
-from src.database.repositories import ApplicationRepository
-from src.utils.logger import get_logger, AuditLogger
 from sqlalchemy.orm import Session
 
+from src.models.schemas import Application, AnonymizedApplication
+from src.database.repositories import ApplicationRepository, AuditRepository
+from src.database.models import AuditActionEnum
+from src.utils.encryption import get_encryption_service
+from src.utils.logger import get_logger
 
 logger = get_logger("identity_scrubber")
 
 
 class IdentityScrubber:
-    """Engine for removing PII and creating anonymized applications."""
+    """PostgreSQL-based engine for removing PII and creating anonymized applications."""
 
-    def __init__(self, db: Session, audit_logger: Optional[AuditLogger] = None):
+    def __init__(self, db: Session):
         """Initialize identity scrubber.
 
         Args:
             db: Database session
-            audit_logger: Optional AuditLogger instance
         """
         self.db = db
         self.app_repo = ApplicationRepository(db)
-        self.audit_logger = audit_logger
+        self.audit_repo = AuditRepository(db)
+        self.encryption_service = get_encryption_service()
 
         # Compile regex patterns for performance
         self._email_pattern = re.compile(
@@ -45,142 +46,71 @@ class IdentityScrubber:
             r'@[A-Za-z0-9_]+|(?:facebook|twitter|instagram|linkedin|github)\.com/[A-Za-z0-9_-]+',
             re.IGNORECASE
         )
-
-        # Common name indicators (for basic name detection without NER)
         self._name_indicators = [
             "my name is", "i am", "i'm", "called", "known as",
             "mr.", "mrs.", "ms.", "dr.", "prof."
         ]
-
-        # Location indicators
         self._location_indicators = [
             "from", "live in", "residing in", "located in", "based in",
             "city", "town", "village", "country", "province", "state"
         ]
-
-        # Institution patterns
         self._institution_pattern = re.compile(
             r'\b(?:university|college|school|academy|institute)\s+(?:of\s+)?[A-Z][A-Za-z\s]+',
             re.IGNORECASE
         )
 
     def _scrub_emails(self, text: str) -> str:
-        """Remove email addresses from text.
-
-        Args:
-            text: Input text
-
-        Returns:
-            str: Text with emails replaced
-        """
+        """Remove email addresses from text."""
         return self._email_pattern.sub('[EMAIL_REDACTED]', text)
 
     def _scrub_phones(self, text: str) -> str:
-        """Remove phone numbers from text.
-
-        Args:
-            text: Input text
-
-        Returns:
-            str: Text with phone numbers replaced
-        """
+        """Remove phone numbers from text."""
         return self._phone_pattern.sub('[PHONE_REDACTED]', text)
 
     def _scrub_urls(self, text: str) -> str:
-        """Remove URLs from text.
-
-        Args:
-            text: Input text
-
-        Returns:
-            str: Text with URLs replaced
-        """
+        """Remove URLs from text."""
         return self._url_pattern.sub('[URL_REDACTED]', text)
 
     def _scrub_social_media(self, text: str) -> str:
-        """Remove social media handles and links.
-
-        Args:
-            text: Input text
-
-        Returns:
-            str: Text with social media references replaced
-        """
+        """Remove social media handles and links."""
         return self._social_media_pattern.sub('[SOCIAL_MEDIA_REDACTED]', text)
 
     def _scrub_institutions(self, text: str) -> str:
-        """Remove specific institution names.
-
-        Args:
-            text: Input text
-
-        Returns:
-            str: Text with institution names replaced
-        """
+        """Remove specific institution names."""
         return self._institution_pattern.sub('[INSTITUTION_REDACTED]', text)
 
     def _scrub_name_contexts(self, text: str) -> str:
-        """Remove text following name indicators.
-
-        Args:
-            text: Input text
-
-        Returns:
-            str: Text with names in context replaced
-        """
+        """Remove text following name indicators."""
         result = text
-
         for indicator in self._name_indicators:
-            # Pattern: indicator followed by 1-4 capitalized words
             pattern = re.compile(
                 rf'{re.escape(indicator)}\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){{0,3}})',
                 re.IGNORECASE
             )
             result = pattern.sub(f'{indicator} [NAME_REDACTED]', result)
-
         return result
 
     def _scrub_location_contexts(self, text: str) -> str:
-        """Remove location information following indicators.
-
-        Args:
-            text: Input text
-
-        Returns:
-            str: Text with locations replaced
-        """
+        """Remove location information following indicators."""
         result = text
-
         for indicator in self._location_indicators:
-            # Pattern: indicator followed by capitalized location names
             pattern = re.compile(
                 rf'{re.escape(indicator)}\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+)?)',
                 re.IGNORECASE
             )
             result = pattern.sub(f'{indicator} [LOCATION_REDACTED]', result)
-
         return result
 
     def _scrub_numbers(self, text: str) -> str:
-        """Replace specific identification numbers.
-
-        Args:
-            text: Input text
-
-        Returns:
-            str: Text with ID numbers replaced
-        """
-        # National ID patterns (common formats)
+        """Replace specific identification numbers."""
         id_patterns = [
-            r'\b\d{5}-\d{7}-\d{1}\b',  # Pakistan CNIC format
-            r'\b[A-Z]{2}\d{2}[A-Z]{1}\d{4}[A-Z]{1}\b',  # Some passport formats
+            r'\b\d{5}-\d{7}-\d{1}\b',  # Pakistan CNIC
+            r'\b[A-Z]{2}\d{2}[A-Z]{1}\d{4}[A-Z]{1}\b',  # Passport formats
             r'\b\d{3}-\d{2}-\d{4}\b',  # SSN format
         ]
-
         result = text
         for pattern in id_patterns:
             result = re.sub(pattern, '[ID_REDACTED]', result)
-
         return result
 
     def scrub_text(self, text: str) -> str:
@@ -195,7 +125,6 @@ class IdentityScrubber:
         if not text:
             return text
 
-        # Apply scrubbing in sequence
         scrubbed = text
         scrubbed = self._scrub_emails(scrubbed)
         scrubbed = self._scrub_phones(scrubbed)
@@ -209,7 +138,7 @@ class IdentityScrubber:
         return scrubbed
 
     def generate_anonymized_id(self, application_id: str) -> str:
-        """Generate anonymized ID from application ID.
+        """Generate anonymized ID.
 
         Format: ANON_{timestamp_ms}_{random_6_chars}
 
@@ -224,28 +153,37 @@ class IdentityScrubber:
         random_suffix = uuid.uuid4().hex[:6].upper()
         return f"ANON_{timestamp_ms}_{random_suffix}"
 
-    def scrub_application(self, application: Application) -> AnonymizedApplication:
+    def scrub_application(self, application_id: str) -> AnonymizedApplication:
         """Scrub PII from application and create anonymized version.
 
         Args:
-            application: Original application
+            application_id: Application ID to scrub
 
         Returns:
             AnonymizedApplication: Anonymized application
+
+        Raises:
+            ValueError: If application not found
         """
-        logger.info(f"Scrubbing application: {application.application_id}")
+        logger.info(f"Scrubbing application: {application_id}")
+
+        # Get application from database
+        application = self.app_repo.get_by_application_id(application_id)
+        if not application:
+            raise ValueError(f"Application {application_id} not found")
+
+        # Check if already anonymized
+        existing_anon = self.app_repo.get_anonymized_by_application_id(application_id)
+        if existing_anon:
+            logger.warning(f"Application {application_id} already anonymized as {existing_anon.anonymized_id}")
+            return existing_anon
 
         # Generate anonymized ID
-        anonymized_id = self.generate_anonymized_id(application.application_id)
+        anonymized_id = self.generate_anonymized_id(application_id)
 
-        # Scrub essay
+        # Scrub essay and achievements
         essay_scrubbed = self.scrub_text(application.essay)
-
-        # Scrub achievements
         achievements_scrubbed = self.scrub_text(application.achievements)
-
-        # Track what was removed
-        pii_fields_removed = ["name", "email", "phone", "address"]
 
         # Count redactions
         redaction_counts = {
@@ -258,84 +196,52 @@ class IdentityScrubber:
         }
 
         total_redactions = sum(redaction_counts.values())
-        logger.info(f"Applied {total_redactions} redactions to {application.application_id}")
+        logger.info(f"Applied {total_redactions} redactions to {application_id}")
         logger.debug(f"Redaction breakdown: {redaction_counts}")
 
-        # Create anonymized application
-        anonymized = AnonymizedApplication(
+        # Create anonymized application in database
+        anonymized = self.app_repo.create_anonymized(
             anonymized_id=anonymized_id,
-            application_id=application.application_id,
+            application_id=application_id,
             gpa=application.gpa,
             test_scores=application.test_scores,
             essay_scrubbed=essay_scrubbed,
-            achievements_scrubbed=achievements_scrubbed,
-            created_at=datetime.utcnow()
+            achievements_scrubbed=achievements_scrubbed
         )
 
-        # Persist anonymized application
-        self.app_repo.create_anonymized(anonymized)
+        # Store identity mapping with Fernet encryption
+        pii_data = self.encryption_service.create_pii_dict(
+            name=application.name,
+            email=application.email,
+            phone=application.phone,
+            address=application.address
+        )
+        encrypted_pii = self.encryption_service.encrypt_pii(pii_data)
 
-        # Store identity mapping (encrypted in production)
-        self._store_identity_mapping(
+        self.app_repo.create_identity_mapping(
             anonymized_id=anonymized_id,
-            application_id=application.application_id,
-            pii_data={
-                "name": application.name,
-                "email": application.email,
-                "phone": application.phone,
-                "address": application.address
+            application_id=application_id,
+            encrypted_pii=encrypted_pii
+        )
+
+        # Create audit log
+        self.audit_repo.create_audit_log(
+            entity_type="Application",
+            entity_id=application_id,
+            action=AuditActionEnum.EVALUATE,
+            actor="identity_scrubber",
+            details={
+                "anonymized_id": anonymized_id,
+                "redaction_counts": redaction_counts,
+                "total_redactions": total_redactions
             }
         )
 
-        # Audit log
-        if self.audit_logger:
-            self.audit_logger.log_identity_scrubbing(
-                application_id=application.application_id,
-                anonymized_id=anonymized_id,
-                pii_fields_removed=pii_fields_removed
-            )
+        # Commit transaction
+        self.db.commit()
 
-        logger.info(
-            f"Successfully scrubbed application {application.application_id} → {anonymized_id}"
-        )
-
+        logger.info(f"Successfully scrubbed {application_id} → {anonymized_id}")
         return anonymized
-
-    def _store_identity_mapping(
-        self,
-        anonymized_id: str,
-        application_id: str,
-        pii_data: Dict[str, Any]
-    ):
-        """Store identity mapping for later retrieval.
-
-        In production, this should be encrypted and stored separately.
-
-        Args:
-            anonymized_id: Anonymized ID
-            application_id: Original application ID
-            pii_data: PII data to store (will be encrypted)
-        """
-        # Serialize PII data
-        pii_json = json.dumps(pii_data)
-
-        # In production, encrypt pii_json here using settings.identity_mapping_encryption_key
-        # For MVP, store as base64 encoded
-        import base64
-        encrypted_pii = base64.b64encode(pii_json.encode('utf-8')).decode('utf-8')
-
-        # Create CSV row
-        mapping_row = [
-            anonymized_id,
-            application_id,
-            encrypted_pii,
-            datetime.utcnow().isoformat()
-        ]
-
-        # Store identity mapping in database
-        self.app_repo.create_identity_mapping(anonymized_id, application_id, encrypted_pii)
-
-        logger.debug(f"Stored identity mapping: {anonymized_id} ← {application_id}")
 
     def retrieve_identity(self, anonymized_id: str) -> Optional[Dict[str, Any]]:
         """Retrieve original identity from anonymized ID.
@@ -346,20 +252,17 @@ class IdentityScrubber:
         Returns:
             Optional[Dict[str, Any]]: PII data if found
         """
-        # TODO: Implement identity retrieval from database
-        # For now, return None as identity retrieval is not needed for the pipeline
-        return None
-            if row['anonymized_id'] == anonymized_id:
-                # Decrypt PII data
-                encrypted_pii = row['encrypted_pii']
+        mapping = self.app_repo.get_identity_mapping(anonymized_id)
+        if not mapping:
+            return None
 
-                # For MVP, decode from base64
-                pii_json = base64.b64decode(encrypted_pii).decode('utf-8')
-                pii_data = json.loads(pii_json)
-
-                return pii_data
-
-        return None
+        # Decrypt PII
+        try:
+            pii_data = self.encryption_service.decrypt_pii(mapping.encrypted_pii)
+            return pii_data
+        except Exception as e:
+            logger.error(f"Failed to decrypt PII for {anonymized_id}: {e}")
+            return None
 
     def get_application_id(self, anonymized_id: str) -> Optional[str]:
         """Get original application ID from anonymized ID.
@@ -370,6 +273,5 @@ class IdentityScrubber:
         Returns:
             Optional[str]: Original application ID if found
         """
-        # TODO: Implement application ID retrieval from database
-        # For now, return None as this functionality is not needed for the pipeline
-        return None
+        anon_app = self.app_repo.get_anonymized_by_id(anonymized_id)
+        return anon_app.application_id if anon_app else None

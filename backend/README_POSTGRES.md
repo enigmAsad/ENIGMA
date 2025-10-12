@@ -529,7 +529,7 @@ backend/
 │   ├── models/
 │   │   └── schemas.py         # Pydantic schemas
 │   ├── services/
-│   │   ├── identity_scrubber_v2.py  # PII removal
+│   │   ├── identity_scrubber.py  # PII removal
 │   │   ├── admin_auth.py         # JWT auth
 │   │   ├── batch_processor.py       # JSONL export/import
 │   │   └── phase_manager.py         # Workflow transitions

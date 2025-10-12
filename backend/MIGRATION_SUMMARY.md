@@ -39,7 +39,7 @@ Successfully migrated the ENIGMA backend from CSV-based storage to a production-
 10. `src/database/repositories/audit_repository.py` - Audit and hash chain management
 
 #### Services Layer (5 files)
-11. `src/services/identity_scrubber_v2.py` - PostgreSQL-based PII removal
+11. `src/services/identity_scrubber.py` - PostgreSQL-based PII removal
 12. `src/services/admin_auth.py` - JWT authentication service
 13. `src/services/batch_processor.py` - JSONL export/import
 14. `src/services/phase_manager.py` - 9-phase workflow transitions
@@ -309,23 +309,17 @@ JWT_SECRET=<jwt-secret>         # REQUIRED
 
 ### 3. Code Changes
 
-**Old Service Usage (v1.x):**
-```python
-from src.utils.csv_handler import CSVHandler
-from src.services.identity_scrubber import IdentityScrubber
-
-csv = CSVHandler()
-scrubber = IdentityScrubber(csv)
-scrubber.scrub_application(app)
-```
+**Migration Note:**
+The system has been fully migrated from CSV-based storage to PostgreSQL.
+All legacy CSV functionality has been removed.
 
 **New Service Usage (v2.0):**
 ```python
 from src.database.engine import get_db_context
-from src.services.identity_scrubber_v2 import IdentityScrubberV2
+from src.services.identity_scrubber import IdentityScrubber
 
 with get_db_context() as db:
-    scrubber = IdentityScrubberV2(db)
+    scrubber = IdentityScrubber(db)
     scrubber.scrub_application(app_id)
 ```
 

@@ -167,7 +167,7 @@ backend/
 │   ├── models/
 │   │   └── schemas.py         # Pydantic models + enums
 │   ├── services/              # Core business logic
-│   │   ├── identity_scrubber_v2.py    # PII removal + Fernet
+│   │   ├── identity_scrubber.py    # PII removal + Fernet
 │   │   ├── admin_auth.py           # JWT authentication
 │   │   ├── batch_processor.py         # JSONL export/import
 │   │   ├── phase_manager.py           # 9-phase workflow
@@ -226,7 +226,7 @@ engine = create_engine(
 - `BatchRepository`: Batch runs, worker/judge results, final scores
 - `AuditRepository`: Audit logs, hash chain management
 
-### 3. Identity Scrubber V2 (`src/services/identity_scrubber_v2.py`)
+### 3. Identity Scrubber V2 (`src/services/identity_scrubber.py`)
 **Purpose:** Removes PII and encrypts identity mappings using Fernet.
 
 **Process:**
@@ -243,10 +243,10 @@ engine = create_engine(
 
 **Example:**
 ```python
-from src.services.identity_scrubber_v2 import IdentityScrubberV2
+from src.services.identity_scrubber import IdentityScrubber
 
 with get_db_context() as db:
-    scrubber = IdentityScrubberV2(db)
+    scrubber = IdentityScrubber(db)
     anon = scrubber.scrub_application("APP_12345")
     # Returns AnonymizedApplication with PII encrypted
 ```
@@ -1413,32 +1413,25 @@ with get_db_context() as db:
 
 #### Code Changes
 
-**OLD Service Usage (v1.x):**
-```python
-from src.utils.csv_handler import CSVHandler
-from src.services.identity_scrubber import IdentityScrubber
-
-csv = CSVHandler()
-scrubber = IdentityScrubber(csv)
-scrubber.scrub_application(app)
-```
+**Legacy Migration Note:**
+This system was previously CSV-based but has been fully migrated to PostgreSQL.
+All data persistence now uses database repositories.
 
 **NEW Service Usage (v2.0):**
 ```python
 from src.database.engine import get_db_context
-from src.services.identity_scrubber_v2 import IdentityScrubberV2
+from src.services.identity_scrubber import IdentityScrubber
 
 with get_db_context() as db:
-    scrubber = IdentityScrubberV2(db)
+    scrubber = IdentityScrubber(db)
     scrubber.scrub_application(app_id)
 ```
 
-#### Deprecated Components
+#### Migration Benefits
 
-- `src/utils/csv_handler.py` - Removed
-- `src/services/identity_scrubber.py` - Replaced by V2
-- `src/services/admin_auth.py` - Replaced by V2
-- `data/*.csv` files - Replaced by PostgreSQL tables
+- Database repositories replace file-based storage
+- Enhanced security with proper encryption
+- Improved performance and scalability
 
 ---
 
@@ -1466,7 +1459,7 @@ with get_db_context() as db:
 - Connection pooling with Supabase support
 
 **New Services:**
-- `IdentityScrubberV2` - PostgreSQL-based PII removal
+- `IdentityScrubber` - PostgreSQL-based PII removal
 - `AdminAuthService` - JWT authentication
 - `BatchProcessingService` - JSONL export/import
 - `PhaseManager` - 9-phase workflow manager
@@ -1510,7 +1503,7 @@ with get_db_context() as db:
 - Identity scrubbing (Base64)
 - Cryptographic hash chain
 - Email notifications
-- CSV storage
+- Database storage with PostgreSQL
 - FastAPI REST API
 
 ---

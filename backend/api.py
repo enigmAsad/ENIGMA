@@ -512,14 +512,29 @@ async def create_cycle(
         if active_cycle:
             admin_repo.update_cycle(active_cycle.cycle_id, {"is_open": False})
 
+        # Parse datetime strings as UTC-aware datetimes
+        # Frontend sends ISO format without timezone (e.g., "2025-10-12T13:15:00")
+        # We treat these as UTC times for consistency
+        start_date = datetime.fromisoformat(request.start_date.replace('Z', '+00:00'))
+        end_date = datetime.fromisoformat(request.end_date.replace('Z', '+00:00'))
+        result_date = datetime.fromisoformat(request.result_date.replace('Z', '+00:00'))
+
+        # Ensure timezone-aware (add UTC if naive)
+        if start_date.tzinfo is None:
+            start_date = start_date.replace(tzinfo=timezone.utc)
+        if end_date.tzinfo is None:
+            end_date = end_date.replace(tzinfo=timezone.utc)
+        if result_date.tzinfo is None:
+            result_date = result_date.replace(tzinfo=timezone.utc)
+
         # Create new cycle
         cycle = admin_repo.create_cycle(
             cycle_id=f"CYC_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}",
             cycle_name=request.cycle_name,
             max_seats=request.max_seats,
-            result_date=request.result_date,
-            start_date=request.start_date,
-            end_date=request.end_date,
+            result_date=result_date,
+            start_date=start_date,
+            end_date=end_date,
             created_by=admin["admin_id"]
         )
 
@@ -581,11 +596,23 @@ async def update_cycle(
         if request.max_seats:
             update_data["max_seats"] = request.max_seats
         if request.result_date:
-            update_data["result_date"] = request.result_date
+            # Parse datetime and ensure timezone-aware
+            result_date = datetime.fromisoformat(request.result_date.replace('Z', '+00:00'))
+            if result_date.tzinfo is None:
+                result_date = result_date.replace(tzinfo=timezone.utc)
+            update_data["result_date"] = result_date
         if request.start_date:
-            update_data["start_date"] = request.start_date
+            # Parse datetime and ensure timezone-aware
+            start_date = datetime.fromisoformat(request.start_date.replace('Z', '+00:00'))
+            if start_date.tzinfo is None:
+                start_date = start_date.replace(tzinfo=timezone.utc)
+            update_data["start_date"] = start_date
         if request.end_date:
-            update_data["end_date"] = request.end_date
+            # Parse datetime and ensure timezone-aware
+            end_date = datetime.fromisoformat(request.end_date.replace('Z', '+00:00'))
+            if end_date.tzinfo is None:
+                end_date = end_date.replace(tzinfo=timezone.utc)
+            update_data["end_date"] = end_date
 
         cycle = admin_repo.update_cycle(cycle_id, update_data)
         logger.info(f"Updated admission cycle: {cycle_id}")
@@ -639,7 +666,7 @@ async def close_cycle(
     """Close admission cycle."""
     try:
         admin_repo = AdminRepository(db)
-        cycle = admin_repo.close_cycle(cycle_id)
+        cycle = admin_repo.close_cycle(cycle_id, admin["admin_id"])
 
         if not cycle:
             raise HTTPException(status_code=404, detail="Cycle not found")

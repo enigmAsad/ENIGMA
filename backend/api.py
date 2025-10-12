@@ -4,7 +4,7 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field
 from typing import Dict, Any, List, Optional
-from datetime import datetime
+from datetime import datetime, timezone
 import asyncio
 import logging
 
@@ -124,7 +124,7 @@ class DashboardStatsResponse(BaseModel):
 
 
 # Admin Authentication Dependency
-async def get_current_admin(authorization: str = Header(None), db: Session = Depends(get_db)) -> AdminUser:
+async def get_current_admin(authorization: str = Header(None), db: Session = Depends(get_db)) -> Dict[str, Any]:
     """Dependency to get current authenticated admin.
 
     Args:
@@ -132,7 +132,7 @@ async def get_current_admin(authorization: str = Header(None), db: Session = Dep
         db: Database session
 
     Returns:
-        AdminUser: Authenticated admin user
+        Dict[str, Any]: Authenticated admin user info (dict with admin_id, username, email, role, is_active)
 
     Raises:
         HTTPException: If authentication fails
@@ -228,7 +228,7 @@ async def submit_application(
             )
 
         # Check if within date range
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         if not (active_cycle.start_date <= now <= active_cycle.end_date):
             raise HTTPException(
                 status_code=400,
@@ -468,25 +468,25 @@ async def admin_login(request: AdminLoginRequest, db: Session = Depends(get_db))
 
 
 @app.post("/admin/auth/logout")
-async def admin_logout(admin: AdminUser = Depends(get_current_admin)):
+async def admin_logout(admin: Dict[str, Any] = Depends(get_current_admin)):
     """Admin logout endpoint."""
     return {"success": True, "message": "Logged out successfully"}
 
 
 @app.get("/admin/auth/me")
-async def get_current_admin_info(admin: AdminUser = Depends(get_current_admin)):
+async def get_current_admin_info(admin: Dict[str, Any] = Depends(get_current_admin)):
     """Get current admin user info."""
     return {
-        "admin_id": admin.admin_id,
-        "username": admin.username,
-        "email": admin.email,
-        "role": admin.role
+        "admin_id": admin["admin_id"],
+        "username": admin["username"],
+        "email": admin["email"],
+        "role": admin["role"]
     }
 
 
 # Admission Cycles
 @app.get("/admin/cycles", response_model=List[AdmissionCycle])
-async def get_all_cycles(admin: AdminUser = Depends(get_current_admin), db: Session = Depends(get_db)):
+async def get_all_cycles(admin: Dict[str, Any] = Depends(get_current_admin), db: Session = Depends(get_db)):
     """Get all admission cycles."""
     try:
         admin_repo = AdminRepository(db)
@@ -500,7 +500,7 @@ async def get_all_cycles(admin: AdminUser = Depends(get_current_admin), db: Sess
 @app.post("/admin/cycles", response_model=AdmissionCycle)
 async def create_cycle(
     request: CreateCycleRequest,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Create new admission cycle."""
@@ -520,7 +520,7 @@ async def create_cycle(
             result_date=request.result_date,
             start_date=request.start_date,
             end_date=request.end_date,
-            created_by=admin.username
+            created_by=admin["username"]
         )
         logger.info(f"Created admission cycle: {cycle.cycle_name}")
 
@@ -534,7 +534,7 @@ async def create_cycle(
 @app.get("/admin/cycles/{cycle_id}", response_model=AdmissionCycle)
 async def get_cycle(
     cycle_id: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Get admission cycle by ID."""
@@ -558,7 +558,7 @@ async def get_cycle(
 async def update_cycle(
     cycle_id: str,
     request: UpdateCycleRequest,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Update admission cycle."""
@@ -597,7 +597,7 @@ async def update_cycle(
 @app.put("/admin/cycles/{cycle_id}/open", response_model=AdmissionCycle)
 async def open_cycle(
     cycle_id: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Open admission cycle."""
@@ -628,7 +628,7 @@ async def open_cycle(
 @app.put("/admin/cycles/{cycle_id}/close", response_model=AdmissionCycle)
 async def close_cycle(
     cycle_id: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Close admission cycle."""
@@ -651,7 +651,7 @@ async def close_cycle(
 
 
 @app.get("/admin/cycles/active/current", response_model=Optional[AdmissionCycle])
-async def get_active_cycle_admin(admin: AdminUser = Depends(get_current_admin), db: Session = Depends(get_db)):
+async def get_active_cycle_admin(admin: Dict[str, Any] = Depends(get_current_admin), db: Session = Depends(get_db)):
     """Get currently active cycle (admin endpoint)."""
     try:
         admin_repo = AdminRepository(db)
@@ -677,7 +677,7 @@ async def get_admission_info(db: Session = Depends(get_db)):
             )
 
         # Check if within date range
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         is_in_range = active_cycle.start_date <= now <= active_cycle.end_date
         seats_available = active_cycle.current_seats < active_cycle.max_seats
 
@@ -720,7 +720,7 @@ async def get_admission_status(db: Session = Depends(get_db)):
         if not active_cycle:
             return {"is_open": False}
 
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         is_in_range = active_cycle.start_date <= now <= active_cycle.end_date
         seats_available = active_cycle.current_seats < active_cycle.max_seats
 
@@ -740,7 +740,7 @@ async def get_admission_status(db: Session = Depends(get_db)):
 @app.post("/admin/cycles/{cycle_id}/freeze", response_model=AdmissionCycle)
 async def freeze_cycle(
     cycle_id: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Phase 1 → Phase 2: Freeze admission cycle and finalize applications."""
@@ -748,7 +748,7 @@ async def freeze_cycle(
         phase_mgr = PhaseManager(db)
         cycle = phase_mgr.freeze_cycle(cycle_id)
 
-        logger.info(f"Cycle {cycle_id} frozen by admin {admin.username}")
+        logger.info(f"Cycle {cycle_id} frozen by admin {admin["username"]}")
         return cycle
 
     except Exception as e:
@@ -759,7 +759,7 @@ async def freeze_cycle(
 @app.post("/admin/cycles/{cycle_id}/preprocess", response_model=AdmissionCycle)
 async def start_preprocessing(
     cycle_id: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Phase 2 → Phase 3: Compute deterministic metrics for all applications."""
@@ -767,7 +767,7 @@ async def start_preprocessing(
         phase_mgr = PhaseManager(db)
         cycle = phase_mgr.start_preprocessing(cycle_id)
 
-        logger.info(f"Preprocessing started for cycle {cycle_id} by admin {admin.username}")
+        logger.info(f"Preprocessing started for cycle {cycle_id} by admin {admin["username"]}")
         return cycle
 
     except Exception as e:
@@ -778,7 +778,7 @@ async def start_preprocessing(
 @app.post("/admin/cycles/{cycle_id}/export", response_model=Dict[str, Any])
 async def export_batch_data(
     cycle_id: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Phase 3 → Phase 4: Export applications to JSONL for LLM batch processing."""
@@ -799,7 +799,7 @@ async def export_batch_data(
             model_name=get_settings().worker_model,
             input_file_path=file_path,
             total_records=record_count,
-            triggered_by=admin.username
+            triggered_by=admin["username"]
         )
 
         result = {
@@ -810,7 +810,7 @@ async def export_batch_data(
             "message": f"Exported {record_count} applications to JSONL for batch processing"
         }
 
-        logger.info(f"Batch export completed for cycle {cycle_id} by admin {admin.username}")
+        logger.info(f"Batch export completed for cycle {cycle_id} by admin {admin["username"]}")
         return result
 
     except Exception as e:
@@ -821,7 +821,7 @@ async def export_batch_data(
 @app.post("/admin/cycles/{cycle_id}/processing", response_model=AdmissionCycle)
 async def start_llm_processing(
     cycle_id: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Phase 4 → Phase 5: Mark cycle as processing (LLM batch running externally)."""
@@ -829,7 +829,7 @@ async def start_llm_processing(
         phase_mgr = PhaseManager(db)
         cycle = phase_mgr.start_processing(cycle_id)
 
-        logger.info(f"LLM processing started for cycle {cycle_id} by admin {admin.username}")
+        logger.info(f"LLM processing started for cycle {cycle_id} by admin {admin["username"]}")
         return cycle
 
     except Exception as e:
@@ -841,7 +841,7 @@ async def start_llm_processing(
 async def import_llm_results(
     batch_id: int,
     results_file: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Phase 6: Import LLM results from JSONL file and update database."""
@@ -860,7 +860,7 @@ async def import_llm_results(
             "message": f"Imported {imported_count} LLM results"
         }
 
-        logger.info(f"LLM results imported for batch {batch_id} by admin {admin.username}")
+        logger.info(f"LLM results imported for batch {batch_id} by admin {admin["username"]}")
         return result
 
     except Exception as e:
@@ -871,15 +871,15 @@ async def import_llm_results(
 @app.post("/admin/cycles/{cycle_id}/select", response_model=Dict[str, Any])
 async def perform_selection(
     cycle_id: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Phase 6 → Phase 7: Perform Top-K selection based on final scores."""
     try:
         phase_mgr = PhaseManager(db)
-        result = phase_mgr.perform_selection(cycle_id, admin.admin_id)
+        result = phase_mgr.perform_selection(cycle_id, admin["admin_id"])
 
-        logger.info(f"Selection performed for cycle {cycle_id} by admin {admin.username}")
+        logger.info(f"Selection performed for cycle {cycle_id} by admin {admin["username"]}")
         return result
 
     except Exception as e:
@@ -890,7 +890,7 @@ async def perform_selection(
 @app.post("/admin/cycles/{cycle_id}/publish", response_model=AdmissionCycle)
 async def publish_results(
     cycle_id: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Phase 7 → Phase 8: Publish results to student portal."""
@@ -898,7 +898,7 @@ async def publish_results(
         phase_mgr = PhaseManager(db)
         cycle = phase_mgr.publish_results(cycle_id)
 
-        logger.info(f"Results published for cycle {cycle_id} by admin {admin.username}")
+        logger.info(f"Results published for cycle {cycle_id} by admin {admin["username"]}")
         return cycle
 
     except Exception as e:
@@ -909,15 +909,15 @@ async def publish_results(
 @app.post("/admin/cycles/{cycle_id}/complete", response_model=AdmissionCycle)
 async def complete_cycle(
     cycle_id: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Phase 8 → Phase 9: Complete admission cycle."""
     try:
         phase_mgr = PhaseManager(db)
-        cycle = phase_mgr.complete_cycle(cycle_id, admin.username)
+        cycle = phase_mgr.complete_cycle(cycle_id, admin["username"])
 
-        logger.info(f"Cycle {cycle_id} completed by admin {admin.username}")
+        logger.info(f"Cycle {cycle_id} completed by admin {admin["username"]}")
         return cycle
 
     except Exception as e:
@@ -928,7 +928,7 @@ async def complete_cycle(
 @app.get("/admin/cycles/{cycle_id}/status", response_model=Dict[str, Any])
 async def get_cycle_status(
     cycle_id: str,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Get comprehensive cycle status including application counts."""
@@ -951,7 +951,7 @@ async def get_cycle_status(
 @app.get("/admin/batch/{batch_id}/status", response_model=Dict[str, Any])
 async def get_batch_status(
     batch_id: int,
-    admin: AdminUser = Depends(get_current_admin),
+    admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
     """Get batch processing status."""

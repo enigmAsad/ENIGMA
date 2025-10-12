@@ -7,12 +7,18 @@ from typing import Optional
 from pydantic import Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+# Get the backend directory (project root) - 3 levels up from this file
+# settings.py is in: backend/src/config/settings.py
+# .env is in: backend/.env
+_BACKEND_DIR = Path(__file__).parent.parent.parent
+_ENV_FILE = _BACKEND_DIR / ".env"
+
 
 class Settings(BaseSettings):
     """Application settings loaded from environment variables."""
 
     model_config = SettingsConfigDict(
-        env_file=".env",
+        env_file=str(_ENV_FILE),
         env_file_encoding="utf-8",
         case_sensitive=False,
         extra="ignore"
@@ -333,7 +339,7 @@ def _init_directories():
 
 
 # Auto-initialize on import (only if .env exists)
-if Path(".env").exists():
+if _ENV_FILE.exists():
     try:
         _init_directories()
     except Exception:

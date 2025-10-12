@@ -1,7 +1,7 @@
 """Admin authentication service using PostgreSQL and JWT."""
 
 from typing import Optional, Dict, Any
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 import bcrypt
 import jwt
@@ -78,14 +78,14 @@ class AdminAuthService:
             tuple[str, datetime]: (JWT token, expiration datetime)
         """
         expiry_hours = self.settings.admin_token_expiry_hours
-        expires_at = datetime.utcnow() + timedelta(hours=expiry_hours)
+        expires_at = datetime.now(timezone.utc) + timedelta(hours=expiry_hours)
 
         payload = {
             "admin_id": admin_id,
             "username": username,
             "role": role.value,
             "exp": expires_at,
-            "iat": datetime.utcnow(),
+            "iat": datetime.now(timezone.utc),
             "type": "admin_access"
         }
 

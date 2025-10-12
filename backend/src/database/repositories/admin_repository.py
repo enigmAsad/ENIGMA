@@ -1,7 +1,7 @@
 """Admin repository for managing admin users, cycles, and sessions."""
 
 from typing import List, Optional, Dict, Any
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from sqlalchemy.orm import Session
 from sqlalchemy import select, update, and_
 
@@ -70,7 +70,7 @@ class AdminRepository(BaseRepository[AdminUser]):
         """Update admin's last login timestamp."""
         return self.update(
             admin_id,
-            {"last_login": datetime.utcnow()},
+            {"last_login": datetime.now(timezone.utc)},
             "admin_id"
         )
 
@@ -138,7 +138,7 @@ class AdminRepository(BaseRepository[AdminUser]):
         if session.revoked:
             return False
 
-        if session.expires_at < datetime.utcnow():
+        if session.expires_at < datetime.now(timezone.utc):
             return False
 
         return True
@@ -190,7 +190,7 @@ class AdminRepository(BaseRepository[AdminUser]):
         """
         from sqlalchemy import delete
         stmt = delete(AdminSession).where(
-            AdminSession.expires_at < datetime.utcnow()
+            AdminSession.expires_at < datetime.now(timezone.utc)
         )
         result = self.db.execute(stmt)
         self.db.flush()
@@ -343,7 +343,7 @@ class AdminRepository(BaseRepository[AdminUser]):
             .where(AdmissionCycle.cycle_id == cycle_id)
             .values(
                 is_open=False,
-                closed_at=datetime.utcnow(),
+                closed_at=datetime.now(timezone.utc),
                 closed_by=closed_by
             )
             .returning(AdmissionCycle)

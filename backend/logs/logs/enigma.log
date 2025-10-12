@@ -172,3 +172,41 @@ WHERE admission_cycles.is_open = true]
 2025-10-12 12:04:07 | INFO     | database | Database connection verified successfully
 2025-10-12 12:04:07 | INFO     | main | ✅ Database connection successful
 2025-10-12 12:04:07 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:06:39 | INFO     | admin_auth | Login attempt for username: asadghaffar.dev@gmail.com
+2025-10-12 12:06:39 | WARNING  | admin_auth | Login failed: user asadghaffar.dev@gmail.com not found
+2025-10-12 12:06:39 | ERROR    | database | Database session error: 401: Invalid credentials
+2025-10-12 12:16:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:16:50 | INFO     | database | Database connection verified successfully
+2025-10-12 12:17:30 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:18:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:18:21 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:18:21 | INFO     | main | Verifying database connection...
+2025-10-12 12:18:26 | INFO     | database | Database connection verified successfully
+2025-10-12 12:18:26 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:18:26 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:29:30 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:29:30 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:29:30 | INFO     | main | Verifying database connection...
+2025-10-12 12:29:35 | INFO     | database | Database connection verified successfully
+2025-10-12 12:29:35 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:29:35 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:30:19 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 12:30:23 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 12:30:24 | ERROR    | database | Database session error: can't compare offset-naive and offset-aware datetimes
+2025-10-12 12:30:25 | ERROR    | database | Database session error: can't compare offset-naive and offset-aware datetimes
+2025-10-12 12:35:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:35:58 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:35:58 | INFO     | main | Verifying database connection...
+2025-10-12 12:36:02 | INFO     | database | Database connection verified successfully
+2025-10-12 12:36:02 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:36:02 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:37:08 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 12:37:11 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 12:37:13 | ERROR    | database | Database session error: 'dict' object has no attribute 'admin_id'
+2025-10-12 12:37:14 | ERROR    | database | Database session error: 'dict' object has no attribute 'admin_id'
+2025-10-12 12:40:11 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:40:11 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:40:11 | INFO     | main | Verifying database connection...
+2025-10-12 12:40:17 | INFO     | database | Database connection verified successfully
+2025-10-12 12:40:17 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:40:17 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000

@@ -3,15 +3,18 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
-import { adminApiClient, type AdmissionCycle } from '@/lib/adminApi';
+import { adminApiClient, type AdmissionCycle, type CycleStatus } from '@/lib/adminApi';
 import { apiClient } from '@/lib/api';
+import PhaseProgress from '@/components/PhaseProgress';
 
 export default function AdminDashboard() {
   const router = useRouter();
   const { isAuthenticated, isLoading, admin, logout } = useAdminAuth();
   const [activeCycle, setActiveCycle] = useState<AdmissionCycle | null>(null);
+  const [cycleStatus, setCycleStatus] = useState<CycleStatus | null>(null);
   const [stats, setStats] = useState<any>(null);
   const [loadingData, setLoadingData] = useState(true);
+  const [processingAction, setProcessingAction] = useState<string | null>(null);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -28,11 +31,101 @@ export default function AdminDashboard() {
 
       setActiveCycle(cycle);
       setStats(dashStats);
+
+      // Load detailed cycle status if cycle exists
+      if (cycle) {
+        try {
+          const status = await adminApiClient.getCycleStatus(cycle.cycle_id);
+          setCycleStatus(status);
+        } catch (error) {
+          console.error('Failed to load cycle status:', error);
+        }
+      }
     } catch (error) {
       console.error('Failed to load dashboard data:', error);
     } finally {
       setLoadingData(false);
     }
+  };
+
+  const handlePhaseTransition = async (action: string) => {
+    if (!activeCycle) return;
+
+    setProcessingAction(action);
+    try {
+      let result;
+      switch (action) {
+        case 'freeze':
+          result = await adminApiClient.freezeCycle(activeCycle.cycle_id);
+          break;
+        case 'preprocess':
+          result = await adminApiClient.startPreprocessing(activeCycle.cycle_id);
+          break;
+        case 'export':
+          result = await adminApiClient.exportBatchData(activeCycle.cycle_id);
+          alert(`Exported ${result.record_count} applications. Batch ID: ${result.batch_id}`);
+          break;
+        case 'processing':
+          result = await adminApiClient.startLLMProcessing(activeCycle.cycle_id);
+          break;
+        case 'select':
+          result = await adminApiClient.performSelection(activeCycle.cycle_id);
+          alert(`Selected ${result.selected_count} applicants with cutoff score ${result.cutoff_score.toFixed(2)}`);
+          break;
+        case 'publish':
+          result = await adminApiClient.publishResults(activeCycle.cycle_id);
+          break;
+        case 'complete':
+          result = await adminApiClient.completeCycle(activeCycle.cycle_id);
+          break;
+        default:
+          throw new Error('Unknown action');
+      }
+
+      // Refresh data
+      await loadDashboardData();
+    } catch (error: any) {
+      alert(error.message || `Failed to ${action} cycle`);
+      console.error(`Phase transition error:`, error);
+    } finally {
+      setProcessingAction(null);
+    }
+  };
+
+  const getAvailableActions = () => {
+    if (!activeCycle) return [];
+
+    const actions = [];
+    const phase = activeCycle.phase;
+
+    switch (phase) {
+      case 'SUBMISSION':
+        actions.push({ key: 'freeze', label: 'Freeze Cycle', variant: 'primary' });
+        break;
+      case 'FROZEN':
+        actions.push({ key: 'preprocess', label: 'Start Preprocessing', variant: 'primary' });
+        break;
+      case 'PREPROCESSING':
+        actions.push({ key: 'export', label: 'Export for LLM', variant: 'primary' });
+        break;
+      case 'BATCH_PREP':
+        actions.push({ key: 'processing', label: 'Start LLM Processing', variant: 'primary' });
+        break;
+      case 'PROCESSING':
+        // No direct action - LLM processing happens externally
+        break;
+      case 'SCORED':
+        actions.push({ key: 'select', label: 'Perform Selection', variant: 'primary' });
+        break;
+      case 'SELECTION':
+        actions.push({ key: 'publish', label: 'Publish Results', variant: 'primary' });
+        break;
+      case 'PUBLISHED':
+        actions.push({ key: 'complete', label: 'Complete Cycle', variant: 'secondary' });
+        break;
+    }
+
+    return actions;
   };
 
   if (isLoading || loadingData) {
@@ -81,48 +174,117 @@ export default function AdminDashboard() {
         <div className="mb-8">
           <h2 className="text-lg font-semibold text-gray-900 mb-4">Current Admission Cycle</h2>
           {activeCycle ? (
-            <div className="bg-white rounded-lg shadow p-6">
-              <div className="flex justify-between items-start">
-                <div>
-                  <h3 className="text-xl font-bold text-gray-900">{activeCycle.cycle_name}</h3>
-                  <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-                    <div>
-                      <p className="text-sm text-gray-600">Status</p>
-                      <p className="text-lg font-semibold">
-                        {activeCycle.is_open ? (
-                          <span className="text-green-600">Open</span>
-                        ) : (
-                          <span className="text-red-600">Closed</span>
-                        )}
-                      </p>
+            <div className="space-y-6">
+              <div className="bg-white rounded-lg shadow p-6">
+                <div className="flex justify-between items-start">
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900">{activeCycle.cycle_name}</h3>
+                    <p className="text-sm text-gray-600 mt-1">
+                      Phase: <span className="font-semibold capitalize">{activeCycle.phase.toLowerCase()}</span>
+                    </p>
+                    <div className="mt-4 grid grid-cols-2 md:grid-cols-5 gap-4">
+                      <div>
+                        <p className="text-sm text-gray-600">Status</p>
+                        <p className="text-lg font-semibold">
+                          {activeCycle.is_open ? (
+                            <span className="text-green-600">Open</span>
+                          ) : (
+                            <span className="text-red-600">Closed</span>
+                          )}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">Seats</p>
+                        <p className="text-lg font-semibold">
+                          {activeCycle.current_seats} / {activeCycle.max_seats}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">Selected</p>
+                        <p className="text-lg font-semibold">
+                          {activeCycle.selected_count || 0}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">Start Date</p>
+                        <p className="text-lg font-semibold">
+                          {new Date(activeCycle.start_date).toLocaleDateString()}
+                        </p>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-600">End Date</p>
+                        <p className="text-lg font-semibold">
+                          {new Date(activeCycle.end_date).toLocaleDateString()}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-sm text-gray-600">Seats</p>
-                      <p className="text-lg font-semibold">
-                        {activeCycle.current_seats} / {activeCycle.max_seats}
-                      </p>
+                  </div>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => router.push('/admin/cycles')}
+                      className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                    >
+                      Manage
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Phase Progress */}
+              <PhaseProgress currentPhase={activeCycle.phase} />
+
+              {/* Phase Actions */}
+              <div className="bg-white rounded-lg shadow p-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">Phase Actions</h3>
+                <div className="flex flex-wrap gap-3">
+                  {getAvailableActions().map((action) => (
+                    <button
+                      key={action.key}
+                      onClick={() => handlePhaseTransition(action.key)}
+                      disabled={processingAction !== null}
+                      className={`px-4 py-2 rounded-lg font-medium transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed ${
+                        action.variant === 'primary'
+                          ? 'bg-blue-600 text-white hover:bg-blue-700'
+                          : 'bg-gray-600 text-white hover:bg-gray-700'
+                      }`}
+                    >
+                      {processingAction === action.key ? 'Processing...' : action.label}
+                    </button>
+                  ))}
+                  {getAvailableActions().length === 0 && (
+                    <p className="text-gray-500 italic">No actions available for current phase</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Detailed Status */}
+              {cycleStatus && (
+                <div className="bg-white rounded-lg shadow p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Application Status</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-blue-600">{cycleStatus.stats.total_applications}</p>
+                      <p className="text-sm text-gray-600">Total Applications</p>
                     </div>
-                    <div>
-                      <p className="text-sm text-gray-600">Start Date</p>
-                      <p className="text-lg font-semibold">
-                        {new Date(activeCycle.start_date).toLocaleDateString()}
-                      </p>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-yellow-600">{cycleStatus.stats.submitted}</p>
+                      <p className="text-sm text-gray-600">Submitted</p>
                     </div>
-                    <div>
-                      <p className="text-sm text-gray-600">End Date</p>
-                      <p className="text-lg font-semibold">
-                        {new Date(activeCycle.end_date).toLocaleDateString()}
-                      </p>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-purple-600">{cycleStatus.stats.finalized}</p>
+                      <p className="text-sm text-gray-600">Finalized</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-green-600">{cycleStatus.stats.scored}</p>
+                      <p className="text-sm text-gray-600">Scored</p>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-2xl font-bold text-indigo-600">{cycleStatus.stats.selected}</p>
+                      <p className="text-sm text-gray-600">Selected</p>
                     </div>
                   </div>
                 </div>
-                <button
-                  onClick={() => router.push('/admin/cycles')}
-                  className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-                >
-                  Manage
-                </button>
-              </div>
+              )}
             </div>
           ) : (
             <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">

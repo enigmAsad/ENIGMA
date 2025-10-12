@@ -3,12 +3,15 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
-import { adminApiClient, type AdmissionCycle, type CreateCycleRequest } from '@/lib/adminApi';
+import { adminApiClient, type AdmissionCycle, type CreateCycleRequest, type CycleStatus } from '@/lib/adminApi';
+import PhaseProgress from '@/components/PhaseProgress';
+import BatchManagement from '@/components/BatchManagement';
 
 export default function AdminCyclesPage() {
   const router = useRouter();
   const { isAuthenticated, isLoading, admin, logout } = useAdminAuth();
   const [cycles, setCycles] = useState<AdmissionCycle[]>([]);
+  const [cycleStatuses, setCycleStatuses] = useState<Record<string, CycleStatus>>({});
   const [loadingData, setLoadingData] = useState(true);
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [formData, setFormData] = useState<CreateCycleRequest>({
@@ -20,6 +23,7 @@ export default function AdminCyclesPage() {
   });
   const [formError, setFormError] = useState('');
   const [processing, setProcessing] = useState<string | null>(null);
+  const [expandedCycle, setExpandedCycle] = useState<string | null>(null);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -31,11 +35,107 @@ export default function AdminCyclesPage() {
     try {
       const data = await adminApiClient.getAllCycles();
       setCycles(data);
+
+      // Load status for each cycle
+      const statusPromises = data.map(async (cycle) => {
+        try {
+          const status = await adminApiClient.getCycleStatus(cycle.cycle_id);
+          return { cycleId: cycle.cycle_id, status };
+        } catch (error) {
+          console.error(`Failed to load status for cycle ${cycle.cycle_id}:`, error);
+          return null;
+        }
+      });
+
+      const statuses = await Promise.all(statusPromises);
+      const statusMap: Record<string, CycleStatus> = {};
+      statuses.forEach((item) => {
+        if (item) {
+          statusMap[item.cycleId] = item.status;
+        }
+      });
+      setCycleStatuses(statusMap);
     } catch (error) {
       console.error('Failed to load cycles:', error);
     } finally {
       setLoadingData(false);
     }
+  };
+
+  const handlePhaseTransition = async (cycleId: string, action: string) => {
+    setProcessing(cycleId);
+    try {
+      let result;
+      switch (action) {
+        case 'freeze':
+          result = await adminApiClient.freezeCycle(cycleId);
+          break;
+        case 'preprocess':
+          result = await adminApiClient.startPreprocessing(cycleId);
+          break;
+        case 'export':
+          result = await adminApiClient.exportBatchData(cycleId);
+          alert(`Exported ${result.record_count} applications. Batch ID: ${result.batch_id}`);
+          break;
+        case 'processing':
+          result = await adminApiClient.startLLMProcessing(cycleId);
+          break;
+        case 'select':
+          result = await adminApiClient.performSelection(cycleId);
+          alert(`Selected ${result.selected_count} applicants with cutoff score ${result.cutoff_score.toFixed(2)}`);
+          break;
+        case 'publish':
+          result = await adminApiClient.publishResults(cycleId);
+          break;
+        case 'complete':
+          result = await adminApiClient.completeCycle(cycleId);
+          break;
+        default:
+          throw new Error('Unknown action');
+      }
+
+      // Refresh data
+      await loadCycles();
+    } catch (error: any) {
+      alert(error.message || `Failed to ${action} cycle`);
+      console.error(`Phase transition error:`, error);
+    } finally {
+      setProcessing(null);
+    }
+  };
+
+  const getAvailableActions = (cycle: AdmissionCycle) => {
+    const actions = [];
+    const phase = cycle.phase;
+
+    switch (phase) {
+      case 'SUBMISSION':
+        actions.push({ key: 'freeze', label: 'Freeze Cycle', variant: 'primary' });
+        break;
+      case 'FROZEN':
+        actions.push({ key: 'preprocess', label: 'Start Preprocessing', variant: 'primary' });
+        break;
+      case 'PREPROCESSING':
+        actions.push({ key: 'export', label: 'Export for LLM', variant: 'primary' });
+        break;
+      case 'BATCH_PREP':
+        actions.push({ key: 'processing', label: 'Start LLM Processing', variant: 'primary' });
+        break;
+      case 'PROCESSING':
+        // No direct action - LLM processing happens externally
+        break;
+      case 'SCORED':
+        actions.push({ key: 'select', label: 'Perform Selection', variant: 'primary' });
+        break;
+      case 'SELECTION':
+        actions.push({ key: 'publish', label: 'Publish Results', variant: 'primary' });
+        break;
+      case 'PUBLISHED':
+        actions.push({ key: 'complete', label: 'Complete Cycle', variant: 'secondary' });
+        break;
+    }
+
+    return actions;
   };
 
   const handleCreateCycle = async (e: React.FormEvent) => {
@@ -252,94 +352,199 @@ export default function AdminCyclesPage() {
               <p className="text-sm text-gray-500 mt-2">Create your first cycle to get started.</p>
             </div>
           ) : (
-            <div className="space-y-4">
-              {cycles.map((cycle) => (
-                <div key={cycle.cycle_id} className="bg-white rounded-lg shadow p-6">
-                  <div className="flex justify-between items-start">
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-3">
-                        <h3 className="text-xl font-bold text-gray-900">{cycle.cycle_name}</h3>
-                        {cycle.is_open ? (
-                          <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
-                            Open
-                          </span>
-                        ) : (
-                          <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
-                            Closed
-                          </span>
-                        )}
-                      </div>
+            <div className="space-y-6">
+              {cycles.map((cycle) => {
+                const status = cycleStatuses[cycle.cycle_id];
+                const availableActions = getAvailableActions(cycle);
+                const isExpanded = expandedCycle === cycle.cycle_id;
 
-                      <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-4">
-                        <div>
-                          <p className="text-xs text-gray-500 uppercase">Seats</p>
-                          <p className="text-lg font-semibold text-gray-900">
-                            {cycle.current_seats} / {cycle.max_seats}
-                          </p>
-                          <p className="text-xs text-gray-500 mt-1">
-                            {cycle.max_seats - cycle.current_seats} available
-                          </p>
+                return (
+                  <div key={cycle.cycle_id} className="bg-white rounded-lg shadow-lg">
+                    <div className="p-6">
+                      <div className="flex justify-between items-start">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-3 mb-3">
+                            <h3 className="text-xl font-bold text-gray-900">{cycle.cycle_name}</h3>
+                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                              cycle.phase === 'COMPLETED'
+                                ? 'bg-green-100 text-green-700'
+                                : cycle.is_open
+                                ? 'bg-blue-100 text-blue-700'
+                                : 'bg-red-100 text-red-700'
+                            }`}>
+                              {cycle.phase.replace('_', ' ').toLowerCase()}
+                            </span>
+                            {cycle.is_open ? (
+                              <span className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-sm font-medium">
+                                Open
+                              </span>
+                            ) : (
+                              <span className="px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+                                Closed
+                              </span>
+                            )}
+                          </div>
+
+                          <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mt-4">
+                            <div>
+                              <p className="text-xs text-gray-500 uppercase">Seats</p>
+                              <p className="text-lg font-semibold text-gray-900">
+                                {cycle.current_seats} / {cycle.max_seats}
+                              </p>
+                              <p className="text-xs text-gray-500 mt-1">
+                                {cycle.max_seats - cycle.current_seats} available
+                              </p>
+                            </div>
+
+                            <div>
+                              <p className="text-xs text-gray-500 uppercase">Selected</p>
+                              <p className="text-lg font-semibold text-gray-900">
+                                {cycle.selected_count || 0}
+                              </p>
+                            </div>
+
+                            <div>
+                              <p className="text-xs text-gray-500 uppercase">Start Date</p>
+                              <p className="text-sm font-medium text-gray-900">
+                                {new Date(cycle.start_date).toLocaleDateString()}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                {new Date(cycle.start_date).toLocaleTimeString()}
+                              </p>
+                            </div>
+
+                            <div>
+                              <p className="text-xs text-gray-500 uppercase">End Date</p>
+                              <p className="text-sm font-medium text-gray-900">
+                                {new Date(cycle.end_date).toLocaleDateString()}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                {new Date(cycle.end_date).toLocaleTimeString()}
+                              </p>
+                            </div>
+
+                            <div>
+                              <p className="text-xs text-gray-500 uppercase">Result Date</p>
+                              <p className="text-sm font-medium text-gray-900">
+                                {new Date(cycle.result_date).toLocaleDateString()}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                {new Date(cycle.result_date).toLocaleTimeString()}
+                              </p>
+                            </div>
+
+                            <div>
+                              <p className="text-xs text-gray-500 uppercase">Cycle ID</p>
+                              <p className="text-sm font-mono text-gray-900">{cycle.cycle_id}</p>
+                            </div>
+                          </div>
                         </div>
 
-                        <div>
-                          <p className="text-xs text-gray-500 uppercase">Start Date</p>
-                          <p className="text-sm font-medium text-gray-900">
-                            {new Date(cycle.start_date).toLocaleDateString()}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {new Date(cycle.start_date).toLocaleTimeString()}
-                          </p>
-                        </div>
+                        <div className="flex flex-col gap-2 ml-6">
+                          <button
+                            onClick={() => setExpandedCycle(isExpanded ? null : cycle.cycle_id)}
+                            className="px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition-colors"
+                          >
+                            {isExpanded ? 'Collapse' : 'Expand'}
+                          </button>
 
-                        <div>
-                          <p className="text-xs text-gray-500 uppercase">End Date</p>
-                          <p className="text-sm font-medium text-gray-900">
-                            {new Date(cycle.end_date).toLocaleDateString()}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {new Date(cycle.end_date).toLocaleTimeString()}
-                          </p>
-                        </div>
-
-                        <div>
-                          <p className="text-xs text-gray-500 uppercase">Result Date</p>
-                          <p className="text-sm font-medium text-gray-900">
-                            {new Date(cycle.result_date).toLocaleDateString()}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            {new Date(cycle.result_date).toLocaleTimeString()}
-                          </p>
-                        </div>
-
-                        <div>
-                          <p className="text-xs text-gray-500 uppercase">Cycle ID</p>
-                          <p className="text-sm font-mono text-gray-900">{cycle.cycle_id}</p>
+                          {cycle.is_open ? (
+                            <button
+                              onClick={() => handleCloseCycle(cycle.cycle_id)}
+                              disabled={processing === cycle.cycle_id}
+                              className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed text-sm font-medium whitespace-nowrap"
+                            >
+                              {processing === cycle.cycle_id ? 'Closing...' : 'Close Cycle'}
+                            </button>
+                          ) : (
+                            <button
+                              onClick={() => handleOpenCycle(cycle.cycle_id)}
+                              disabled={processing === cycle.cycle_id}
+                              className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed text-sm font-medium whitespace-nowrap"
+                            >
+                              {processing === cycle.cycle_id ? 'Opening...' : 'Open Cycle'}
+                            </button>
+                          )}
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex flex-col gap-2 ml-6">
-                      {cycle.is_open ? (
-                        <button
-                          onClick={() => handleCloseCycle(cycle.cycle_id)}
-                          disabled={processing === cycle.cycle_id}
-                          className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed text-sm font-medium whitespace-nowrap"
-                        >
-                          {processing === cycle.cycle_id ? 'Closing...' : 'Close Cycle'}
-                        </button>
-                      ) : (
-                        <button
-                          onClick={() => handleOpenCycle(cycle.cycle_id)}
-                          disabled={processing === cycle.cycle_id}
-                          className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed text-sm font-medium whitespace-nowrap"
-                        >
-                          {processing === cycle.cycle_id ? 'Opening...' : 'Open Cycle'}
-                        </button>
-                      )}
-                    </div>
+                    {/* Expanded Details */}
+                    {isExpanded && (
+                      <div className="border-t border-gray-200">
+                        <div className="p-6">
+                          {/* Phase Progress */}
+                          <div className="mb-6">
+                            <PhaseProgress currentPhase={cycle.phase} />
+                          </div>
+
+                          {/* Application Status */}
+                          {status && (
+                            <div className="mb-6">
+                              <h4 className="text-lg font-semibold text-gray-900 mb-4">Application Status</h4>
+                              <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                                <div className="text-center">
+                                  <p className="text-2xl font-bold text-blue-600">{status.stats.total_applications}</p>
+                                  <p className="text-sm text-gray-600">Total Applications</p>
+                                </div>
+                                <div className="text-center">
+                                  <p className="text-2xl font-bold text-yellow-600">{status.stats.submitted}</p>
+                                  <p className="text-sm text-gray-600">Submitted</p>
+                                </div>
+                                <div className="text-center">
+                                  <p className="text-2xl font-bold text-purple-600">{status.stats.finalized}</p>
+                                  <p className="text-sm text-gray-600">Finalized</p>
+                                </div>
+                                <div className="text-center">
+                                  <p className="text-2xl font-bold text-green-600">{status.stats.scored}</p>
+                                  <p className="text-sm text-gray-600">Scored</p>
+                                </div>
+                                <div className="text-center">
+                                  <p className="text-2xl font-bold text-indigo-600">{status.stats.selected}</p>
+                                  <p className="text-sm text-gray-600">Selected</p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Phase Actions */}
+                          {availableActions.length > 0 && (
+                            <div className="mb-6">
+                              <h4 className="text-lg font-semibold text-gray-900 mb-4">Phase Actions</h4>
+                              <div className="flex flex-wrap gap-3">
+                                {availableActions.map((action) => (
+                                  <button
+                                    key={action.key}
+                                    onClick={() => handlePhaseTransition(cycle.cycle_id, action.key)}
+                                    disabled={processing !== null}
+                                    className={`px-4 py-2 rounded-lg font-medium transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed ${
+                                      action.variant === 'primary'
+                                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                        : 'bg-gray-600 text-white hover:bg-gray-700'
+                                    }`}
+                                  >
+                                    {processing === cycle.cycle_id ? 'Processing...' : action.label}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Batch Management - Show for PROCESSING and SCORED phases */}
+                          {(cycle.phase === 'PROCESSING' || cycle.phase === 'SCORED') && (
+                            <div className="mb-6">
+                              <BatchManagement
+                                cycleId={cycle.cycle_id}
+                                onImportSuccess={() => loadCycles()}
+                              />
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
         </div>

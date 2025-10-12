@@ -514,13 +514,13 @@ async def create_cycle(
 
         # Create new cycle
         cycle = admin_repo.create_cycle(
-            cycle_id=f"CYC_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}",
+            cycle_id=f"CYC_{datetime.now(timezone.utc).strftime('%Y%m%d_%H%M%S')}",
             cycle_name=request.cycle_name,
             max_seats=request.max_seats,
             result_date=request.result_date,
             start_date=request.start_date,
             end_date=request.end_date,
-            created_by=admin["username"]
+            created_by=admin["admin_id"]
         )
         logger.info(f"Created admission cycle: {cycle.cycle_name}")
 

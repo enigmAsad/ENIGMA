@@ -210,3 +210,20 @@ WHERE admission_cycles.is_open = true]
 2025-10-12 12:40:17 | INFO     | database | Database connection verified successfully
 2025-10-12 12:40:17 | INFO     | main | ✅ Database connection successful
 2025-10-12 12:40:17 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:40:44 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-12 12:40:45 | WARNING  | admin_auth | Login failed: user asad not found
+2025-10-12 12:40:45 | ERROR    | database | Database session error: 401: Invalid credentials
+2025-10-12 12:41:01 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 12:41:05 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 12:44:00 | ERROR    | api | Failed to create cycle: (psycopg2.errors.ForeignKeyViolation) insert or update on table "admission_cycles" violates foreign key constraint "admission_cycles_created_by_fkey"
+DETAIL:  Key (created_by)=(enigma) is not present in table "admin_users".
+
+[SQL: INSERT INTO admission_cycles (cycle_id, cycle_name, phase, is_open, max_seats, current_seats, selected_count, result_date, start_date, end_date, created_at, created_by, closed_at, closed_by) VALUES (%(cycle_id)s, %(cycle_name)s, %(phase)s, %(is_open)s, %(max_seats)s, %(current_seats)s, %(selected_count)s, %(result_date)s, %(start_date)s, %(end_date)s, %(created_at)s, %(created_by)s, %(closed_at)s, %(closed_by)s)]
+[parameters: {'cycle_id': 'CYC_20251012_074359', 'cycle_name': 'Fall 25', 'phase': 'SUBMISSION', 'is_open': False, 'max_seats': 1, 'current_seats': 0, 'selected_count': 0, 'result_date': datetime.datetime(2025, 10, 12, 12, 55), 'start_date': datetime.datetime(2025, 10, 12, 12, 43), 'end_date': datetime.datetime(2025, 10, 12, 12, 49), 'created_at': datetime.datetime(2025, 10, 12, 7, 43, 59, 563432), 'created_by': 'enigma', 'closed_at': None, 'closed_by': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-12 12:44:00 | ERROR    | database | Database session error: 500: (psycopg2.errors.ForeignKeyViolation) insert or update on table "admission_cycles" violates foreign key constraint "admission_cycles_created_by_fkey"
+DETAIL:  Key (created_by)=(enigma) is not present in table "admin_users".
+
+[SQL: INSERT INTO admission_cycles (cycle_id, cycle_name, phase, is_open, max_seats, current_seats, selected_count, result_date, start_date, end_date, created_at, created_by, closed_at, closed_by) VALUES (%(cycle_id)s, %(cycle_name)s, %(phase)s, %(is_open)s, %(max_seats)s, %(current_seats)s, %(selected_count)s, %(result_date)s, %(start_date)s, %(end_date)s, %(created_at)s, %(created_by)s, %(closed_at)s, %(closed_by)s)]
+[parameters: {'cycle_id': 'CYC_20251012_074359', 'cycle_name': 'Fall 25', 'phase': 'SUBMISSION', 'is_open': False, 'max_seats': 1, 'current_seats': 0, 'selected_count': 0, 'result_date': datetime.datetime(2025, 10, 12, 12, 55), 'start_date': datetime.datetime(2025, 10, 12, 12, 43), 'end_date': datetime.datetime(2025, 10, 12, 12, 49), 'created_at': datetime.datetime(2025, 10, 12, 7, 43, 59, 563432), 'created_by': 'enigma', 'closed_at': None, 'closed_by': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)

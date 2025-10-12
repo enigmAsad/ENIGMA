@@ -1,7 +1,7 @@
 # ENIGMA Backend - Technical Documentation
 
-**Version:** 2.0.0
-**Last Updated:** 2025-10-12
+**Version:** 2.0.1
+**Last Updated:** 2025-01-12
 **Python Version:** 3.12+
 **Status:** Production Ready
 
@@ -109,6 +109,17 @@ Removes PII and encrypts identity mappings using Fernet encryption. Process: fet
 ### Admin Authentication (`src/services/admin_auth.py`)
 JWT-based authentication with PostgreSQL session management, bcrypt password hashing, and automatic session cleanup.
 
+**Authentication Dependency:** The `get_current_admin` dependency in `api.py` returns `Dict[str, Any]` with session data:
+```python
+{
+    "admin_id": "ADM_12345678",
+    "username": "admin_username",
+    "email": "admin@example.com",
+    "role": "admin"
+}
+```
+All admin endpoints access this data via dictionary keys (e.g., `admin["admin_id"]` not `admin.admin_id`).
+
 ### Batch Processor (`src/services/batch_processor.py`)
 Exports applications to JSONL for LLM batch processing and imports results back into the database.
 
@@ -140,6 +151,7 @@ ENIGMA uses a normalized PostgreSQL schema with 14 tables, proper relationships,
 9. **`admin_users`** - Admin authentication (username, email, password hash, role, activity status)
 10. **`admin_sessions`** - JWT session management (token, expiry, IP tracking, revocation status)
 11. **`admission_cycles`** - Admission cycle management (phase, dates, seat counts, selection results)
+   - **IMPORTANT:** `created_by` field references `admin_users.admin_id` (format: "ADM_XXXXXXXX"), NOT username
 12. **`audit_logs`** - Comprehensive audit trail (entity actions, actor, hash chain, timestamps)
 13. **`selection_logs`** - Selection process records (criteria, cutoff scores, execution details)
 
@@ -153,6 +165,7 @@ anonymized_applications (1:1) → final_scores
 applications (1:1) → deterministic_metrics
 batch_runs (1:N) → worker_results, judge_results
 admin_users (1:N) → admin_sessions
+admin_users (1:N) → admission_cycles (via created_by → admin_id)
 admission_cycles (1:N) → selection_logs
 audit_logs (hash chain across all entities)
 ```
@@ -360,6 +373,15 @@ Clean data access layer with generic CRUD operations and specialized repositorie
 
 **Settings:** Pydantic configuration with validation and .env file support
 
+**Path Resolution:** `settings.py` uses absolute path resolution to locate `.env` file regardless of script execution directory:
+```python
+# settings.py is in: backend/src/config/settings.py
+# .env is in: backend/.env
+_BACKEND_DIR = Path(__file__).parent.parent.parent
+_ENV_FILE = _BACKEND_DIR / ".env"
+```
+This ensures scripts in `backend/scripts/` can correctly load environment variables.
+
 ---
 
 ## Development & Testing
@@ -464,6 +486,31 @@ docker logs -f enigma-backend
 
 ## Troubleshooting
 
+### Timezone-Aware DateTime Handling
+
+**CRITICAL:** PostgreSQL `TIMESTAMP(timezone=True)` fields require timezone-aware datetime objects. All datetime operations MUST use `datetime.now(timezone.utc)` instead of `datetime.utcnow()`.
+
+**Affected Files:**
+- `src/database/repositories/admin_repository.py` (session validation, cleanup)
+- `src/services/admin_auth.py` (JWT token generation)
+- `api.py` (date range comparisons, cycle creation)
+
+**Example:**
+```python
+from datetime import datetime, timezone
+
+# ❌ WRONG - Naive datetime (no timezone info)
+expires_at = datetime.utcnow() + timedelta(hours=24)
+
+# ✅ CORRECT - Timezone-aware datetime
+expires_at = datetime.now(timezone.utc) + timedelta(hours=24)
+```
+
+**Error if not followed:**
+```
+TypeError: can't compare offset-naive and offset-aware datetimes
+```
+
 ### Database Connection Issues
 
 **Test Connection:**
@@ -526,7 +573,7 @@ with get_db_context() as db:
 
 ---
 
-**Document Version:** 2.0.0
+**Document Version:** 2.0.1
 **Maintainer:** ENIGMA Development Team
 
 ## Additional Resources

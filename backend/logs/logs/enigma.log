@@ -263,3 +263,25 @@ DETAIL:  Key (created_by)=(enigma) is not present in table "admin_users".
 2025-10-12 13:28:24 | INFO     | database | Database connection verified successfully
 2025-10-12 13:28:24 | INFO     | main | ✅ Database connection successful
 2025-10-12 13:28:24 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 13:28:40 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 13:28:43 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 13:29:07 | INFO     | api | Closed admission cycle: Spring 25 Admissions
+2025-10-12 13:31:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 13:31:35 | INFO     | main | Running prerequisite checks...
+2025-10-12 13:31:35 | INFO     | main | Verifying database connection...
+2025-10-12 13:31:39 | INFO     | database | Database connection verified successfully
+2025-10-12 13:31:39 | INFO     | main | ✅ Database connection successful
+2025-10-12 13:31:39 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 13:32:07 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 13:32:10 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 13:33:10 | ERROR    | api | Failed to create cycle: 'str' object cannot be interpreted as an integer
+2025-10-12 13:33:10 | ERROR    | database | Database session error: 500: 'str' object cannot be interpreted as an integer
+2025-10-12 13:35:02 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 13:35:03 | INFO     | main | Running prerequisite checks...
+2025-10-12 13:35:03 | INFO     | main | Verifying database connection...
+2025-10-12 13:35:07 | INFO     | database | Database connection verified successfully
+2025-10-12 13:35:07 | INFO     | main | ✅ Database connection successful
+2025-10-12 13:35:07 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 13:35:38 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 13:35:41 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 13:36:33 | INFO     | api | Created and opened admission cycle: Winter 2025

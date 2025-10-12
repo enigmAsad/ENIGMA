@@ -16,7 +16,7 @@ export default function AdminCyclesPage() {
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [formData, setFormData] = useState<CreateCycleRequest>({
     cycle_name: '',
-    max_seats: 0,
+    max_seats: 1,
     result_date: '',
     start_date: '',
     end_date: '',
@@ -149,7 +149,7 @@ export default function AdminCyclesPage() {
       setShowCreateForm(false);
       setFormData({
         cycle_name: '',
-        max_seats: 0,
+        max_seats: 1,
         result_date: '',
         start_date: '',
         end_date: '',
@@ -270,7 +270,7 @@ export default function AdminCyclesPage() {
                 <input
                   type="number"
                   value={formData.max_seats}
-                  onChange={(e) => setFormData({ ...formData, max_seats: parseInt(e.target.value) })}
+                  onChange={(e) => setFormData({ ...formData, max_seats: parseInt(e.target.value) || 1 })}
                   required
                   min="1"
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"

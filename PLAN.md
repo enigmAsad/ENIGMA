@@ -1,121 +1,204 @@
 # ENIGMA MVP - Implementation-Only Specification
 
+**Status:** Phase 1 ✅ Complete (PostgreSQL) | Phase 2 🔄 Planned
+
 ## Scope
 - Standalone admissions portal with two-phase selection
-- Phase 1: AI merit screening (blind evaluation)
-- Phase 2: AI-monitored live interviews (bias monitoring focuses on evaluators, not applicants)
-- Lightweight blockchain-inspired audit trail for integrity
+- **Phase 1: AI merit screening (blind evaluation)** ✅ **IMPLEMENTED**
+  - PostgreSQL-based backend with 14 normalized tables
+  - FastAPI REST API with JWT authentication
+  - Admin portal for cycle management
+  - 9-phase workflow with batch LLM processing
+  - Cryptographic audit trail (SHA-256 hash chain)
+- **Phase 2: AI-monitored live interviews** 🔄 **PLANNED**
+  - Bias monitoring focuses on evaluators, not applicants
+  - Real-time transcription and LLM analysis
+  - Evaluator dashboard with nudge system
 
 ## System Architecture
 
-### Frontend
-- Landing page: ENIGMA mission, methodology, trust signals
-- Application form: GPA, test scores, essay, achievements
+### Frontend (Next.js 15 + React 19 + TypeScript)
+
+**✅ Phase 1 - Implemented:**
+- **Landing page**: ENIGMA mission, methodology, trust signals, real-time admission status banner
+- **Application form**: GPA, test scores, essay, achievements with comprehensive validation
+- **Status checker**: Application tracking with progress indicators
+- **Results viewer**: Scores, breakdown, explanations, verification hash (when Phase 1 LLM evaluation completes)
+- **Public fairness dashboard**: Aggregated fairness and transparency metrics
+- **Verification portal**: Validate decision integrity via hash chain
+- **Admin Portal** (JWT-protected):
+  - Admin login and authentication
+  - Admin dashboard with system overview
+  - Admission cycle management (create, open, close cycles)
+  - 9-phase workflow controls
+  - Application statistics and monitoring
+
+**🔄 Phase 2 - Planned:**
 - Interview scheduler and live room: standardized questions, RTC-based live session
-- COI declaration form: simple consent/declaration prior to interview (no automated checks)
+- COI declaration form: simple consent/declaration prior to interview
 - Evaluator nudge UI: soft alerts for biased language; hard flags for policy violations
 - Evaluator dashboard: live interview console, digital rubric, justification fields
-- Results viewer: scores, breakdown, explanations, verification hash
-- Public fairness dashboard: aggregated fairness and bias-detection metrics
-- Verification portal: validate decision integrity via hash chain
 
-### Backend
-- Application collector: form handler → CSV storage
-- Identity scrubbing engine: strip PII, assign anonymized IDs
-- Phase 1 batch pipeline (Python + LangChain/LangGraph)
-  - Worker LLM evaluation
-  - Judge LLM validation
-  - Retry logic with feedback
-  - Merit score aggregation
-- Scheduling service: slot management, reminders, session links (manual ops acceptable)
-- COI declaration intake: persist evaluator/applicant declarations for each session (manual review; no automated checks)
+### Backend (FastAPI + PostgreSQL + Python 3.12)
+
+**✅ Phase 1 - Implemented:**
+- **Application collector**: RESTful API handler → PostgreSQL storage with ACID transactions
+- **Admin authentication**: JWT-based authentication with bcrypt password hashing, session management
+- **Admission cycle management**: 9-phase workflow with validation gates
+  - Phase 1 (SUBMISSION): Accept applications with seat tracking
+  - Phase 2 (FROZEN): Freeze cycle and finalize applications
+  - Phase 3 (PREPROCESSING): Compute deterministic metrics
+  - Phase 4 (BATCH_PREP): Export to JSONL for LLM batch processing
+  - Phase 5 (PROCESSING): External LLM batch processing
+  - Phase 6 (SCORED): Import LLM results and update scores
+  - Phase 7 (SELECTION): Top-K selection based on scores
+  - Phase 8 (PUBLISHED): Publish results to applicants
+  - Phase 9 (COMPLETED): Archive cycle
+- **Identity scrubbing engine**: Fernet encryption for PII, anonymized ID assignment
+- **Phase 1 batch pipeline**: JSONL export/import for LLM processing
+  - Worker LLM evaluation (planned: OpenAI Batch API)
+  - Judge LLM validation (planned: quality and bias checks)
+  - Structured JSON output with scores and explanations
+  - Merit score aggregation and ranking
+- **Repository pattern**: Clean data access layer (Application, Admin, Batch, Audit repositories)
+- **Hash chain generator**: SHA-256 based tamper-evident audit trail
+- **Public APIs**: Application submission, status checking, results viewing, verification
+- **Admin APIs**: Cycle CRUD, phase transitions, batch management, audit logs
+
+**🔄 Phase 2 - Planned:**
+- Scheduling service: slot management, reminders, session links
+- COI declaration intake: persist evaluator/applicant declarations
 - Evaluator management system: assignments, intake of scores and justifications
-- Bias monitoring engine
+- Bias monitoring engine:
   - Streaming STT for live sessions
-  - Real-time LLM analysis of evaluator utterances and justifications vs. transcripts
-  - Nudge/flag pipeline: thresholds for soft nudges vs. hard policy violations; UI signals
-  - Statistical checks: inter-rater agreement, outliers, consistency
-  - Drift monitoring across sessions and evaluators; longitudinal metrics
-  - Flagging and re-assignment workflow
-- Fairness policy engine: DSL for fairness rules; schema validation for rubrics and decisions
-- Hash chain generator: SHA-256 based tamper-evident logging
+  - Real-time LLM analysis of evaluator utterances
+  - Nudge/flag pipeline for bias detection
+  - Statistical checks: inter-rater agreement, outliers
+  - Drift monitoring and re-assignment workflow
 - Email notification system: confirmation, shortlist, final results
 - Appeal handler: inbox intake, review queue
 
-### Data Layer (CSV + Hash Chain)
-- applications.csv: raw applicant data
-- anonymized.csv: identity-scrubbed records with anonymized IDs
-- phase1_worker_results.csv: worker outputs
-- phase1_judge_results.csv: judge decisions
-- phase1_final_scores.csv: merit results and explanations
-- live_sessions.csv: session metadata and scheduling
-- live_transcripts.csv: streaming STT transcripts with timestamps and speaker turns
-- rtc_events.csv: join/leave, network, and moderation events
-- evaluator_assignments.csv: session-to-evaluator mapping
-- evaluator_scores.csv: rubric scores + written justifications
-- live_bias_analysis.csv: real-time bias analysis outputs (flags, evidence, reasoning)
-- schedule.csv: interview slot definitions and bookings
-- coi_declarations.csv: evaluator/applicant COI declarations per session
-- consent_ledger.csv: consent records and retention acknowledgments
-- live_nudges.csv: soft alerts and hard flags emitted during sessions
-- overrides.csv: manual overrides with actor, reason, and linkage to audit
-- re_review_queue.csv: items queued for re-evaluation
-- drift_metrics.csv: inter-rater and evaluator drift aggregates
-- bias_flags.csv: incidents with explanations and actions
-- phase2_final_scores.csv: validated interview scores post-correction
-- final_scores.csv: combined Phase 1 + Phase 2
-- audit_log.csv: full audit trail
-- hash_chain.csv: decision hashes
+### Data Layer
+
+**✅ Phase 1 - PostgreSQL Schema (14 Tables):**
+
+**Core Application Tables:**
+1. **applications**: Raw student submissions with PII (name, email, GPA, test scores, essay, achievements)
+2. **anonymized_applications**: PII-scrubbed data for LLM processing with anonymized IDs
+3. **identity_mapping**: Fernet-encrypted PII storage linking anonymized to original IDs
+4. **deterministic_metrics**: Pre-computed metrics (test averages, academic scores, percentile ranks)
+
+**LLM Processing Tables:**
+5. **batch_runs**: LLM batch processing job metadata (input/output paths, status, record counts)
+6. **worker_results**: Worker LLM evaluation outputs (academic/test/achievement/essay scores, explanations)
+7. **judge_results**: Judge LLM validation decisions (approve/reject, confidence, bias detection)
+8. **final_scores**: Aggregated scores with selection status (final score, LLM score, selection flag)
+
+**Admin & Audit Tables:**
+9. **admin_users**: Admin authentication (username, email, password hash, role, activity status)
+10. **admin_sessions**: JWT session management (token, expiry, IP tracking, revocation)
+11. **admission_cycles**: Admission cycle management (phase, dates, seat counts, open/closed status)
+12. **audit_logs**: Comprehensive audit trail (entity actions, actor, hash chain, timestamps)
+13. **selection_logs**: Selection process records (criteria, cutoff scores, execution details)
+
+**Relationships:**
+- admission_cycles (1:N) → applications (1:1) → anonymized_applications
+- anonymized_applications (1:1) → identity_mapping
+- anonymized_applications (1:N) → worker_results (1:N) → judge_results
+- anonymized_applications (1:1) → final_scores
+- admin_users (1:N) → admin_sessions, admission_cycles
+- Full hash chain linkage across audit_logs
+
+**🔄 Phase 2 - Additional Tables (Planned):**
+- **live_sessions**: Session metadata and scheduling
+- **live_transcripts**: Streaming STT transcripts with timestamps
+- **rtc_events**: Join/leave, network, and moderation events
+- **evaluator_assignments**: Session-to-evaluator mapping
+- **evaluator_scores**: Rubric scores + written justifications
+- **live_bias_analysis**: Real-time bias detection outputs
+- **coi_declarations**: Evaluator/applicant COI declarations
+- **live_nudges**: Soft alerts and hard flags during sessions
+- **drift_metrics**: Inter-rater and evaluator drift tracking
+- **bias_flags**: Incidents with explanations and actions
+- **phase2_final_scores**: Validated interview scores
 
 ### AI/ML Components
-- Phase 1
-  - Worker LLM: merit scoring and explanations
-  - Judge LLM: bias/quality validation and approval/reject
-  - Identity scrubber: rule-based PII removal
-- Phase 2
-  - Streaming STT: real-time transcription for live sessions; tuned for Urdu/English and regional accents
-  - Bias detection LLM: real-time analysis of evaluator utterances and justifications with transcript context; localized prompts
-  - Statistical validation: inter-rater, outliers, demographic parity checks
-  - Hash generation: cryptographic proof for decisions
+
+**✅ Phase 1 - Implemented:**
+- **Identity scrubber**: Fernet-based PII encryption and anonymization
+- **Batch LLM pipeline**: JSONL export/import for external LLM processing
+  - Worker LLM (planned): GPT-5 for merit scoring and explanations (OpenAI Batch API)
+  - Judge LLM (planned): GPT-5-mini for bias/quality validation
+  - Structured JSON output with schema validation
+- **Hash generation**: SHA-256 cryptographic proof for all decisions
+- **Deterministic metrics**: Pre-computed academic scores, test averages, percentile ranks
+
+**🔄 Phase 2 - Planned:**
+- **Streaming STT**: Real-time transcription for live sessions (Urdu/English, regional accents)
+- **Bias detection LLM**: Real-time analysis of evaluator utterances (localized prompts)
+- **Statistical validation**: Inter-rater agreement, outliers, demographic parity checks
+- **Drift monitoring**: Longitudinal evaluator consistency tracking
 
 ### Integrations
-- Email service: transactional messages
-- LLM APIs: Claude Batch (Phase 1), GPT-5-nano/Haiku (Phase 2)
-- Streaming STT API: OpenAI Realtime/Whisper, Deepgram, or equivalent
-- RTC provider: WebRTC (self-hosted) or 3rd-party (Daily/Agora/Twilio)
-- Hosting: Vercel/Netlify (frontend), Python cloud function (batch)
-- Storage: transcripts and session metadata; no video storage
-- Localization: prompt bundles for Urdu/English; bias lexicon tuned to local context
+
+**✅ Phase 1 - Implemented:**
+- **Database**: PostgreSQL (Supabase) with transaction pooler
+- **Backend hosting**: Python 3.12 + FastAPI + Uvicorn (Docker/cloud-ready)
+- **Frontend hosting**: Next.js 15 (Vercel/Netlify)
+- **LLM APIs** (ready for integration): OpenAI Batch API for Worker/Judge LLMs
+- **Security**: JWT authentication, bcrypt password hashing, Fernet encryption
+
+**🔄 Phase 2 - Planned:**
+- **Email service**: Transactional messages (confirmation, shortlist, results)
+- **Streaming STT API**: OpenAI Realtime/Whisper, Deepgram (Urdu/English tuned)
+- **RTC provider**: WebRTC (self-hosted) or Daily/Agora/Twilio
+- **Storage**: Transcripts and session metadata (no video storage)
+- **Localization**: Prompt bundles for Urdu/English; bias lexicon for local context
 
 ## Functional Requirements
 
 ### Roles
-- Applicant: submit application and attend live interview; complete COI declaration; view results and explanations; appeal
-- Human Evaluator: conduct live interviews; score via rubric; write justifications
-- Operator: run batch jobs; manage prompts; recruit evaluators; review flags; handle appeals
-- Public Auditor: view fairness dashboard; verify decision hashes
+
+**✅ Phase 1 - Implemented:**
+- **Applicant**: Submit application, check status, view results and explanations, verify decision hashes
+- **Admin**: Manage admission cycles, control 9-phase workflow, monitor applications, review audit logs
+- **Public Auditor**: View fairness dashboard, verify decision hashes via hash chain
+
+**🔄 Phase 2 - Planned:**
+- **Applicant** (additional): Attend live interviews, complete COI declarations, file appeals
+- **Human Evaluator**: Conduct live interviews, score via digital rubric, write justifications
+- **Admin** (additional): Manage evaluators, review bias flags, handle appeals, oversee re-assignments
 
 ### Lifecycle
-- Phase 1: AI merit screening
-  - Collect applications
-  - Scrub identities and assign anonymized IDs
-  - Run worker evaluation → score and explanation
-  - Run judge validation → pass or reject; retry if needed
-  - Rank, generate explanations, update hash chain
-- Phase 2: Human interviews with AI monitoring
-  - Schedule and conduct live interviews
-  - Capture simple COI declarations prior to session (manual; no automated checks)
-  - Assign to evaluators; enforce written justifications
-  - Stream real-time transcription during session (localized)
-  - Real-time LLM monitoring of evaluator utterances and justifications against transcripts and rubric (localized prompts)
-  - Deliver evaluator nudges for biased language; escalate to hard flags on policy violations
-  - Statistical checks for consistency and outliers
-  - Track inter-rater drift across sessions and evaluators; surface for oversight
-  - Flag biased evaluations; reassign for blind re-review as needed
-  - Combine validated interview scores with Phase 1
-  - Update hash chain and audit logs
-- Notifications: confirmations, shortlist, final results with verification link
-- Appeals: intake, review, resolution tracking
+
+**✅ Phase 1: AI Merit Screening (9-Phase Workflow) - Implemented:**
+1. **SUBMISSION**: Collect applications via public API with real-time seat tracking
+2. **FROZEN**: Admin freezes cycle; all applications marked as FINALIZED
+3. **PREPROCESSING**: Compute deterministic metrics (GPA, test averages, percentile ranks)
+4. **BATCH_PREP**: Export anonymized applications to JSONL for LLM batch processing
+5. **PROCESSING**: External LLM batch processing (OpenAI Batch API ready for integration)
+   - Worker LLM: Merit scoring and explanations
+   - Judge LLM: Bias/quality validation with approve/reject decisions
+6. **SCORED**: Import LLM results; update final_scores table; mark applications as SCORED
+7. **SELECTION**: Top-K selection based on final scores; mark as SELECTED/NOT_SELECTED
+8. **PUBLISHED**: Publish results to applicants; make available via public API
+9. **COMPLETED**: Archive cycle for historical reference
+
+**🔄 Phase 2: Human Interviews with AI Monitoring - Planned:**
+- Schedule and conduct live interviews via RTC
+- Capture COI declarations prior to sessions (manual review)
+- Assign evaluators; enforce written justifications
+- Stream real-time transcription (Urdu/English localized)
+- Real-time LLM monitoring of evaluator utterances and justifications
+- Deliver nudges for biased language; escalate to hard flags on violations
+- Statistical checks for consistency and inter-rater drift
+- Flag biased evaluations; reassign for blind re-review
+- Combine validated interview scores with Phase 1
+- Update hash chain and audit logs
+
+**🔄 Additional Features - Planned:**
+- **Notifications**: Email confirmations, shortlist, final results with verification link
+- **Appeals**: Intake, review queue, resolution tracking
 
 ### Merit and Interview Rubrics
 - Phase 1 (merit): academics, tests, achievements, essay quality
@@ -182,7 +265,64 @@
 - Localization: STT models and prompts tuned for Urdu/English and regional accents
 
 ## Deliverables
-- Frontend: application form, interview scheduler and live interview room, COI declaration form, evaluator dashboard with nudge UI, results viewer, public dashboard, verification portal
-- Backend: CSV-based data layer, batch pipelines for Phase 1 and Phase 2, evaluator management, bias monitoring engine, hash chain, email notifications, appeals intake
-- Policy & Prompts: fairness policy DSL, schema files for rubrics/decisions, Worker and Judge prompts; localized bias analysis prompts
-- Documentation: setup, runbooks, prompts, data schemas, API keys/integrations
+
+**✅ Phase 1 - Delivered:**
+- **Frontend** (Next.js 15 + React 19):
+  - Landing page with real-time admission status
+  - Application form with comprehensive validation
+  - Status checker with progress indicators
+  - Results viewer with score breakdowns
+  - Public fairness dashboard
+  - Verification portal for hash validation
+  - Admin portal (login, dashboard, cycle management, phase controls)
+- **Backend** (FastAPI + PostgreSQL):
+  - 14-table normalized PostgreSQL schema
+  - RESTful API with JWT authentication
+  - Repository pattern for data access
+  - 9-phase admission cycle workflow
+  - JSONL export/import for batch LLM processing
+  - SHA-256 hash chain for audit trail
+  - Admin APIs for cycle and application management
+- **Documentation**:
+  - `BACKEND.md`: Technical specification (v2.0.2)
+  - `FRONTEND.md`: Implementation guide (v1.1.1)
+  - Database schema and API reference
+  - Development and deployment guides
+
+**🔄 Phase 2 - Planned:**
+- **Frontend additions**:
+  - Interview scheduler and live interview room (RTC)
+  - COI declaration form
+  - Evaluator dashboard with real-time nudge UI
+- **Backend additions**:
+  - Evaluator management system
+  - Bias monitoring engine with streaming STT
+  - Real-time LLM analysis of evaluator utterances
+  - Statistical validation (inter-rater, drift monitoring)
+  - Email notification system
+  - Appeals handling workflow
+- **Policy & Prompts**:
+  - Fairness policy DSL
+  - Worker and Judge LLM prompts
+  - Localized bias analysis prompts (Urdu/English)
+  - Schema files for rubrics and decisions
+
+---
+
+## Implementation Status Summary
+
+| Component | Status | Notes |
+|-----------|--------|-------|
+| **Frontend** | ✅ Complete | Next.js 15 + React 19 + TypeScript |
+| **Backend Core** | ✅ Complete | FastAPI + PostgreSQL + 9-phase workflow |
+| **Admin Portal** | ✅ Complete | JWT auth, cycle management, phase controls |
+| **Public APIs** | ✅ Complete | Application submission, status, results, verification |
+| **Database** | ✅ Complete | 14 tables, normalized schema, proper indexes |
+| **Audit Trail** | ✅ Complete | SHA-256 hash chain, comprehensive audit logs |
+| **Phase 1 Pipeline** | 🔧 Integration Ready | JSONL export/import ready for OpenAI Batch API |
+| **Phase 2 Interviews** | 🔄 Planned | RTC, STT, bias monitoring, evaluator management |
+| **Email Notifications** | 🔄 Planned | Confirmation, shortlist, results |
+| **Appeals System** | 🔄 Planned | Intake, review, resolution tracking |
+
+**Version:** Backend v2.0.2 | Frontend v1.1.1
+**Last Updated:** 2025-10-12

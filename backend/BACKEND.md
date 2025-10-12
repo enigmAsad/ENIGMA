@@ -1,6 +1,6 @@
 # ENIGMA Backend - Technical Documentation
 
-**Version:** 2.0.2
+**Version:** 2.0.3
 **Last Updated:** 2025-10-12
 **Python Version:** 3.12+
 **Status:** Production Ready
@@ -203,7 +203,7 @@ ENIGMA uses Pydantic for API validation and SQLAlchemy for ORM mapping.
 ### Public Endpoints
 - `GET /health` - Health check
 - `POST /applications` - Submit student application
-- `GET /applications/{id}` - Get application status
+- `GET /applications/{id}` - Get application status (returns phase-specific messaging, anonymized ID when available, and normalized status values)
 - `GET /admission/info` - Get current cycle information
 - `GET /admission/status` - Check if admissions are open
 
@@ -574,6 +574,11 @@ with get_db_context() as db:
 ---
 
 ## Changelog
+
+### v2.0.3 (2025-10-12) - Status & Audit Improvements
+- **Improved**: `/applications/{id}` now returns normalized status values, phase-aware guidance, and anonymized IDs when present.
+- **Aligned**: Audit logging helpers map to valid `AuditActionEnum` values to prevent enum errors during submissions.
+- **Updated**: Cycle seat tracking helpers return the updated record, ensuring admin dashboards can reflect live availability.
 
 ### v2.0.2 (2025-10-12) - Critical Bug Fixes
 - **Fixed**: Added missing `db.commit()` in `get_db()` function (`engine.py:88`). This critical fix ensures all database transactions are properly committed instead of being rolled back when sessions close.

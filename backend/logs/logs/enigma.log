@@ -285,3 +285,91 @@ DETAIL:  Key (created_by)=(enigma) is not present in table "admin_users".
 2025-10-12 13:35:38 | INFO     | admin_auth | Login attempt for username: enigma
 2025-10-12 13:35:41 | INFO     | admin_auth | Login successful for enigma
 2025-10-12 13:36:33 | INFO     | api | Created and opened admission cycle: Winter 2025
+2025-10-12 15:14:13 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 15:15:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 15:37:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 15:48:03 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 15:48:07 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 15:57:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 16:15:48 | INFO     | application_collector | Collecting new application from fs@example.com
+2025-10-12 16:15:48 | ERROR    | api | Application submission failed: Class 'src.models.schemas.Application' is not mapped
+2025-10-12 16:15:48 | ERROR    | database | Database session error: 400: Class 'src.models.schemas.Application' is not mapped
+2025-10-12 16:18:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 16:20:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:04:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:04:55 | INFO     | database | Database connection verified successfully
+2025-10-12 18:04:55 | INFO     | database | Creating database tables...
+2025-10-12 18:05:01 | INFO     | database | Database tables created successfully
+2025-10-12 18:05:03 | INFO     | database | Database connection verified successfully
+2025-10-12 18:05:29 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:05:35 | INFO     | database | Database connection verified successfully
+2025-10-12 18:05:37 | INFO     | application_collector | Collecting new application from test@example.com
+2025-10-12 18:05:37 | ERROR    | database | Database transaction error: 'ApplicationCollector' object has no attribute 'admin_repo'
+2025-10-12 18:06:04 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:06:10 | INFO     | database | Database connection verified successfully
+2025-10-12 18:20:42 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:20:48 | INFO     | database | Database connection verified successfully
+2025-10-12 18:23:23 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:23:31 | INFO     | database | Database connection verified successfully
+2025-10-12 18:24:32 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:24:39 | INFO     | database | Database connection verified successfully
+2025-10-12 18:24:40 | INFO     | application_collector | Collecting new application from test@example.com
+2025-10-12 18:24:40 | ERROR    | database | Database transaction error: 'ApplicationCollector' object has no attribute 'admin_repo'
+2025-10-12 18:26:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:26:24 | INFO     | database | Database connection verified successfully
+2025-10-12 18:26:25 | INFO     | application_collector | Collecting new application from test@example.com
+2025-10-12 18:26:27 | ERROR    | database | Database transaction error: 2 validation errors for AuditLog
+log_id
+  Field required [type=missing, input_value={'entity_type': 'Applicat...ntake'}, 'metadata': {}}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+action
+  Input should be 'create', 'update', 'delete', 'evaluate', 'finalize', 'select', 'publish', 'login' or 'logout' [type=enum, input_value='APPLICATION_SUBMITTED', input_type=str]
+    For further information visit https://errors.pydantic.dev/2.12/v/enum
+2025-10-12 18:35:33 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:35:40 | INFO     | database | Database connection verified successfully
+2025-10-12 18:35:41 | INFO     | application_collector | Collecting new application from test@example.com
+2025-10-12 18:35:43 | ERROR    | database | Database transaction error: 'APPLICATION_SUBMITTED' is not a valid AuditActionEnum
+2025-10-12 18:36:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:36:23 | INFO     | database | Database connection verified successfully
+2025-10-12 18:36:24 | INFO     | application_collector | Collecting new application from test@example.com
+2025-10-12 18:36:26 | ERROR    | database | Database transaction error: 'APPLICATION_SUBMITTED' is not a valid AuditActionEnum
+2025-10-12 18:38:00 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:38:08 | INFO     | database | Database connection verified successfully
+2025-10-12 18:38:09 | INFO     | application_collector | Collecting new application from test@example.com
+2025-10-12 18:38:10 | INFO     | audit | AUDIT: create | Application:APP_B4A0DB93 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-12T13:38:10.958283
+2025-10-12 18:38:10 | INFO     | application_collector | Application collected successfully: APP_B4A0DB93
+2025-10-12 18:38:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:38:42 | INFO     | database | Database connection verified successfully
+2025-10-12 18:38:43 | INFO     | application_collector | Collecting new application from test@example.com
+2025-10-12 18:38:44 | INFO     | audit | AUDIT: create | Application:APP_0C123307 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-12T13:38:44.869454
+2025-10-12 18:38:44 | INFO     | application_collector | Application collected successfully: APP_0C123307
+2025-10-12 18:40:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:46:57 | INFO     | application_collector | Collecting new application from fa@example.com
+2025-10-12 18:46:58 | INFO     | audit | AUDIT: create | Application:APP_A0B89E5A | actor=system | details={'stage': 'intake'} | timestamp=2025-10-12T13:46:58.312010
+2025-10-12 18:46:58 | INFO     | application_collector | Application collected successfully: APP_A0B89E5A
+2025-10-12 18:46:58 | INFO     | api | Application submitted: APP_A0B89E5A (Cycle: Winter 2025)
+2025-10-12 18:46:58 | INFO     | api | Starting background processing for APP_A0B89E5A
+2025-10-12 18:46:58 | ERROR    | database | Database transaction error: IdentityScrubber.__init__() got an unexpected keyword argument 'audit_logger'
+2025-10-12 18:46:58 | ERROR    | api | Background processing failed for APP_A0B89E5A: IdentityScrubber.__init__() got an unexpected keyword argument 'audit_logger'
+2025-10-12 18:47:04 | ERROR    | api | Status check failed for APP_A0B89E5A: type object 'ApplicationStatus' has no attribute 'COMPLETED'
+2025-10-12 18:47:04 | ERROR    | database | Database session error: 500: type object 'ApplicationStatus' has no attribute 'COMPLETED'
+2025-10-12 18:47:05 | ERROR    | api | Status check failed for APP_A0B89E5A: type object 'ApplicationStatus' has no attribute 'COMPLETED'
+2025-10-12 18:47:05 | ERROR    | database | Database session error: 500: type object 'ApplicationStatus' has no attribute 'COMPLETED'
+2025-10-12 18:52:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:53:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:53:28 | INFO     | database | Database connection verified successfully
+2025-10-12 18:53:29 | INFO     | application_collector | Collecting new application from test@example.com
+2025-10-12 18:53:30 | INFO     | audit | AUDIT: create | Application:APP_5C81CA93 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-12T13:53:30.800206
+2025-10-12 18:53:30 | INFO     | application_collector | Application collected successfully: APP_5C81CA93
+2025-10-12 18:53:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 18:53:45 | INFO     | database | Database connection verified successfully
+2025-10-12 18:53:46 | INFO     | application_collector | Collecting new application from test@example.com
+2025-10-12 18:53:48 | INFO     | audit | AUDIT: create | Application:APP_1CB62E16 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-12T13:53:48.291938
+2025-10-12 18:53:48 | INFO     | application_collector | Application collected successfully: APP_1CB62E16
+2025-10-12 19:05:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 19:12:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 19:13:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 19:14:04 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 19:17:43 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 19:23:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 19:27:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0

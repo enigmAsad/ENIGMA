@@ -4,7 +4,7 @@ from typing import Dict, Any, Optional, List
 from datetime import datetime
 
 from src.models.schemas import Application, ApplicationStatus
-from src.database.repositories import ApplicationRepository
+from src.database.repositories import ApplicationRepository, AdminRepository
 from src.utils.logger import get_logger, AuditLogger
 from sqlalchemy.orm import Session
 
@@ -24,6 +24,7 @@ class ApplicationCollector:
         """
         self.db = db
         self.app_repo = ApplicationRepository(db)
+        self.admin_repo = AdminRepository(db)
         self.audit_logger = audit_logger
 
     def collect_application(self, application_data: Dict[str, Any]) -> Application:
@@ -57,8 +58,25 @@ class ApplicationCollector:
             import uuid
             application.application_id = f"APP_{uuid.uuid4().hex[:8].upper()}"
 
-        # Persist application
-        self.app_repo.create(application)
+        # Persist application using the correct method for SQLAlchemy models
+        # Get active cycle ID for the application
+        active_cycle = self.admin_repo.get_active_cycle()
+        if not active_cycle:
+            raise ValueError("No active admission cycle found")
+
+        # Create SQLAlchemy model in database using individual parameters
+        self.app_repo.create_application(
+            application_id=application.application_id,
+            admission_cycle_id=active_cycle.cycle_id,
+            name=application.name,
+            email=application.email,
+            phone=application.phone,
+            address=application.address,
+            gpa=application.gpa,
+            test_scores=application.test_scores,
+            essay=application.essay,
+            achievements=application.achievements
+        )
 
         # Audit log
         if self.audit_logger:

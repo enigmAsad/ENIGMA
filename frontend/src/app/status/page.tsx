@@ -62,11 +62,14 @@ function StatusContent() {
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
       submitted: 'bg-blue-100 text-blue-800',
-      identity_scrubbing: 'bg-purple-100 text-purple-800',
-      worker_evaluation: 'bg-yellow-100 text-yellow-800',
-      judge_review: 'bg-orange-100 text-orange-800',
-      final_scoring: 'bg-indigo-100 text-indigo-800',
-      completed: 'bg-green-100 text-green-800',
+      finalized: 'bg-indigo-100 text-indigo-800',
+      preprocessing: 'bg-purple-100 text-purple-800',
+      batch_ready: 'bg-yellow-100 text-yellow-800',
+      processing: 'bg-orange-100 text-orange-800',
+      scored: 'bg-sky-100 text-sky-800',
+      selected: 'bg-green-100 text-green-800',
+      not_selected: 'bg-gray-100 text-gray-800',
+      published: 'bg-emerald-100 text-emerald-800',
       failed: 'bg-red-100 text-red-800',
     };
     return colors[status] || 'bg-gray-100 text-gray-800';
@@ -75,21 +78,59 @@ function StatusContent() {
   const getStatusEmoji = (status: string) => {
     const emojis: Record<string, string> = {
       submitted: '📝',
-      identity_scrubbing: '🔒',
-      worker_evaluation: '🤖',
-      judge_review: '⚖️',
-      final_scoring: '📊',
-      completed: '✅',
+      finalized: '🗃️',
+      preprocessing: '🧮',
+      batch_ready: '📤',
+      processing: '⚙️',
+      scored: '📈',
+      selected: '🎉',
+      not_selected: '📬',
+      published: '✅',
       failed: '❌',
     };
     return emojis[status] || '⏳';
   };
 
+  const renderStatusMessage = (currentStatus: string, message: string) => {
+    const waitingStatuses = ['submitted', 'finalized', 'preprocessing', 'batch_ready', 'processing', 'scored'];
+    const finalStatuses = ['selected', 'not_selected', 'published'];
+
+    if (waitingStatuses.includes(currentStatus)) {
+      return (
+        <div className="space-y-2">
+          <p className="text-gray-700">{message}</p>
+          <p className="text-sm text-gray-500">
+            Your application is still progressing through the evaluation workflow. You can check back later using the same Application ID.
+          </p>
+        </div>
+      );
+    }
+
+    if (finalStatuses.includes(currentStatus)) {
+      return <p className="text-gray-700">{message}</p>;
+    }
+
+    if (currentStatus === 'published') {
+      return <p className="text-gray-700">{message}</p>;
+    }
+
+    if (currentStatus === 'failed') {
+      return (
+        <div className="space-y-2">
+          <p className="text-gray-700">{message}</p>
+          <p className="text-sm text-gray-500">Please reach out to admissions support for assistance.</p>
+        </div>
+      );
+    }
+
+    return <p className="text-gray-700">{message}</p>;
+  };
+
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold mb-4">Check Application Status</h1>
-        <p className="text-lg text-gray-600">
+        <h1 className="text-4xl font-bold mb-4 text-white">Check Application Status</h1>
+        <p className="text-lg text-gray-600 text-white">
           Enter your Application ID to view your evaluation status and results
         </p>
       </div>
@@ -155,7 +196,7 @@ function StatusContent() {
               </div>
 
               <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="text-gray-700">{status.message}</p>
+                {renderStatusMessage(status.status, status.message)}
               </div>
 
               <div className="text-xs text-gray-500">
@@ -325,6 +366,9 @@ function StatusContent() {
             </p>
             <p className="text-sm mt-2">
               Your Application ID was provided when you submitted your application.
+            </p>
+            <p className="text-sm mt-2 text-gray-500">
+              Results appear once the admissions team publishes final decisions. If you recently submitted, please allow time for processing.
             </p>
           </div>
         </Card>

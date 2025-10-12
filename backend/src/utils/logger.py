@@ -9,6 +9,8 @@ from functools import lru_cache
 
 from src.config.settings import get_settings
 from src.models.schemas import AuditLog
+# Local imports that can cause circular dependencies are deferred in methods
+# to avoid issues during module import time.
 
 
 @lru_cache()
@@ -90,11 +92,15 @@ def log_critical(message: str, logger_name: str = "enigma"):
 class AuditLogger:
     """Audit logger for tracking all system actions."""
 
-    def __init__(self):
+    def __init__(self, db=None):
         """Initialize audit logger."""
-        pass
         self.settings = get_settings()
         self._logger = get_logger("audit")
+        self.db = db
+        self.audit_repo = None
+        if db is not None:
+            from src.database.repositories import AuditRepository
+            self.audit_repo = AuditRepository(db)
 
     def log_action(
         self,
@@ -118,23 +124,50 @@ class AuditLogger:
         Returns:
             AuditLog: The created audit log entry
         """
-        # Create audit log entry
+        from src.models.schemas import AuditLog
+        from src.database.models import AuditActionEnum
+
+        action_enum = AuditActionEnum(action.lower()) if action else AuditActionEnum.CREATE
         audit_log = AuditLog(
+            log_id=0,
             entity_type=entity_type,
             entity_id=entity_id,
-            action=action,
+            action=action_enum,
             actor=actor,
             details=details or {},
             metadata=metadata or {}
         )
-
-        # Note: CSV audit logging removed in v2.0 - using PostgreSQL audit_logs table
 
         # Log to application logger
         self._logger.info(
             f"AUDIT: {action} | {entity_type}:{entity_id} | actor={actor} | "
             f"details={details or {}} | timestamp={audit_log.timestamp.isoformat()}"
         )
+
+        if self.audit_repo:
+            from src.database.models import AuditActionEnum
+
+            action_enum = AuditActionEnum(action.lower()) if isinstance(action, str) else action
+            db_log = self.audit_repo.create_audit_log(
+                entity_type=entity_type,
+                entity_id=entity_id,
+                action=action_enum,
+                actor=actor,
+                details=details or {},
+                metadata=metadata or {}
+            )
+            return AuditLog(
+                log_id=db_log.log_id,
+                timestamp=db_log.timestamp,
+                entity_type=db_log.entity_type,
+                entity_id=db_log.entity_id,
+                action=db_log.action,
+                actor=db_log.actor,
+                details=db_log.details,
+                metadata=db_log.metadata,
+                previous_hash=db_log.previous_hash,
+                current_hash=db_log.current_hash
+            )
 
         return audit_log
 
@@ -143,7 +176,7 @@ class AuditLogger:
         return self.log_action(
             entity_type="Application",
             entity_id=application_id,
-            action="APPLICATION_SUBMITTED",
+            action="create",
             actor="system",
             details={"stage": "intake"}
         )
@@ -158,7 +191,7 @@ class AuditLogger:
         return self.log_action(
             entity_type="Application",
             entity_id=application_id,
-            action="IDENTITY_SCRUBBED",
+            action="update",
             actor="identity_scrubber",
             details={
                 "anonymized_id": anonymized_id,
@@ -177,7 +210,7 @@ class AuditLogger:
         return self.log_action(
             entity_type="WorkerResult",
             entity_id=worker_result_id,
-            action="WORKER_EVALUATION",
+            action="evaluate",
             actor="worker_llm",
             details={
                 "anonymized_id": anonymized_id,
@@ -198,7 +231,7 @@ class AuditLogger:
         return self.log_action(
             entity_type="JudgeResult",
             entity_id=judge_result_id,
-            action="JUDGE_REVIEW",
+            action="evaluate",
             actor="judge_llm",
             details={
                 "anonymized_id": anonymized_id,
@@ -218,7 +251,7 @@ class AuditLogger:
         return self.log_action(
             entity_type="FinalScore",
             entity_id=anonymized_id,
-            action="FINAL_SCORING",
+            action="evaluate",
             actor="system",
             details={
                 "final_score": final_score,
@@ -235,7 +268,7 @@ class AuditLogger:
         return self.log_action(
             entity_type="HashChainEntry",
             entity_id=anonymized_id,
-            action="HASH_GENERATED",
+            action="update",
             actor="hash_chain_generator",
             details={"hash": hash_value}
         )
@@ -250,7 +283,7 @@ class AuditLogger:
         return self.log_action(
             entity_type="Notification",
             entity_id=application_id,
-            action="NOTIFICATION_SENT",
+            action="update",
             actor="email_service",
             details={
                 "notification_type": notification_type,

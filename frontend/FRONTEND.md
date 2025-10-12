@@ -1,6 +1,6 @@
 # ENIGMA Frontend Implementation (Phase 1 + Admin Portal)
 
-**Implementation Date:** 2025-10-11 (Phase 1), 2025-10-12 (Admin Portal)
+**Implementation Date:** 2025-10-11 (Phase 1), 2025-10-12 (Admin Portal & Bug Fixes)
 **Framework:** Next.js 15 + React 19 + TypeScript + Tailwind CSS
 **Status:** ✅ Phase 1 + Admin Portal Complete
 
@@ -260,6 +260,12 @@ Full CRUD interface for managing admission cycles.
 
 ## 10. Changelog
 
+### v1.1.1 (2025-10-12) - Bug Fixes & UX Improvements
+- **Fixed**: React NaN warning in admission cycle creation form. Changed `max_seats` initial value from `0` to `1` to prevent invalid number states.
+- **Improved**: Enhanced input handler for seats field with fallback value (`parseInt(e.target.value) || 1`) to prevent NaN errors during user input.
+- **UX**: Form now maintains valid state at all times, eliminating console warnings and improving user experience.
+- **Location**: `src/app/admin/cycles/page.tsx:19,152,273`
+
 ### v1.1.0 (2025-10-12) - Admin Portal
 - **Added**: Complete admin portal with login, dashboard, and admission cycle management.
 - **Added**: `adminApi.ts` client and `useAdminAuth.ts` hook for protected routes.
@@ -273,5 +279,5 @@ Full CRUD interface for managing admission cycles.
 
 ---
 **Last Updated:** 2025-10-12
-**Version:** 1.1.0
+**Version:** 1.1.1
 **Status:** Production Ready (Phase 1 + Admin Portal) ✅

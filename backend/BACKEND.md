@@ -1,7 +1,7 @@
 # ENIGMA Backend - Technical Documentation
 
-**Version:** 2.0.1
-**Last Updated:** 2025-01-12
+**Version:** 2.0.2
+**Last Updated:** 2025-10-12
 **Python Version:** 3.12+
 **Status:** Production Ready
 
@@ -573,7 +573,30 @@ with get_db_context() as db:
 
 ---
 
-**Document Version:** 2.0.1
+## Changelog
+
+### v2.0.2 (2025-10-12) - Critical Bug Fixes
+- **Fixed**: Added missing `db.commit()` in `get_db()` function (`engine.py:88`). This critical fix ensures all database transactions are properly committed instead of being rolled back when sessions close.
+- **Fixed**: Added missing `closed_by` parameter to `close_cycle` endpoint (`api.py:669`). Now properly tracks which admin closed each admission cycle.
+- **Improved**: Enhanced datetime handling in `create_cycle` and `update_cycle` endpoints. Pydantic-parsed datetime objects are now properly converted to timezone-aware datetimes without unnecessary string manipulation.
+- **Enhanced**: New admission cycles are now automatically opened (`is_open=True`) when created, improving UX by eliminating manual open step.
+- **Location**: `src/database/engine.py`, `api.py`
+
+### v2.0.1 (2025-01-12) - Admin Portal & Phase Management
+- **Added**: Complete admin portal with JWT authentication, admission cycle CRUD, and 9-phase workflow management.
+- **Added**: Comprehensive API endpoints for cycle management (`/admin/cycles/*`).
+- **Added**: Session management with automatic cleanup of expired tokens.
+- **Security**: Implemented JWT Bearer token authentication for all admin operations with bcrypt password hashing.
+
+### v2.0.0 (2024-12-15) - PostgreSQL Migration
+- **Migration**: Migrated from CSV-based storage to PostgreSQL for ACID compliance and scalability.
+- **Added**: 14 normalized tables with proper relationships, indexes, and constraints.
+- **Added**: Repository pattern for clean data access layer separation.
+- **Performance**: 10-100x performance improvements for read/write operations.
+
+---
+
+**Document Version:** 2.0.2
 **Maintainer:** ENIGMA Development Team
 
 ## Additional Resources

@@ -1,0 +1,287 @@
+2025-10-12 02:38:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:40:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:40:18 | INFO     | main | Running prerequisite checks...
+2025-10-12 02:40:18 | INFO     | main | Verifying database connection...
+2025-10-12 02:40:22 | ERROR    | database | Database connection failed: Not an executable object: 'SELECT 1'
+2025-10-12 02:40:22 | ERROR    | main | Failed to connect to database
+2025-10-12 02:40:22 | ERROR    | main | Please check your DATABASE_URL in .env file
+2025-10-12 02:44:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:44:44 | ERROR    | database | Database connection failed: Not an executable object: 'SELECT 1'
+2025-10-12 02:48:32 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:48:36 | ERROR    | database | Database connection failed: Not an executable object: 'SELECT 1'
+2025-10-12 02:48:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:49:03 | INFO     | database | Database connection verified successfully
+2025-10-12 02:49:29 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:49:29 | INFO     | main | Running prerequisite checks...
+2025-10-12 02:49:29 | INFO     | main | Verifying database connection...
+2025-10-12 02:49:34 | INFO     | database | Database connection verified successfully
+2025-10-12 02:49:34 | INFO     | main | ✅ Database connection successful
+2025-10-12 02:49:34 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 02:50:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:50:47 | INFO     | main | Running prerequisite checks...
+2025-10-12 02:50:47 | INFO     | main | Verifying database connection...
+2025-10-12 02:50:53 | INFO     | database | Database connection verified successfully
+2025-10-12 02:50:53 | INFO     | main | ✅ Database connection successful
+2025-10-12 02:50:53 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 02:51:42 | ERROR    | api | Failed to get admission info: 'Settings' object has no attribute 'data_dir'
+2025-10-12 02:52:01 | ERROR    | api | Failed to get admission info: 'Settings' object has no attribute 'data_dir'
+2025-10-12 02:55:48 | ERROR    | api | Failed to get admission info: 'Settings' object has no attribute 'data_dir'
+2025-10-12 02:56:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:56:06 | INFO     | main | Running prerequisite checks...
+2025-10-12 02:56:06 | INFO     | main | Verifying database connection...
+2025-10-12 02:56:12 | INFO     | database | Database connection verified successfully
+2025-10-12 02:56:12 | INFO     | main | ✅ Database connection successful
+2025-10-12 02:56:12 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 02:56:30 | ERROR    | api | Failed to get admission info: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:56:30 | ERROR    | database | Database session error: 500: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:57:29 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:57:34 | INFO     | database | Database connection verified successfully
+2025-10-12 02:58:41 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 02:58:41 | INFO     | main | Running prerequisite checks...
+2025-10-12 02:58:41 | INFO     | main | Verifying database connection...
+2025-10-12 02:58:46 | INFO     | database | Database connection verified successfully
+2025-10-12 02:58:46 | INFO     | main | ✅ Database connection successful
+2025-10-12 02:58:46 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 02:59:08 | ERROR    | api | Failed to get admission info: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:08 | ERROR    | database | Database session error: 500: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:40 | ERROR    | api | Failed to get admission info: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:40 | ERROR    | database | Database session error: 500: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:41 | ERROR    | api | Failed to get admission info: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:41 | ERROR    | database | Database session error: 500: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 02:59:53 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 02:59:53 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 02:59:55 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 03:01:51 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:02:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:03:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:04:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:05:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:06:13 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:06:13 | INFO     | main | Running prerequisite checks...
+2025-10-12 03:06:13 | INFO     | main | Verifying database connection...
+2025-10-12 03:06:18 | INFO     | database | Database connection verified successfully
+2025-10-12 03:06:18 | INFO     | main | ✅ Database connection successful
+2025-10-12 03:06:18 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 03:06:41 | ERROR    | api | Failed to get admission info: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 03:06:41 | ERROR    | database | Database session error: 500: (psycopg2.errors.UndefinedTable) relation "admission_cycles" does not exist
+LINE 2: FROM admission_cycles 
+             ^
+
+[SQL: SELECT admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by 
+FROM admission_cycles 
+WHERE admission_cycles.is_open = true]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-12 03:06:51 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 03:06:51 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 03:07:19 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 03:07:19 | ERROR    | api | Dashboard stats failed: 'Settings' object has no attribute 'data_dir'
+2025-10-12 03:09:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:12:20 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:12:20 | INFO     | main | Running prerequisite checks...
+2025-10-12 03:12:20 | INFO     | main | Verifying database connection...
+2025-10-12 03:12:26 | INFO     | database | Database connection verified successfully
+2025-10-12 03:12:26 | INFO     | main | ✅ Database connection successful
+2025-10-12 03:12:26 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 03:13:09 | ERROR    | api | Dashboard stats failed: name 'ApplicationRepository' is not defined
+2025-10-12 03:13:09 | ERROR    | database | Database session error: 500: name 'ApplicationRepository' is not defined
+2025-10-12 03:13:09 | ERROR    | api | Dashboard stats failed: name 'ApplicationRepository' is not defined
+2025-10-12 03:13:09 | ERROR    | database | Database session error: 500: name 'ApplicationRepository' is not defined
+2025-10-12 03:49:41 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 03:49:41 | INFO     | main | Running prerequisite checks...
+2025-10-12 03:49:41 | INFO     | main | Verifying database connection...
+2025-10-12 03:49:46 | INFO     | database | Database connection verified successfully
+2025-10-12 03:49:46 | INFO     | main | ✅ Database connection successful
+2025-10-12 03:49:46 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 03:49:47 | ERROR    | main | Failed to start server: name 'Dict' is not defined
+2025-10-12 12:00:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:00:50 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:00:50 | INFO     | main | Verifying database connection...
+2025-10-12 12:00:55 | INFO     | database | Database connection verified successfully
+2025-10-12 12:00:55 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:00:55 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:00:55 | ERROR    | main | Failed to start server: name 'Dict' is not defined
+2025-10-12 12:01:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:02:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:03:42 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:04:03 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:04:03 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:04:03 | INFO     | main | Verifying database connection...
+2025-10-12 12:04:07 | INFO     | database | Database connection verified successfully
+2025-10-12 12:04:07 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:04:07 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:06:39 | INFO     | admin_auth | Login attempt for username: asadghaffar.dev@gmail.com
+2025-10-12 12:06:39 | WARNING  | admin_auth | Login failed: user asadghaffar.dev@gmail.com not found
+2025-10-12 12:06:39 | ERROR    | database | Database session error: 401: Invalid credentials
+2025-10-12 12:16:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:16:50 | INFO     | database | Database connection verified successfully
+2025-10-12 12:17:30 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:18:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:18:21 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:18:21 | INFO     | main | Verifying database connection...
+2025-10-12 12:18:26 | INFO     | database | Database connection verified successfully
+2025-10-12 12:18:26 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:18:26 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:29:30 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:29:30 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:29:30 | INFO     | main | Verifying database connection...
+2025-10-12 12:29:35 | INFO     | database | Database connection verified successfully
+2025-10-12 12:29:35 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:29:35 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:30:19 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 12:30:23 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 12:30:24 | ERROR    | database | Database session error: can't compare offset-naive and offset-aware datetimes
+2025-10-12 12:30:25 | ERROR    | database | Database session error: can't compare offset-naive and offset-aware datetimes
+2025-10-12 12:35:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:35:58 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:35:58 | INFO     | main | Verifying database connection...
+2025-10-12 12:36:02 | INFO     | database | Database connection verified successfully
+2025-10-12 12:36:02 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:36:02 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:37:08 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 12:37:11 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 12:37:13 | ERROR    | database | Database session error: 'dict' object has no attribute 'admin_id'
+2025-10-12 12:37:14 | ERROR    | database | Database session error: 'dict' object has no attribute 'admin_id'
+2025-10-12 12:40:11 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 12:40:11 | INFO     | main | Running prerequisite checks...
+2025-10-12 12:40:11 | INFO     | main | Verifying database connection...
+2025-10-12 12:40:17 | INFO     | database | Database connection verified successfully
+2025-10-12 12:40:17 | INFO     | main | ✅ Database connection successful
+2025-10-12 12:40:17 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 12:40:44 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-12 12:40:45 | WARNING  | admin_auth | Login failed: user asad not found
+2025-10-12 12:40:45 | ERROR    | database | Database session error: 401: Invalid credentials
+2025-10-12 12:41:01 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 12:41:05 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 12:44:00 | ERROR    | api | Failed to create cycle: (psycopg2.errors.ForeignKeyViolation) insert or update on table "admission_cycles" violates foreign key constraint "admission_cycles_created_by_fkey"
+DETAIL:  Key (created_by)=(enigma) is not present in table "admin_users".
+
+[SQL: INSERT INTO admission_cycles (cycle_id, cycle_name, phase, is_open, max_seats, current_seats, selected_count, result_date, start_date, end_date, created_at, created_by, closed_at, closed_by) VALUES (%(cycle_id)s, %(cycle_name)s, %(phase)s, %(is_open)s, %(max_seats)s, %(current_seats)s, %(selected_count)s, %(result_date)s, %(start_date)s, %(end_date)s, %(created_at)s, %(created_by)s, %(closed_at)s, %(closed_by)s)]
+[parameters: {'cycle_id': 'CYC_20251012_074359', 'cycle_name': 'Fall 25', 'phase': 'SUBMISSION', 'is_open': False, 'max_seats': 1, 'current_seats': 0, 'selected_count': 0, 'result_date': datetime.datetime(2025, 10, 12, 12, 55), 'start_date': datetime.datetime(2025, 10, 12, 12, 43), 'end_date': datetime.datetime(2025, 10, 12, 12, 49), 'created_at': datetime.datetime(2025, 10, 12, 7, 43, 59, 563432), 'created_by': 'enigma', 'closed_at': None, 'closed_by': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-12 12:44:00 | ERROR    | database | Database session error: 500: (psycopg2.errors.ForeignKeyViolation) insert or update on table "admission_cycles" violates foreign key constraint "admission_cycles_created_by_fkey"
+DETAIL:  Key (created_by)=(enigma) is not present in table "admin_users".
+
+[SQL: INSERT INTO admission_cycles (cycle_id, cycle_name, phase, is_open, max_seats, current_seats, selected_count, result_date, start_date, end_date, created_at, created_by, closed_at, closed_by) VALUES (%(cycle_id)s, %(cycle_name)s, %(phase)s, %(is_open)s, %(max_seats)s, %(current_seats)s, %(selected_count)s, %(result_date)s, %(start_date)s, %(end_date)s, %(created_at)s, %(created_by)s, %(closed_at)s, %(closed_by)s)]
+[parameters: {'cycle_id': 'CYC_20251012_074359', 'cycle_name': 'Fall 25', 'phase': 'SUBMISSION', 'is_open': False, 'max_seats': 1, 'current_seats': 0, 'selected_count': 0, 'result_date': datetime.datetime(2025, 10, 12, 12, 55), 'start_date': datetime.datetime(2025, 10, 12, 12, 43), 'end_date': datetime.datetime(2025, 10, 12, 12, 49), 'created_at': datetime.datetime(2025, 10, 12, 7, 43, 59, 563432), 'created_by': 'enigma', 'closed_at': None, 'closed_by': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-12 13:03:23 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 13:03:23 | INFO     | main | Running prerequisite checks...
+2025-10-12 13:03:23 | INFO     | main | Verifying database connection...
+2025-10-12 13:03:27 | INFO     | database | Database connection verified successfully
+2025-10-12 13:03:27 | INFO     | main | ✅ Database connection successful
+2025-10-12 13:03:27 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 13:05:39 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 13:05:42 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 13:06:28 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 13:06:31 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 13:07:41 | INFO     | api | Created admission cycle: Fall 25 Admissions
+2025-10-12 13:13:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 13:13:10 | INFO     | main | Running prerequisite checks...
+2025-10-12 13:13:10 | INFO     | main | Verifying database connection...
+2025-10-12 13:13:15 | INFO     | database | Database connection verified successfully
+2025-10-12 13:13:15 | INFO     | main | ✅ Database connection successful
+2025-10-12 13:13:15 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 13:14:40 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 13:14:43 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 13:15:33 | INFO     | api | Created and opened admission cycle: Spring 25 Admissions
+2025-10-12 13:15:55 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 13:15:58 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 13:25:37 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 13:25:40 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 13:26:37 | ERROR    | api | Failed to close cycle: AdminRepository.close_cycle() missing 1 required positional argument: 'closed_by'
+2025-10-12 13:26:37 | ERROR    | database | Database session error: 500: AdminRepository.close_cycle() missing 1 required positional argument: 'closed_by'
+2025-10-12 13:26:52 | ERROR    | api | Failed to close cycle: AdminRepository.close_cycle() missing 1 required positional argument: 'closed_by'
+2025-10-12 13:26:52 | ERROR    | database | Database session error: 500: AdminRepository.close_cycle() missing 1 required positional argument: 'closed_by'
+2025-10-12 13:28:04 | ERROR    | api | Failed to close cycle: AdminRepository.close_cycle() missing 1 required positional argument: 'closed_by'
+2025-10-12 13:28:04 | ERROR    | database | Database session error: 500: AdminRepository.close_cycle() missing 1 required positional argument: 'closed_by'
+2025-10-12 13:28:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 13:28:19 | INFO     | main | Running prerequisite checks...
+2025-10-12 13:28:19 | INFO     | main | Verifying database connection...
+2025-10-12 13:28:24 | INFO     | database | Database connection verified successfully
+2025-10-12 13:28:24 | INFO     | main | ✅ Database connection successful
+2025-10-12 13:28:24 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 13:28:40 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 13:28:43 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 13:29:07 | INFO     | api | Closed admission cycle: Spring 25 Admissions
+2025-10-12 13:31:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 13:31:35 | INFO     | main | Running prerequisite checks...
+2025-10-12 13:31:35 | INFO     | main | Verifying database connection...
+2025-10-12 13:31:39 | INFO     | database | Database connection verified successfully
+2025-10-12 13:31:39 | INFO     | main | ✅ Database connection successful
+2025-10-12 13:31:39 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 13:32:07 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 13:32:10 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 13:33:10 | ERROR    | api | Failed to create cycle: 'str' object cannot be interpreted as an integer
+2025-10-12 13:33:10 | ERROR    | database | Database session error: 500: 'str' object cannot be interpreted as an integer
+2025-10-12 13:35:02 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-12 13:35:03 | INFO     | main | Running prerequisite checks...
+2025-10-12 13:35:03 | INFO     | main | Verifying database connection...
+2025-10-12 13:35:07 | INFO     | database | Database connection verified successfully
+2025-10-12 13:35:07 | INFO     | main | ✅ Database connection successful
+2025-10-12 13:35:07 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-12 13:35:38 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-12 13:35:41 | INFO     | admin_auth | Login successful for enigma
+2025-10-12 13:36:33 | INFO     | api | Created and opened admission cycle: Winter 2025

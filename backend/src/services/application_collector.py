@@ -108,7 +108,7 @@ class ApplicationCollector:
         Returns:
             Optional[Application]: Application if found
         """
-        return self.csv_handler.get_application_by_id(application_id)
+        return self.app_repo.get_by_application_id(application_id)
 
     def update_status(
         self,

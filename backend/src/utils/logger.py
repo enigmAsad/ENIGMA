@@ -15,13 +15,9 @@ from src.database.repositories import AuditRepository
 class AuditLogger:
     """Audit logger for tracking all system actions."""
 
-    def __init__(self, csv_handler=None):
-        """Initialize audit logger.
-
-        Args:
-            csv_handler: CSVHandler instance (injected to avoid circular import)
-        """
-        self.csv_handler = csv_handler
+    def __init__(self):
+        """Initialize audit logger."""
+        pass
         self.settings = get_settings()
         self._logger = get_logger("audit")
 
@@ -57,12 +53,7 @@ class AuditLogger:
             metadata=metadata or {}
         )
 
-        # Write to CSV if handler is available
-        if self.csv_handler:
-            try:
-                self.csv_handler.append_audit_log(audit_log)
-            except Exception as e:
-                self._logger.error(f"Failed to write audit log to CSV: {e}")
+        # Note: CSV audit logging removed in v2.0 - using PostgreSQL audit_logs table
 
         # Log to application logger
         self._logger.info(

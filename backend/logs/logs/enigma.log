@@ -467,3 +467,53 @@ DETAIL:  Key (closed_by)=(system) is not present in table "admin_users".
 2025-10-13 18:00:15 | ERROR    | phase_manager | Failed to process APP_AAF0905F: ApplicationRepository.create_anonymized() got an unexpected keyword argument 'anonymized_id'
 2025-10-13 18:00:16 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251013_122055: 0 scrubbed, 0 metrics computed, 3 marked BATCH_READY, 3 failed
 2025-10-13 18:00:16 | INFO     | api | Preprocessing started for cycle CYC_20251013_122055 by admin asad
+2025-10-13 18:00:51 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251013_122055
+2025-10-13 18:00:52 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251013_122055: 3 applications ready for export
+2025-10-13 18:00:52 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251013_122055 to JSONL
+2025-10-13 18:00:53 | ERROR    | batch_processor | CRITICAL: No anonymized data for APP_7918B14A. Application marked as BATCH_READY but preprocessing phase failed. Run Phase 3 (preprocess) again.
+2025-10-13 18:00:53 | ERROR    | api | Failed to export batch data for cycle CYC_20251013_122055: CRITICAL: No anonymized data for APP_7918B14A. Application marked as BATCH_READY but preprocessing phase failed. Run Phase 3 (preprocess) again.
+2025-10-13 18:00:53 | ERROR    | database | Database session error: 400: CRITICAL: No anonymized data for APP_7918B14A. Application marked as BATCH_READY but preprocessing phase failed. Run Phase 3 (preprocess) again.
+2025-10-13 19:01:11 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:01:11 | INFO     | main | Running prerequisite checks...
+2025-10-13 19:01:11 | INFO     | main | Verifying database connection...
+2025-10-13 19:01:16 | INFO     | database | Database connection verified successfully
+2025-10-13 19:01:16 | INFO     | main | ✅ Database connection successful
+2025-10-13 19:01:16 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 19:01:16 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 19:01:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:01:50 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 19:01:54 | INFO     | admin_auth | Login successful for asad
+2025-10-13 19:04:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:05:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:05:22 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:05:27 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:05:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:07:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:09:03 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:13:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:15:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:22:25 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:23:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:26:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:27:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:27:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:32:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:32:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:32:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:32:59 | INFO     | create_admin | Admin user created successfully: asad
+2025-10-13 19:33:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:33:07 | INFO     | main | Running prerequisite checks...
+2025-10-13 19:33:07 | INFO     | main | Verifying database connection...
+2025-10-13 19:33:12 | INFO     | database | Database connection verified successfully
+2025-10-13 19:33:12 | INFO     | main | ✅ Database connection successful
+2025-10-13 19:33:12 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 19:33:12 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 19:33:13 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:34:15 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 19:34:17 | WARNING  | admin_auth | Login failed: invalid password for asad
+2025-10-13 19:34:19 | ERROR    | database | Database session error: 401: Invalid credentials
+2025-10-13 19:34:32 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 19:34:33 | WARNING  | admin_auth | Login failed: invalid password for asad
+2025-10-13 19:34:35 | ERROR    | database | Database session error: 401: Invalid credentials
+2025-10-13 19:34:55 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 19:34:59 | INFO     | admin_auth | Login successful for asad

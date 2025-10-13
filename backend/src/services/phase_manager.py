@@ -150,6 +150,7 @@ class PhaseManager:
         scrubbed_count = 0
         metrics_count = 0
         failed_count = 0
+        ready_application_ids: list[str] = []
 
         # Process each application: SCRUB → COMPUTE METRICS
         for app in applications:
@@ -161,6 +162,7 @@ class PhaseManager:
                     scrubbed_count += 1
                     logger.debug(f"Scrubbed {app.application_id} → {anonymized.anonymized_id}")
                 else:
+                    anonymized = existing_anon
                     logger.debug(f"Application {app.application_id} already scrubbed")
 
                 # STEP 2: COMPUTE DETERMINISTIC METRICS
@@ -186,6 +188,10 @@ class PhaseManager:
                 else:
                     logger.debug(f"Metrics already computed for {app.application_id}")
 
+                # Mark for BATCH_READY transition
+                if anonymized:
+                    ready_application_ids.append(app.application_id)
+
             except Exception as e:
                 logger.error(f"Failed to process {app.application_id}: {e}")
                 failed_count += 1
@@ -195,17 +201,18 @@ class PhaseManager:
         # self.app_repo.compute_percentile_ranks(cycle_id)
 
         # STEP 3: Update application statuses to BATCH_READY (ready for Phase 4 export)
-        from sqlalchemy import update
-        stmt = (
-            update(Application)
-            .where(
-                Application.admission_cycle_id == cycle_id,
-                Application.status == ApplicationStatusEnum.FINALIZED
+        batch_ready_count = 0
+        if ready_application_ids:
+            from sqlalchemy import update
+            stmt = (
+                update(Application)
+                .where(
+                    Application.application_id.in_(ready_application_ids)
+                )
+                .values(status=ApplicationStatusEnum.BATCH_READY)
             )
-            .values(status=ApplicationStatusEnum.BATCH_READY)
-        )
-        result = self.db.execute(stmt)
-        batch_ready_count = result.rowcount
+            result = self.db.execute(stmt)
+            batch_ready_count = result.rowcount
 
         self.db.commit()
 

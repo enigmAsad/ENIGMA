@@ -5,3 +5,78 @@
 2025-10-13 17:01:12 | INFO     | create_admin | Admin user created successfully: asad
 2025-10-13 17:18:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-13 17:19:02 | INFO     | create_admin | Admin user created successfully: asad
+2025-10-13 19:07:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:07:55 | ERROR    | database | Database transaction error: (psycopg2.errors.UndefinedColumn) column "role" of relation "admin_users" does not exist
+LINE 1: ..._users (admin_id, username, password_hash, email, role, is_a...
+                                                             ^
+
+[SQL: INSERT INTO admin_users (admin_id, username, password_hash, email, role, is_active, created_at, last_login) VALUES (%(admin_id)s, %(username)s, %(password_hash)s, %(email)s, %(role)s, %(is_active)s, %(created_at)s, %(last_login)s)]
+[parameters: {'admin_id': 'ADM_ASAD', 'username': 'asad', 'password_hash': '$2b$12$nnDJrcoRfR7XoBbKukgNqOetZkXW4OAJyzoMNwHpz8nxRPD.LCZCC', 'email': 'asad51@gmail.com', 'role': 'ADMIN', 'is_active': True, 'created_at': datetime.datetime(2025, 10, 13, 14, 7, 54, 314689), 'last_login': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-13 19:07:55 | ERROR    | create_admin | Error creating admin user: (psycopg2.errors.UndefinedColumn) column "role" of relation "admin_users" does not exist
+LINE 1: ..._users (admin_id, username, password_hash, email, role, is_a...
+                                                             ^
+
+[SQL: INSERT INTO admin_users (admin_id, username, password_hash, email, role, is_active, created_at, last_login) VALUES (%(admin_id)s, %(username)s, %(password_hash)s, %(email)s, %(role)s, %(is_active)s, %(created_at)s, %(last_login)s)]
+[parameters: {'admin_id': 'ADM_ASAD', 'username': 'asad', 'password_hash': '$2b$12$nnDJrcoRfR7XoBbKukgNqOetZkXW4OAJyzoMNwHpz8nxRPD.LCZCC', 'email': 'asad51@gmail.com', 'role': 'ADMIN', 'is_active': True, 'created_at': datetime.datetime(2025, 10, 13, 14, 7, 54, 314689), 'last_login': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-13 19:09:22 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:09:45 | ERROR    | database | Database transaction error: (psycopg2.errors.UndefinedColumn) column "role" of relation "admin_users" does not exist
+LINE 1: ..._users (admin_id, username, password_hash, email, role, is_a...
+                                                             ^
+
+[SQL: INSERT INTO admin_users (admin_id, username, password_hash, email, role, is_active, created_at, last_login) VALUES (%(admin_id)s, %(username)s, %(password_hash)s, %(email)s, %(role)s, %(is_active)s, %(created_at)s, %(last_login)s)]
+[parameters: {'admin_id': 'ADM_AHMED', 'username': 'ahmed', 'password_hash': '$2b$12$0BRrRBidiPB.T3GpUw1vruhlChszry7//ylDh4nUf9wif9W8gL2bK', 'email': 'ahmed@gmail.com', 'role': 'ADMIN', 'is_active': True, 'created_at': datetime.datetime(2025, 10, 13, 14, 9, 44, 927977), 'last_login': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-13 19:09:45 | ERROR    | create_admin | Error creating admin user: (psycopg2.errors.UndefinedColumn) column "role" of relation "admin_users" does not exist
+LINE 1: ..._users (admin_id, username, password_hash, email, role, is_a...
+                                                             ^
+
+[SQL: INSERT INTO admin_users (admin_id, username, password_hash, email, role, is_active, created_at, last_login) VALUES (%(admin_id)s, %(username)s, %(password_hash)s, %(email)s, %(role)s, %(is_active)s, %(created_at)s, %(last_login)s)]
+[parameters: {'admin_id': 'ADM_AHMED', 'username': 'ahmed', 'password_hash': '$2b$12$0BRrRBidiPB.T3GpUw1vruhlChszry7//ylDh4nUf9wif9W8gL2bK', 'email': 'ahmed@gmail.com', 'role': 'ADMIN', 'is_active': True, 'created_at': datetime.datetime(2025, 10, 13, 14, 9, 44, 927977), 'last_login': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-13 19:13:25 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:13:49 | ERROR    | database | Database transaction error: (psycopg2.errors.UndefinedColumn) column "role" of relation "admin_users" does not exist
+LINE 1: ..._users (admin_id, username, password_hash, email, role, is_a...
+                                                             ^
+
+[SQL: INSERT INTO admin_users (admin_id, username, password_hash, email, role, is_active, created_at, last_login) VALUES (%(admin_id)s, %(username)s, %(password_hash)s, %(email)s, %(role)s, %(is_active)s, %(created_at)s, %(last_login)s)]
+[parameters: {'admin_id': 'ADM_HELLO', 'username': 'hello', 'password_hash': '$2b$12$w21TkYoLhrrdMmjg6St13.QrzPf11nVu3tTWs1qJMOl2iFPKMXxfS', 'email': 'hello@gmail.com', 'role': 'ADMIN', 'is_active': True, 'created_at': datetime.datetime(2025, 10, 13, 14, 13, 48, 429223), 'last_login': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-13 19:13:49 | ERROR    | create_admin | Error creating admin user: (psycopg2.errors.UndefinedColumn) column "role" of relation "admin_users" does not exist
+LINE 1: ..._users (admin_id, username, password_hash, email, role, is_a...
+                                                             ^
+
+[SQL: INSERT INTO admin_users (admin_id, username, password_hash, email, role, is_active, created_at, last_login) VALUES (%(admin_id)s, %(username)s, %(password_hash)s, %(email)s, %(role)s, %(is_active)s, %(created_at)s, %(last_login)s)]
+[parameters: {'admin_id': 'ADM_HELLO', 'username': 'hello', 'password_hash': '$2b$12$w21TkYoLhrrdMmjg6St13.QrzPf11nVu3tTWs1qJMOl2iFPKMXxfS', 'email': 'hello@gmail.com', 'role': 'ADMIN', 'is_active': True, 'created_at': datetime.datetime(2025, 10, 13, 14, 13, 48, 429223), 'last_login': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-13 19:16:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:17:06 | ERROR    | database | Database transaction error: (psycopg2.errors.UndefinedColumn) column "role" of relation "admin_users" does not exist
+LINE 1: ..._users (admin_id, username, password_hash, email, role, is_a...
+                                                             ^
+
+[SQL: INSERT INTO admin_users (admin_id, username, password_hash, email, role, is_active, created_at, last_login) VALUES (%(admin_id)s, %(username)s, %(password_hash)s, %(email)s, %(role)s, %(is_active)s, %(created_at)s, %(last_login)s)]
+[parameters: {'admin_id': 'ADM_ALI', 'username': 'ali', 'password_hash': '$2b$12$.5h4bT3yxOCMmc/xJBVOxeYwFUx8mp5FbrR0XBrsj0qeyGKEIbbq2', 'email': 'ali@gmail.com', 'role': 'ADMIN', 'is_active': True, 'created_at': datetime.datetime(2025, 10, 13, 14, 17, 6, 106328), 'last_login': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-13 19:17:06 | ERROR    | create_admin | Error creating admin user: (psycopg2.errors.UndefinedColumn) column "role" of relation "admin_users" does not exist
+LINE 1: ..._users (admin_id, username, password_hash, email, role, is_a...
+                                                             ^
+
+[SQL: INSERT INTO admin_users (admin_id, username, password_hash, email, role, is_active, created_at, last_login) VALUES (%(admin_id)s, %(username)s, %(password_hash)s, %(email)s, %(role)s, %(is_active)s, %(created_at)s, %(last_login)s)]
+[parameters: {'admin_id': 'ADM_ALI', 'username': 'ali', 'password_hash': '$2b$12$.5h4bT3yxOCMmc/xJBVOxeYwFUx8mp5FbrR0XBrsj0qeyGKEIbbq2', 'email': 'ali@gmail.com', 'role': 'ADMIN', 'is_active': True, 'created_at': datetime.datetime(2025, 10, 13, 14, 17, 6, 106328), 'last_login': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-13 19:28:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:28:36 | ERROR    | database | Database transaction error: (psycopg2.errors.UndefinedColumn) column "role" of relation "admin_users" does not exist
+LINE 1: ..._users (admin_id, username, password_hash, email, role, is_a...
+                                                             ^
+
+[SQL: INSERT INTO admin_users (admin_id, username, password_hash, email, role, is_active, created_at, last_login) VALUES (%(admin_id)s, %(username)s, %(password_hash)s, %(email)s, %(role)s, %(is_active)s, %(created_at)s, %(last_login)s)]
+[parameters: {'admin_id': 'ADM_ASAD', 'username': 'asad', 'password_hash': '$2b$12$IsImrmHnzHLTnsmEI5dQFe51aYCm0warwRZGX.bBXBLEKrFDfKmme', 'email': 'asad@gmail.com', 'role': 'ADMIN', 'is_active': True, 'created_at': datetime.datetime(2025, 10, 13, 14, 28, 35, 410365), 'last_login': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-13 19:28:36 | ERROR    | create_admin | Error creating admin user: (psycopg2.errors.UndefinedColumn) column "role" of relation "admin_users" does not exist
+LINE 1: ..._users (admin_id, username, password_hash, email, role, is_a...
+                                                             ^
+
+[SQL: INSERT INTO admin_users (admin_id, username, password_hash, email, role, is_active, created_at, last_login) VALUES (%(admin_id)s, %(username)s, %(password_hash)s, %(email)s, %(role)s, %(is_active)s, %(created_at)s, %(last_login)s)]
+[parameters: {'admin_id': 'ADM_ASAD', 'username': 'asad', 'password_hash': '$2b$12$IsImrmHnzHLTnsmEI5dQFe51aYCm0warwRZGX.bBXBLEKrFDfKmme', 'email': 'asad@gmail.com', 'role': 'ADMIN', 'is_active': True, 'created_at': datetime.datetime(2025, 10, 13, 14, 28, 35, 410365), 'last_login': None}]
+(Background on this error at: https://sqlalche.me/e/20/f405)

@@ -110,10 +110,10 @@ export default function AdminDashboard() {
         actions.push({ key: 'export', label: 'Export for LLM', variant: 'primary' });
         break;
       case 'batch_prep':
-        actions.push({ key: 'processing', label: 'Start LLM Processing', variant: 'primary' });
+        actions.push({ key: 'processing', label: 'Run LLM Evaluation', variant: 'primary' });
         break;
       case 'processing':
-        // No direct action - LLM processing happens externally
+        actions.push({ key: 'processing', label: 'Re-run LLM Evaluation', variant: 'secondary' });
         break;
       case 'scored':
         actions.push({ key: 'select', label: 'Perform Selection', variant: 'primary' });

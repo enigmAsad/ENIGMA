@@ -681,3 +681,12 @@ DETAIL:  Key (triggered_by)=(asad) is not present in table "admin_users".
 2025-10-13 20:24:12 | INFO     | phase_manager | Marking cycle CYC_20251013_151802 as scored
 2025-10-13 20:24:13 | INFO     | phase_manager | Cycle CYC_20251013_151802 marked as SCORED
 2025-10-13 20:24:13 | INFO     | api | LLM processing completed for cycle CYC_20251013_151802 by admin asad
+2025-10-13 20:25:13 | INFO     | phase_manager | Performing selection for cycle CYC_20251013_151802
+2025-10-13 20:25:15 | INFO     | phase_manager | Selection complete: 1 selected, 1 not selected
+2025-10-13 20:25:15 | INFO     | api | Selection performed for cycle CYC_20251013_151802 by admin asad
+2025-10-13 20:25:45 | INFO     | phase_manager | Publishing results for cycle CYC_20251013_151802
+2025-10-13 20:25:47 | INFO     | phase_manager | Results published for cycle CYC_20251013_151802
+2025-10-13 20:25:47 | INFO     | api | Results published for cycle CYC_20251013_151802 by admin asad
+2025-10-13 20:25:59 | INFO     | phase_manager | Completing cycle CYC_20251013_151802
+2025-10-13 20:26:00 | INFO     | phase_manager | Cycle CYC_20251013_151802 completed
+2025-10-13 20:26:00 | INFO     | api | Cycle CYC_20251013_151802 completed by admin asad

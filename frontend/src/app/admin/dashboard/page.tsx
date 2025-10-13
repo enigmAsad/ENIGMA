@@ -196,7 +196,7 @@ export default function AdminDashboard() {
                       <div>
                         <p className="text-sm text-gray-600">Seats</p>
                         <p className="text-lg font-semibold">
-                          {activeCycle.current_seats} / {activeCycle.max_seats}
+                          {activeCycle.max_seats} total seat(s) available
                         </p>
                       </div>
                       <div>
@@ -242,11 +242,10 @@ export default function AdminDashboard() {
                       key={action.key}
                       onClick={() => handlePhaseTransition(action.key)}
                       disabled={processingAction !== null}
-                      className={`px-4 py-2 rounded-lg font-medium transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed ${
-                        action.variant === 'primary'
-                          ? 'bg-blue-600 text-white hover:bg-blue-700'
-                          : 'bg-gray-600 text-white hover:bg-gray-700'
-                      }`}
+                      className={`px-4 py-2 rounded-lg font-medium transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed ${action.variant === 'primary'
+                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                        : 'bg-gray-600 text-white hover:bg-gray-700'
+                        }`}
                     >
                       {processingAction === action.key ? 'Processing...' : action.label}
                     </button>

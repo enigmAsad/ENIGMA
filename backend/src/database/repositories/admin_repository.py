@@ -266,22 +266,17 @@ class AdminRepository(BaseRepository[AdminUser]):
         self.db.flush()
         return result.scalar_one_or_none()
 
-    def increment_cycle_seats(self, cycle_id: str) -> bool:
-        """Increment current seats for a cycle.
-
-        Args:
-            cycle_id: Cycle ID to increment
-
-        Returns:
-            bool: True if successful
-        """
-        stmt = update(AdmissionCycle).where(
-            AdmissionCycle.cycle_id == cycle_id
-        ).values(
-            current_seats=AdmissionCycle.current_seats + 1
+    def increment_cycle_seats(self, cycle_id: str) -> Optional[AdmissionCycle]:
+        """Increment current seats for a cycle and return updated cycle."""
+        stmt = (
+            update(AdmissionCycle)
+            .where(AdmissionCycle.cycle_id == cycle_id)
+            .values(current_seats=AdmissionCycle.current_seats + 1)
+            .returning(AdmissionCycle)
         )
         result = self.db.execute(stmt)
-        return result.rowcount > 0
+        self.db.flush()
+        return result.scalar_one_or_none()
 
     def get_all_cycles(self, skip: int = 0, limit: int = 100) -> List[AdmissionCycle]:
         """Get all admission cycles ordered by created_at desc."""

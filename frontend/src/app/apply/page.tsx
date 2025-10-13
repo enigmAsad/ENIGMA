@@ -240,8 +240,8 @@ export default function ApplyPage() {
       )}
 
       <div className="mb-8 text-center">
-        <h1 className="text-4xl font-bold mb-4">Submit Your Application</h1>
-        <p className="text-lg text-gray-600">
+        <h1 className="text-4xl font-bold mb-4 text-white">Submit Your Application</h1>
+        <p className="text-lg text-gray-600 text-white">
           All information will be anonymized before evaluation. You will be judged purely on merit.
         </p>
       </div>

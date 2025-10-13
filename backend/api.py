@@ -292,20 +292,42 @@ async def get_application_status(application_id: str, db: Session = Depends(get_
         # TODO: Implement anonymized ID lookup when needed
 
         # Determine status message
-        status = application.status
-        if status == ApplicationStatus.COMPLETED:
-            message = "Evaluation complete. Results available."
-        elif status == ApplicationStatus.FAILED:
-            message = "Evaluation failed. Please contact support."
-        else:
-            message = f"Application is being processed: {status}"
+        status_enum = application.status
+        status_value = status_enum.value if hasattr(status_enum, "value") else str(status_enum)
+
+        status_messages = {
+            ApplicationStatus.SUBMITTED.value: "Application received. Our team will begin verification soon.",
+            ApplicationStatus.FINALIZED.value: "Admissions window has closed. Preparing applications for evaluation.",
+            ApplicationStatus.PREPROCESSING.value: "Deterministic metrics are being calculated for your application.",
+            ApplicationStatus.BATCH_READY.value: "Your application is queued for AI evaluation.",
+            ApplicationStatus.PROCESSING.value: "Your application is currently being evaluated by our AI reviewers.",
+            ApplicationStatus.SCORED.value: "Evaluation results are in. Awaiting final selection.",
+            ApplicationStatus.SELECTED.value: "Congratulations! You have been selected. Results will be published soon.",
+            ApplicationStatus.NOT_SELECTED.value: "Your application was not selected. Final results will be published soon.",
+            ApplicationStatus.PUBLISHED.value: "Results have been published. You can view your evaluation below.",
+            ApplicationStatus.FAILED.value: "Evaluation failed. Please contact support for assistance.",
+        }
+
+        message = status_messages.get(
+            status_value,
+            "Your application is progressing through the admissions workflow. Please check back soon."
+        )
+
+        # Attempt to fetch anonymized ID when available
+        anonymized_id = None
+        try:
+            anonymized = app_repo.get_anonymized_by_application_id(application_id)
+            if anonymized:
+                anonymized_id = anonymized.anonymized_id
+        except Exception:
+            anonymized_id = None
 
         return ApplicationStatusResponse(
             application_id=application_id,
             anonymized_id=anonymized_id,
-            status=status,
+            status=status_value,
             message=message,
-            timestamp=datetime.utcnow()
+            timestamp=datetime.now(timezone.utc)
         )
 
     except HTTPException:

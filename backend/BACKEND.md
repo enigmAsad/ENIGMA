@@ -1,6 +1,6 @@
 # ENIGMA Backend - Technical Documentation
 
-**Version:** 2.0.4
+**Version:** 2.0.5
 **Last Updated:** 2025-10-13
 **Python Version:** 3.12+
 **Status:** Production Ready
@@ -586,6 +586,15 @@ with get_db_context() as db:
 
 ## Changelog
 
+### v2.0.5 (2025-10-13) - Critical Workflow & Results Display Fixes
+- **Fixed**: Hash chain `chain_id` changed from `String(50)` to `Integer` with `autoincrement=True` to resolve NULL constraint violations during hash chain entry creation (`models.py:451`).
+- **Added**: Alembic migration `20251013_2200_e2354a7dd801` to alter `hash_chain` table schema with proper sequence generation.
+- **Fixed**: Selection phase now correctly updates both `final_scores` AND `applications` tables with SELECTED/NOT_SELECTED status, ensuring proper workflow synchronization (`phase_manager.py:448-480`).
+- **Fixed**: Publish phase no longer overwrites selection decisions - `final_scores.status` now preserves SELECTED/NOT_SELECTED instead of being overwritten to PUBLISHED (`phase_manager.py:557-570`).
+- **Added**: `status` field to `ResultsResponse` API schema to expose selection decision (SELECTED/NOT_SELECTED/PUBLISHED) to frontend (`api.py:86,348`).
+- **Impact**: Complete end-to-end workflow now functions correctly from submission through published results, with proper status tracking and visibility.
+- **Location**: `src/database/models.py`, `src/services/phase_manager.py`, `api.py`, `alembic/versions/20251013_2200_e2354a7dd801_*.py`
+
 ### v2.0.4 (2025-10-13) - Automated LLM Processing
 - **Added**: Internal Worker/Judge LLM execution triggered via `POST /admin/cycles/{id}/processing`, eliminating manual JSONL upload loops.
 - **Updated**: `BatchProcessingService` now instantiates SQLAlchemy models for `worker_results`, `judge_results`, and `final_scores` with full audit logging.
@@ -618,7 +627,7 @@ with get_db_context() as db:
 
 ---
 
-**Document Version:** 2.0.4
+**Document Version:** 2.0.5
 **Maintainer:** ENIGMA Development Team
 
 ## Additional Resources

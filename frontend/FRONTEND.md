@@ -1,8 +1,8 @@
 # ENIGMA Frontend Implementation (Phase 1 + Admin Portal)
 
-**Implementation Date:** 2025-10-11 (Phase 1), 2025-10-12 (Admin Portal & Bug Fixes), 2025-10-13 (Internal LLM Integration)
+**Implementation Date:** 2025-10-11 (Phase 1), 2025-10-12 (Admin Portal & Bug Fixes), 2025-10-13 (Internal LLM Integration & Results Display)
 **Framework:** Next.js 15 + React 19 + TypeScript + Tailwind CSS
-**Status:** ✅ Phase 1 + Admin Portal Complete (with Automated LLM Batch Processing)
+**Status:** ✅ Phase 1 + Admin Portal Complete (with Automated LLM Batch Processing & Selection Status Display)
 
 ---
 
@@ -67,7 +67,7 @@ Handles all public-facing backend communication.
 // Interfaces
 - ApplicationSubmitRequest / Response
 - ApplicationStatusResponse
-- ResultsResponse
+- ResultsResponse (includes status: SELECTED/NOT_SELECTED/PUBLISHED)
 - VerifyRequest / Response
 - DashboardStatsResponse
 
@@ -157,6 +157,9 @@ Secure interface for applicant submissions.
 ### 3. Status & Results Viewer (`/status/page.tsx`)
 Check application status and view detailed results. Supports deep linking via `?id=` query parameter.
 - **Status Checker**: Input for Application ID with visual progress indicators for each stage (Submitted, Scrubbing, Evaluation, etc.).
+- **Selection Result Banners**: When results are published, displays prominent decision banners:
+  - **SELECTED**: Large green gradient banner with celebration emoji and congratulatory message
+  - **NOT_SELECTED**: Respectful gray gradient banner with encouragement to review feedback
 - **Results Display**: When completed, shows:
   - **Score Overview**: Large final score (0-100).
   - **Score Breakdown**: Progress bars for Academic, Test, Achievements, and Essay scores.
@@ -261,6 +264,15 @@ Full CRUD interface for managing admission cycles.
 
 ## 10. Changelog
 
+### v1.2.1 (2025-10-13) - Selection Status Display & Results Fix
+- **Added**: `status` field to `ResultsResponse` interface in `api.ts` to receive selection decision from backend (SELECTED/NOT_SELECTED/PUBLISHED).
+- **Added**: Prominent selection result banners in `status/page.tsx` that display before evaluation results:
+  - **SELECTED**: Green gradient banner with celebration emoji and congratulatory message
+  - **NOT_SELECTED**: Gray gradient banner with respectful messaging and encouragement
+- **Fixed**: Results fetching logic now checks for `['published', 'selected', 'not_selected']` statuses instead of non-existent `'completed'` status, enabling results to display correctly after publication.
+- **Impact**: Applicants now immediately see their selection decision (accepted/rejected) along with detailed evaluation feedback.
+- **Location**: `src/lib/api.ts:36`, `src/app/status/page.tsx:41-49,212-242`
+
 ### v1.1.1 (2025-10-12) - Bug Fixes & UX Improvements
 - **Fixed**: React NaN warning in admission cycle creation form. Changed `max_seats` initial value from `0` to `1` to prevent invalid number states.
 - **Improved**: Enhanced input handler for seats field with fallback value (`parseInt(e.target.value) || 1`) to prevent NaN errors during user input.
@@ -282,5 +294,5 @@ Full CRUD interface for managing admission cycles.
 
 ---
 **Last Updated:** 2025-10-13
-**Version:** 1.2.0
+**Version:** 1.2.1
 **Status:** Production Ready (Phase 1 + Admin Portal) ✅

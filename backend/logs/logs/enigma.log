@@ -517,3 +517,45 @@ DETAIL:  Key (closed_by)=(system) is not present in table "admin_users".
 2025-10-13 19:34:35 | ERROR    | database | Database session error: 401: Invalid credentials
 2025-10-13 19:34:55 | INFO     | admin_auth | Login attempt for username: asad
 2025-10-13 19:34:59 | INFO     | admin_auth | Login successful for asad
+2025-10-13 19:35:37 | INFO     | api | Created and opened admission cycle: Fall 25
+2025-10-13 19:36:29 | INFO     | application_collector | Collecting new application from ahmedraza@gmail.com
+2025-10-13 19:36:30 | INFO     | audit | AUDIT: create | Application:APP_31CCB022 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T14:36:30.249038
+2025-10-13 19:36:30 | INFO     | application_collector | Application collected successfully: APP_31CCB022
+2025-10-13 19:36:30 | INFO     | api | Application submitted: APP_31CCB022 (Cycle: Fall 25)
+2025-10-13 19:37:25 | INFO     | application_collector | Collecting new application from saramalik@gmail.com
+2025-10-13 19:37:26 | INFO     | audit | AUDIT: create | Application:APP_795A8B8F | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T14:37:26.266647
+2025-10-13 19:37:26 | INFO     | application_collector | Application collected successfully: APP_795A8B8F
+2025-10-13 19:37:26 | INFO     | api | Application submitted: APP_795A8B8F (Cycle: Fall 25)
+2025-10-13 19:37:43 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 19:37:47 | INFO     | admin_auth | Login successful for asad
+2025-10-13 19:38:34 | INFO     | phase_manager | Freezing cycle CYC_20251013_143536 by admin ADM_ASAD
+2025-10-13 19:38:35 | INFO     | phase_manager | Finalized 2 applications
+2025-10-13 19:38:36 | INFO     | phase_manager | Cycle CYC_20251013_143536 frozen successfully
+2025-10-13 19:38:36 | INFO     | api | Cycle CYC_20251013_143536 frozen by admin asad
+2025-10-13 19:38:46 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251013_143536
+2025-10-13 19:38:47 | INFO     | phase_manager | Processing 2 finalized applications
+2025-10-13 19:38:47 | INFO     | identity_scrubber | Scrubbing application: APP_795A8B8F
+2025-10-13 19:38:48 | INFO     | identity_scrubber | Applied 2 redactions to APP_795A8B8F
+2025-10-13 19:38:51 | INFO     | identity_scrubber | Successfully scrubbed APP_795A8B8F → ANON_1760348328420_CC19A5
+2025-10-13 19:38:53 | INFO     | identity_scrubber | Scrubbing application: APP_31CCB022
+2025-10-13 19:38:53 | INFO     | identity_scrubber | Applied 7 redactions to APP_31CCB022
+2025-10-13 19:38:56 | INFO     | identity_scrubber | Successfully scrubbed APP_31CCB022 → ANON_1760348333999_A52ECD
+2025-10-13 19:38:58 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251013_143536: 2 scrubbed, 2 metrics computed, 2 marked BATCH_READY, 0 failed
+2025-10-13 19:38:58 | INFO     | api | Preprocessing started for cycle CYC_20251013_143536 by admin asad
+2025-10-13 19:39:31 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251013_143536
+2025-10-13 19:39:32 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251013_143536: 2 applications ready for export
+2025-10-13 19:39:32 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251013_143536 to JSONL
+2025-10-13 19:39:34 | INFO     | batch_processor | Exported 2 applications to batch_exports\batch_export_CYC_20251013_143536_20251013_143933.jsonl
+2025-10-13 19:39:35 | ERROR    | api | Failed to export batch data for cycle CYC_20251013_143536: (psycopg2.errors.ForeignKeyViolation) insert or update on table "batch_runs" violates foreign key constraint "batch_runs_triggered_by_fkey"
+DETAIL:  Key (triggered_by)=(asad) is not present in table "admin_users".
+
+[SQL: INSERT INTO batch_runs (admission_cycle_id, batch_type, model_name, model_version, input_file_path, output_file_path, total_records, processed_records, failed_records, status, started_at, completed_at, triggered_by, error_log) VALUES (%(admission_cycle_id)s, %(batch_type)s, %(model_name)s, %(model_version)s, %(input_file_path)s, %(output_file_path)s, %(total_records)s, %(processed_records)s, %(failed_records)s, %(status)s, %(started_at)s, %(completed_at)s, %(triggered_by)s, %(error_log)s) RETURNING batch_runs.batch_id]
+[parameters: {'admission_cycle_id': 'CYC_20251013_143536', 'batch_type': 'WORKER_EVALUATION', 'model_name': 'gpt-5-mini', 'model_version': None, 'input_file_path': 'batch_exports\\batch_export_CYC_20251013_143536_20251013_143933.jsonl', 'output_file_path': None, 'total_records': 2, 'processed_records': 0, 'failed_records': 0, 'status': 'PENDING', 'started_at': None, 'completed_at': None, 'triggered_by': 'asad', 'error_log': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-13 19:39:35 | ERROR    | database | Database session error: 400: (psycopg2.errors.ForeignKeyViolation) insert or update on table "batch_runs" violates foreign key constraint "batch_runs_triggered_by_fkey"
+DETAIL:  Key (triggered_by)=(asad) is not present in table "admin_users".
+
+[SQL: INSERT INTO batch_runs (admission_cycle_id, batch_type, model_name, model_version, input_file_path, output_file_path, total_records, processed_records, failed_records, status, started_at, completed_at, triggered_by, error_log) VALUES (%(admission_cycle_id)s, %(batch_type)s, %(model_name)s, %(model_version)s, %(input_file_path)s, %(output_file_path)s, %(total_records)s, %(processed_records)s, %(failed_records)s, %(status)s, %(started_at)s, %(completed_at)s, %(triggered_by)s, %(error_log)s) RETURNING batch_runs.batch_id]
+[parameters: {'admission_cycle_id': 'CYC_20251013_143536', 'batch_type': 'WORKER_EVALUATION', 'model_name': 'gpt-5-mini', 'model_version': None, 'input_file_path': 'batch_exports\\batch_export_CYC_20251013_143536_20251013_143933.jsonl', 'output_file_path': None, 'total_records': 2, 'processed_records': 0, 'failed_records': 0, 'status': 'PENDING', 'started_at': None, 'completed_at': None, 'triggered_by': 'asad', 'error_log': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-13 19:41:46 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0

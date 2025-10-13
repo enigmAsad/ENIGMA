@@ -837,7 +837,7 @@ async def export_batch_data(
             model_name=get_settings().worker_model,
             input_file_path=file_path,
             total_records=record_count,
-            triggered_by=admin["username"]
+            triggered_by=admin["admin_id"]
         )
 
         result = {

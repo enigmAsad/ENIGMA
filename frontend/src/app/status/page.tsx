@@ -37,8 +37,9 @@ function StatusContent() {
       const statusData = await apiClient.getApplicationStatus(id);
       setStatus(statusData);
 
-      // If completed, try to fetch results
-      if (statusData.status === 'completed' && statusData.anonymized_id) {
+      // If published/selected/not_selected, try to fetch results
+      const resultsAvailableStatuses = ['published', 'selected', 'not_selected'];
+      if (resultsAvailableStatuses.includes(statusData.status) && statusData.anonymized_id) {
         try {
           const resultsData = await apiClient.getResults(statusData.anonymized_id);
           setResults(resultsData);

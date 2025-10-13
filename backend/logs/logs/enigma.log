@@ -1040,3 +1040,16 @@ DETAIL:  Failing row contains (null, ANON_1760355123657_3542D0, phase1_final, {"
 2025-10-13 22:25:08 | INFO     | phase_manager | Marking cycle CYC_20251013_171912 as scored
 2025-10-13 22:25:09 | INFO     | phase_manager | Cycle CYC_20251013_171912 marked as SCORED
 2025-10-13 22:25:09 | INFO     | api | LLM processing completed for cycle CYC_20251013_171912 by admin asad
+2025-10-13 22:25:23 | INFO     | phase_manager | Performing selection for cycle CYC_20251013_171912
+2025-10-13 22:25:25 | INFO     | phase_manager | Updated 1 applications to SELECTED status
+2025-10-13 22:25:25 | INFO     | phase_manager | Updated 1 applications to NOT_SELECTED status
+2025-10-13 22:25:27 | INFO     | phase_manager | Selection complete: 1 selected, 1 not selected
+2025-10-13 22:25:27 | INFO     | api | Selection performed for cycle CYC_20251013_171912 by admin asad
+2025-10-13 22:25:35 | INFO     | phase_manager | Publishing results for cycle CYC_20251013_171912
+2025-10-13 22:25:37 | INFO     | hash_chain | Created hash chain entry for ANON_1760358128354_1E1BD5: 70cdfc917db16ae3...
+2025-10-13 22:25:38 | INFO     | hash_chain | Created hash chain entry for ANON_1760358134234_632F28: af8a45ca7d4cf647...
+2025-10-13 22:25:39 | INFO     | phase_manager | Results published for cycle CYC_20251013_171912
+2025-10-13 22:25:39 | INFO     | api | Results published for cycle CYC_20251013_171912 by admin asad
+2025-10-13 22:25:45 | INFO     | phase_manager | Completing cycle CYC_20251013_171912
+2025-10-13 22:25:46 | INFO     | phase_manager | Cycle CYC_20251013_171912 completed
+2025-10-13 22:25:46 | INFO     | api | Cycle CYC_20251013_171912 completed by admin asad

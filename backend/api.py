@@ -27,7 +27,7 @@ from src.services.phase_manager import PhaseManager
 from src.services.batch_processor import BatchProcessingService
 from src.database.engine import get_db
 from src.database.repositories import AdminRepository, ApplicationRepository, BatchRepository
-from src.database.models import BatchTypeEnum
+from src.database.models import BatchTypeEnum, ApplicationStatusEnum
 from src.utils.logger import get_logger, AuditLogger
 from sqlalchemy.orm import Session
 
@@ -862,12 +862,23 @@ async def start_llm_processing(
     admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
-    """Phase 4 → Phase 5: Mark cycle as processing (LLM batch running externally)."""
+    """Phase 4 → Phase 5: Evaluate BATCH_READY applications with internal LLMs."""
     try:
         phase_mgr = PhaseManager(db)
+        batch_service = BatchProcessingService(db)
+
         cycle = phase_mgr.start_processing(cycle_id)
 
-        logger.info(f"LLM processing started for cycle {cycle_id} by admin {admin["username"]}")
+        batch_service.run_internal_processing(
+            cycle_id=cycle_id,
+            triggered_by=admin["admin_id"]
+        )
+
+        cycle = phase_mgr.mark_scored(cycle_id)
+
+        logger.info(
+            f"LLM processing completed for cycle {cycle_id} by admin {admin["username"]}"
+        )
         return cycle
 
     except Exception as e:

@@ -6,18 +6,18 @@ from sqlalchemy.orm import Session
 from sqlalchemy import select, func
 
 from src.database.models import AuditLog, HashChain, AuditActionEnum
-from src.database.repositories.base_repository import BaseRepository
+# Note: AuditRepository manages heterogeneous models, so it does not extend BaseRepository
 from src.utils.logger import get_logger
 
 logger = get_logger("audit_repository")
 
 
-class AuditRepository(BaseRepository[AuditLog]):
+class AuditRepository:
     """Repository for audit logging and hash chain operations."""
 
     def __init__(self, db: Session):
         """Initialize repository."""
-        super().__init__(AuditLog, db)
+        self.db = db
 
     # Audit Log Operations
 
@@ -212,39 +212,28 @@ class AuditRepository(BaseRepository[AuditLog]):
 
     def create_hash_chain_entry(
         self,
-        chain_id: str,
         anonymized_id: str,
         decision_type: str,
-        data_json: str
+        data_json: str,
+        data_hash: str,
+        previous_hash: str
     ) -> HashChain:
-        """Create hash chain entry for application decision.
-
-        Args:
-            chain_id: Unique chain ID
-            anonymized_id: Anonymized application ID
-            decision_type: Type of decision
-            data_json: JSON data to hash
-
-        Returns:
-            HashChain: Created hash chain entry
-        """
-        # Get previous hash
-        previous_hash = self.get_latest_hash_chain_entry_hash()
-
-        # Compute data hash
-        import hashlib
-        data_hash = hashlib.sha256(data_json.encode()).hexdigest()
-
-        # Create entry
+        """Persist a hash chain entry and return ORM object."""
         entry = HashChain(
-            chain_id=chain_id,
             anonymized_id=anonymized_id,
             decision_type=decision_type,
             data_json=data_json,
             data_hash=data_hash,
-            previous_hash=previous_hash or "0" * 64  # Genesis hash
+            previous_hash=previous_hash
         )
 
+        self.db.add(entry)
+        self.db.flush()
+        self.db.refresh(entry)
+        return entry
+
+    # Backwards-compatible alias used by older callers
+    def create_hash_entry(self, entry: HashChain) -> HashChain:
         self.db.add(entry)
         self.db.flush()
         self.db.refresh(entry)

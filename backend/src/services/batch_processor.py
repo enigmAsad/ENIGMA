@@ -14,7 +14,7 @@ import logging
 
 from sqlalchemy.orm import Session
 
-from src.database.repositories import ApplicationRepository, BatchRepository
+from src.database.repositories import ApplicationRepository, BatchRepository, AuditRepository
 from src.database.models import (
     BatchTypeEnum, BatchStatusEnum, ApplicationStatusEnum,
     AnonymizedApplication, WorkerResult, JudgeResult, FinalScore, JudgeDecisionEnum
@@ -23,6 +23,7 @@ from src.services.worker_llm import WorkerLLM
 from src.services.judge_llm import JudgeLLM
 from src.config.settings import get_settings
 from src.utils.logger import get_logger, AuditLogger
+from src.database.repositories import AuditRepository
 from src.services.hash_chain import HashChainGenerator
 
 logger = get_logger("batch_processor")
@@ -42,9 +43,10 @@ class BatchProcessingService:
         self.batch_repo = BatchRepository(db)
         self.settings = get_settings()
         audit_logger = AuditLogger(db)
+        audit_repo = AuditRepository(db)
         self.worker_llm = WorkerLLM(db, audit_logger=audit_logger)
         self.judge_llm = JudgeLLM(db, audit_logger=audit_logger)
-        self.hash_chain = HashChainGenerator(db, audit_logger=audit_logger)
+        self.hash_chain = HashChainGenerator(db, audit_repo=audit_repo, audit_logger=audit_logger)
 
     def export_applications_to_jsonl(
         self,
@@ -467,6 +469,7 @@ Ensure your evaluation is:
                 )
                 final_score = self.app_repo.create_final_score(final_score)
                 generated_hash = self.hash_chain.create_phase1_hash(final_score)
+                final_score.hash = generated_hash
             else:
                 final_score.llm_score = worker_result.total_score
                 final_score.llm_explanation = explanation
@@ -479,6 +482,7 @@ Ensure your evaluation is:
                 final_score.worker_attempts = worker_result.attempt_number
                 final_score.status = ApplicationStatusEnum.SCORED
                 generated_hash = self.hash_chain.create_phase1_hash(final_score)
+                final_score.hash = generated_hash
 
             logger.debug(
                 "Final score persisted for %s (hash=%s)",

@@ -507,14 +507,41 @@ class PhaseManager:
             update(Application)
             .where(
                 Application.admission_cycle_id == cycle_id,
-                Application.status.in_([
-                    ApplicationStatusEnum.SELECTED,
-                    ApplicationStatusEnum.NOT_SELECTED
-                ])
+                Application.status.in_(
+                    [
+                        ApplicationStatusEnum.SELECTED,
+                        ApplicationStatusEnum.NOT_SELECTED
+                    ]
+                )
             )
             .values(status=ApplicationStatusEnum.PUBLISHED)
         )
         self.db.execute(stmt)
+
+        # Update final scores to PUBLISHED status and refresh hash for transparency
+        from src.database.models import FinalScore, AnonymizedApplication
+        scoring_stmt = (
+            update(FinalScore)
+            .where(
+                FinalScore.anonymized_id.in_(
+                    select(AnonymizedApplication.anonymized_id)
+                    .join(Application, AnonymizedApplication.application_id == Application.application_id)
+                    .where(Application.admission_cycle_id == cycle_id)
+                )
+            )
+            .values(status=ApplicationStatusEnum.PUBLISHED)
+            .returning(FinalScore)
+        )
+        published_scores = list(self.db.execute(scoring_stmt).scalars().all())
+
+        if published_scores:
+            from src.database.repositories import AuditRepository
+            from src.services.hash_chain import HashChainGenerator
+            audit_repo = AuditRepository(self.db)
+            hash_chain = HashChainGenerator(self.db, audit_repo=audit_repo)
+            for score in published_scores:
+                new_hash = hash_chain.create_phase1_hash(score)
+                score.hash = new_hash
 
         # Update phase
         cycle = self.admin_repo.update_cycle_phase(cycle_id, AdmissionPhaseEnum.PUBLISHED)

@@ -16,7 +16,7 @@ from sqlalchemy.orm import Session
 from src.database.repositories import ApplicationRepository, BatchRepository
 from src.database.models import (
     BatchTypeEnum, BatchStatusEnum, ApplicationStatusEnum,
-    AnonymizedApplication, FinalScore
+    AnonymizedApplication, WorkerResult, JudgeResult, FinalScore, JudgeDecisionEnum
 )
 from src.services.worker_llm import WorkerLLM
 from src.services.judge_llm import JudgeLLM
@@ -378,7 +378,7 @@ Ensure your evaluation is:
 
         self.batch_repo.start_batch(batch_id)
 
-        results = []
+        results: List[tuple[AnonymizedApplication, WorkerResult, JudgeResult]] = []
         for idx, app in enumerate(anonymized_apps, start=1):
             try:
                 worker_result = self.worker_llm.evaluate(
@@ -386,12 +386,18 @@ Ensure your evaluation is:
                     attempt_number=1
                 )
                 worker_result.batch_run_id = batch_id
+                worker_result = self.app_repo.create_worker_result(worker_result)
+
                 judge_result = self.judge_llm.validate(
                     application=app,
                     worker_result=worker_result
                 )
                 judge_result.batch_run_id = batch_id
-                if judge_result.decision.value == "rejected":
+                judge_result = self.app_repo.create_judge_result(judge_result)
+
+                self.db.flush()
+
+                if judge_result.decision == JudgeDecisionEnum.REJECTED:
                     self.batch_repo.fail_batch(
                         batch_id,
                         error_log=(
@@ -404,6 +410,7 @@ Ensure your evaluation is:
                         f"Judge rejected evaluation for {app.anonymized_id}: "
                         f"{judge_result.feedback}"
                     )
+
                 results.append((app, worker_result, judge_result))
                 self.batch_repo.update_progress(
                     batch_id,
@@ -421,7 +428,7 @@ Ensure your evaluation is:
                 self.db.commit()
                 raise
 
-        for app, worker_result, judge_result in results:
+        for app, worker_result, _ in results:
             metrics = self.app_repo.get_deterministic_metrics(app.application_id)
             total_score = worker_result.total_score
             if metrics:
@@ -432,18 +439,13 @@ Ensure your evaluation is:
                     + worker_result.essay_score * self.settings.weight_essay
                 )
             explanation = worker_result.explanation
-            final_score = self.app_repo.get_final_score(app.anonymized_id)
+
             strengths = []
             improvements = []
             if isinstance(worker_result.reasoning, dict):
-                strengths = [
-                    f"Academic: {worker_result.reasoning.get('academic', '')}",
-                    f"Test: {worker_result.reasoning.get('test', '')}",
-                    f"Achievement: {worker_result.reasoning.get('achievement', '')}"
-                ]
-                improvements = [
-                    f"Essay: {worker_result.reasoning.get('essay', '')}"
-                ]
+                strengths = [value for value in worker_result.reasoning.values() if value]
+
+            final_score = self.app_repo.get_final_score(app.anonymized_id)
             if not final_score:
                 final_score = FinalScore(
                     anonymized_id=app.anonymized_id,
@@ -473,10 +475,10 @@ Ensure your evaluation is:
                 final_score.worker_attempts = worker_result.attempt_number
                 final_score.status = ApplicationStatusEnum.SCORED
 
-        self.app_repo.update_status(
-            app.application_id,
-            ApplicationStatusEnum.SCORED
-        )
+            self.app_repo.update_status(
+                app.application_id,
+                ApplicationStatusEnum.SCORED
+            )
 
         self.batch_repo.complete_batch(
             batch_id,
@@ -503,8 +505,7 @@ Ensure your evaluation is:
         anonymized_apps = [app for app in anonymized_apps if app]
 
         if not anonymized_apps:
-            logger.warning("No applications ready for internal processing")
-            return 0
+            raise ValueError("No applications ready for internal processing")
 
         batch_id = self.create_batch_run(
             cycle_id=cycle_id,

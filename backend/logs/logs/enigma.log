@@ -618,3 +618,61 @@ DETAIL:  Key (triggered_by)=(asad) is not present in table "admin_users".
 2025-10-13 20:08:45 | ERROR    | batch_processor | Failed to evaluate ANON_1760350026230_B2F668: Class 'src.models.schemas.WorkerResult' is not mapped
 2025-10-13 20:08:46 | ERROR    | api | Failed to start processing for cycle CYC_20251013_150348: Class 'src.models.schemas.WorkerResult' is not mapped
 2025-10-13 20:08:46 | ERROR    | database | Database session error: 400: Class 'src.models.schemas.WorkerResult' is not mapped
+2025-10-13 20:12:23 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:12:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:13:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:13:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:14:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:14:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:15:36 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:15:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:16:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:16:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:16:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:17:00 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:18:03 | INFO     | api | Created and opened admission cycle: Summer 2025
+2025-10-13 20:18:46 | INFO     | application_collector | Collecting new application from ahmedraza@gmail.com
+2025-10-13 20:18:47 | INFO     | audit | AUDIT: create | Application:APP_8433D597 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T15:18:47.269235
+2025-10-13 20:18:47 | INFO     | application_collector | Application collected successfully: APP_8433D597
+2025-10-13 20:18:47 | INFO     | api | Application submitted: APP_8433D597 (Cycle: Summer 2025)
+2025-10-13 20:19:36 | INFO     | application_collector | Collecting new application from saramalik@gmail.com
+2025-10-13 20:19:37 | INFO     | audit | AUDIT: create | Application:APP_E00D11C7 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T15:19:37.405067
+2025-10-13 20:19:37 | INFO     | application_collector | Application collected successfully: APP_E00D11C7
+2025-10-13 20:19:37 | INFO     | api | Application submitted: APP_E00D11C7 (Cycle: Summer 2025)
+2025-10-13 20:19:54 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 20:19:58 | INFO     | admin_auth | Login successful for asad
+2025-10-13 20:20:13 | INFO     | phase_manager | Freezing cycle CYC_20251013_151802 by admin ADM_ASAD
+2025-10-13 20:20:13 | INFO     | phase_manager | Finalized 2 applications
+2025-10-13 20:20:14 | INFO     | phase_manager | Cycle CYC_20251013_151802 frozen successfully
+2025-10-13 20:20:14 | INFO     | api | Cycle CYC_20251013_151802 frozen by admin asad
+2025-10-13 20:20:39 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251013_151802
+2025-10-13 20:20:39 | INFO     | phase_manager | Processing 2 finalized applications
+2025-10-13 20:20:40 | INFO     | identity_scrubber | Scrubbing application: APP_E00D11C7
+2025-10-13 20:20:40 | INFO     | identity_scrubber | Applied 2 redactions to APP_E00D11C7
+2025-10-13 20:20:42 | INFO     | identity_scrubber | Successfully scrubbed APP_E00D11C7 → ANON_1760350840515_63F84F
+2025-10-13 20:20:44 | INFO     | identity_scrubber | Scrubbing application: APP_8433D597
+2025-10-13 20:20:44 | INFO     | identity_scrubber | Applied 7 redactions to APP_8433D597
+2025-10-13 20:20:47 | INFO     | identity_scrubber | Successfully scrubbed APP_8433D597 → ANON_1760350844994_E31CDC
+2025-10-13 20:20:49 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251013_151802: 2 scrubbed, 2 metrics computed, 2 marked BATCH_READY, 0 failed
+2025-10-13 20:20:49 | INFO     | api | Preprocessing started for cycle CYC_20251013_151802 by admin asad
+2025-10-13 20:21:40 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 20:21:40 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 20:21:40 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251013_151802
+2025-10-13 20:21:41 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251013_151802: 2 applications ready for export
+2025-10-13 20:21:41 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251013_151802 to JSONL
+2025-10-13 20:21:43 | INFO     | batch_processor | Exported 2 applications to batch_exports\batch_export_CYC_20251013_151802_20251013_152142.jsonl
+2025-10-13 20:21:44 | INFO     | api | Batch export completed for cycle CYC_20251013_151802 by admin asad
+2025-10-13 20:22:36 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 20:22:36 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 20:22:36 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_151802
+2025-10-13 20:22:37 | INFO     | phase_manager | Cycle CYC_20251013_151802 now in PROCESSING phase
+2025-10-13 20:22:40 | INFO     | worker_llm | Evaluating ANON_1760350840515_63F84F (attempt 1)
+2025-10-13 20:23:00 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_65090C60 | actor=worker_llm | details={'anonymized_id': 'ANON_1760350840515_63F84F', 'attempt_number': 1, 'total_score': 89.3} | timestamp=2025-10-13T15:23:00.965106
+2025-10-13 20:23:02 | INFO     | worker_llm | Worker evaluation complete: ANON_1760350840515_63F84F → 89.30/100 (attempt 1)
+2025-10-13 20:23:02 | INFO     | judge_llm | Validating worker evaluation for ANON_1760350840515_63F84F (attempt 1)
+2025-10-13 20:23:21 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_269F1057 | actor=judge_llm | details={'anonymized_id': 'ANON_1760350840515_63F84F', 'worker_result_id': 'WKR_65090C60', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T15:23:21.141175
+2025-10-13 20:23:22 | INFO     | judge_llm | Judge validation complete: ANON_1760350840515_63F84F → APPROVED  (quality: 90/100)
+2025-10-13 20:23:23 | INFO     | worker_llm | Evaluating ANON_1760350844994_E31CDC (attempt 1)
+2025-10-13 20:23:40 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_EB469386 | actor=worker_llm | details={'anonymized_id': 'ANON_1760350844994_E31CDC', 'attempt_number': 1, 'total_score': 63.15} | timestamp=2025-10-13T15:23:40.994895
+2025-10-13 20:23:42 | INFO     | worker_llm | Worker evaluation complete: ANON_1760350844994_E31CDC → 63.15/100 (attempt 1)
+2025-10-13 20:23:42 | INFO     | judge_llm | Validating worker evaluation for ANON_1760350844994_E31CDC (attempt 1)

@@ -405,3 +405,33 @@ action
 2025-10-13 17:14:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-13 17:15:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-13 17:15:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:17:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:17:39 | INFO     | main | Running prerequisite checks...
+2025-10-13 17:17:39 | INFO     | main | Verifying database connection...
+2025-10-13 17:17:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:19:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:19:10 | INFO     | main | Running prerequisite checks...
+2025-10-13 17:19:10 | INFO     | main | Verifying database connection...
+2025-10-13 17:19:16 | INFO     | database | Database connection verified successfully
+2025-10-13 17:19:16 | INFO     | main | ✅ Database connection successful
+2025-10-13 17:19:16 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 17:19:16 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 17:19:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:19:54 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 17:19:58 | INFO     | admin_auth | Login successful for asad
+2025-10-13 17:20:56 | INFO     | api | Created and opened admission cycle: Fall 25
+2025-10-13 17:22:37 | INFO     | application_collector | Collecting new application from aisharehman@gmail.com
+2025-10-13 17:22:38 | INFO     | audit | AUDIT: create | Application:APP_AAF0905F | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T12:22:38.452829
+2025-10-13 17:22:38 | INFO     | application_collector | Application collected successfully: APP_AAF0905F
+2025-10-13 17:22:38 | INFO     | api | Application submitted: APP_AAF0905F (Cycle: Fall 25)
+2025-10-13 17:23:55 | INFO     | application_collector | Collecting new application from ahmedraza@gmail.com
+2025-10-13 17:23:56 | INFO     | audit | AUDIT: create | Application:APP_F2258E7C | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T12:23:56.799888
+2025-10-13 17:23:56 | INFO     | application_collector | Application collected successfully: APP_F2258E7C
+2025-10-13 17:23:57 | INFO     | api | Application submitted: APP_F2258E7C (Cycle: Fall 25)
+2025-10-13 17:26:50 | INFO     | application_collector | Collecting new application from saramalik@gmail.com
+2025-10-13 17:26:51 | INFO     | audit | AUDIT: create | Application:APP_7918B14A | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T12:26:51.312302
+2025-10-13 17:26:51 | INFO     | application_collector | Application collected successfully: APP_7918B14A
+2025-10-13 17:26:51 | INFO     | api | Application submitted: APP_7918B14A (Cycle: Fall 25)
+2025-10-13 17:31:20 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 17:31:23 | INFO     | admin_auth | Login successful for asad
+2025-10-13 17:32:06 | INFO     | api | Closed admission cycle: Fall 25

@@ -406,12 +406,22 @@ export default function AdminCyclesPage() {
 
                           <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mt-4">
                             <div>
-                              <p className="text-xs text-gray-500 uppercase">Seats</p>
+                              <p className="text-xs text-gray-500 uppercase">Applications</p>
+                              <p className="text-lg font-semibold text-gray-900">
+                                {cycle.current_seats}
+                              </p>
+                              <p className="text-xs text-gray-500 mt-1">
+                                submitted
+                              </p>
+                            </div>
+
+                            <div>
+                              <p className="text-xs text-gray-500 uppercase">Selection Target</p>
                               <p className="text-lg font-semibold text-gray-900">
                                 {cycle.max_seats}
                               </p>
                               <p className="text-xs text-gray-500 mt-1">
-                                {cycle.max_seats - cycle.current_seats} available
+                                top-K to select
                               </p>
                             </div>
 
@@ -419,6 +429,9 @@ export default function AdminCyclesPage() {
                               <p className="text-xs text-gray-500 uppercase">Selected</p>
                               <p className="text-lg font-semibold text-gray-900">
                                 {cycle.selected_count || 0}
+                              </p>
+                              <p className="text-xs text-gray-500 mt-1">
+                                in Phase 7
                               </p>
                             </div>
 

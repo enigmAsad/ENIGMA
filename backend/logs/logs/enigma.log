@@ -676,3 +676,8 @@ DETAIL:  Key (triggered_by)=(asad) is not present in table "admin_users".
 2025-10-13 20:23:40 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_EB469386 | actor=worker_llm | details={'anonymized_id': 'ANON_1760350844994_E31CDC', 'attempt_number': 1, 'total_score': 63.15} | timestamp=2025-10-13T15:23:40.994895
 2025-10-13 20:23:42 | INFO     | worker_llm | Worker evaluation complete: ANON_1760350844994_E31CDC → 63.15/100 (attempt 1)
 2025-10-13 20:23:42 | INFO     | judge_llm | Validating worker evaluation for ANON_1760350844994_E31CDC (attempt 1)
+2025-10-13 20:24:07 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_E6EC3323 | actor=judge_llm | details={'anonymized_id': 'ANON_1760350844994_E31CDC', 'worker_result_id': 'WKR_EB469386', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T15:24:07.633952
+2025-10-13 20:24:08 | INFO     | judge_llm | Judge validation complete: ANON_1760350844994_E31CDC → APPROVED  (quality: 86/100)
+2025-10-13 20:24:12 | INFO     | phase_manager | Marking cycle CYC_20251013_151802 as scored
+2025-10-13 20:24:13 | INFO     | phase_manager | Cycle CYC_20251013_151802 marked as SCORED
+2025-10-13 20:24:13 | INFO     | api | LLM processing completed for cycle CYC_20251013_151802 by admin asad

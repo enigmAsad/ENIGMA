@@ -448,7 +448,7 @@ class HashChain(Base):
     """Hash chain table - tamper-evident audit trail."""
     __tablename__ = "hash_chain"
 
-    chain_id = Column(String(50), primary_key=True)
+    chain_id = Column(Integer, primary_key=True, autoincrement=True)
     anonymized_id = Column(String(50), ForeignKey("anonymized_applications.anonymized_id"), nullable=False)
 
     decision_type = Column(String(100), nullable=False)

@@ -266,7 +266,7 @@ class AuditLogger:
     ) -> AuditLog:
         """Log hash chain generation."""
         return self.log_action(
-            entity_type="HashChainEntry",
+            entity_type="HashChain",
             entity_id=anonymized_id,
             action="update",
             actor="hash_chain_generator",

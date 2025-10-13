@@ -1,11 +1,10 @@
 """FastAPI REST API wrapper for ENIGMA Phase 1 backend."""
 
-from fastapi import FastAPI, HTTPException, BackgroundTasks, Depends, Header
+from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
-import asyncio
 import logging
 
 from src.config.settings import get_settings
@@ -28,9 +27,8 @@ from src.services.phase_manager import PhaseManager
 from src.services.batch_processor import BatchProcessingService
 from src.database.engine import get_db
 from src.database.repositories import AdminRepository, ApplicationRepository, BatchRepository
-from src.database.models import BatchTypeEnum
+from src.database.models import BatchTypeEnum, ApplicationStatusEnum
 from src.utils.logger import get_logger, AuditLogger
-from src.orchestration.phase1_pipeline import run_pipeline
 from sqlalchemy.orm import Session
 
 # Initialize
@@ -85,6 +83,7 @@ class ApplicationStatusResponse(BaseModel):
 class ResultsResponse(BaseModel):
     """Response with final results."""
     anonymized_id: str
+    status: str  # SELECTED, NOT_SELECTED, or PUBLISHED
     final_score: float
     academic_score: float
     test_score: float
@@ -151,17 +150,9 @@ async def get_current_admin(authorization: str = Header(None), db: Session = Dep
     return admin
 
 
-# Background task to process application
-async def process_application_background(application: Application):
-    """Process application in background."""
-    try:
-        logger.info(f"Starting background processing for {application.application_id}")
-        # Run pipeline in executor to avoid blocking
-        loop = asyncio.get_event_loop()
-        await loop.run_in_executor(None, run_pipeline, application)
-        logger.info(f"Completed background processing for {application.application_id}")
-    except Exception as e:
-        logger.error(f"Background processing failed for {application.application_id}: {e}")
+# Background processing removed - using 9-phase batch workflow instead
+# Applications are now processed in batches during Phase 3 (preprocessing)
+# and Phase 5 (LLM batch processing), not immediately on submission
 
 
 # Routes
@@ -202,12 +193,13 @@ async def health_check(db: Session = Depends(get_db)):
 @app.post("/applications", response_model=ApplicationSubmitResponse)
 async def submit_application(
     request: ApplicationSubmitRequest,
-    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)
 ):
     """
-    Submit a new application for Phase 1 evaluation.
-    Processing happens asynchronously in the background.
+    Submit a new application (Phase 1: SUBMISSION).
+
+    Application is stored with PII intact. Identity scrubbing and evaluation
+    occur later during Phase 3 (preprocessing) after the admissions window closes.
     """
     try:
         admin_repo = AdminRepository(db)
@@ -235,12 +227,9 @@ async def submit_application(
                 detail=f"Admissions window is closed. Opens on {active_cycle.start_date.date()}, closes on {active_cycle.end_date.date()}."
             )
 
-        # Check if seats available
-        if active_cycle.current_seats >= active_cycle.max_seats:
-            raise HTTPException(
-                status_code=400,
-                detail="Admissions are full. No seats available."
-            )
+        # NOTE: We do NOT limit applications based on max_seats
+        # max_seats is for SELECTION (Phase 7 top-K), not application limit
+        # Applications are unlimited until admin closes the cycle or date range ends
 
         # Initialize services
         audit_logger = AuditLogger()
@@ -256,15 +245,15 @@ async def submit_application(
         # Increment seat counter
         admin_repo.increment_cycle_seats(active_cycle.cycle_id)
 
-        # Queue for background processing
-        background_tasks.add_task(process_application_background, application)
+        # No background processing - applications will be evaluated in Phase 3 (preprocessing)
+        # and Phase 5 (LLM batch processing) after admissions close
 
         logger.info(f"Application submitted: {application.application_id} (Cycle: {active_cycle.cycle_name})")
 
         return ApplicationSubmitResponse(
             success=True,
             application_id=application.application_id,
-            message="Application submitted successfully. Processing in background.",
+            message="Application submitted successfully. Your application will be evaluated after the admissions window closes.",
             status=ApplicationStatus.SUBMITTED.value,
             timestamp=datetime.utcnow()
         )
@@ -351,8 +340,12 @@ async def get_results(anonymized_id: str, db: Session = Depends(get_db)):
                 detail="Results not found. Evaluation may still be in progress."
             )
 
+        # Get status value (handle enum or string)
+        status_value = final_score.status.value if hasattr(final_score.status, "value") else str(final_score.status)
+
         return ResultsResponse(
             anonymized_id=anonymized_id,
+            status=status_value,
             final_score=final_score.final_score,
             academic_score=final_score.academic_score,
             test_score=final_score.test_score,
@@ -646,6 +639,76 @@ async def update_cycle(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.delete("/admin/cycles/{cycle_id}")
+async def delete_cycle(
+    cycle_id: str,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db)
+):
+    """Delete an admission cycle that has no dependent records."""
+    try:
+        admin_repo = AdminRepository(db)
+        app_repo = ApplicationRepository(db)
+        batch_repo = BatchRepository(db)
+
+        cycle = admin_repo.get_cycle_by_id(cycle_id)
+        if not cycle:
+            raise HTTPException(status_code=404, detail="Cycle not found")
+
+        if cycle.is_open:
+            raise HTTPException(status_code=400, detail="Close the cycle before deleting it.")
+
+        application_count = app_repo.count_by_cycle(cycle_id)
+        if application_count > 0:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot delete cycle with submitted applications. Archive or remove applications first."
+            )
+
+        selection_logs = admin_repo.get_selection_logs(cycle_id)
+        if selection_logs:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot delete cycle with recorded selection logs."
+            )
+
+        batch_runs = batch_repo.get_batches_by_cycle(cycle_id)
+        if batch_runs:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot delete cycle with existing batch runs."
+            )
+
+        deleted = admin_repo.delete_cycle(cycle_id)
+        if not deleted:
+            raise HTTPException(status_code=500, detail="Failed to delete cycle")
+
+        audit_logger = AuditLogger(db)
+        audit_logger.log_action(
+            entity_type="AdmissionCycle",
+            entity_id=cycle_id,
+            action="delete",
+            actor=admin["admin_id"],
+            details={
+                "cycle_name": cycle.cycle_name,
+                "deleted_by": admin["username"],
+            }
+        )
+
+        logger.info(f"Deleted admission cycle: {cycle.cycle_name} ({cycle_id})")
+
+        return {
+            "success": True,
+            "message": f"Admission cycle '{cycle.cycle_name}' deleted successfully.",
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to delete cycle: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.put("/admin/cycles/{cycle_id}/open", response_model=AdmissionCycle)
 async def open_cycle(
     cycle_id: str,
@@ -731,15 +794,13 @@ async def get_admission_info(db: Session = Depends(get_db)):
         # Check if within date range
         now = datetime.now(timezone.utc)
         is_in_range = active_cycle.start_date <= now <= active_cycle.end_date
-        seats_available = active_cycle.current_seats < active_cycle.max_seats
 
-        is_open = active_cycle.is_open and is_in_range and seats_available
+        # NOTE: Applications are unlimited - max_seats is for selection, not admission closure
+        is_open = active_cycle.is_open and is_in_range
 
         if not is_open:
             if not is_in_range:
                 message = "Admissions window is currently closed"
-            elif not seats_available:
-                message = "Admissions are full - no seats available"
             else:
                 message = "Admissions are currently closed"
         else:
@@ -748,7 +809,7 @@ async def get_admission_info(db: Session = Depends(get_db)):
         return AdmissionInfoResponse(
             is_open=is_open,
             cycle_name=active_cycle.cycle_name,
-            seats_available=active_cycle.max_seats - active_cycle.current_seats,
+            seats_available=None,  # Unlimited applications - max_seats is for selection only
             max_seats=active_cycle.max_seats,
             current_seats=active_cycle.current_seats,
             start_date=active_cycle.start_date,
@@ -774,10 +835,10 @@ async def get_admission_status(db: Session = Depends(get_db)):
 
         now = datetime.now(timezone.utc)
         is_in_range = active_cycle.start_date <= now <= active_cycle.end_date
-        seats_available = active_cycle.current_seats < active_cycle.max_seats
 
+        # NOTE: Applications are unlimited - max_seats is for selection, not admission closure
         return {
-            "is_open": active_cycle.is_open and is_in_range and seats_available
+            "is_open": active_cycle.is_open and is_in_range
         }
 
     except Exception as e:
@@ -798,7 +859,7 @@ async def freeze_cycle(
     """Phase 1 → Phase 2: Freeze admission cycle and finalize applications."""
     try:
         phase_mgr = PhaseManager(db)
-        cycle = phase_mgr.freeze_cycle(cycle_id)
+        cycle = phase_mgr.freeze_cycle(cycle_id, closed_by=admin["admin_id"])
 
         logger.info(f"Cycle {cycle_id} frozen by admin {admin["username"]}")
         return cycle
@@ -851,7 +912,7 @@ async def export_batch_data(
             model_name=get_settings().worker_model,
             input_file_path=file_path,
             total_records=record_count,
-            triggered_by=admin["username"]
+            triggered_by=admin["admin_id"]
         )
 
         result = {
@@ -876,12 +937,23 @@ async def start_llm_processing(
     admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
-    """Phase 4 → Phase 5: Mark cycle as processing (LLM batch running externally)."""
+    """Phase 4 → Phase 5: Evaluate BATCH_READY applications with internal LLMs."""
     try:
         phase_mgr = PhaseManager(db)
+        batch_service = BatchProcessingService(db)
+
         cycle = phase_mgr.start_processing(cycle_id)
 
-        logger.info(f"LLM processing started for cycle {cycle_id} by admin {admin["username"]}")
+        batch_service.run_internal_processing(
+            cycle_id=cycle_id,
+            triggered_by=admin["admin_id"]
+        )
+
+        cycle = phase_mgr.mark_scored(cycle_id)
+
+        logger.info(
+            f"LLM processing completed for cycle {cycle_id} by admin {admin["username"]}"
+        )
         return cycle
 
     except Exception as e:

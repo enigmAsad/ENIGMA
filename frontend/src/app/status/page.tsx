@@ -37,8 +37,9 @@ function StatusContent() {
       const statusData = await apiClient.getApplicationStatus(id);
       setStatus(statusData);
 
-      // If completed, try to fetch results
-      if (statusData.status === 'completed' && statusData.anonymized_id) {
+      // If published/selected/not_selected, try to fetch results
+      const resultsAvailableStatuses = ['published', 'selected', 'not_selected'];
+      if (resultsAvailableStatuses.includes(statusData.status) && statusData.anonymized_id) {
         try {
           const resultsData = await apiClient.getResults(statusData.anonymized_id);
           setResults(resultsData);
@@ -208,6 +209,38 @@ function StatusContent() {
           {/* Results Display */}
           {results && (
             <>
+              {/* Selection Result Banner */}
+              {results.status === 'selected' && (
+                <div className="mb-8 p-8 bg-gradient-to-r from-green-50 to-emerald-50 border-4 border-green-400 rounded-xl shadow-lg">
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">🎉</div>
+                    <h2 className="text-3xl font-bold text-green-800 mb-2">
+                      Congratulations! You've Been Selected!
+                    </h2>
+                    <p className="text-lg text-green-700">
+                      You have been chosen for admission. Further details will be sent to your email address.
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              {results.status === 'not_selected' && (
+                <div className="mb-8 p-8 bg-gradient-to-r from-gray-50 to-slate-50 border-4 border-gray-400 rounded-xl shadow-lg">
+                  <div className="text-center">
+                    <div className="text-6xl mb-4">📬</div>
+                    <h2 className="text-3xl font-bold text-gray-800 mb-2">
+                      Thank You for Your Application
+                    </h2>
+                    <p className="text-lg text-gray-700 mb-4">
+                      After careful consideration, we regret to inform you that you were not selected in this admission cycle.
+                    </p>
+                    <p className="text-md text-gray-600">
+                      We appreciate your interest and encourage you to review your evaluation feedback below.
+                    </p>
+                  </div>
+                </div>
+              )}
+
               {/* Score Overview */}
               <Card title="Evaluation Results" className="mb-8">
                 <div className="space-y-6">

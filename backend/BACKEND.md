@@ -1,7 +1,7 @@
 # ENIGMA Backend - Technical Documentation
 
-**Version:** 2.0.3
-**Last Updated:** 2025-10-12
+**Version:** 2.0.5
+**Last Updated:** 2025-10-13
 **Python Version:** 3.12+
 **Status:** Production Ready
 
@@ -28,7 +28,7 @@
 
 ## Executive Summary
 
-ENIGMA is an **AI-powered blind merit screening system** designed to eliminate bias in university admissions through a production-ready PostgreSQL backend with a **9-phase workflow** for batch LLM processing, comprehensive audit logging, and enterprise-grade security.
+ENIGMA is an **AI-powered blind merit screening system** designed to eliminate bias in university admissions through a production-ready PostgreSQL backend with a **9-phase workflow** for automated LLM processing, comprehensive audit logging, and enterprise-grade security.
 
 ### Key Features
 
@@ -121,7 +121,16 @@ JWT-based authentication with PostgreSQL session management, bcrypt password has
 All admin endpoints access this data via dictionary keys (e.g., `admin["admin_id"]` not `admin.admin_id`).
 
 ### Batch Processor (`src/services/batch_processor.py`)
-Exports applications to JSONL for LLM batch processing and imports results back into the database.
+Exports applications to JSONL, orchestrates the internal Worker/Judge LLM pipeline, and imports results back into the database.
+
+### Worker LLM (`src/services/worker_llm.py`)
+Evaluates anonymized applications using OpenAI models, persists `worker_results` records, and logs outcomes for auditing.
+
+### Judge LLM (`src/services/judge_llm.py`)
+Validates Worker evaluations, persists `judge_results`, and enforces bias/rubric checks before final scores are committed.
+
+### Hash Chain Generator (`src/services/hash_chain.py`)
+Creates SHA-256 linked audit entries for every finalized score, ensuring a tamper-evident decision trail that can be verified on demand.
 
 ### Phase Manager (`src/services/phase_manager.py`)
 Manages 9-phase admission cycle workflow with validation gates and state transitions.
@@ -246,9 +255,9 @@ ENIGMA implements a structured 9-phase admission cycle workflow with validation 
 
 **Phase 3: PREPROCESSING** - Computes deterministic metrics (test averages, academic scores, percentile ranks)
 
-**Phase 4: BATCH_PREP** - Exports anonymized applications to JSONL for LLM batch processing
+**Phase 4: BATCH_PREP** - Prepares anonymized applications for LLM evaluation (JSONL snapshot available for external use)
 
-**Phase 5: PROCESSING** - External LLM batch processes applications and produces evaluation scores
+**Phase 5: PROCESSING** - Backend runs internal Worker/Judge LLM services, produces evaluation scores, and writes `final_scores`
 
 **Phase 6: SCORED** - Imports LLM results, updates final_scores table, marks applications as SCORED
 
@@ -265,8 +274,8 @@ ENIGMA implements a structured 9-phase admission cycle workflow with validation 
 | SUBMISSION | FROZEN | Admin freeze | Cycle open |
 | FROZEN | PREPROCESSING | Admin preprocess | All apps FINALIZED |
 | PREPROCESSING | BATCH_PREP | Admin export | Metrics computed |
-| BATCH_PREP | PROCESSING | Admin start processing | JSONL exported |
-| PROCESSING | SCORED | Admin import results | Results JSONL valid |
+| BATCH_PREP | PROCESSING | Admin run internal LLM | Applications marked BATCH_READY |
+| PROCESSING | SCORED | Internal LLM success | Worker/Judge results persisted |
 | SCORED | SELECTION | Admin select | All apps scored |
 | SELECTION | PUBLISHED | Admin publish | Selection complete |
 | PUBLISHED | COMPLETED | Admin complete | Results published |
@@ -276,8 +285,9 @@ ENIGMA implements a structured 9-phase admission cycle workflow with validation 
 - **Phase 1:** `POST /applications` (student submissions)
 - **Phase 2:** `POST /admin/cycles/{id}/freeze`
 - **Phase 3:** `POST /admin/cycles/{id}/preprocess`
-- **Phase 4:** `POST /admin/cycles/{id}/export` (creates JSONL)
-- **Phase 6:** `POST /admin/batch/import` (imports LLM results)
+- **Phase 4:** `POST /admin/cycles/{id}/export` (creates JSONL snapshot)
+- **Phase 5:** `POST /admin/cycles/{id}/processing` (runs internal LLM pipeline and persists results)
+- **Phase 6:** `POST /admin/batch/{id}/import` (optional external import path)
 - **Phase 7:** `POST /admin/cycles/{id}/select` (top-K selection)
 - **Phase 8:** `POST /admin/cycles/{id}/publish`
 - **Phase 9:** `POST /admin/cycles/{id}/complete`
@@ -288,21 +298,22 @@ ENIGMA implements a structured 9-phase admission cycle workflow with validation 
 
 ### Batch Processing (Primary)
 
-ENIGMA uses batch processing for LLM evaluation (Phases 4-6):
+ENIGMA now ships with an internal batch pipeline (Phases 4-6):
 
 **Workflow:**
-1. Export anonymized applications to JSONL format
-2. Process through external LLM batch pipeline (OpenAI Batch API)
-3. Import scored results back into PostgreSQL
+1. Export anonymized applications to JSONL (optional artifact for audit/external tooling)
+2. Execute internal Worker/Judge LLM services via `POST /admin/cycles/{id}/processing`
+3. Persist `worker_results`, `judge_results`, and `final_scores` in PostgreSQL
 
 **Benefits:**
-- 50% cost savings with batch API discounts
-- Higher throughput via parallel processing
-- Fault tolerance and resumability
+- Single-click automation from the admin portal
+- Consistent audit logging and error handling inside the backend
+- Optional JSONL export/import retained for offline or large-scale batch scenarios
+- Hash-chain entries generated automatically for each `final_scores` write
 
 ### Real-Time LLM (Optional)
 
-LangGraph pipeline available for real-time evaluation:
+LangGraph pipeline remains available for real-time evaluation:
 
 **Worker LLM:** Evaluates applications with weighted scoring (Academic 30%, Test 25%, Achievement 25%, Essay 20%)
 
@@ -575,6 +586,21 @@ with get_db_context() as db:
 
 ## Changelog
 
+### v2.0.5 (2025-10-13) - Critical Workflow & Results Display Fixes
+- **Fixed**: Hash chain `chain_id` changed from `String(50)` to `Integer` with `autoincrement=True` to resolve NULL constraint violations during hash chain entry creation (`models.py:451`).
+- **Added**: Alembic migration `20251013_2200_e2354a7dd801` to alter `hash_chain` table schema with proper sequence generation.
+- **Fixed**: Selection phase now correctly updates both `final_scores` AND `applications` tables with SELECTED/NOT_SELECTED status, ensuring proper workflow synchronization (`phase_manager.py:448-480`).
+- **Fixed**: Publish phase no longer overwrites selection decisions - `final_scores.status` now preserves SELECTED/NOT_SELECTED instead of being overwritten to PUBLISHED (`phase_manager.py:557-570`).
+- **Added**: `status` field to `ResultsResponse` API schema to expose selection decision (SELECTED/NOT_SELECTED/PUBLISHED) to frontend (`api.py:86,348`).
+- **Impact**: Complete end-to-end workflow now functions correctly from submission through published results, with proper status tracking and visibility.
+- **Location**: `src/database/models.py`, `src/services/phase_manager.py`, `api.py`, `alembic/versions/20251013_2200_e2354a7dd801_*.py`
+
+### v2.0.4 (2025-10-13) - Automated LLM Processing
+- **Added**: Internal Worker/Judge LLM execution triggered via `POST /admin/cycles/{id}/processing`, eliminating manual JSONL upload loops.
+- **Updated**: `BatchProcessingService` now instantiates SQLAlchemy models for `worker_results`, `judge_results`, and `final_scores` with full audit logging.
+- **Added**: Admin UI exposes "Run LLM Evaluation" actions for Batch Prep and Processing phases.
+- **Retained**: JSONL export/import endpoints remain for optional external pipelines.
+
 ### v2.0.3 (2025-10-12) - Status & Audit Improvements
 - **Improved**: `/applications/{id}` now returns normalized status values, phase-aware guidance, and anonymized IDs when present.
 - **Aligned**: Audit logging helpers map to valid `AuditActionEnum` values to prevent enum errors during submissions.
@@ -601,7 +627,7 @@ with get_db_context() as db:
 
 ---
 
-**Document Version:** 2.0.2
+**Document Version:** 2.0.5
 **Maintainer:** ENIGMA Development Team
 
 ## Additional Resources

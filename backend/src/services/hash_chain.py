@@ -5,7 +5,7 @@ import json
 from typing import Dict, Any, Optional, List
 from datetime import datetime
 
-from src.models.schemas import HashChainEntry, FinalScore
+from src.database.models import HashChain, FinalScore
 from src.database.repositories import AuditRepository
 from src.utils.logger import get_logger, AuditLogger
 from sqlalchemy.orm import Session
@@ -20,7 +20,7 @@ class HashChainGenerator:
     # Genesis hash for the first entry in the chain
     GENESIS_HASH = "0" * 64
 
-    def __init__(self, db: Session, audit_logger: Optional[AuditLogger] = None):
+    def __init__(self, db: Session, audit_repo: Optional[AuditRepository] = None, audit_logger: Optional[AuditLogger] = None):
         """Initialize hash chain generator.
 
         Args:
@@ -28,9 +28,9 @@ class HashChainGenerator:
             audit_logger: Optional AuditLogger instance
         """
         self.db = db
-        self.audit_repo = AuditRepository(db)
+        self.audit_repo = audit_repo or AuditRepository(db)
         self.audit_logger = audit_logger
-        self._chain_cache: Optional[List[HashChainEntry]] = None
+        self._chain_cache: Optional[List[HashChain]] = None
 
     def generate_hash(self, data: Dict[str, Any], previous_hash: str) -> str:
         """Generate SHA-256 hash linking to previous decision.
@@ -77,7 +77,7 @@ class HashChainGenerator:
         anonymized_id: str,
         decision_type: str,
         decision_data: Dict[str, Any]
-    ) -> HashChainEntry:
+    ) -> HashChain:
         """Create a new hash chain entry.
 
         Args:
@@ -86,7 +86,7 @@ class HashChainGenerator:
             decision_data: Decision data to hash
 
         Returns:
-            HashChainEntry: New hash chain entry
+            HashChain: New hash chain entry
         """
         # Get previous hash
         previous_hash = self.get_previous_hash()
@@ -97,23 +97,18 @@ class HashChainGenerator:
         # Generate hash
         data_hash = self.generate_hash(decision_data, previous_hash)
 
-        # Create hash chain entry
-        hash_entry = HashChainEntry(
+        saved_entry = self.audit_repo.create_hash_chain_entry(
             anonymized_id=anonymized_id,
             decision_type=decision_type,
             data_json=data_json,
             data_hash=data_hash,
-            previous_hash=previous_hash,
-            timestamp=datetime.utcnow()
+            previous_hash=previous_hash
         )
-
-        # Persist to database
-        self.audit_repo.create(hash_entry)
 
         # Update cache
         if self._chain_cache is None:
             self._chain_cache = []
-        self._chain_cache.append(hash_entry)
+        self._chain_cache.append(saved_entry)
 
         # Audit log
         if self.audit_logger:
@@ -121,7 +116,7 @@ class HashChainGenerator:
 
         logger.info(f"Created hash chain entry for {anonymized_id}: {data_hash[:16]}...")
 
-        return hash_entry
+        return saved_entry
 
     def create_phase1_hash(self, final_score: FinalScore) -> str:
         """Create hash chain entry for Phase 1 final score.
@@ -158,8 +153,8 @@ class HashChainGenerator:
 
     def verify_entry(
         self,
-        entry: HashChainEntry,
-        previous_entry: Optional[HashChainEntry] = None
+        entry: HashChain,
+        previous_entry: Optional[HashChain] = None
     ) -> bool:
         """Verify a single hash chain entry.
 
@@ -204,7 +199,7 @@ class HashChainGenerator:
 
         return True
 
-    def verify_chain(self, chain: Optional[List[HashChainEntry]] = None) -> Dict[str, Any]:
+    def verify_chain(self, chain: Optional[List[HashChain]] = None) -> Dict[str, Any]:
         """Verify integrity of entire hash chain.
 
         Args:

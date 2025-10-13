@@ -1,8 +1,8 @@
 # ENIGMA Frontend Implementation (Phase 1 + Admin Portal)
 
-**Implementation Date:** 2025-10-11 (Phase 1), 2025-10-12 (Admin Portal & Bug Fixes)
+**Implementation Date:** 2025-10-11 (Phase 1), 2025-10-12 (Admin Portal & Bug Fixes), 2025-10-13 (Internal LLM Integration & Results Display)
 **Framework:** Next.js 15 + React 19 + TypeScript + Tailwind CSS
-**Status:** ✅ Phase 1 + Admin Portal Complete
+**Status:** ✅ Phase 1 + Admin Portal Complete (with Automated LLM Batch Processing & Selection Status Display)
 
 ---
 
@@ -67,7 +67,7 @@ Handles all public-facing backend communication.
 // Interfaces
 - ApplicationSubmitRequest / Response
 - ApplicationStatusResponse
-- ResultsResponse
+- ResultsResponse (includes status: SELECTED/NOT_SELECTED/PUBLISHED)
 - VerifyRequest / Response
 - DashboardStatsResponse
 
@@ -157,6 +157,9 @@ Secure interface for applicant submissions.
 ### 3. Status & Results Viewer (`/status/page.tsx`)
 Check application status and view detailed results. Supports deep linking via `?id=` query parameter.
 - **Status Checker**: Input for Application ID with visual progress indicators for each stage (Submitted, Scrubbing, Evaluation, etc.).
+- **Selection Result Banners**: When results are published, displays prominent decision banners:
+  - **SELECTED**: Large green gradient banner with celebration emoji and congratulatory message
+  - **NOT_SELECTED**: Respectful gray gradient banner with encouragement to review feedback
 - **Results Display**: When completed, shows:
   - **Score Overview**: Large final score (0-100).
   - **Score Breakdown**: Progress bars for Academic, Test, Achievements, and Essay scores.
@@ -205,6 +208,7 @@ Overview of the current admission cycle and system status.
 Full CRUD interface for managing admission cycles.
 - **Create New Cycle**: A form to define a new cycle with a name, max seats, and start/end/result dates.
 - **List All Cycles**: A table displaying all past and present cycles with their status, seat occupancy, and key dates.
+- **LLM Evaluation Trigger**: Admins can launch or re-run the backend LLM evaluation directly from the UI once a cycle reaches Phase 4 (Batch Prep).
 - **Open/Close Cycles**: One-click toggle buttons to open or close a cycle. The backend ensures only one cycle can be open at a time.
 
 ### Key Admin Features
@@ -260,16 +264,27 @@ Full CRUD interface for managing admission cycles.
 
 ## 10. Changelog
 
+### v1.2.1 (2025-10-13) - Selection Status Display & Results Fix
+- **Added**: `status` field to `ResultsResponse` interface in `api.ts` to receive selection decision from backend (SELECTED/NOT_SELECTED/PUBLISHED).
+- **Added**: Prominent selection result banners in `status/page.tsx` that display before evaluation results:
+  - **SELECTED**: Green gradient banner with celebration emoji and congratulatory message
+  - **NOT_SELECTED**: Gray gradient banner with respectful messaging and encouragement
+- **Fixed**: Results fetching logic now checks for `['published', 'selected', 'not_selected']` statuses instead of non-existent `'completed'` status, enabling results to display correctly after publication.
+- **Impact**: Applicants now immediately see their selection decision (accepted/rejected) along with detailed evaluation feedback.
+- **Location**: `src/lib/api.ts:36`, `src/app/status/page.tsx:41-49,212-242`
+
 ### v1.1.1 (2025-10-12) - Bug Fixes & UX Improvements
 - **Fixed**: React NaN warning in admission cycle creation form. Changed `max_seats` initial value from `0` to `1` to prevent invalid number states.
 - **Improved**: Enhanced input handler for seats field with fallback value (`parseInt(e.target.value) || 1`) to prevent NaN errors during user input.
 - **UX**: Form now maintains valid state at all times, eliminating console warnings and improving user experience.
-- **Location**: `src/app/admin/cycles/page.tsx:19,152,273`
+- **Automation**: Added inline LLM processing controls to `src/app/admin/cycles/page.tsx` and `src/app/admin/dashboard/page.tsx` so admins can trigger evaluations without leaving the app.
+- **Location**: `src/app/admin/cycles/page.tsx:19,152,273`, `src/app/admin/dashboard/page.tsx`
 
 ### v1.1.0 (2025-10-12) - Admin Portal
 - **Added**: Complete admin portal with login, dashboard, and admission cycle management.
 - **Added**: `adminApi.ts` client and `useAdminAuth.ts` hook for protected routes.
 - **Updated**: Landing and Apply pages now display real-time admission status (open/closed, seat availability) based on the active cycle.
+- **Automation**: Admin cycles page now exposes a "Run LLM Evaluation" action that drives the new backend batch processing pipeline.
 - **Security**: Implemented JWT Bearer token authentication for all admin operations.
 
 ### v1.0.0 (2025-10-11) - Initial Release
@@ -278,6 +293,6 @@ Full CRUD interface for managing admission cycles.
 - **Features**: Responsive design, form validation, status tracking, cryptographic verification, and a public transparency dashboard.
 
 ---
-**Last Updated:** 2025-10-12
-**Version:** 1.1.1
+**Last Updated:** 2025-10-13
+**Version:** 1.2.1
 **Status:** Production Ready (Phase 1 + Admin Portal) ✅

@@ -16,7 +16,8 @@ from src.services.hash_chain import HashChainGenerator
 from src.database.engine import get_db_context
 from src.database.repositories import ApplicationRepository, AdminRepository
 from src.utils.logger import get_logger, AuditLogger
-from src.orchestration.phase1_pipeline import run_pipeline
+# Real-time pipeline removed - now using 9-phase batch workflow via REST API
+# See api.py for Phase 1-9 endpoints
 
 
 logger = get_logger("main")
@@ -82,114 +83,31 @@ def init_command(args):
 
 
 def run_command(args):
-    """Run Phase 1 pipeline on applications."""
-    print(f"Running Phase 1 pipeline on: {args.input}\n")
-
-    try:
-        # Load applications
-        input_path = Path(args.input)
-        if not input_path.exists():
-            print(f"✗ Input file not found: {input_path}")
-            sys.exit(1)
-
-        with open(input_path, 'r', encoding='utf-8') as f:
-            applications_data = json.load(f)
-
-        if not isinstance(applications_data, list):
-            applications_data = [applications_data]
-
-        print(f"Loaded {len(applications_data)} application(s)")
-
-        # Initialize services
-        with get_db_context() as db:
-            audit_logger = AuditLogger()
-            app_collector = ApplicationCollector(
-                db=db,
-                audit_logger=audit_logger
-            )
-
-        # Collect applications
-        print("\n=== Collecting Applications ===")
-        applications = []
-        for i, app_data in enumerate(applications_data):
-            try:
-                application = app_collector.collect_application(app_data)
-                applications.append(application)
-                print(f"  {i+1}. Collected: {application.application_id}")
-            except Exception as e:
-                print(f"  {i+1}. Failed: {e}")
-
-        # Run pipeline for each application
-        print(f"\n=== Running Pipeline for {len(applications)} Application(s) ===\n")
-        results = []
-        for i, application in enumerate(applications):
-            print(f"[{i+1}/{len(applications)}] Processing {application.application_id}...")
-            try:
-                final_state = run_pipeline(application)
-                results.append(final_state)
-
-                if final_state.status.value == "completed":
-                    print(f"  ✓ Complete: Score {final_state.final_score.final_score:.2f}/100\n")
-                else:
-                    print(f"  ✗ Failed: {final_state.error}\n")
-
-            except Exception as e:
-                print(f"  ✗ Pipeline error: {e}\n")
-                logger.error(f"Pipeline failed for {application.application_id}: {e}")
-
-        # Summary
-        completed = sum(1 for r in results if r.status.value == "completed")
-        failed = len(results) - completed
-
-        print("=== Summary ===")
-        print(f"Total: {len(results)}")
-        print(f"Completed: {completed}")
-        print(f"Failed: {failed}")
-
-        if completed > 0:
-            avg_score = sum(r.final_score.final_score for r in results if r.final_score) / completed
-            print(f"Average Score: {avg_score:.2f}/100")
-
-    except Exception as e:
-        print(f"\n✗ Run failed: {e}")
-        logger.error(f"Run command failed: {e}")
-        sys.exit(1)
+    """DEPRECATED: Real-time pipeline has been replaced with 9-phase batch workflow."""
+    print("⚠️  DEPRECATED: 'run' command is no longer supported.\n")
+    print("The real-time pipeline has been replaced with the 9-phase batch workflow.")
+    print("Applications are now processed through the REST API:\n")
+    print("Phase 1: POST /applications - Submit applications")
+    print("Phase 2: POST /admin/cycles/{id}/freeze - Freeze cycle")
+    print("Phase 3: POST /admin/cycles/{id}/preprocess - Scrub identities & compute metrics")
+    print("Phase 4: POST /admin/cycles/{id}/export - Export to JSONL")
+    print("Phase 5: (External LLM batch processing)")
+    print("Phase 6: POST /admin/batch/{id}/import - Import LLM results")
+    print("Phase 7-9: Selection, publishing, completion\n")
+    print("Please use the REST API or frontend interface instead.")
+    print("See BACKEND.md for full documentation.")
+    sys.exit(1)
 
 
 def process_command(args):
-    """Process a single application by ID."""
-    print(f"Processing application: {args.application_id}\n")
-
-    try:
-        with get_db_context() as db:
-            app_repo = ApplicationRepository(db)
-
-            # Get application
-            application = app_repo.get_by_application_id(args.application_id)
-            if not application:
-                print(f"✗ Application not found: {args.application_id}")
-                sys.exit(1)
-
-        print(f"Found application: {application.name} ({application.email})")
-
-        # Run pipeline
-        print("\nRunning pipeline...\n")
-        final_state = run_pipeline(application)
-
-        if final_state.status.value == "completed":
-            print(f"\n✓ Pipeline complete!")
-            print(f"Anonymized ID: {final_state.anonymized_id}")
-            print(f"Final Score: {final_state.final_score.final_score:.2f}/100")
-            print(f"Worker Attempts: {final_state.worker_attempt}")
-            print(f"Hash: {final_state.hash}")
-        else:
-            print(f"\n✗ Pipeline failed: {final_state.error}")
-            sys.exit(1)
-
-    except Exception as e:
-        print(f"\n✗ Process failed: {e}")
-        logger.error(f"Process command failed: {e}")
-        sys.exit(1)
+    """DEPRECATED: Real-time pipeline has been replaced with 9-phase batch workflow."""
+    print("⚠️  DEPRECATED: 'process' command is no longer supported.\n")
+    print("The real-time pipeline has been replaced with the 9-phase batch workflow.")
+    print("Individual applications are no longer processed in isolation.\n")
+    print("To check application status, use:")
+    print(f"  GET /applications/{args.application_id}\n")
+    print("See BACKEND.md for full 9-phase workflow documentation.")
+    sys.exit(1)
 
 
 def verify_command(args):

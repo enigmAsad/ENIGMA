@@ -266,6 +266,17 @@ class AdminRepository(BaseRepository[AdminUser]):
         self.db.flush()
         return result.scalar_one_or_none()
 
+    def delete_cycle(self, cycle_id: str) -> bool:
+        """Delete an admission cycle by ID.
+
+        Args:
+            cycle_id: Cycle ID to delete
+
+        Returns:
+            bool: True if deletion succeeded, False otherwise
+        """
+        return self.delete(cycle_id, "cycle_id")
+
     def increment_cycle_seats(self, cycle_id: str) -> Optional[AdmissionCycle]:
         """Increment current seats for a cycle and return updated cycle."""
         stmt = (

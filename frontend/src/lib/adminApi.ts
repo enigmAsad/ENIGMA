@@ -22,7 +22,8 @@ export interface AdminLoginResponse {
 export interface AdmissionCycle {
   cycle_id: string;
   cycle_name: string;
-  phase: 'SUBMISSION' | 'FROZEN' | 'PREPROCESSING' | 'BATCH_PREP' | 'PROCESSING' | 'SCORED' | 'SELECTION' | 'PUBLISHED' | 'COMPLETED';
+  // Backend returns lowercase phase values with underscores (e.g., 'submission', 'batch_prep')
+  phase: 'submission' | 'frozen' | 'preprocessing' | 'batch_prep' | 'processing' | 'scored' | 'selection' | 'published' | 'completed';
   is_open: boolean;
   max_seats: number;
   current_seats: number;
@@ -34,6 +35,11 @@ export interface AdmissionCycle {
   created_by: string;
   closed_at?: string;
   closed_by?: string;
+}
+
+export interface DeleteCycleResponse {
+  success: boolean;
+  message: string;
 }
 
 export interface CycleStatus {
@@ -257,6 +263,20 @@ class AdminAPIClient {
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.detail || 'Failed to close cycle');
+    }
+
+    return response.json();
+  }
+
+  async deleteCycle(cycleId: string): Promise<DeleteCycleResponse> {
+    const response = await fetch(`${API_BASE}/admin/cycles/${cycleId}`, {
+      method: 'DELETE',
+      headers: this.getAuthHeader(),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to delete cycle');
     }
 
     return response.json();

@@ -2,12 +2,13 @@
 
 import json
 import time
+import uuid
 from typing import Dict, Any, Optional
 from datetime import datetime
 
 from openai import OpenAI, APIError, RateLimitError, APITimeoutError
 
-from src.models.schemas import AnonymizedApplication, WorkerResult
+from src.database.models import AnonymizedApplication, WorkerResult
 from src.config.settings import get_settings
 from src.database.repositories import ApplicationRepository
 from src.utils.logger import get_logger, AuditLogger
@@ -309,8 +310,9 @@ This is attempt #{attempt_number}. Please address the following feedback:
             )
             evaluation_data["total_score"] = round(calculated_total, 2)
 
-        # Create WorkerResult
+        # Create WorkerResult (SQLAlchemy model)
         worker_result = WorkerResult(
+            result_id=f"WKR_{uuid.uuid4().hex[:8].upper()}",
             anonymized_id=application.anonymized_id,
             attempt_number=attempt_number,
             academic_score=evaluation_data["academic_score"],
@@ -325,8 +327,8 @@ This is attempt #{attempt_number}. Please address the following feedback:
             model_used=self.settings.worker_model
         )
 
-        # Persist result
-        self.app_repo.create(worker_result)
+        # Persist result via repository
+        worker_result = self.app_repo.create_worker_result(worker_result)
 
         # Audit log
         if self.audit_logger:

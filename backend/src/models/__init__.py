@@ -7,7 +7,6 @@ from .schemas import (
     JudgeResult,
     FinalScore,
     AuditLog,
-    HashChainEntry,
 )
 
 __all__ = [
@@ -17,5 +16,4 @@ __all__ = [
     "JudgeResult",
     "FinalScore",
     "AuditLog",
-    "HashChainEntry",
 ]

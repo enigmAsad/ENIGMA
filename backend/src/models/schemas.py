@@ -260,15 +260,15 @@ class FinalScore(BaseModel):
 
 
 class AuditLog(BaseModel):
-    """Audit log entry for all system actions."""
+    """Audit log entry model."""
     model_config = ConfigDict(validate_assignment=True)
 
-    log_id: int
+    log_id: Optional[int] = None
     timestamp: datetime = Field(default_factory=datetime.utcnow)
 
-    # Entity information
-    entity_type: str = Field(..., description="Type of entity (Application, WorkerResult, etc.)")
-    entity_id: str = Field(..., description="ID of the affected entity")
+    # Actor details
+    entity_type: str = Field(..., description="Type of entity (Application, AdminUser, etc.)")
+    entity_id: str = Field(..., description="ID of the entity (application_id, admin_id, etc.)")
 
     # Action details
     action: AuditAction = Field(..., description="Action performed")
@@ -281,37 +281,6 @@ class AuditLog(BaseModel):
     # Hash chain
     previous_hash: Optional[str] = Field(None, description="Hash of previous log entry")
     current_hash: Optional[str] = Field(None, description="Hash of this log entry")
-
-
-class HashChainEntry(BaseModel):
-    """Hash chain entry for tamper-evident logging."""
-    model_config = ConfigDict(validate_assignment=True)
-
-    chain_id: str = Field(default_factory=lambda: f"HASH_{uuid.uuid4().hex[:8].upper()}")
-    anonymized_id: str
-
-    # Decision data
-    decision_type: str = Field(..., description="Type of decision (phase1_final, phase2_final, etc.)")
-    data_json: str = Field(..., description="JSON representation of the decision data")
-
-    # Hashing
-    data_hash: str = Field(..., description="SHA-256 hash of data_json")
-    previous_hash: str = Field(..., description="Hash of previous chain entry")
-
-    # Metadata
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
-
-    @field_validator('data_hash', 'previous_hash')
-    @classmethod
-    def validate_hash_format(cls, v: str) -> str:
-        """Ensure hash is valid SHA-256 hex string."""
-        if len(v) != 64:
-            raise ValueError("Hash must be 64 characters (SHA-256 hex)")
-        try:
-            int(v, 16)  # Verify it's valid hex
-        except ValueError:
-            raise ValueError("Hash must be valid hexadecimal string")
-        return v.lower()  # Normalize to lowercase
 
 
 # State Machine Models

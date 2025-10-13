@@ -2,16 +2,17 @@
 
 import json
 import time
+import uuid
 from typing import Dict, Any, Optional
 from datetime import datetime
 
 from openai import OpenAI, APIError, RateLimitError, APITimeoutError
 
-from src.models.schemas import (
+from src.database.models import (
     AnonymizedApplication,
     WorkerResult,
     JudgeResult,
-    JudgeDecision
+    JudgeDecisionEnum
 )
 from src.config.settings import get_settings
 from src.database.repositories import ApplicationRepository
@@ -306,12 +307,13 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
 
         # Map decision string to enum
         decision = (
-            JudgeDecision.APPROVED if validation_data["decision"] == "approved"
-            else JudgeDecision.REJECTED
+            JudgeDecisionEnum.APPROVED if validation_data["decision"] == "approved"
+            else JudgeDecisionEnum.REJECTED
         )
 
-        # Create JudgeResult
+        # Create JudgeResult (SQLAlchemy model)
         judge_result = JudgeResult(
+            judge_id=f"JDG_{uuid.uuid4().hex[:8].upper()}",
             result_id=worker_result.result_id,
             anonymized_id=application.anonymized_id,
             worker_result_id=worker_result.result_id,
@@ -325,7 +327,7 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
         )
 
         # Persist result
-        self.app_repo.create(judge_result)
+        judge_result = self.app_repo.create_judge_result(judge_result)
 
         # Audit log
         if self.audit_logger:
@@ -338,7 +340,7 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
             )
 
         # Log result
-        decision_str = "APPROVED" if decision == JudgeDecision.APPROVED else "REJECTED"
+        decision_str = "APPROVED" if decision == JudgeDecisionEnum.APPROVED else "REJECTED"
         bias_str = "(BIAS DETECTED)" if validation_data["bias_detected"] else ""
 
         logger.info(
@@ -346,7 +348,7 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
             f"(quality: {validation_data['quality_score']:.0f}/100)"
         )
 
-        if decision == JudgeDecision.REJECTED:
+        if decision == JudgeDecisionEnum.REJECTED:
             logger.info(f"Rejection feedback: {validation_data['feedback'][:200]}...")
 
         return judge_result

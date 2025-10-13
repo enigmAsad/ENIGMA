@@ -44,6 +44,7 @@ export default function AdminCyclesPage() {
   const [formError, setFormError] = useState('');
   const [processing, setProcessing] = useState<string | null>(null);
   const [expandedCycle, setExpandedCycle] = useState<string | null>(null);
+  const [deletingCycleId, setDeletingCycleId] = useState<string | null>(null);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -128,29 +129,30 @@ export default function AdminCyclesPage() {
     const actions = [];
     const phase = cycle.phase;
 
+    // Backend returns lowercase phase values (e.g., 'submission', 'batch_prep')
     switch (phase) {
-      case 'SUBMISSION':
+      case 'submission':
         actions.push({ key: 'freeze', label: 'Freeze Cycle', variant: 'primary' });
         break;
-      case 'FROZEN':
+      case 'frozen':
         actions.push({ key: 'preprocess', label: 'Start Preprocessing', variant: 'primary' });
         break;
-      case 'PREPROCESSING':
+      case 'preprocessing':
         actions.push({ key: 'export', label: 'Export for LLM', variant: 'primary' });
         break;
-      case 'BATCH_PREP':
-        actions.push({ key: 'processing', label: 'Start LLM Processing', variant: 'primary' });
+      case 'batch_prep':
+        actions.push({ key: 'processing', label: 'Run LLM Evaluation', variant: 'primary' });
         break;
-      case 'PROCESSING':
-        // No direct action - LLM processing happens externally
+      case 'processing':
+        actions.push({ key: 'processing', label: 'Re-run LLM Evaluation', variant: 'secondary' });
         break;
-      case 'SCORED':
+      case 'scored':
         actions.push({ key: 'select', label: 'Perform Selection', variant: 'primary' });
         break;
-      case 'SELECTION':
+      case 'selection':
         actions.push({ key: 'publish', label: 'Publish Results', variant: 'primary' });
         break;
-      case 'PUBLISHED':
+      case 'published':
         actions.push({ key: 'complete', label: 'Complete Cycle', variant: 'secondary' });
         break;
     }
@@ -202,6 +204,23 @@ export default function AdminCyclesPage() {
       alert(error.message || 'Failed to close cycle');
     } finally {
       setProcessing(null);
+    }
+  };
+
+  const handleDeleteCycle = async (cycle: AdmissionCycle) => {
+    if (!confirm(`Are you sure you want to delete the cycle "${cycle.cycle_name}"? This cannot be undone.`)) {
+      return;
+    }
+
+    setDeletingCycleId(cycle.cycle_id);
+    try {
+      const response = await adminApiClient.deleteCycle(cycle.cycle_id);
+      alert(response.message);
+      await loadCycles();
+    } catch (error: any) {
+      alert(error.message || 'Failed to delete cycle');
+    } finally {
+      setDeletingCycleId(null);
     }
   };
 
@@ -406,12 +425,22 @@ export default function AdminCyclesPage() {
 
                           <div className="grid grid-cols-2 md:grid-cols-6 gap-4 mt-4">
                             <div>
-                              <p className="text-xs text-gray-500 uppercase">Seats</p>
+                              <p className="text-xs text-gray-500 uppercase">Applications</p>
+                              <p className="text-lg font-semibold text-gray-900">
+                                {cycle.current_seats}
+                              </p>
+                              <p className="text-xs text-gray-500 mt-1">
+                                submitted
+                              </p>
+                            </div>
+
+                            <div>
+                              <p className="text-xs text-gray-500 uppercase">Selection Target</p>
                               <p className="text-lg font-semibold text-gray-900">
                                 {cycle.max_seats}
                               </p>
                               <p className="text-xs text-gray-500 mt-1">
-                                {cycle.max_seats - cycle.current_seats} available
+                                top-K to select
                               </p>
                             </div>
 
@@ -419,6 +448,9 @@ export default function AdminCyclesPage() {
                               <p className="text-xs text-gray-500 uppercase">Selected</p>
                               <p className="text-lg font-semibold text-gray-900">
                                 {cycle.selected_count || 0}
+                              </p>
+                              <p className="text-xs text-gray-500 mt-1">
+                                in Phase 7
                               </p>
                             </div>
 
@@ -482,6 +514,15 @@ export default function AdminCyclesPage() {
                               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed text-sm font-medium whitespace-nowrap"
                             >
                               {processing === cycle.cycle_id ? 'Opening...' : 'Open Cycle'}
+                            </button>
+                          )}
+                          {!cycle.is_open && (
+                            <button
+                              onClick={() => handleDeleteCycle(cycle)}
+                              disabled={deletingCycleId === cycle.cycle_id || processing === cycle.cycle_id}
+                              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed text-sm font-medium whitespace-nowrap"
+                            >
+                              {deletingCycleId === cycle.cycle_id ? 'Deleting...' : 'Delete Cycle'}
                             </button>
                           )}
                         </div>

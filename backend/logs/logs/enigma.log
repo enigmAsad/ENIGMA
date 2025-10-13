@@ -373,3 +373,686 @@ action
 2025-10-12 19:17:43 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-12 19:23:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-12 19:27:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 16:53:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 16:53:39 | INFO     | main | Running prerequisite checks...
+2025-10-13 16:53:39 | INFO     | main | Verifying database connection...
+2025-10-13 16:53:45 | INFO     | database | Database connection verified successfully
+2025-10-13 16:53:45 | INFO     | main | ✅ Database connection successful
+2025-10-13 16:53:45 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 16:53:45 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 16:53:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 16:55:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 16:59:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:01:20 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:01:20 | INFO     | main | Running prerequisite checks...
+2025-10-13 17:01:20 | INFO     | main | Verifying database connection...
+2025-10-13 17:01:25 | INFO     | database | Database connection verified successfully
+2025-10-13 17:01:25 | INFO     | main | ✅ Database connection successful
+2025-10-13 17:01:25 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 17:01:25 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 17:01:26 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:02:58 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 17:03:02 | INFO     | admin_auth | Login successful for asad
+2025-10-13 17:03:54 | INFO     | api | Created and opened admission cycle: Fall 25 Admissions
+2025-10-13 17:05:00 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 17:05:04 | INFO     | admin_auth | Login successful for asad
+2025-10-13 17:05:27 | INFO     | api | Closed admission cycle: Fall 25 Admissions
+2025-10-13 17:06:13 | INFO     | api | Created and opened admission cycle: Winter 2025
+2025-10-13 17:09:43 | INFO     | application_collector | Collecting new application from aisharehman@gmail.com
+2025-10-13 17:09:44 | INFO     | audit | AUDIT: create | Application:APP_4EEE99AC | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T12:09:44.740472
+2025-10-13 17:09:44 | INFO     | application_collector | Application collected successfully: APP_4EEE99AC
+2025-10-13 17:09:45 | INFO     | api | Application submitted: APP_4EEE99AC (Cycle: Winter 2025)
+2025-10-13 17:14:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:15:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:15:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:17:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:17:39 | INFO     | main | Running prerequisite checks...
+2025-10-13 17:17:39 | INFO     | main | Verifying database connection...
+2025-10-13 17:17:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:19:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:19:10 | INFO     | main | Running prerequisite checks...
+2025-10-13 17:19:10 | INFO     | main | Verifying database connection...
+2025-10-13 17:19:16 | INFO     | database | Database connection verified successfully
+2025-10-13 17:19:16 | INFO     | main | ✅ Database connection successful
+2025-10-13 17:19:16 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 17:19:16 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 17:19:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:19:54 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 17:19:58 | INFO     | admin_auth | Login successful for asad
+2025-10-13 17:20:56 | INFO     | api | Created and opened admission cycle: Fall 25
+2025-10-13 17:22:37 | INFO     | application_collector | Collecting new application from aisharehman@gmail.com
+2025-10-13 17:22:38 | INFO     | audit | AUDIT: create | Application:APP_AAF0905F | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T12:22:38.452829
+2025-10-13 17:22:38 | INFO     | application_collector | Application collected successfully: APP_AAF0905F
+2025-10-13 17:22:38 | INFO     | api | Application submitted: APP_AAF0905F (Cycle: Fall 25)
+2025-10-13 17:23:55 | INFO     | application_collector | Collecting new application from ahmedraza@gmail.com
+2025-10-13 17:23:56 | INFO     | audit | AUDIT: create | Application:APP_F2258E7C | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T12:23:56.799888
+2025-10-13 17:23:56 | INFO     | application_collector | Application collected successfully: APP_F2258E7C
+2025-10-13 17:23:57 | INFO     | api | Application submitted: APP_F2258E7C (Cycle: Fall 25)
+2025-10-13 17:26:50 | INFO     | application_collector | Collecting new application from saramalik@gmail.com
+2025-10-13 17:26:51 | INFO     | audit | AUDIT: create | Application:APP_7918B14A | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T12:26:51.312302
+2025-10-13 17:26:51 | INFO     | application_collector | Application collected successfully: APP_7918B14A
+2025-10-13 17:26:51 | INFO     | api | Application submitted: APP_7918B14A (Cycle: Fall 25)
+2025-10-13 17:31:20 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 17:31:23 | INFO     | admin_auth | Login successful for asad
+2025-10-13 17:32:06 | INFO     | api | Closed admission cycle: Fall 25
+2025-10-13 17:55:57 | INFO     | phase_manager | Freezing cycle CYC_20251013_122055
+2025-10-13 17:55:58 | ERROR    | api | Failed to freeze cycle CYC_20251013_122055: (psycopg2.errors.ForeignKeyViolation) insert or update on table "admission_cycles" violates foreign key constraint "admission_cycles_closed_by_fkey"
+DETAIL:  Key (closed_by)=(system) is not present in table "admin_users".
+
+[SQL: UPDATE admission_cycles SET is_open=%(is_open)s, closed_at=%(closed_at)s, closed_by=%(closed_by)s WHERE admission_cycles.cycle_id = %(cycle_id_1)s RETURNING admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by]
+[parameters: {'is_open': False, 'closed_at': datetime.datetime(2025, 10, 13, 12, 55, 57, 899151, tzinfo=datetime.timezone.utc), 'closed_by': 'system', 'cycle_id_1': 'CYC_20251013_122055'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-13 17:55:58 | ERROR    | database | Database session error: 400: (psycopg2.errors.ForeignKeyViolation) insert or update on table "admission_cycles" violates foreign key constraint "admission_cycles_closed_by_fkey"
+DETAIL:  Key (closed_by)=(system) is not present in table "admin_users".
+
+[SQL: UPDATE admission_cycles SET is_open=%(is_open)s, closed_at=%(closed_at)s, closed_by=%(closed_by)s WHERE admission_cycles.cycle_id = %(cycle_id_1)s RETURNING admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by]
+[parameters: {'is_open': False, 'closed_at': datetime.datetime(2025, 10, 13, 12, 55, 57, 899151, tzinfo=datetime.timezone.utc), 'closed_by': 'system', 'cycle_id_1': 'CYC_20251013_122055'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-13 17:58:00 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:58:33 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 18:00:01 | INFO     | phase_manager | Freezing cycle CYC_20251013_122055 by admin ADM_ASAD
+2025-10-13 18:00:02 | INFO     | phase_manager | Finalized 3 applications
+2025-10-13 18:00:03 | INFO     | phase_manager | Cycle CYC_20251013_122055 frozen successfully
+2025-10-13 18:00:03 | INFO     | api | Cycle CYC_20251013_122055 frozen by admin asad
+2025-10-13 18:00:12 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251013_122055
+2025-10-13 18:00:13 | INFO     | phase_manager | Processing 3 finalized applications
+2025-10-13 18:00:13 | INFO     | identity_scrubber | Scrubbing application: APP_7918B14A
+2025-10-13 18:00:14 | INFO     | identity_scrubber | Applied 2 redactions to APP_7918B14A
+2025-10-13 18:00:14 | ERROR    | phase_manager | Failed to process APP_7918B14A: ApplicationRepository.create_anonymized() got an unexpected keyword argument 'anonymized_id'
+2025-10-13 18:00:14 | INFO     | identity_scrubber | Scrubbing application: APP_F2258E7C
+2025-10-13 18:00:14 | INFO     | identity_scrubber | Applied 7 redactions to APP_F2258E7C
+2025-10-13 18:00:14 | ERROR    | phase_manager | Failed to process APP_F2258E7C: ApplicationRepository.create_anonymized() got an unexpected keyword argument 'anonymized_id'
+2025-10-13 18:00:15 | INFO     | identity_scrubber | Scrubbing application: APP_AAF0905F
+2025-10-13 18:00:15 | INFO     | identity_scrubber | Applied 1 redactions to APP_AAF0905F
+2025-10-13 18:00:15 | ERROR    | phase_manager | Failed to process APP_AAF0905F: ApplicationRepository.create_anonymized() got an unexpected keyword argument 'anonymized_id'
+2025-10-13 18:00:16 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251013_122055: 0 scrubbed, 0 metrics computed, 3 marked BATCH_READY, 3 failed
+2025-10-13 18:00:16 | INFO     | api | Preprocessing started for cycle CYC_20251013_122055 by admin asad
+2025-10-13 18:00:51 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251013_122055
+2025-10-13 18:00:52 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251013_122055: 3 applications ready for export
+2025-10-13 18:00:52 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251013_122055 to JSONL
+2025-10-13 18:00:53 | ERROR    | batch_processor | CRITICAL: No anonymized data for APP_7918B14A. Application marked as BATCH_READY but preprocessing phase failed. Run Phase 3 (preprocess) again.
+2025-10-13 18:00:53 | ERROR    | api | Failed to export batch data for cycle CYC_20251013_122055: CRITICAL: No anonymized data for APP_7918B14A. Application marked as BATCH_READY but preprocessing phase failed. Run Phase 3 (preprocess) again.
+2025-10-13 18:00:53 | ERROR    | database | Database session error: 400: CRITICAL: No anonymized data for APP_7918B14A. Application marked as BATCH_READY but preprocessing phase failed. Run Phase 3 (preprocess) again.
+2025-10-13 19:01:11 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:01:11 | INFO     | main | Running prerequisite checks...
+2025-10-13 19:01:11 | INFO     | main | Verifying database connection...
+2025-10-13 19:01:16 | INFO     | database | Database connection verified successfully
+2025-10-13 19:01:16 | INFO     | main | ✅ Database connection successful
+2025-10-13 19:01:16 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 19:01:16 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 19:01:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:01:50 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 19:01:54 | INFO     | admin_auth | Login successful for asad
+2025-10-13 19:04:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:05:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:05:22 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:05:27 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:05:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:07:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:09:03 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:13:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:15:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:22:25 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:23:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:26:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:27:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:27:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:32:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:32:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:32:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:32:59 | INFO     | create_admin | Admin user created successfully: asad
+2025-10-13 19:33:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:33:07 | INFO     | main | Running prerequisite checks...
+2025-10-13 19:33:07 | INFO     | main | Verifying database connection...
+2025-10-13 19:33:12 | INFO     | database | Database connection verified successfully
+2025-10-13 19:33:12 | INFO     | main | ✅ Database connection successful
+2025-10-13 19:33:12 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 19:33:12 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 19:33:13 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:34:15 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 19:34:17 | WARNING  | admin_auth | Login failed: invalid password for asad
+2025-10-13 19:34:19 | ERROR    | database | Database session error: 401: Invalid credentials
+2025-10-13 19:34:32 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 19:34:33 | WARNING  | admin_auth | Login failed: invalid password for asad
+2025-10-13 19:34:35 | ERROR    | database | Database session error: 401: Invalid credentials
+2025-10-13 19:34:55 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 19:34:59 | INFO     | admin_auth | Login successful for asad
+2025-10-13 19:35:37 | INFO     | api | Created and opened admission cycle: Fall 25
+2025-10-13 19:36:29 | INFO     | application_collector | Collecting new application from ahmedraza@gmail.com
+2025-10-13 19:36:30 | INFO     | audit | AUDIT: create | Application:APP_31CCB022 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T14:36:30.249038
+2025-10-13 19:36:30 | INFO     | application_collector | Application collected successfully: APP_31CCB022
+2025-10-13 19:36:30 | INFO     | api | Application submitted: APP_31CCB022 (Cycle: Fall 25)
+2025-10-13 19:37:25 | INFO     | application_collector | Collecting new application from saramalik@gmail.com
+2025-10-13 19:37:26 | INFO     | audit | AUDIT: create | Application:APP_795A8B8F | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T14:37:26.266647
+2025-10-13 19:37:26 | INFO     | application_collector | Application collected successfully: APP_795A8B8F
+2025-10-13 19:37:26 | INFO     | api | Application submitted: APP_795A8B8F (Cycle: Fall 25)
+2025-10-13 19:37:43 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 19:37:47 | INFO     | admin_auth | Login successful for asad
+2025-10-13 19:38:34 | INFO     | phase_manager | Freezing cycle CYC_20251013_143536 by admin ADM_ASAD
+2025-10-13 19:38:35 | INFO     | phase_manager | Finalized 2 applications
+2025-10-13 19:38:36 | INFO     | phase_manager | Cycle CYC_20251013_143536 frozen successfully
+2025-10-13 19:38:36 | INFO     | api | Cycle CYC_20251013_143536 frozen by admin asad
+2025-10-13 19:38:46 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251013_143536
+2025-10-13 19:38:47 | INFO     | phase_manager | Processing 2 finalized applications
+2025-10-13 19:38:47 | INFO     | identity_scrubber | Scrubbing application: APP_795A8B8F
+2025-10-13 19:38:48 | INFO     | identity_scrubber | Applied 2 redactions to APP_795A8B8F
+2025-10-13 19:38:51 | INFO     | identity_scrubber | Successfully scrubbed APP_795A8B8F → ANON_1760348328420_CC19A5
+2025-10-13 19:38:53 | INFO     | identity_scrubber | Scrubbing application: APP_31CCB022
+2025-10-13 19:38:53 | INFO     | identity_scrubber | Applied 7 redactions to APP_31CCB022
+2025-10-13 19:38:56 | INFO     | identity_scrubber | Successfully scrubbed APP_31CCB022 → ANON_1760348333999_A52ECD
+2025-10-13 19:38:58 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251013_143536: 2 scrubbed, 2 metrics computed, 2 marked BATCH_READY, 0 failed
+2025-10-13 19:38:58 | INFO     | api | Preprocessing started for cycle CYC_20251013_143536 by admin asad
+2025-10-13 19:39:31 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251013_143536
+2025-10-13 19:39:32 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251013_143536: 2 applications ready for export
+2025-10-13 19:39:32 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251013_143536 to JSONL
+2025-10-13 19:39:34 | INFO     | batch_processor | Exported 2 applications to batch_exports\batch_export_CYC_20251013_143536_20251013_143933.jsonl
+2025-10-13 19:39:35 | ERROR    | api | Failed to export batch data for cycle CYC_20251013_143536: (psycopg2.errors.ForeignKeyViolation) insert or update on table "batch_runs" violates foreign key constraint "batch_runs_triggered_by_fkey"
+DETAIL:  Key (triggered_by)=(asad) is not present in table "admin_users".
+
+[SQL: INSERT INTO batch_runs (admission_cycle_id, batch_type, model_name, model_version, input_file_path, output_file_path, total_records, processed_records, failed_records, status, started_at, completed_at, triggered_by, error_log) VALUES (%(admission_cycle_id)s, %(batch_type)s, %(model_name)s, %(model_version)s, %(input_file_path)s, %(output_file_path)s, %(total_records)s, %(processed_records)s, %(failed_records)s, %(status)s, %(started_at)s, %(completed_at)s, %(triggered_by)s, %(error_log)s) RETURNING batch_runs.batch_id]
+[parameters: {'admission_cycle_id': 'CYC_20251013_143536', 'batch_type': 'WORKER_EVALUATION', 'model_name': 'gpt-5-mini', 'model_version': None, 'input_file_path': 'batch_exports\\batch_export_CYC_20251013_143536_20251013_143933.jsonl', 'output_file_path': None, 'total_records': 2, 'processed_records': 0, 'failed_records': 0, 'status': 'PENDING', 'started_at': None, 'completed_at': None, 'triggered_by': 'asad', 'error_log': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-13 19:39:35 | ERROR    | database | Database session error: 400: (psycopg2.errors.ForeignKeyViolation) insert or update on table "batch_runs" violates foreign key constraint "batch_runs_triggered_by_fkey"
+DETAIL:  Key (triggered_by)=(asad) is not present in table "admin_users".
+
+[SQL: INSERT INTO batch_runs (admission_cycle_id, batch_type, model_name, model_version, input_file_path, output_file_path, total_records, processed_records, failed_records, status, started_at, completed_at, triggered_by, error_log) VALUES (%(admission_cycle_id)s, %(batch_type)s, %(model_name)s, %(model_version)s, %(input_file_path)s, %(output_file_path)s, %(total_records)s, %(processed_records)s, %(failed_records)s, %(status)s, %(started_at)s, %(completed_at)s, %(triggered_by)s, %(error_log)s) RETURNING batch_runs.batch_id]
+[parameters: {'admission_cycle_id': 'CYC_20251013_143536', 'batch_type': 'WORKER_EVALUATION', 'model_name': 'gpt-5-mini', 'model_version': None, 'input_file_path': 'batch_exports\\batch_export_CYC_20251013_143536_20251013_143933.jsonl', 'output_file_path': None, 'total_records': 2, 'processed_records': 0, 'failed_records': 0, 'status': 'PENDING', 'started_at': None, 'completed_at': None, 'triggered_by': 'asad', 'error_log': None}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-13 19:41:46 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:42:54 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_143536
+2025-10-13 19:42:55 | INFO     | phase_manager | Cycle CYC_20251013_143536 now in PROCESSING phase
+2025-10-13 19:42:55 | INFO     | api | LLM processing started for cycle CYC_20251013_143536 by admin asad
+2025-10-13 19:52:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:54:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:56:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:56:54 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:57:36 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:58:32 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 19:59:33 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:00:26 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:00:43 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:00:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:01:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:01:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:02:30 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:03:49 | INFO     | api | Created and opened admission cycle: Winter 2025
+2025-10-13 20:04:51 | INFO     | application_collector | Collecting new application from saramalik@gmail.com
+2025-10-13 20:04:52 | INFO     | audit | AUDIT: create | Application:APP_CC72D6FF | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T15:04:52.407806
+2025-10-13 20:04:52 | INFO     | application_collector | Application collected successfully: APP_CC72D6FF
+2025-10-13 20:04:52 | INFO     | api | Application submitted: APP_CC72D6FF (Cycle: Winter 2025)
+2025-10-13 20:05:34 | INFO     | application_collector | Collecting new application from ahmedraza@gmail.com
+2025-10-13 20:05:35 | INFO     | audit | AUDIT: create | Application:APP_264DDD1D | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T15:05:35.823681
+2025-10-13 20:05:35 | INFO     | application_collector | Application collected successfully: APP_264DDD1D
+2025-10-13 20:05:36 | INFO     | api | Application submitted: APP_264DDD1D (Cycle: Winter 2025)
+2025-10-13 20:06:00 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 20:06:02 | WARNING  | admin_auth | Login failed: invalid password for asad
+2025-10-13 20:06:04 | ERROR    | database | Database session error: 401: Invalid credentials
+2025-10-13 20:06:09 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 20:06:13 | INFO     | admin_auth | Login successful for asad
+2025-10-13 20:06:27 | INFO     | phase_manager | Freezing cycle CYC_20251013_150348 by admin ADM_ASAD
+2025-10-13 20:06:28 | INFO     | phase_manager | Finalized 2 applications
+2025-10-13 20:06:29 | INFO     | phase_manager | Cycle CYC_20251013_150348 frozen successfully
+2025-10-13 20:06:29 | INFO     | api | Cycle CYC_20251013_150348 frozen by admin asad
+2025-10-13 20:07:04 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251013_150348
+2025-10-13 20:07:05 | INFO     | phase_manager | Processing 2 finalized applications
+2025-10-13 20:07:05 | INFO     | identity_scrubber | Scrubbing application: APP_264DDD1D
+2025-10-13 20:07:06 | INFO     | identity_scrubber | Applied 7 redactions to APP_264DDD1D
+2025-10-13 20:07:09 | INFO     | identity_scrubber | Successfully scrubbed APP_264DDD1D → ANON_1760350026230_B2F668
+2025-10-13 20:07:11 | INFO     | identity_scrubber | Scrubbing application: APP_CC72D6FF
+2025-10-13 20:07:11 | INFO     | identity_scrubber | Applied 2 redactions to APP_CC72D6FF
+2025-10-13 20:07:14 | INFO     | identity_scrubber | Successfully scrubbed APP_CC72D6FF → ANON_1760350031668_649AB7
+2025-10-13 20:07:16 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251013_150348: 2 scrubbed, 2 metrics computed, 2 marked BATCH_READY, 0 failed
+2025-10-13 20:07:16 | INFO     | api | Preprocessing started for cycle CYC_20251013_150348 by admin asad
+2025-10-13 20:07:36 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 20:07:37 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 20:07:37 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251013_150348
+2025-10-13 20:07:38 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251013_150348: 2 applications ready for export
+2025-10-13 20:07:38 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251013_150348 to JSONL
+2025-10-13 20:07:40 | INFO     | batch_processor | Exported 2 applications to batch_exports\batch_export_CYC_20251013_150348_20251013_150739.jsonl
+2025-10-13 20:07:41 | INFO     | api | Batch export completed for cycle CYC_20251013_150348 by admin asad
+2025-10-13 20:08:09 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 20:08:10 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 20:08:10 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_150348
+2025-10-13 20:08:11 | INFO     | phase_manager | Cycle CYC_20251013_150348 now in PROCESSING phase
+2025-10-13 20:08:14 | INFO     | worker_llm | Evaluating ANON_1760350026230_B2F668 (attempt 1)
+2025-10-13 20:08:45 | ERROR    | batch_processor | Failed to evaluate ANON_1760350026230_B2F668: Class 'src.models.schemas.WorkerResult' is not mapped
+2025-10-13 20:08:46 | ERROR    | api | Failed to start processing for cycle CYC_20251013_150348: Class 'src.models.schemas.WorkerResult' is not mapped
+2025-10-13 20:08:46 | ERROR    | database | Database session error: 400: Class 'src.models.schemas.WorkerResult' is not mapped
+2025-10-13 20:12:23 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:12:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:13:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:13:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:14:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:14:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:15:36 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:15:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:16:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:16:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:16:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:17:00 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:18:03 | INFO     | api | Created and opened admission cycle: Summer 2025
+2025-10-13 20:18:46 | INFO     | application_collector | Collecting new application from ahmedraza@gmail.com
+2025-10-13 20:18:47 | INFO     | audit | AUDIT: create | Application:APP_8433D597 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T15:18:47.269235
+2025-10-13 20:18:47 | INFO     | application_collector | Application collected successfully: APP_8433D597
+2025-10-13 20:18:47 | INFO     | api | Application submitted: APP_8433D597 (Cycle: Summer 2025)
+2025-10-13 20:19:36 | INFO     | application_collector | Collecting new application from saramalik@gmail.com
+2025-10-13 20:19:37 | INFO     | audit | AUDIT: create | Application:APP_E00D11C7 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T15:19:37.405067
+2025-10-13 20:19:37 | INFO     | application_collector | Application collected successfully: APP_E00D11C7
+2025-10-13 20:19:37 | INFO     | api | Application submitted: APP_E00D11C7 (Cycle: Summer 2025)
+2025-10-13 20:19:54 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 20:19:58 | INFO     | admin_auth | Login successful for asad
+2025-10-13 20:20:13 | INFO     | phase_manager | Freezing cycle CYC_20251013_151802 by admin ADM_ASAD
+2025-10-13 20:20:13 | INFO     | phase_manager | Finalized 2 applications
+2025-10-13 20:20:14 | INFO     | phase_manager | Cycle CYC_20251013_151802 frozen successfully
+2025-10-13 20:20:14 | INFO     | api | Cycle CYC_20251013_151802 frozen by admin asad
+2025-10-13 20:20:39 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251013_151802
+2025-10-13 20:20:39 | INFO     | phase_manager | Processing 2 finalized applications
+2025-10-13 20:20:40 | INFO     | identity_scrubber | Scrubbing application: APP_E00D11C7
+2025-10-13 20:20:40 | INFO     | identity_scrubber | Applied 2 redactions to APP_E00D11C7
+2025-10-13 20:20:42 | INFO     | identity_scrubber | Successfully scrubbed APP_E00D11C7 → ANON_1760350840515_63F84F
+2025-10-13 20:20:44 | INFO     | identity_scrubber | Scrubbing application: APP_8433D597
+2025-10-13 20:20:44 | INFO     | identity_scrubber | Applied 7 redactions to APP_8433D597
+2025-10-13 20:20:47 | INFO     | identity_scrubber | Successfully scrubbed APP_8433D597 → ANON_1760350844994_E31CDC
+2025-10-13 20:20:49 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251013_151802: 2 scrubbed, 2 metrics computed, 2 marked BATCH_READY, 0 failed
+2025-10-13 20:20:49 | INFO     | api | Preprocessing started for cycle CYC_20251013_151802 by admin asad
+2025-10-13 20:21:40 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 20:21:40 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 20:21:40 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251013_151802
+2025-10-13 20:21:41 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251013_151802: 2 applications ready for export
+2025-10-13 20:21:41 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251013_151802 to JSONL
+2025-10-13 20:21:43 | INFO     | batch_processor | Exported 2 applications to batch_exports\batch_export_CYC_20251013_151802_20251013_152142.jsonl
+2025-10-13 20:21:44 | INFO     | api | Batch export completed for cycle CYC_20251013_151802 by admin asad
+2025-10-13 20:22:36 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 20:22:36 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 20:22:36 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_151802
+2025-10-13 20:22:37 | INFO     | phase_manager | Cycle CYC_20251013_151802 now in PROCESSING phase
+2025-10-13 20:22:40 | INFO     | worker_llm | Evaluating ANON_1760350840515_63F84F (attempt 1)
+2025-10-13 20:23:00 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_65090C60 | actor=worker_llm | details={'anonymized_id': 'ANON_1760350840515_63F84F', 'attempt_number': 1, 'total_score': 89.3} | timestamp=2025-10-13T15:23:00.965106
+2025-10-13 20:23:02 | INFO     | worker_llm | Worker evaluation complete: ANON_1760350840515_63F84F → 89.30/100 (attempt 1)
+2025-10-13 20:23:02 | INFO     | judge_llm | Validating worker evaluation for ANON_1760350840515_63F84F (attempt 1)
+2025-10-13 20:23:21 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_269F1057 | actor=judge_llm | details={'anonymized_id': 'ANON_1760350840515_63F84F', 'worker_result_id': 'WKR_65090C60', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T15:23:21.141175
+2025-10-13 20:23:22 | INFO     | judge_llm | Judge validation complete: ANON_1760350840515_63F84F → APPROVED  (quality: 90/100)
+2025-10-13 20:23:23 | INFO     | worker_llm | Evaluating ANON_1760350844994_E31CDC (attempt 1)
+2025-10-13 20:23:40 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_EB469386 | actor=worker_llm | details={'anonymized_id': 'ANON_1760350844994_E31CDC', 'attempt_number': 1, 'total_score': 63.15} | timestamp=2025-10-13T15:23:40.994895
+2025-10-13 20:23:42 | INFO     | worker_llm | Worker evaluation complete: ANON_1760350844994_E31CDC → 63.15/100 (attempt 1)
+2025-10-13 20:23:42 | INFO     | judge_llm | Validating worker evaluation for ANON_1760350844994_E31CDC (attempt 1)
+2025-10-13 20:24:07 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_E6EC3323 | actor=judge_llm | details={'anonymized_id': 'ANON_1760350844994_E31CDC', 'worker_result_id': 'WKR_EB469386', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T15:24:07.633952
+2025-10-13 20:24:08 | INFO     | judge_llm | Judge validation complete: ANON_1760350844994_E31CDC → APPROVED  (quality: 86/100)
+2025-10-13 20:24:12 | INFO     | phase_manager | Marking cycle CYC_20251013_151802 as scored
+2025-10-13 20:24:13 | INFO     | phase_manager | Cycle CYC_20251013_151802 marked as SCORED
+2025-10-13 20:24:13 | INFO     | api | LLM processing completed for cycle CYC_20251013_151802 by admin asad
+2025-10-13 20:25:13 | INFO     | phase_manager | Performing selection for cycle CYC_20251013_151802
+2025-10-13 20:25:15 | INFO     | phase_manager | Selection complete: 1 selected, 1 not selected
+2025-10-13 20:25:15 | INFO     | api | Selection performed for cycle CYC_20251013_151802 by admin asad
+2025-10-13 20:25:45 | INFO     | phase_manager | Publishing results for cycle CYC_20251013_151802
+2025-10-13 20:25:47 | INFO     | phase_manager | Results published for cycle CYC_20251013_151802
+2025-10-13 20:25:47 | INFO     | api | Results published for cycle CYC_20251013_151802 by admin asad
+2025-10-13 20:25:59 | INFO     | phase_manager | Completing cycle CYC_20251013_151802
+2025-10-13 20:26:00 | INFO     | phase_manager | Cycle CYC_20251013_151802 completed
+2025-10-13 20:26:00 | INFO     | api | Cycle CYC_20251013_151802 completed by admin asad
+2025-10-13 20:37:02 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:37:02 | INFO     | main | Running prerequisite checks...
+2025-10-13 20:37:02 | INFO     | main | Verifying database connection...
+2025-10-13 20:37:06 | INFO     | database | Database connection verified successfully
+2025-10-13 20:37:06 | INFO     | main | ✅ Database connection successful
+2025-10-13 20:37:06 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 20:37:06 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 20:37:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:37:32 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 20:37:36 | INFO     | admin_auth | Login successful for asad
+2025-10-13 20:47:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:48:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:49:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:50:27 | ERROR    | database | Database session error: 400: Cannot delete cycle with submitted applications. Archive or remove applications first.
+2025-10-13 20:50:44 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 20:50:44 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 20:50:44 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_150348
+2025-10-13 20:50:45 | ERROR    | api | Failed to start processing for cycle CYC_20251013_150348: Can only start processing from BATCH_PREP phase
+2025-10-13 20:50:45 | ERROR    | database | Database session error: 400: Can only start processing from BATCH_PREP phase
+2025-10-13 20:54:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:55:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:56:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:57:16 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 20:57:16 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 20:57:16 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_143536
+2025-10-13 20:57:17 | INFO     | phase_manager | Cycle CYC_20251013_143536 already in PROCESSING phase; refreshing application statuses
+2025-10-13 20:57:17 | INFO     | phase_manager | Cycle CYC_20251013_143536 remains in PROCESSING phase
+2025-10-13 20:57:20 | INFO     | worker_llm | Evaluating ANON_1760348328420_CC19A5 (attempt 1)
+2025-10-13 20:57:40 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_657DA3BB | actor=worker_llm | details={'anonymized_id': 'ANON_1760348328420_CC19A5', 'attempt_number': 1, 'total_score': 88.1} | timestamp=2025-10-13T15:57:40.537889
+2025-10-13 20:57:42 | INFO     | worker_llm | Worker evaluation complete: ANON_1760348328420_CC19A5 → 88.10/100 (attempt 1)
+2025-10-13 20:57:42 | INFO     | judge_llm | Validating worker evaluation for ANON_1760348328420_CC19A5 (attempt 1)
+2025-10-13 20:58:10 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_0ED79D32 | actor=judge_llm | details={'anonymized_id': 'ANON_1760348328420_CC19A5', 'worker_result_id': 'WKR_657DA3BB', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T15:58:10.421475
+2025-10-13 20:58:11 | INFO     | judge_llm | Judge validation complete: ANON_1760348328420_CC19A5 → APPROVED  (quality: 92/100)
+2025-10-13 20:58:12 | INFO     | worker_llm | Evaluating ANON_1760348333999_A52ECD (attempt 1)
+2025-10-13 20:58:40 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_98C65B93 | actor=worker_llm | details={'anonymized_id': 'ANON_1760348333999_A52ECD', 'attempt_number': 1, 'total_score': 63.15} | timestamp=2025-10-13T15:58:40.321743
+2025-10-13 20:58:41 | INFO     | worker_llm | Worker evaluation complete: ANON_1760348333999_A52ECD → 63.15/100 (attempt 1)
+2025-10-13 20:58:42 | INFO     | judge_llm | Validating worker evaluation for ANON_1760348333999_A52ECD (attempt 1)
+2025-10-13 20:59:04 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_9FDF33E9 | actor=judge_llm | details={'anonymized_id': 'ANON_1760348333999_A52ECD', 'worker_result_id': 'WKR_98C65B93', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T15:59:04.430276
+2025-10-13 20:59:05 | INFO     | judge_llm | Judge validation complete: ANON_1760348333999_A52ECD → APPROVED  (quality: 85/100)
+2025-10-13 20:59:09 | INFO     | phase_manager | Marking cycle CYC_20251013_143536 as scored
+2025-10-13 20:59:11 | INFO     | phase_manager | Cycle CYC_20251013_143536 marked as SCORED
+2025-10-13 20:59:11 | INFO     | api | LLM processing completed for cycle CYC_20251013_143536 by admin asad
+2025-10-13 20:59:23 | INFO     | phase_manager | Performing selection for cycle CYC_20251013_143536
+2025-10-13 20:59:26 | INFO     | phase_manager | Selection complete: 1 selected, 1 not selected
+2025-10-13 20:59:26 | INFO     | api | Selection performed for cycle CYC_20251013_143536 by admin asad
+2025-10-13 20:59:49 | INFO     | phase_manager | Publishing results for cycle CYC_20251013_143536
+2025-10-13 20:59:50 | INFO     | phase_manager | Results published for cycle CYC_20251013_143536
+2025-10-13 20:59:50 | INFO     | api | Results published for cycle CYC_20251013_143536 by admin asad
+2025-10-13 21:00:58 | INFO     | phase_manager | Completing cycle CYC_20251013_143536
+2025-10-13 21:00:58 | INFO     | phase_manager | Cycle CYC_20251013_143536 completed
+2025-10-13 21:00:58 | INFO     | api | Cycle CYC_20251013_143536 completed by admin asad
+2025-10-13 21:04:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:04:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:05:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:05:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:05:56 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:14:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:14:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:15:04 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:15:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:15:37 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:17:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:17:07 | INFO     | main | Running prerequisite checks...
+2025-10-13 21:17:07 | INFO     | main | Verifying database connection...
+2025-10-13 21:17:12 | INFO     | database | Database connection verified successfully
+2025-10-13 21:17:12 | INFO     | main | ✅ Database connection successful
+2025-10-13 21:17:12 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 21:17:12 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 21:17:12 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:17:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:17:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:17:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:18:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:18:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:18:30 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:18:30 | INFO     | main | Running prerequisite checks...
+2025-10-13 21:18:30 | INFO     | main | Verifying database connection...
+2025-10-13 21:18:35 | INFO     | database | Database connection verified successfully
+2025-10-13 21:18:35 | INFO     | main | ✅ Database connection successful
+2025-10-13 21:18:35 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 21:18:35 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 21:18:36 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:25:26 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:25:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:26:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:26:40 | INFO     | create_admin | Admin user created successfully: asad
+2025-10-13 21:26:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:26:58 | INFO     | main | Running prerequisite checks...
+2025-10-13 21:26:58 | INFO     | main | Verifying database connection...
+2025-10-13 21:27:04 | INFO     | database | Database connection verified successfully
+2025-10-13 21:27:04 | INFO     | main | ✅ Database connection successful
+2025-10-13 21:27:04 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 21:27:04 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 21:27:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:28:07 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 21:28:11 | INFO     | admin_auth | Login successful for asad
+2025-10-13 21:28:51 | INFO     | api | Created and opened admission cycle: Winter 2025
+2025-10-13 21:29:37 | INFO     | application_collector | Collecting new application from saramalik@gmail.com
+2025-10-13 21:29:38 | INFO     | audit | AUDIT: create | Application:APP_48F3FE4C | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T16:29:38.861110
+2025-10-13 21:29:38 | INFO     | application_collector | Application collected successfully: APP_48F3FE4C
+2025-10-13 21:29:39 | INFO     | api | Application submitted: APP_48F3FE4C (Cycle: Winter 2025)
+2025-10-13 21:30:41 | INFO     | application_collector | Collecting new application from ahmedraza@gmail.com
+2025-10-13 21:30:42 | INFO     | audit | AUDIT: create | Application:APP_18C099B8 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T16:30:42.552571
+2025-10-13 21:30:42 | INFO     | application_collector | Application collected successfully: APP_18C099B8
+2025-10-13 21:30:42 | INFO     | api | Application submitted: APP_18C099B8 (Cycle: Winter 2025)
+2025-10-13 21:31:06 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 21:31:10 | INFO     | admin_auth | Login successful for asad
+2025-10-13 21:31:28 | INFO     | phase_manager | Freezing cycle CYC_20251013_162851 by admin ADM_ASAD
+2025-10-13 21:31:30 | INFO     | phase_manager | Finalized 2 applications
+2025-10-13 21:31:30 | INFO     | phase_manager | Cycle CYC_20251013_162851 frozen successfully
+2025-10-13 21:31:30 | INFO     | api | Cycle CYC_20251013_162851 frozen by admin asad
+2025-10-13 21:32:01 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251013_162851
+2025-10-13 21:32:02 | INFO     | phase_manager | Processing 2 finalized applications
+2025-10-13 21:32:03 | INFO     | identity_scrubber | Scrubbing application: APP_18C099B8
+2025-10-13 21:32:03 | INFO     | identity_scrubber | Applied 7 redactions to APP_18C099B8
+2025-10-13 21:32:06 | INFO     | identity_scrubber | Successfully scrubbed APP_18C099B8 → ANON_1760355123657_3542D0
+2025-10-13 21:32:08 | INFO     | identity_scrubber | Scrubbing application: APP_48F3FE4C
+2025-10-13 21:32:08 | INFO     | identity_scrubber | Applied 2 redactions to APP_48F3FE4C
+2025-10-13 21:32:11 | INFO     | identity_scrubber | Successfully scrubbed APP_48F3FE4C → ANON_1760355128568_E9899A
+2025-10-13 21:32:13 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251013_162851: 2 scrubbed, 2 metrics computed, 2 marked BATCH_READY, 0 failed
+2025-10-13 21:32:13 | INFO     | api | Preprocessing started for cycle CYC_20251013_162851 by admin asad
+2025-10-13 21:32:45 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 21:32:45 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 21:32:45 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251013_162851
+2025-10-13 21:32:46 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251013_162851: 2 applications ready for export
+2025-10-13 21:32:46 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251013_162851 to JSONL
+2025-10-13 21:32:48 | INFO     | batch_processor | Exported 2 applications to batch_exports\batch_export_CYC_20251013_162851_20251013_163247.jsonl
+2025-10-13 21:32:49 | INFO     | api | Batch export completed for cycle CYC_20251013_162851 by admin asad
+2025-10-13 21:33:28 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 21:33:29 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 21:33:29 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_162851
+2025-10-13 21:33:30 | INFO     | phase_manager | Cycle CYC_20251013_162851 now in PROCESSING phase
+2025-10-13 21:33:33 | INFO     | worker_llm | Evaluating ANON_1760355123657_3542D0 (attempt 1)
+2025-10-13 21:33:55 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_9EBD5349 | actor=worker_llm | details={'anonymized_id': 'ANON_1760355123657_3542D0', 'attempt_number': 1, 'total_score': 65.65} | timestamp=2025-10-13T16:33:55.166202
+2025-10-13 21:33:56 | INFO     | worker_llm | Worker evaluation complete: ANON_1760355123657_3542D0 → 65.65/100 (attempt 1)
+2025-10-13 21:33:57 | INFO     | judge_llm | Validating worker evaluation for ANON_1760355123657_3542D0 (attempt 1)
+2025-10-13 21:34:23 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_5C7ADC74 | actor=judge_llm | details={'anonymized_id': 'ANON_1760355123657_3542D0', 'worker_result_id': 'WKR_9EBD5349', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T16:34:23.940322
+2025-10-13 21:34:25 | INFO     | judge_llm | Judge validation complete: ANON_1760355123657_3542D0 → APPROVED  (quality: 88/100)
+2025-10-13 21:34:26 | INFO     | worker_llm | Evaluating ANON_1760355128568_E9899A (attempt 1)
+2025-10-13 21:34:52 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_43E68D62 | actor=worker_llm | details={'anonymized_id': 'ANON_1760355128568_E9899A', 'attempt_number': 1, 'total_score': 88.4} | timestamp=2025-10-13T16:34:52.714710
+2025-10-13 21:34:54 | INFO     | worker_llm | Worker evaluation complete: ANON_1760355128568_E9899A → 88.40/100 (attempt 1)
+2025-10-13 21:34:54 | INFO     | judge_llm | Validating worker evaluation for ANON_1760355128568_E9899A (attempt 1)
+2025-10-13 21:35:16 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_9BFDD84C | actor=judge_llm | details={'anonymized_id': 'ANON_1760355128568_E9899A', 'worker_result_id': 'WKR_43E68D62', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T16:35:16.879499
+2025-10-13 21:35:18 | INFO     | judge_llm | Judge validation complete: ANON_1760355128568_E9899A → APPROVED  (quality: 92/100)
+2025-10-13 21:35:20 | ERROR    | api | Failed to start processing for cycle CYC_20251013_162851: Class 'src.models.schemas.HashChainEntry' is not mapped
+2025-10-13 21:35:20 | ERROR    | database | Database session error: 400: Class 'src.models.schemas.HashChainEntry' is not mapped
+2025-10-13 21:36:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:36:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:36:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:37:03 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:37:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:37:25 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 21:37:26 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 21:37:26 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_162851
+2025-10-13 21:37:27 | INFO     | phase_manager | Cycle CYC_20251013_162851 already in PROCESSING phase; refreshing application statuses
+2025-10-13 21:37:27 | INFO     | phase_manager | Cycle CYC_20251013_162851 remains in PROCESSING phase
+2025-10-13 21:37:30 | INFO     | worker_llm | Evaluating ANON_1760355123657_3542D0 (attempt 1)
+2025-10-13 21:37:50 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_DF0E3E77 | actor=worker_llm | details={'anonymized_id': 'ANON_1760355123657_3542D0', 'attempt_number': 1, 'total_score': 63.9} | timestamp=2025-10-13T16:37:50.800890
+2025-10-13 21:37:52 | INFO     | worker_llm | Worker evaluation complete: ANON_1760355123657_3542D0 → 63.90/100 (attempt 1)
+2025-10-13 21:37:52 | INFO     | judge_llm | Validating worker evaluation for ANON_1760355123657_3542D0 (attempt 1)
+2025-10-13 21:38:25 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_8B822D7A | actor=judge_llm | details={'anonymized_id': 'ANON_1760355123657_3542D0', 'worker_result_id': 'WKR_DF0E3E77', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T16:38:25.497835
+2025-10-13 21:38:27 | INFO     | judge_llm | Judge validation complete: ANON_1760355123657_3542D0 → APPROVED  (quality: 86/100)
+2025-10-13 21:38:27 | INFO     | worker_llm | Evaluating ANON_1760355128568_E9899A (attempt 1)
+2025-10-13 21:38:48 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_2E8F5FFC | actor=worker_llm | details={'anonymized_id': 'ANON_1760355128568_E9899A', 'attempt_number': 1, 'total_score': 90.0} | timestamp=2025-10-13T16:38:48.128190
+2025-10-13 21:38:49 | INFO     | worker_llm | Worker evaluation complete: ANON_1760355128568_E9899A → 90.00/100 (attempt 1)
+2025-10-13 21:38:50 | INFO     | judge_llm | Validating worker evaluation for ANON_1760355128568_E9899A (attempt 1)
+2025-10-13 21:39:17 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_8D845A87 | actor=judge_llm | details={'anonymized_id': 'ANON_1760355128568_E9899A', 'worker_result_id': 'WKR_2E8F5FFC', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T16:39:17.059903
+2025-10-13 21:39:18 | INFO     | judge_llm | Judge validation complete: ANON_1760355128568_E9899A → APPROVED  (quality: 92/100)
+2025-10-13 21:39:20 | ERROR    | api | Failed to start processing for cycle CYC_20251013_162851: Class 'src.models.schemas.HashChainEntry' is not mapped
+2025-10-13 21:39:20 | ERROR    | database | Database session error: 400: Class 'src.models.schemas.HashChainEntry' is not mapped
+2025-10-13 21:41:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:41:42 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:42:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:42:56 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:43:29 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:43:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:44:08 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:44:25 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:44:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:44:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:45:27 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:45:27 | INFO     | main | Running prerequisite checks...
+2025-10-13 21:45:27 | INFO     | main | Verifying database connection...
+2025-10-13 21:45:33 | INFO     | database | Database connection verified successfully
+2025-10-13 21:45:33 | INFO     | main | ✅ Database connection successful
+2025-10-13 21:45:33 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 21:45:33 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 21:45:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:46:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:47:08 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:48:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:48:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:49:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:49:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:49:36 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:49:36 | INFO     | main | Running prerequisite checks...
+2025-10-13 21:49:36 | INFO     | main | Verifying database connection...
+2025-10-13 21:49:41 | INFO     | database | Database connection verified successfully
+2025-10-13 21:49:41 | INFO     | main | ✅ Database connection successful
+2025-10-13 21:49:41 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 21:49:41 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 21:49:42 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:50:06 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 21:50:10 | INFO     | admin_auth | Login successful for asad
+2025-10-13 21:50:37 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 21:50:37 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 21:50:37 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_162851
+2025-10-13 21:50:37 | INFO     | phase_manager | Cycle CYC_20251013_162851 already in PROCESSING phase; refreshing application statuses
+2025-10-13 21:50:38 | INFO     | phase_manager | Cycle CYC_20251013_162851 remains in PROCESSING phase
+2025-10-13 21:50:41 | INFO     | worker_llm | Evaluating ANON_1760355123657_3542D0 (attempt 1)
+2025-10-13 21:51:01 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_975B1942 | actor=worker_llm | details={'anonymized_id': 'ANON_1760355123657_3542D0', 'attempt_number': 1, 'total_score': 60.4} | timestamp=2025-10-13T16:51:01.304040
+2025-10-13 21:51:02 | INFO     | worker_llm | Worker evaluation complete: ANON_1760355123657_3542D0 → 60.40/100 (attempt 1)
+2025-10-13 21:51:03 | INFO     | judge_llm | Validating worker evaluation for ANON_1760355123657_3542D0 (attempt 1)
+2025-10-13 21:51:41 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_A28C3C14 | actor=judge_llm | details={'anonymized_id': 'ANON_1760355123657_3542D0', 'worker_result_id': 'WKR_975B1942', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T16:51:41.444359
+2025-10-13 21:51:42 | INFO     | judge_llm | Judge validation complete: ANON_1760355123657_3542D0 → APPROVED  (quality: 85/100)
+2025-10-13 21:51:43 | INFO     | worker_llm | Evaluating ANON_1760355128568_E9899A (attempt 1)
+2025-10-13 21:52:04 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_345ACE9C | actor=worker_llm | details={'anonymized_id': 'ANON_1760355128568_E9899A', 'attempt_number': 1, 'total_score': 88.1} | timestamp=2025-10-13T16:52:04.074342
+2025-10-13 21:52:05 | INFO     | worker_llm | Worker evaluation complete: ANON_1760355128568_E9899A → 88.10/100 (attempt 1)
+2025-10-13 21:52:06 | INFO     | judge_llm | Validating worker evaluation for ANON_1760355128568_E9899A (attempt 1)
+2025-10-13 21:52:29 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_2A023F93 | actor=judge_llm | details={'anonymized_id': 'ANON_1760355128568_E9899A', 'worker_result_id': 'WKR_345ACE9C', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T16:52:29.317848
+2025-10-13 21:52:30 | INFO     | judge_llm | Judge validation complete: ANON_1760355128568_E9899A → APPROVED  (quality: 90/100)
+2025-10-13 21:52:33 | ERROR    | api | Failed to start processing for cycle CYC_20251013_162851: (psycopg2.errors.NotNullViolation) null value in column "chain_id" of relation "hash_chain" violates not-null constraint
+DETAIL:  Failing row contains (null, ANON_1760355123657_3542D0, phase1_final, {"academic_score": 64.0, "achievement_score": 50.0, "anonymized_..., 4dd9134b6bc55c452e47ffd3d2ec0d80a02d3623cf241297517d18e3994d39d3, 0000000000000000000000000000000000000000000000000000000000000000, 2025-10-13 16:52:33.362266+00).
+
+[SQL: INSERT INTO hash_chain (anonymized_id, decision_type, data_json, data_hash, previous_hash, timestamp) VALUES (%(anonymized_id)s, %(decision_type)s, %(data_json)s, %(data_hash)s, %(previous_hash)s, %(timestamp)s)]
+[parameters: {'anonymized_id': 'ANON_1760355123657_3542D0', 'decision_type': 'phase1_final', 'data_json': '{"academic_score": 64.0, "achievement_score": 50.0, "anonymized_id": "ANON_1760355123657_3542D0", "areas_for_improvement": [], "essay_score": 66.0, " ... (1682 characters truncated) ... ut limited evidence of sustained impact or recognition."], "test_score": 62.0, "timestamp": "2025-10-13T16:52:32.284818+00:00", "worker_attempts": 1}', 'data_hash': '4dd9134b6bc55c452e47ffd3d2ec0d80a02d3623cf241297517d18e3994d39d3', 'previous_hash': '0000000000000000000000000000000000000000000000000000000000000000', 'timestamp': datetime.datetime(2025, 10, 13, 16, 52, 33, 362266)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-13 21:52:33 | ERROR    | database | Database session error: 400: (psycopg2.errors.NotNullViolation) null value in column "chain_id" of relation "hash_chain" violates not-null constraint
+DETAIL:  Failing row contains (null, ANON_1760355123657_3542D0, phase1_final, {"academic_score": 64.0, "achievement_score": 50.0, "anonymized_..., 4dd9134b6bc55c452e47ffd3d2ec0d80a02d3623cf241297517d18e3994d39d3, 0000000000000000000000000000000000000000000000000000000000000000, 2025-10-13 16:52:33.362266+00).
+
+[SQL: INSERT INTO hash_chain (anonymized_id, decision_type, data_json, data_hash, previous_hash, timestamp) VALUES (%(anonymized_id)s, %(decision_type)s, %(data_json)s, %(data_hash)s, %(previous_hash)s, %(timestamp)s)]
+[parameters: {'anonymized_id': 'ANON_1760355123657_3542D0', 'decision_type': 'phase1_final', 'data_json': '{"academic_score": 64.0, "achievement_score": 50.0, "anonymized_id": "ANON_1760355123657_3542D0", "areas_for_improvement": [], "essay_score": 66.0, " ... (1682 characters truncated) ... ut limited evidence of sustained impact or recognition."], "test_score": 62.0, "timestamp": "2025-10-13T16:52:32.284818+00:00", "worker_attempts": 1}', 'data_hash': '4dd9134b6bc55c452e47ffd3d2ec0d80a02d3623cf241297517d18e3994d39d3', 'previous_hash': '0000000000000000000000000000000000000000000000000000000000000000', 'timestamp': datetime.datetime(2025, 10, 13, 16, 52, 33, 362266)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-13 21:58:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:02:26 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:03:44 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:03:45 | INFO     | main | Running prerequisite checks...
+2025-10-13 22:03:45 | INFO     | main | Verifying database connection...
+2025-10-13 22:03:50 | INFO     | database | Database connection verified successfully
+2025-10-13 22:03:50 | INFO     | main | ✅ Database connection successful
+2025-10-13 22:03:50 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 22:03:50 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 22:03:51 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:04:35 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 22:04:39 | INFO     | admin_auth | Login successful for asad
+2025-10-13 22:05:03 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 22:05:03 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 22:05:03 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_162851
+2025-10-13 22:05:03 | INFO     | phase_manager | Cycle CYC_20251013_162851 already in PROCESSING phase; refreshing application statuses
+2025-10-13 22:05:04 | INFO     | phase_manager | Cycle CYC_20251013_162851 remains in PROCESSING phase
+2025-10-13 22:05:07 | INFO     | worker_llm | Evaluating ANON_1760355123657_3542D0 (attempt 1)
+2025-10-13 22:05:26 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_07299927 | actor=worker_llm | details={'anonymized_id': 'ANON_1760355123657_3542D0', 'attempt_number': 1, 'total_score': 65.9} | timestamp=2025-10-13T17:05:26.781008
+2025-10-13 22:05:28 | INFO     | worker_llm | Worker evaluation complete: ANON_1760355123657_3542D0 → 65.90/100 (attempt 1)
+2025-10-13 22:05:29 | INFO     | judge_llm | Validating worker evaluation for ANON_1760355123657_3542D0 (attempt 1)
+2025-10-13 22:05:56 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_F2BE0E0C | actor=judge_llm | details={'anonymized_id': 'ANON_1760355123657_3542D0', 'worker_result_id': 'WKR_07299927', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T17:05:56.040794
+2025-10-13 22:05:57 | INFO     | judge_llm | Judge validation complete: ANON_1760355123657_3542D0 → APPROVED  (quality: 88/100)
+2025-10-13 22:05:58 | INFO     | worker_llm | Evaluating ANON_1760355128568_E9899A (attempt 1)
+2025-10-13 22:06:18 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_D91D36B1 | actor=worker_llm | details={'anonymized_id': 'ANON_1760355128568_E9899A', 'attempt_number': 1, 'total_score': 89.05} | timestamp=2025-10-13T17:06:18.324136
+2025-10-13 22:06:19 | INFO     | worker_llm | Worker evaluation complete: ANON_1760355128568_E9899A → 89.05/100 (attempt 1)
+2025-10-13 22:06:20 | INFO     | judge_llm | Validating worker evaluation for ANON_1760355128568_E9899A (attempt 1)
+2025-10-13 22:06:38 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_D0C0E666 | actor=judge_llm | details={'anonymized_id': 'ANON_1760355128568_E9899A', 'worker_result_id': 'WKR_D91D36B1', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T17:06:38.336640
+2025-10-13 22:06:39 | INFO     | judge_llm | Judge validation complete: ANON_1760355128568_E9899A → APPROVED  (quality: 92/100)
+2025-10-13 22:06:42 | INFO     | audit | AUDIT: update | HashChain:ANON_1760355123657_3542D0 | actor=hash_chain_generator | details={'hash': '491f6bd48af861cf5a58d126d7878e1d57a8362890d5a0cbf6a29c7ddd06fd9b'} | timestamp=2025-10-13T17:06:42.390442
+2025-10-13 22:06:43 | INFO     | hash_chain | Created hash chain entry for ANON_1760355123657_3542D0: 491f6bd48af861cf...
+2025-10-13 22:06:45 | INFO     | audit | AUDIT: update | HashChain:ANON_1760355128568_E9899A | actor=hash_chain_generator | details={'hash': '6531e88ab74cf9d3f2ff1adec33d65759c311bc02960fe910550f080f291a3f9'} | timestamp=2025-10-13T17:06:45.975786
+2025-10-13 22:06:47 | INFO     | hash_chain | Created hash chain entry for ANON_1760355128568_E9899A: 6531e88ab74cf9d3...
+2025-10-13 22:06:48 | INFO     | phase_manager | Marking cycle CYC_20251013_162851 as scored
+2025-10-13 22:06:50 | INFO     | phase_manager | Cycle CYC_20251013_162851 marked as SCORED
+2025-10-13 22:06:50 | INFO     | api | LLM processing completed for cycle CYC_20251013_162851 by admin asad
+2025-10-13 22:07:20 | INFO     | phase_manager | Performing selection for cycle CYC_20251013_162851
+2025-10-13 22:07:24 | INFO     | phase_manager | Selection complete: 1 selected, 1 not selected
+2025-10-13 22:07:24 | INFO     | api | Selection performed for cycle CYC_20251013_162851 by admin asad
+2025-10-13 22:07:53 | INFO     | phase_manager | Publishing results for cycle CYC_20251013_162851
+2025-10-13 22:07:55 | INFO     | hash_chain | Created hash chain entry for ANON_1760355128568_E9899A: 19842db8ccae6c1e...
+2025-10-13 22:07:56 | INFO     | hash_chain | Created hash chain entry for ANON_1760355123657_3542D0: 76ca78407445018d...
+2025-10-13 22:07:56 | INFO     | phase_manager | Results published for cycle CYC_20251013_162851
+2025-10-13 22:07:56 | INFO     | api | Results published for cycle CYC_20251013_162851 by admin asad
+2025-10-13 22:08:29 | INFO     | phase_manager | Completing cycle CYC_20251013_162851
+2025-10-13 22:08:29 | INFO     | phase_manager | Cycle CYC_20251013_162851 completed
+2025-10-13 22:08:29 | INFO     | api | Cycle CYC_20251013_162851 completed by admin asad
+2025-10-13 22:11:43 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:16:11 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:16:33 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:17:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:17:41 | INFO     | create_admin | Admin user created successfully: asad
+2025-10-13 22:17:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:17:48 | INFO     | main | Running prerequisite checks...
+2025-10-13 22:17:48 | INFO     | main | Verifying database connection...
+2025-10-13 22:17:53 | INFO     | database | Database connection verified successfully
+2025-10-13 22:17:53 | INFO     | main | ✅ Database connection successful
+2025-10-13 22:17:53 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 22:17:53 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 22:17:54 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:18:10 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 22:18:17 | INFO     | admin_auth | Login successful for asad
+2025-10-13 22:19:13 | INFO     | api | Created and opened admission cycle: Winter 2025
+2025-10-13 22:19:57 | INFO     | application_collector | Collecting new application from ahmedraza@gmail.com
+2025-10-13 22:19:59 | INFO     | audit | AUDIT: create | Application:APP_4C09FA96 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T17:19:59.244881
+2025-10-13 22:19:59 | INFO     | application_collector | Application collected successfully: APP_4C09FA96
+2025-10-13 22:19:59 | INFO     | api | Application submitted: APP_4C09FA96 (Cycle: Winter 2025)
+2025-10-13 22:21:00 | INFO     | application_collector | Collecting new application from saramalik@gmail.com
+2025-10-13 22:21:01 | INFO     | audit | AUDIT: create | Application:APP_36CA3817 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T17:21:01.352146
+2025-10-13 22:21:01 | INFO     | application_collector | Application collected successfully: APP_36CA3817
+2025-10-13 22:21:01 | INFO     | api | Application submitted: APP_36CA3817 (Cycle: Winter 2025)
+2025-10-13 22:21:23 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 22:21:26 | INFO     | admin_auth | Login successful for asad
+2025-10-13 22:21:45 | INFO     | phase_manager | Freezing cycle CYC_20251013_171912 by admin ADM_ASAD
+2025-10-13 22:21:46 | INFO     | phase_manager | Finalized 2 applications
+2025-10-13 22:21:47 | INFO     | phase_manager | Cycle CYC_20251013_171912 frozen successfully
+2025-10-13 22:21:47 | INFO     | api | Cycle CYC_20251013_171912 frozen by admin asad
+2025-10-13 22:22:06 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251013_171912
+2025-10-13 22:22:07 | INFO     | phase_manager | Processing 2 finalized applications
+2025-10-13 22:22:07 | INFO     | identity_scrubber | Scrubbing application: APP_36CA3817
+2025-10-13 22:22:08 | INFO     | identity_scrubber | Applied 2 redactions to APP_36CA3817
+2025-10-13 22:22:10 | INFO     | identity_scrubber | Successfully scrubbed APP_36CA3817 → ANON_1760358128354_1E1BD5
+2025-10-13 22:22:12 | INFO     | identity_scrubber | Scrubbing application: APP_4C09FA96
+2025-10-13 22:22:14 | INFO     | identity_scrubber | Applied 7 redactions to APP_4C09FA96
+2025-10-13 22:22:17 | INFO     | identity_scrubber | Successfully scrubbed APP_4C09FA96 → ANON_1760358134234_632F28
+2025-10-13 22:22:20 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251013_171912: 2 scrubbed, 2 metrics computed, 2 marked BATCH_READY, 0 failed
+2025-10-13 22:22:20 | INFO     | api | Preprocessing started for cycle CYC_20251013_171912 by admin asad
+2025-10-13 22:22:33 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 22:22:33 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 22:22:33 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251013_171912
+2025-10-13 22:22:36 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251013_171912: 2 applications ready for export
+2025-10-13 22:22:36 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251013_171912 to JSONL
+2025-10-13 22:22:38 | INFO     | batch_processor | Exported 2 applications to batch_exports\batch_export_CYC_20251013_171912_20251013_172237.jsonl
+2025-10-13 22:22:39 | INFO     | api | Batch export completed for cycle CYC_20251013_171912 by admin asad
+2025-10-13 22:23:13 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 22:23:13 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 22:23:13 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_171912
+2025-10-13 22:23:14 | INFO     | phase_manager | Cycle CYC_20251013_171912 now in PROCESSING phase
+2025-10-13 22:23:18 | INFO     | worker_llm | Evaluating ANON_1760358128354_1E1BD5 (attempt 1)
+2025-10-13 22:23:39 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_843C638D | actor=worker_llm | details={'anonymized_id': 'ANON_1760358128354_1E1BD5', 'attempt_number': 1, 'total_score': 88.4} | timestamp=2025-10-13T17:23:39.553665
+2025-10-13 22:23:40 | INFO     | worker_llm | Worker evaluation complete: ANON_1760358128354_1E1BD5 → 88.40/100 (attempt 1)
+2025-10-13 22:23:41 | INFO     | judge_llm | Validating worker evaluation for ANON_1760358128354_1E1BD5 (attempt 1)
+2025-10-13 22:24:07 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_74A6C4B6 | actor=judge_llm | details={'anonymized_id': 'ANON_1760358128354_1E1BD5', 'worker_result_id': 'WKR_843C638D', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T17:24:07.067891
+2025-10-13 22:24:08 | INFO     | judge_llm | Judge validation complete: ANON_1760358128354_1E1BD5 → APPROVED  (quality: 90/100)
+2025-10-13 22:24:09 | INFO     | worker_llm | Evaluating ANON_1760358134234_632F28 (attempt 1)
+2025-10-13 22:24:25 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_63AA1B26 | actor=worker_llm | details={'anonymized_id': 'ANON_1760358134234_632F28', 'attempt_number': 1, 'total_score': 63.4} | timestamp=2025-10-13T17:24:25.327061
+2025-10-13 22:24:26 | INFO     | worker_llm | Worker evaluation complete: ANON_1760358134234_632F28 → 63.40/100 (attempt 1)
+2025-10-13 22:24:27 | INFO     | judge_llm | Validating worker evaluation for ANON_1760358134234_632F28 (attempt 1)
+2025-10-13 22:24:54 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_C1584E30 | actor=judge_llm | details={'anonymized_id': 'ANON_1760358134234_632F28', 'worker_result_id': 'WKR_63AA1B26', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T17:24:54.642530
+2025-10-13 22:24:55 | INFO     | judge_llm | Judge validation complete: ANON_1760358134234_632F28 → APPROVED  (quality: 86/100)
+2025-10-13 22:25:00 | INFO     | audit | AUDIT: update | HashChain:ANON_1760358128354_1E1BD5 | actor=hash_chain_generator | details={'hash': 'a92d074807551e58267d2a6d67c0e098476ab22d0ebf11eafc6487195dd4290d'} | timestamp=2025-10-13T17:25:00.518830
+2025-10-13 22:25:02 | INFO     | hash_chain | Created hash chain entry for ANON_1760358128354_1E1BD5: a92d074807551e58...
+2025-10-13 22:25:05 | INFO     | audit | AUDIT: update | HashChain:ANON_1760358134234_632F28 | actor=hash_chain_generator | details={'hash': '7fc5584841b00489ed175f5a750351c537f6ccdad6817679a2ae4c037618513a'} | timestamp=2025-10-13T17:25:05.605210
+2025-10-13 22:25:06 | INFO     | hash_chain | Created hash chain entry for ANON_1760358134234_632F28: 7fc5584841b00489...
+2025-10-13 22:25:08 | INFO     | phase_manager | Marking cycle CYC_20251013_171912 as scored
+2025-10-13 22:25:09 | INFO     | phase_manager | Cycle CYC_20251013_171912 marked as SCORED
+2025-10-13 22:25:09 | INFO     | api | LLM processing completed for cycle CYC_20251013_171912 by admin asad
+2025-10-13 22:25:23 | INFO     | phase_manager | Performing selection for cycle CYC_20251013_171912
+2025-10-13 22:25:25 | INFO     | phase_manager | Updated 1 applications to SELECTED status
+2025-10-13 22:25:25 | INFO     | phase_manager | Updated 1 applications to NOT_SELECTED status
+2025-10-13 22:25:27 | INFO     | phase_manager | Selection complete: 1 selected, 1 not selected
+2025-10-13 22:25:27 | INFO     | api | Selection performed for cycle CYC_20251013_171912 by admin asad
+2025-10-13 22:25:35 | INFO     | phase_manager | Publishing results for cycle CYC_20251013_171912
+2025-10-13 22:25:37 | INFO     | hash_chain | Created hash chain entry for ANON_1760358128354_1E1BD5: 70cdfc917db16ae3...
+2025-10-13 22:25:38 | INFO     | hash_chain | Created hash chain entry for ANON_1760358134234_632F28: af8a45ca7d4cf647...
+2025-10-13 22:25:39 | INFO     | phase_manager | Results published for cycle CYC_20251013_171912
+2025-10-13 22:25:39 | INFO     | api | Results published for cycle CYC_20251013_171912 by admin asad
+2025-10-13 22:25:45 | INFO     | phase_manager | Completing cycle CYC_20251013_171912
+2025-10-13 22:25:46 | INFO     | phase_manager | Cycle CYC_20251013_171912 completed
+2025-10-13 22:25:46 | INFO     | api | Cycle CYC_20251013_171912 completed by admin asad
+2025-10-13 22:32:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:32:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:36:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0

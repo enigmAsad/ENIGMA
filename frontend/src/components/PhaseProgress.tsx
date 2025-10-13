@@ -10,7 +10,7 @@ interface PhaseProgressProps {
 const PHASES = [
   { id: 'SUBMISSION', name: 'Submission', description: 'Applications Open' },
   { id: 'FROZEN', name: 'Frozen', description: 'Data Locked' },
-  { id: 'PREPROCESSING', name: 'Preprocessing', description: 'Computing Metrics' },
+  { id: 'PREPROCESSING', name: 'Preprocessing', description: 'Scrubbing PII + Metrics' },
   { id: 'BATCH_PREP', name: 'Batch Prep', description: 'Export Ready' },
   { id: 'PROCESSING', name: 'Processing', description: 'LLM Running' },
   { id: 'SCORED', name: 'Scored', description: 'Results Ready' },

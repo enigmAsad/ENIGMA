@@ -226,12 +226,9 @@ async def submit_application(
                 detail=f"Admissions window is closed. Opens on {active_cycle.start_date.date()}, closes on {active_cycle.end_date.date()}."
             )
 
-        # Check if seats available
-        if active_cycle.current_seats >= active_cycle.max_seats:
-            raise HTTPException(
-                status_code=400,
-                detail="Admissions are full. No seats available."
-            )
+        # NOTE: We do NOT limit applications based on max_seats
+        # max_seats is for SELECTION (Phase 7 top-K), not application limit
+        # Applications are unlimited until admin closes the cycle or date range ends
 
         # Initialize services
         audit_logger = AuditLogger()
@@ -722,15 +719,13 @@ async def get_admission_info(db: Session = Depends(get_db)):
         # Check if within date range
         now = datetime.now(timezone.utc)
         is_in_range = active_cycle.start_date <= now <= active_cycle.end_date
-        seats_available = active_cycle.current_seats < active_cycle.max_seats
 
-        is_open = active_cycle.is_open and is_in_range and seats_available
+        # NOTE: Applications are unlimited - max_seats is for selection, not admission closure
+        is_open = active_cycle.is_open and is_in_range
 
         if not is_open:
             if not is_in_range:
                 message = "Admissions window is currently closed"
-            elif not seats_available:
-                message = "Admissions are full - no seats available"
             else:
                 message = "Admissions are currently closed"
         else:
@@ -739,7 +734,7 @@ async def get_admission_info(db: Session = Depends(get_db)):
         return AdmissionInfoResponse(
             is_open=is_open,
             cycle_name=active_cycle.cycle_name,
-            seats_available=active_cycle.max_seats - active_cycle.current_seats,
+            seats_available=None,  # Unlimited applications - max_seats is for selection only
             max_seats=active_cycle.max_seats,
             current_seats=active_cycle.current_seats,
             start_date=active_cycle.start_date,
@@ -765,10 +760,10 @@ async def get_admission_status(db: Session = Depends(get_db)):
 
         now = datetime.now(timezone.utc)
         is_in_range = active_cycle.start_date <= now <= active_cycle.end_date
-        seats_available = active_cycle.current_seats < active_cycle.max_seats
 
+        # NOTE: Applications are unlimited - max_seats is for selection, not admission closure
         return {
-            "is_open": active_cycle.is_open and is_in_range and seats_available
+            "is_open": active_cycle.is_open and is_in_range
         }
 
     except Exception as e:

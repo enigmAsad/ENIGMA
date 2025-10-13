@@ -373,3 +373,35 @@ action
 2025-10-12 19:17:43 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-12 19:23:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-12 19:27:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 16:53:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 16:53:39 | INFO     | main | Running prerequisite checks...
+2025-10-13 16:53:39 | INFO     | main | Verifying database connection...
+2025-10-13 16:53:45 | INFO     | database | Database connection verified successfully
+2025-10-13 16:53:45 | INFO     | main | ✅ Database connection successful
+2025-10-13 16:53:45 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 16:53:45 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 16:53:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 16:55:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 16:59:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:01:20 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:01:20 | INFO     | main | Running prerequisite checks...
+2025-10-13 17:01:20 | INFO     | main | Verifying database connection...
+2025-10-13 17:01:25 | INFO     | database | Database connection verified successfully
+2025-10-13 17:01:25 | INFO     | main | ✅ Database connection successful
+2025-10-13 17:01:25 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 17:01:25 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 17:01:26 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:02:58 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 17:03:02 | INFO     | admin_auth | Login successful for asad
+2025-10-13 17:03:54 | INFO     | api | Created and opened admission cycle: Fall 25 Admissions
+2025-10-13 17:05:00 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 17:05:04 | INFO     | admin_auth | Login successful for asad
+2025-10-13 17:05:27 | INFO     | api | Closed admission cycle: Fall 25 Admissions
+2025-10-13 17:06:13 | INFO     | api | Created and opened admission cycle: Winter 2025
+2025-10-13 17:09:43 | INFO     | application_collector | Collecting new application from aisharehman@gmail.com
+2025-10-13 17:09:44 | INFO     | audit | AUDIT: create | Application:APP_4EEE99AC | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T12:09:44.740472
+2025-10-13 17:09:44 | INFO     | application_collector | Application collected successfully: APP_4EEE99AC
+2025-10-13 17:09:45 | INFO     | api | Application submitted: APP_4EEE99AC (Cycle: Winter 2025)
+2025-10-13 17:14:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:15:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:15:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0

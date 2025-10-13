@@ -1,3 +1,5 @@
 2025-10-12 12:27:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-12 12:28:44 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-12 12:29:16 | INFO     | create_admin | Admin user created successfully: enigma
+2025-10-13 17:00:37 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 17:01:12 | INFO     | create_admin | Admin user created successfully: asad

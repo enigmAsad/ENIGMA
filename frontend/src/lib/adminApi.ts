@@ -37,6 +37,11 @@ export interface AdmissionCycle {
   closed_by?: string;
 }
 
+export interface DeleteCycleResponse {
+  success: boolean;
+  message: string;
+}
+
 export interface CycleStatus {
   cycle_id: string;
   cycle_name: string;
@@ -258,6 +263,20 @@ class AdminAPIClient {
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.detail || 'Failed to close cycle');
+    }
+
+    return response.json();
+  }
+
+  async deleteCycle(cycleId: string): Promise<DeleteCycleResponse> {
+    const response = await fetch(`${API_BASE}/admin/cycles/${cycleId}`, {
+      method: 'DELETE',
+      headers: this.getAuthHeader(),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to delete cycle');
     }
 
     return response.json();

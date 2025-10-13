@@ -634,6 +634,76 @@ async def update_cycle(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+@app.delete("/admin/cycles/{cycle_id}")
+async def delete_cycle(
+    cycle_id: str,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db)
+):
+    """Delete an admission cycle that has no dependent records."""
+    try:
+        admin_repo = AdminRepository(db)
+        app_repo = ApplicationRepository(db)
+        batch_repo = BatchRepository(db)
+
+        cycle = admin_repo.get_cycle_by_id(cycle_id)
+        if not cycle:
+            raise HTTPException(status_code=404, detail="Cycle not found")
+
+        if cycle.is_open:
+            raise HTTPException(status_code=400, detail="Close the cycle before deleting it.")
+
+        application_count = app_repo.count_by_cycle(cycle_id)
+        if application_count > 0:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot delete cycle with submitted applications. Archive or remove applications first."
+            )
+
+        selection_logs = admin_repo.get_selection_logs(cycle_id)
+        if selection_logs:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot delete cycle with recorded selection logs."
+            )
+
+        batch_runs = batch_repo.get_batches_by_cycle(cycle_id)
+        if batch_runs:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot delete cycle with existing batch runs."
+            )
+
+        deleted = admin_repo.delete_cycle(cycle_id)
+        if not deleted:
+            raise HTTPException(status_code=500, detail="Failed to delete cycle")
+
+        audit_logger = AuditLogger(db)
+        audit_logger.log_action(
+            entity_type="AdmissionCycle",
+            entity_id=cycle_id,
+            action="delete",
+            actor=admin["admin_id"],
+            details={
+                "cycle_name": cycle.cycle_name,
+                "deleted_by": admin["username"],
+            }
+        )
+
+        logger.info(f"Deleted admission cycle: {cycle.cycle_name} ({cycle_id})")
+
+        return {
+            "success": True,
+            "message": f"Admission cycle '{cycle.cycle_name}' deleted successfully.",
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to delete cycle: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.put("/admin/cycles/{cycle_id}/open", response_model=AdmissionCycle)
 async def open_cycle(
     cycle_id: str,

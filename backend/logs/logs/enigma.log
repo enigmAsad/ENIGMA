@@ -690,3 +690,22 @@ DETAIL:  Key (triggered_by)=(asad) is not present in table "admin_users".
 2025-10-13 20:25:59 | INFO     | phase_manager | Completing cycle CYC_20251013_151802
 2025-10-13 20:26:00 | INFO     | phase_manager | Cycle CYC_20251013_151802 completed
 2025-10-13 20:26:00 | INFO     | api | Cycle CYC_20251013_151802 completed by admin asad
+2025-10-13 20:37:02 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:37:02 | INFO     | main | Running prerequisite checks...
+2025-10-13 20:37:02 | INFO     | main | Verifying database connection...
+2025-10-13 20:37:06 | INFO     | database | Database connection verified successfully
+2025-10-13 20:37:06 | INFO     | main | ✅ Database connection successful
+2025-10-13 20:37:06 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 20:37:06 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 20:37:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:37:32 | INFO     | admin_auth | Login attempt for username: asad
+2025-10-13 20:37:36 | INFO     | admin_auth | Login successful for asad
+2025-10-13 20:47:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:48:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:49:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:50:27 | ERROR    | database | Database session error: 400: Cannot delete cycle with submitted applications. Archive or remove applications first.
+2025-10-13 20:50:44 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 20:50:44 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 20:50:44 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_150348
+2025-10-13 20:50:45 | ERROR    | api | Failed to start processing for cycle CYC_20251013_150348: Can only start processing from BATCH_PREP phase
+2025-10-13 20:50:45 | ERROR    | database | Database session error: 400: Can only start processing from BATCH_PREP phase

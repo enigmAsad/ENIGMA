@@ -44,6 +44,7 @@ export default function AdminCyclesPage() {
   const [formError, setFormError] = useState('');
   const [processing, setProcessing] = useState<string | null>(null);
   const [expandedCycle, setExpandedCycle] = useState<string | null>(null);
+  const [deletingCycleId, setDeletingCycleId] = useState<string | null>(null);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -203,6 +204,23 @@ export default function AdminCyclesPage() {
       alert(error.message || 'Failed to close cycle');
     } finally {
       setProcessing(null);
+    }
+  };
+
+  const handleDeleteCycle = async (cycle: AdmissionCycle) => {
+    if (!confirm(`Are you sure you want to delete the cycle "${cycle.cycle_name}"? This cannot be undone.`)) {
+      return;
+    }
+
+    setDeletingCycleId(cycle.cycle_id);
+    try {
+      const response = await adminApiClient.deleteCycle(cycle.cycle_id);
+      alert(response.message);
+      await loadCycles();
+    } catch (error: any) {
+      alert(error.message || 'Failed to delete cycle');
+    } finally {
+      setDeletingCycleId(null);
     }
   };
 
@@ -496,6 +514,15 @@ export default function AdminCyclesPage() {
                               className="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed text-sm font-medium whitespace-nowrap"
                             >
                               {processing === cycle.cycle_id ? 'Opening...' : 'Open Cycle'}
+                            </button>
+                          )}
+                          {!cycle.is_open && (
+                            <button
+                              onClick={() => handleDeleteCycle(cycle)}
+                              disabled={deletingCycleId === cycle.cycle_id || processing === cycle.cycle_id}
+                              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed text-sm font-medium whitespace-nowrap"
+                            >
+                              {deletingCycleId === cycle.cycle_id ? 'Deleting...' : 'Delete Cycle'}
                             </button>
                           )}
                         </div>

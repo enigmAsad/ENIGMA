@@ -516,18 +516,3 @@ class ApplicationRepository(BaseRepository[Application]):
         stmt = select(FinalScore).order_by(FinalScore.final_score.desc())
         result = self.db.execute(stmt)
         return list(result.scalars().all())
-
-    def create_anonymized(self, anonymized: AnonymizedApplication) -> AnonymizedApplication:
-        """Create anonymized application."""
-        return self.create(anonymized)
-
-    def create_identity_mapping(self, anonymized_id: str, application_id: str, encrypted_pii: str) -> IdentityMapping:
-        """Create identity mapping."""
-        from src.database.models import IdentityMapping
-        mapping = IdentityMapping(
-            mapping_id=f"MAP_{anonymized_id}_{application_id}",
-            anonymized_id=anonymized_id,
-            application_id=application_id,
-            encrypted_pii=encrypted_pii
-        )
-        return self.create(mapping)

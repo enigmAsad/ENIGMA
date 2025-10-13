@@ -256,8 +256,12 @@ async def submit_application(
         # Increment seat counter
         admin_repo.increment_cycle_seats(active_cycle.cycle_id)
 
+        # Commit the transaction to ensure the application is in the DB
+        db.commit()
+        db.refresh(application)  # Refresh the object to get the attached state
+
         # Queue for background processing
-        background_tasks.add_task(process_application_background, application)
+        # background_tasks.add_task(process_application_background, application)
 
         logger.info(f"Application submitted: {application.application_id} (Cycle: {active_cycle.cycle_name})")
 

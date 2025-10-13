@@ -3,7 +3,8 @@
 from typing import Dict, Any, Optional, List
 from datetime import datetime
 
-from src.models.schemas import Application, ApplicationStatus
+from src.models.schemas import Application as PydanticApplication, ApplicationStatus
+from src.database.models import Application as SQLAlchemyApplication
 from src.database.repositories import ApplicationRepository, AdminRepository
 from src.utils.logger import get_logger, AuditLogger
 from sqlalchemy.orm import Session
@@ -27,14 +28,14 @@ class ApplicationCollector:
         self.admin_repo = AdminRepository(db)
         self.audit_logger = audit_logger
 
-    def collect_application(self, application_data: Dict[str, Any]) -> Application:
+    def collect_application(self, application_data: Dict[str, Any]) -> SQLAlchemyApplication:
         """Collect and validate a new application.
 
         Args:
             application_data: Raw application data from form
 
         Returns:
-            Application: Validated application model
+            SQLAlchemyApplication: The created SQLAlchemy Application model instance.
 
         Raises:
             ValueError: If application data is invalid
@@ -42,58 +43,55 @@ class ApplicationCollector:
         logger.info(f"Collecting new application from {application_data.get('email', 'unknown')}")
 
         try:
-            # Create and validate Application model
-            application = Application(**application_data)
+            # Validate data with Pydantic model first
+            pydantic_app = PydanticApplication(**application_data)
 
         except Exception as e:
             logger.error(f"Application validation failed: {e}")
             raise ValueError(f"Invalid application data: {e}")
 
-        # Check for duplicate
-        existing = self.app_repo.get_by_application_id(application.application_id)
+        # Check for duplicate ID
+        existing = self.app_repo.get_by_application_id(pydantic_app.application_id)
         if existing:
-            logger.warning(f"Duplicate application ID detected: {application.application_id}")
-            # In production, you might want to handle this differently
-            # For now, regenerate the ID
+            logger.warning(f"Duplicate application ID detected: {pydantic_app.application_id}")
             import uuid
-            application.application_id = f"APP_{uuid.uuid4().hex[:8].upper()}"
+            pydantic_app.application_id = f"APP_{uuid.uuid4().hex[:8].upper()}"
 
-        # Persist application using the correct method for SQLAlchemy models
         # Get active cycle ID for the application
         active_cycle = self.admin_repo.get_active_cycle()
         if not active_cycle:
             raise ValueError("No active admission cycle found")
 
-        # Create SQLAlchemy model in database using individual parameters
-        self.app_repo.create_application(
-            application_id=application.application_id,
+        # Create SQLAlchemy model in database and get the returned instance
+        db_application = self.app_repo.create_application(
+            application_id=pydantic_app.application_id,
             admission_cycle_id=active_cycle.cycle_id,
-            name=application.name,
-            email=application.email,
-            phone=application.phone,
-            address=application.address,
-            gpa=application.gpa,
-            test_scores=application.test_scores,
-            essay=application.essay,
-            achievements=application.achievements
+            name=pydantic_app.name,
+            email=pydantic_app.email,
+            phone=pydantic_app.phone,
+            address=pydantic_app.address,
+            gpa=pydantic_app.gpa,
+            test_scores=pydantic_app.test_scores,
+            essay=pydantic_app.essay,
+            achievements=pydantic_app.achievements
         )
 
         # Audit log
         if self.audit_logger:
-            self.audit_logger.log_application_submitted(application.application_id)
+            self.audit_logger.log_application_submitted(db_application.application_id)
 
-        logger.info(f"Application collected successfully: {application.application_id}")
+        logger.info(f"Application collected successfully: {db_application.application_id}")
 
-        return application
+        return db_application
 
-    def collect_batch(self, applications_data: List[Dict[str, Any]]) -> List[Application]:
+    def collect_batch(self, applications_data: List[Dict[str, Any]]) -> List[SQLAlchemyApplication]:
         """Collect multiple applications in batch.
 
         Args:
             applications_data: List of raw application data
 
         Returns:
-            List[Application]: List of collected applications
+            List[SQLAlchemyApplication]: List of collected applications
         """
         logger.info(f"Collecting batch of {len(applications_data)} applications")
 
@@ -117,14 +115,14 @@ class ApplicationCollector:
 
         return collected
 
-    def get_application(self, application_id: str) -> Optional[Application]:
+    def get_application(self, application_id: str) -> Optional[SQLAlchemyApplication]:
         """Retrieve an application by ID.
 
         Args:
             application_id: Application ID
 
         Returns:
-            Optional[Application]: Application if found
+            Optional[SQLAlchemyApplication]: Application if found
         """
         return self.app_repo.get_by_application_id(application_id)
 
@@ -132,7 +130,7 @@ class ApplicationCollector:
         self,
         application_id: str,
         new_status: ApplicationStatus
-    ) -> Optional[Application]:
+    ) -> Optional[SQLAlchemyApplication]:
         """Update application status.
 
         Note: This is a simplified implementation for MVP.
@@ -143,7 +141,7 @@ class ApplicationCollector:
             new_status: New status
 
         Returns:
-            Optional[Application]: Updated application
+            Optional[SQLAlchemyApplication]: Updated application
         """
         logger.info(f"Updating application {application_id} status to {new_status.value}")
 

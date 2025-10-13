@@ -10,9 +10,10 @@ from openai import OpenAI, APIError, RateLimitError, APITimeoutError
 from src.models.schemas import (
     AnonymizedApplication,
     WorkerResult,
-    JudgeResult,
+    JudgeResult as JudgeResultSchema,
     JudgeDecision
 )
+from src.database.models import JudgeResult as JudgeResultModel
 from src.config.settings import get_settings
 from src.database.repositories import ApplicationRepository
 from src.utils.logger import get_logger, AuditLogger
@@ -266,7 +267,7 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
         self,
         application: AnonymizedApplication,
         worker_result: WorkerResult
-    ) -> JudgeResult:
+    ) -> JudgeResultSchema:
         """Validate a Worker evaluation.
 
         Args:
@@ -274,7 +275,7 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
             worker_result: Worker's evaluation result
 
         Returns:
-            JudgeResult: Validation result
+            JudgeResultSchema: Validation result
 
         Raises:
             ValueError: If validation fails
@@ -310,8 +311,8 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
             else JudgeDecision.REJECTED
         )
 
-        # Create JudgeResult
-        judge_result = JudgeResult(
+        # Create Pydantic schema for return value and state
+        judge_result_schema = JudgeResultSchema(
             result_id=worker_result.result_id,
             anonymized_id=application.anonymized_id,
             worker_result_id=worker_result.result_id,
@@ -324,14 +325,29 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
             model_used=self.settings.judge_model
         )
 
+        # Create SQLAlchemy model for persistence
+        judge_result_db = JudgeResultModel(
+            judge_id=judge_result_schema.judge_id,
+            result_id=judge_result_schema.result_id,
+            anonymized_id=judge_result_schema.anonymized_id,
+            worker_result_id=judge_result_schema.worker_result_id,
+            decision=judge_result_schema.decision,
+            bias_detected=judge_result_schema.bias_detected,
+            quality_score=judge_result_schema.quality_score,
+            feedback=judge_result_schema.feedback,
+            reasoning=judge_result_schema.reasoning,
+            timestamp=judge_result_schema.timestamp,
+            model_used=judge_result_schema.model_used
+        )
+
         # Persist result
-        self.app_repo.create(judge_result)
+        self.app_repo.create(judge_result_db)
 
         # Audit log
         if self.audit_logger:
             self.audit_logger.log_judge_review(
                 anonymized_id=application.anonymized_id,
-                judge_result_id=judge_result.judge_id,
+                judge_result_id=judge_result_db.judge_id,
                 worker_result_id=worker_result.result_id,
                 decision=decision.value,
                 bias_detected=validation_data["bias_detected"]
@@ -349,4 +365,4 @@ Validate this evaluation for bias, accuracy, and quality. Provide your decision 
         if decision == JudgeDecision.REJECTED:
             logger.info(f"Rejection feedback: {validation_data['feedback'][:200]}...")
 
-        return judge_result
+        return judge_result_schema

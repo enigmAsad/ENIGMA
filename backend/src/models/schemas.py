@@ -12,11 +12,16 @@ import uuid
 class ApplicationStatus(str, Enum):
     """Application processing status aligned with batch workflow."""
     SUBMITTED = "submitted"              # Phase 1: Initial submission
+    IDENTITY_SCRUBBING = "identity_scrubbing" # Background task started
     FINALIZED = "finalized"              # Phase 2: Data freeze complete
     PREPROCESSING = "preprocessing"      # Phase 3: Computing deterministic metrics
     BATCH_READY = "batch_ready"          # Phase 4: Ready for LLM batch
     PROCESSING = "processing"            # Phase 5: LLM batch in progress
+    JUDGE_REVIEW = "judge_review"        # Real-time pipeline: Judge LLM review
     SCORED = "scored"                    # Phase 6: LLM scores integrated
+    HASH_GENERATION = "hash_generation"  # Real-time pipeline: hash generation
+    NOTIFICATION = "notification"        # Real-time pipeline: sending notification
+    COMPLETED = "completed"              # Real-time pipeline: completed
     SELECTED = "selected"                # Phase 7: Top-K selection complete
     NOT_SELECTED = "not_selected"        # Phase 7: Not selected
     PUBLISHED = "published"              # Phase 8: Results published to student
@@ -81,7 +86,7 @@ class JudgeDecision(str, Enum):
 
 class Application(BaseModel):
     """Raw application submitted by applicant."""
-    model_config = ConfigDict(validate_assignment=True)
+    model_config = ConfigDict(validate_assignment=True, from_attributes=True)
 
     application_id: str = Field(default_factory=lambda: f"APP_{uuid.uuid4().hex[:8].upper()}")
     timestamp: datetime = Field(default_factory=datetime.utcnow)
@@ -123,7 +128,7 @@ class Application(BaseModel):
 
 class AnonymizedApplication(BaseModel):
     """Identity-scrubbed application for AI evaluation."""
-    model_config = ConfigDict(validate_assignment=True)
+    model_config = ConfigDict(validate_assignment=True, from_attributes=True)
 
     anonymized_id: str = Field(
         default_factory=lambda: f"ANON_{int(datetime.utcnow().timestamp() * 1000)}_{uuid.uuid4().hex[:6].upper()}"
@@ -142,7 +147,7 @@ class AnonymizedApplication(BaseModel):
 
 class WorkerResult(BaseModel):
     """Worker LLM evaluation output."""
-    model_config = ConfigDict(validate_assignment=True)
+    model_config = ConfigDict(validate_assignment=True, from_attributes=True)
 
     result_id: str = Field(default_factory=lambda: f"WKR_{uuid.uuid4().hex[:8].upper()}")
     anonymized_id: str
@@ -227,7 +232,7 @@ class JudgeResult(BaseModel):
 
 class FinalScore(BaseModel):
     """Final aggregated score with LLM results."""
-    model_config = ConfigDict(validate_assignment=True)
+    model_config = ConfigDict(validate_assignment=True, from_attributes=True)
 
     score_id: int
     anonymized_id: str

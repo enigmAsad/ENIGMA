@@ -373,3 +373,414 @@ action
 2025-10-12 19:17:43 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-12 19:23:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-12 19:27:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:09:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:10:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:11:01 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:11:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:13:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:15:25 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:18:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:19:29 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:23:02 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:24:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:25:08 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:25:08 | INFO     | main | Running prerequisite checks...
+2025-10-13 20:25:08 | INFO     | main | Verifying database connection...
+2025-10-13 20:25:10 | ERROR    | database | Database connection failed: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  password authentication failed for user "postgres"
+connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  password authentication failed for user "postgres"
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-13 20:25:10 | ERROR    | main | Failed to connect to database
+2025-10-13 20:25:10 | ERROR    | main | Please check your DATABASE_URL in .env file
+2025-10-13 20:26:02 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:26:02 | INFO     | main | Running prerequisite checks...
+2025-10-13 20:26:02 | INFO     | main | Verifying database connection...
+2025-10-13 20:26:04 | ERROR    | database | Database connection failed: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (3.227.209.82), port 6543 failed: duplicate SASL authentication request
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-13 20:26:04 | ERROR    | main | Failed to connect to database
+2025-10-13 20:26:04 | ERROR    | main | Please check your DATABASE_URL in .env file
+2025-10-13 20:26:43 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:26:46 | ERROR    | database | Database connection failed: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (3.227.209.82), port 6543 failed: FATAL:  password authentication failed for user "postgres"
+connection to server at "aws-1-us-east-1.pooler.supabase.com" (3.227.209.82), port 6543 failed: FATAL:  password authentication failed for user "postgres"
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+2025-10-13 20:29:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:29:26 | INFO     | database | Database connection verified successfully
+2025-10-13 20:30:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:30:07 | INFO     | main | Running prerequisite checks...
+2025-10-13 20:30:07 | INFO     | main | Verifying database connection...
+2025-10-13 20:30:12 | INFO     | database | Database connection verified successfully
+2025-10-13 20:30:12 | INFO     | main | ✅ Database connection successful
+2025-10-13 20:30:12 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 20:30:12 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 20:30:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:33:23 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-13 20:33:28 | INFO     | admin_auth | Login successful for enigma
+2025-10-13 20:34:20 | ERROR    | database | Database session error: [{'type': 'string_too_short', 'loc': ('body', 'cycle_name'), 'msg': 'String should have at least 3 characters', 'input': 'FA', 'ctx': {'min_length': 3}}]
+2025-10-13 20:34:26 | ERROR    | database | Database session error: [{'type': 'string_too_short', 'loc': ('body', 'cycle_name'), 'msg': 'String should have at least 3 characters', 'input': 'FA', 'ctx': {'min_length': 3}}]
+2025-10-13 20:34:44 | INFO     | api | Created and opened admission cycle: Winter 2025
+2025-10-13 20:35:31 | INFO     | application_collector | Collecting new application from fa@example.com
+2025-10-13 20:35:32 | INFO     | audit | AUDIT: create | Application:APP_95799A92 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T15:35:32.553792
+2025-10-13 20:35:32 | INFO     | application_collector | Application collected successfully: APP_95799A92
+2025-10-13 20:35:32 | INFO     | api | Application submitted: APP_95799A92 (Cycle: Winter 2025)
+2025-10-13 20:35:32 | INFO     | api | Starting background processing for APP_95799A92
+2025-10-13 20:35:32 | ERROR    | database | Database transaction error: IdentityScrubber.__init__() got an unexpected keyword argument 'audit_logger'
+2025-10-13 20:35:33 | ERROR    | api | Background processing failed for APP_95799A92: IdentityScrubber.__init__() got an unexpected keyword argument 'audit_logger'
+2025-10-13 20:39:26 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:41:03 | INFO     | application_collector | Collecting new application from fa@example.com
+2025-10-13 20:41:04 | INFO     | audit | AUDIT: create | Application:APP_D4CBC17B | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T15:41:04.571472
+2025-10-13 20:41:04 | INFO     | application_collector | Application collected successfully: APP_D4CBC17B
+2025-10-13 20:41:04 | INFO     | api | Application submitted: APP_D4CBC17B (Cycle: Winter 2025)
+2025-10-13 20:41:04 | INFO     | api | Starting background processing for APP_D4CBC17B
+2025-10-13 20:41:06 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 20:41:07 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 20:41:07 | INFO     | phase1_pipeline | [APP_D4CBC17B] Starting Phase 1 pipeline
+2025-10-13 20:41:07 | ERROR    | api | Background processing failed for APP_D4CBC17B: type object 'ApplicationStatus' has no attribute 'IDENTITY_SCRUBBING'
+2025-10-13 20:42:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:56:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:56:35 | INFO     | main | Running prerequisite checks...
+2025-10-13 22:56:35 | INFO     | main | Verifying database connection...
+2025-10-13 22:56:39 | INFO     | database | Database connection verified successfully
+2025-10-13 22:56:39 | INFO     | main | ✅ Database connection successful
+2025-10-13 22:56:39 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-13 22:56:39 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-13 22:56:44 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:04:57 | INFO     | application_collector | Collecting new application from fa@example.com
+2025-10-14 00:04:58 | INFO     | audit | AUDIT: create | Application:APP_EFE40F45 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:04:58.262274
+2025-10-14 00:04:58 | INFO     | application_collector | Application collected successfully: APP_EFE40F45
+2025-10-14 00:04:58 | INFO     | api | Application submitted: APP_EFE40F45 (Cycle: Winter 2025)
+2025-10-14 00:04:58 | INFO     | api | Starting background processing for APP_EFE40F45
+2025-10-14 00:05:00 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 00:05:01 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 00:05:01 | INFO     | phase1_pipeline | [APP_EFE40F45] Starting Phase 1 pipeline
+2025-10-14 00:05:01 | INFO     | phase1_pipeline | [APP_EFE40F45] Starting identity scrubbing
+2025-10-14 00:05:01 | INFO     | identity_scrubber | Scrubbing application: application_id='APP_EFE40F45' timestamp=datetime.datetime(2025, 10, 13, 19, 4, 57, 70903) name='FA' email='fa@example.com' phone='1112223334' address='Street' gpa=3.5 test_scores={'SAT': 1200.0, 'ACT': 30.0} essay='My academic focus lies at the elegant intersection of computer science and biological systems: Computational Biology. The challenge of genomics—the massive, intricate instruction manual of life—is the ultimate big data problem. I am driven to develop machine learning models to analyze complex protein folding structures, specifically those implicated in neurodegenerative diseases. The conviction that future medical breakthroughs will emerge from algorithms, not just microscopes, is my primary motivation for rigorous study.' achievements="My commitment extends beyond the classroom. I led my high school’s competitive programming team to a top-10 finish in the regional ACM competition and, more importantly, completed a summer research internship at the local medical center. There, I contributed to a team optimizing a clustering algorithm for single-cell RNA sequencing data, presenting my findings on the impact of hyperparameters at the end-of-program symposium. This hands-on experience solidified my ability to translate code into genuine biological insight.\n\nI am an excellent fit for \n\nUniversityName\n because of your commitment to cross-disciplinary innovation within the Kimmel Center for Quantitative Health. The opportunity to study under Professor Vivian Lee, whose deep learning work I admire, is the perfect path to achieving my goal of contributing to personalized medicine research. I bring a highly analytical background and a demonstrated eagerness to translate code into clinical impact, aligning perfectly with your community's spirit of rigorous problem-solving." status=<ApplicationStatus.SUBMITTED: 'submitted'>
+2025-10-14 00:05:01 | ERROR    | phase1_pipeline | [APP_EFE40F45] Identity scrubbing failed: (psycopg2.ProgrammingError) can't adapt type 'Application'
+[SQL: SELECT applications.application_id, applications.admission_cycle_id, applications.timestamp, applications.name, applications.email, applications.phone, applications.address, applications.gpa, applications.test_scores, applications.essay, applications.achievements, applications.status, applications.created_at, applications.updated_at 
+FROM applications 
+WHERE applications.application_id = %(application_id_1)s]
+[parameters: {'application_id_1': Application(application_id='APP_EFE40F45', timestamp=datetime.datetime(2025, 10, 13, 19, 4, 57, 70903), name='FA', email='fa@example.com', phone='1112 ... (1583 characters truncated) ... nto clinical impact, aligning perfectly with your community's spirit of rigorous problem-solving.", status=<ApplicationStatus.SUBMITTED: 'submitted'>)}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+2025-10-14 00:05:01 | INFO     | phase1_pipeline | [APP_EFE40F45] Starting worker evaluation (attempt 1/3)
+2025-10-14 00:05:01 | ERROR    | phase1_pipeline | [APP_EFE40F45] Worker evaluation failed: 'NoneType' object has no attribute 'anonymized_id'
+2025-10-14 00:05:01 | INFO     | phase1_pipeline | [APP_EFE40F45] Starting judge review
+2025-10-14 00:05:01 | ERROR    | phase1_pipeline | [APP_EFE40F45] Judge review failed: 'NoneType' object has no attribute 'anonymized_id'
+2025-10-14 00:05:01 | ERROR    | phase1_pipeline | [APP_EFE40F45] No judge result in decision gate
+2025-10-14 00:05:01 | ERROR    | phase1_pipeline | [APP_EFE40F45] Pipeline execution failed: 'dict' object has no attribute 'status'
+2025-10-14 00:05:01 | INFO     | api | Completed background processing for APP_EFE40F45
+2025-10-14 00:07:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:09:32 | INFO     | application_collector | Collecting new application from fa@example.com
+2025-10-14 00:09:33 | INFO     | audit | AUDIT: create | Application:APP_01405AEE | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:09:33.529377
+2025-10-14 00:09:33 | INFO     | application_collector | Application collected successfully: APP_01405AEE
+2025-10-14 00:09:33 | INFO     | api | Application submitted: APP_01405AEE (Cycle: Winter 2025)
+2025-10-14 00:09:33 | INFO     | api | Starting background processing for APP_01405AEE
+2025-10-14 00:09:35 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 00:09:35 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 00:09:36 | INFO     | phase1_pipeline | [APP_01405AEE] Starting Phase 1 pipeline
+2025-10-14 00:09:36 | INFO     | phase1_pipeline | [APP_01405AEE] Starting identity scrubbing
+2025-10-14 00:09:36 | INFO     | identity_scrubber | Scrubbing application: APP_01405AEE
+2025-10-14 00:09:36 | INFO     | identity_scrubber | Applied 3 redactions to APP_01405AEE
+2025-10-14 00:09:36 | ERROR    | phase1_pipeline | [APP_01405AEE] Identity scrubbing failed: ApplicationRepository.create_anonymized() got an unexpected keyword argument 'anonymized_id'
+2025-10-14 00:09:36 | INFO     | phase1_pipeline | [APP_01405AEE] Starting worker evaluation (attempt 1/3)
+2025-10-14 00:09:36 | ERROR    | phase1_pipeline | [APP_01405AEE] Worker evaluation failed: 'NoneType' object has no attribute 'anonymized_id'
+2025-10-14 00:09:36 | INFO     | phase1_pipeline | [APP_01405AEE] Starting judge review
+2025-10-14 00:09:36 | ERROR    | phase1_pipeline | [APP_01405AEE] Judge review failed: 'NoneType' object has no attribute 'anonymized_id'
+2025-10-14 00:09:36 | ERROR    | phase1_pipeline | [APP_01405AEE] No judge result in decision gate
+2025-10-14 00:09:36 | ERROR    | phase1_pipeline | [APP_01405AEE] Pipeline execution failed: 'dict' object has no attribute 'status'
+2025-10-14 00:09:36 | INFO     | api | Completed background processing for APP_01405AEE
+2025-10-14 00:11:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:11:51 | INFO     | application_collector | Collecting new application from fe@example.com
+2025-10-14 00:11:52 | INFO     | audit | AUDIT: create | Application:APP_BC9A3190 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:11:52.411662
+2025-10-14 00:11:52 | INFO     | application_collector | Application collected successfully: APP_BC9A3190
+2025-10-14 00:11:52 | INFO     | api | Application submitted: APP_BC9A3190 (Cycle: Winter 2025)
+2025-10-14 00:11:52 | INFO     | api | Starting background processing for APP_BC9A3190
+2025-10-14 00:11:53 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 00:11:54 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 00:11:54 | INFO     | phase1_pipeline | [APP_BC9A3190] Starting Phase 1 pipeline
+2025-10-14 00:11:54 | INFO     | phase1_pipeline | [APP_BC9A3190] Starting identity scrubbing
+2025-10-14 00:11:54 | INFO     | identity_scrubber | Scrubbing application: APP_BC9A3190
+2025-10-14 00:11:55 | INFO     | identity_scrubber | Applied 3 redactions to APP_BC9A3190
+2025-10-14 00:11:55 | ERROR    | phase1_pipeline | [APP_BC9A3190] Identity scrubbing failed: (psycopg2.errors.ForeignKeyViolation) insert or update on table "anonymized_applications" violates foreign key constraint "anonymized_applications_application_id_fkey"
+DETAIL:  Key (application_id)=(APP_BC9A3190) is not present in table "applications".
+
+[SQL: INSERT INTO anonymized_applications (anonymized_id, application_id, gpa, test_scores, essay_scrubbed, achievements_scrubbed, created_at) VALUES (%(anonymized_id)s, %(application_id)s, %(gpa)s, %(test_scores)s::JSONB, %(essay_scrubbed)s, %(achievements_scrubbed)s, %(created_at)s)]
+[parameters: {'anonymized_id': 'ANON_1760364715359_392085', 'application_id': 'APP_BC9A3190', 'gpa': 3.8, 'test_scores': '{"SAT": 1200.0, "ACT": 20.0}', 'essay_scrubbed': 'My academic focus lies at the elegant intersection of computer science and biological systems: Computational Biology. The challenge of genomics—the m ... (228 characters truncated) ... conviction that future medical breakthroughs will emerge from [LOCATION_REDACTED], not just microscopes, is my primary motivation for rigorous study.', 'achievements_scrubbed': "My commitment extends beyond the classroom. I led my high school’s competitive programming team to a top-10 finish in the regional ACM competition an ... (748 characters truncated) ... und and a demonstrated eagerness to translate code into clinical impact, aligning perfectly with your community's spirit of rigorous problem-solving.", 'created_at': datetime.datetime(2025, 10, 13, 19, 11, 55, 396910)}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-14 00:11:55 | INFO     | phase1_pipeline | [APP_BC9A3190] Starting worker evaluation (attempt 1/3)
+2025-10-14 00:11:55 | ERROR    | phase1_pipeline | [APP_BC9A3190] Worker evaluation failed: 'NoneType' object has no attribute 'anonymized_id'
+2025-10-14 00:11:55 | INFO     | phase1_pipeline | [APP_BC9A3190] Starting judge review
+2025-10-14 00:11:55 | ERROR    | phase1_pipeline | [APP_BC9A3190] Judge review failed: 'NoneType' object has no attribute 'anonymized_id'
+2025-10-14 00:11:55 | ERROR    | phase1_pipeline | [APP_BC9A3190] No judge result in decision gate
+2025-10-14 00:11:55 | ERROR    | phase1_pipeline | [APP_BC9A3190] Pipeline execution failed: 'dict' object has no attribute 'status'
+2025-10-14 00:11:55 | INFO     | api | Completed background processing for APP_BC9A3190
+2025-10-14 00:14:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:16:08 | INFO     | application_collector | Collecting new application from ad@example.com
+2025-10-14 00:16:09 | INFO     | audit | AUDIT: create | Application:APP_D086D9C4 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:16:09.818457
+2025-10-14 00:16:09 | INFO     | application_collector | Application collected successfully: APP_D086D9C4
+2025-10-14 00:16:10 | ERROR    | api | Application submission failed: Class 'src.models.schemas.Application' is not mapped
+2025-10-14 00:16:10 | ERROR    | database | Database session error: 400: Class 'src.models.schemas.Application' is not mapped
+2025-10-14 00:16:21 | INFO     | application_collector | Collecting new application from ad@example.com
+2025-10-14 00:16:22 | INFO     | audit | AUDIT: create | Application:APP_76C6180C | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:16:22.260665
+2025-10-14 00:16:22 | INFO     | application_collector | Application collected successfully: APP_76C6180C
+2025-10-14 00:16:22 | ERROR    | api | Application submission failed: Class 'src.models.schemas.Application' is not mapped
+2025-10-14 00:16:22 | ERROR    | database | Database session error: 400: Class 'src.models.schemas.Application' is not mapped
+2025-10-14 00:17:56 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:20:04 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:20:13 | INFO     | application_collector | Collecting new application from ad@example.com
+2025-10-14 00:20:14 | INFO     | audit | AUDIT: create | Application:APP_0C4450FB | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:20:14.616508
+2025-10-14 00:20:14 | INFO     | application_collector | Application collected successfully: APP_0C4450FB
+2025-10-14 00:20:15 | INFO     | api | Application submitted: APP_0C4450FB (Cycle: Winter 2025)
+2025-10-14 00:20:15 | INFO     | api | Starting background processing for APP_0C4450FB
+2025-10-14 00:20:16 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 00:20:17 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 00:20:17 | INFO     | phase1_pipeline | [APP_0C4450FB] Starting Phase 1 pipeline
+2025-10-14 00:20:17 | ERROR    | api | Background processing failed for APP_0C4450FB: 1 validation error for PipelineState
+application_data
+  Input should be a valid dictionary or instance of Application [type=model_type, input_value=<src.database.models.Appl...t at 0x000001545B02BC50>, input_type=Application]
+    For further information visit https://errors.pydantic.dev/2.12/v/model_type
+2025-10-14 00:21:28 | INFO     | application_collector | Collecting new application from jd@vance.com
+2025-10-14 00:21:29 | INFO     | audit | AUDIT: create | Application:APP_711512A3 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:21:29.690989
+2025-10-14 00:21:29 | INFO     | application_collector | Application collected successfully: APP_711512A3
+2025-10-14 00:21:30 | INFO     | api | Application submitted: APP_711512A3 (Cycle: Winter 2025)
+2025-10-14 00:21:30 | INFO     | api | Starting background processing for APP_711512A3
+2025-10-14 00:21:31 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 00:21:32 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 00:21:32 | INFO     | phase1_pipeline | [APP_711512A3] Starting Phase 1 pipeline
+2025-10-14 00:21:32 | ERROR    | api | Background processing failed for APP_711512A3: 1 validation error for PipelineState
+application_data
+  Input should be a valid dictionary or instance of Application [type=model_type, input_value=<src.database.models.Appl...t at 0x000001545AA667E0>, input_type=Application]
+    For further information visit https://errors.pydantic.dev/2.12/v/model_type
+2025-10-14 00:23:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:24:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:25:34 | INFO     | application_collector | Collecting new application from asd@example.com
+2025-10-14 00:25:35 | INFO     | audit | AUDIT: create | Application:APP_4173FCF6 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:25:35.186858
+2025-10-14 00:25:35 | INFO     | application_collector | Application collected successfully: APP_4173FCF6
+2025-10-14 00:25:36 | INFO     | api | Application submitted: APP_4173FCF6 (Cycle: Winter 2025)
+2025-10-14 00:25:36 | INFO     | api | Starting background processing for APP_4173FCF6
+2025-10-14 00:25:37 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 00:25:38 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 00:25:38 | INFO     | phase1_pipeline | [APP_4173FCF6] Starting Phase 1 pipeline
+2025-10-14 00:25:38 | INFO     | phase1_pipeline | [APP_4173FCF6] Starting identity scrubbing
+2025-10-14 00:25:38 | INFO     | identity_scrubber | Scrubbing application: APP_4173FCF6
+2025-10-14 00:25:40 | INFO     | identity_scrubber | Applied 3 redactions to APP_4173FCF6
+2025-10-14 00:25:43 | INFO     | identity_scrubber | Successfully scrubbed APP_4173FCF6 → ANON_1760365540495_573E32
+2025-10-14 00:25:43 | ERROR    | phase1_pipeline | [APP_4173FCF6] Identity scrubbing failed: 1 validation error for PipelineState
+anonymized_data
+  Input should be a valid dictionary or instance of AnonymizedApplication [type=model_type, input_value=<src.database.models.Anon...t at 0x0000020763B37E30>, input_type=AnonymizedApplication]
+    For further information visit https://errors.pydantic.dev/2.12/v/model_type
+2025-10-14 00:25:43 | INFO     | phase1_pipeline | [APP_4173FCF6] Starting worker evaluation (attempt 1/3)
+2025-10-14 00:25:43 | ERROR    | phase1_pipeline | [APP_4173FCF6] Worker evaluation failed: 'NoneType' object has no attribute 'anonymized_id'
+2025-10-14 00:25:43 | INFO     | phase1_pipeline | [APP_4173FCF6] Starting judge review
+2025-10-14 00:25:43 | ERROR    | phase1_pipeline | [APP_4173FCF6] Judge review failed: 'NoneType' object has no attribute 'anonymized_id'
+2025-10-14 00:25:43 | ERROR    | phase1_pipeline | [APP_4173FCF6] No judge result in decision gate
+2025-10-14 00:25:43 | ERROR    | phase1_pipeline | [APP_4173FCF6] Pipeline execution failed: 'dict' object has no attribute 'status'
+2025-10-14 00:25:44 | INFO     | api | Completed background processing for APP_4173FCF6
+2025-10-14 00:27:20 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:27:36 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:29:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:30:02 | INFO     | application_collector | Collecting new application from ea@example.com
+2025-10-14 00:30:03 | INFO     | audit | AUDIT: create | Application:APP_1ABB705B | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:30:03.890360
+2025-10-14 00:30:03 | INFO     | application_collector | Application collected successfully: APP_1ABB705B
+2025-10-14 00:30:05 | INFO     | api | Application submitted: APP_1ABB705B (Cycle: Winter 2025)
+2025-10-14 00:30:05 | INFO     | api | Starting background processing for APP_1ABB705B
+2025-10-14 00:30:06 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 00:30:06 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 00:30:06 | INFO     | phase1_pipeline | [APP_1ABB705B] Starting Phase 1 pipeline
+2025-10-14 00:30:07 | INFO     | phase1_pipeline | [APP_1ABB705B] Starting identity scrubbing
+2025-10-14 00:30:07 | INFO     | identity_scrubber | Scrubbing application: APP_1ABB705B
+2025-10-14 00:30:07 | INFO     | identity_scrubber | Applied 3 redactions to APP_1ABB705B
+2025-10-14 00:30:10 | INFO     | identity_scrubber | Successfully scrubbed APP_1ABB705B → ANON_1760365807784_8CDAC8
+2025-10-14 00:30:10 | ERROR    | phase1_pipeline | [APP_1ABB705B] Identity scrubbing failed: type object 'ApplicationStatus' has no attribute 'WORKER_EVALUATION'
+2025-10-14 00:30:10 | INFO     | phase1_pipeline | [APP_1ABB705B] Starting worker evaluation (attempt 1/3)
+2025-10-14 00:30:10 | INFO     | worker_llm | Evaluating ANON_1760365807784_8CDAC8 (attempt 1)
+2025-10-14 00:30:54 | ERROR    | phase1_pipeline | [APP_1ABB705B] Worker evaluation failed: Class 'src.models.schemas.WorkerResult' is not mapped
+2025-10-14 00:30:54 | INFO     | phase1_pipeline | [APP_1ABB705B] Starting judge review
+2025-10-14 00:30:54 | ERROR    | phase1_pipeline | [APP_1ABB705B] Judge review failed: 'NoneType' object has no attribute 'attempt_number'
+2025-10-14 00:30:54 | ERROR    | phase1_pipeline | [APP_1ABB705B] No judge result in decision gate
+2025-10-14 00:30:54 | ERROR    | phase1_pipeline | [APP_1ABB705B] Pipeline execution failed: 'dict' object has no attribute 'status'
+2025-10-14 00:30:54 | INFO     | api | Completed background processing for APP_1ABB705B
+2025-10-14 00:32:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:32:59 | INFO     | application_collector | Collecting new application from ad@a.com
+2025-10-14 00:33:00 | INFO     | audit | AUDIT: create | Application:APP_5339F782 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:33:00.192595
+2025-10-14 00:33:00 | INFO     | application_collector | Application collected successfully: APP_5339F782
+2025-10-14 00:33:01 | INFO     | api | Application submitted: APP_5339F782 (Cycle: Winter 2025)
+2025-10-14 00:33:01 | INFO     | api | Starting background processing for APP_5339F782
+2025-10-14 00:33:02 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 00:33:03 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 00:33:03 | INFO     | phase1_pipeline | [APP_5339F782] Starting Phase 1 pipeline
+2025-10-14 00:33:03 | INFO     | phase1_pipeline | [APP_5339F782] Starting identity scrubbing
+2025-10-14 00:33:03 | INFO     | identity_scrubber | Scrubbing application: APP_5339F782
+2025-10-14 00:33:04 | INFO     | identity_scrubber | Applied 3 redactions to APP_5339F782
+2025-10-14 00:33:06 | INFO     | identity_scrubber | Successfully scrubbed APP_5339F782 → ANON_1760365984106_1355B0
+2025-10-14 00:33:06 | INFO     | phase1_pipeline | [APP_5339F782] Identity scrubbing complete → ANON_1760365984106_1355B0
+2025-10-14 00:33:06 | INFO     | phase1_pipeline | [APP_5339F782] Starting worker evaluation (attempt 1/3)
+2025-10-14 00:33:06 | INFO     | worker_llm | Evaluating ANON_1760365984106_1355B0 (attempt 1)
+2025-10-14 00:33:38 | ERROR    | phase1_pipeline | [APP_5339F782] Worker evaluation failed: Class 'src.models.schemas.WorkerResult' is not mapped
+2025-10-14 00:33:38 | INFO     | phase1_pipeline | [APP_5339F782] Starting judge review
+2025-10-14 00:33:38 | ERROR    | phase1_pipeline | [APP_5339F782] Judge review failed: 'NoneType' object has no attribute 'attempt_number'
+2025-10-14 00:33:39 | ERROR    | phase1_pipeline | [APP_5339F782] No judge result in decision gate
+2025-10-14 00:33:39 | ERROR    | phase1_pipeline | [APP_5339F782] Pipeline execution failed: 'dict' object has no attribute 'status'
+2025-10-14 00:33:39 | INFO     | api | Completed background processing for APP_5339F782
+2025-10-14 00:36:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:37:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:45:18 | INFO     | application_collector | Collecting new application from ea@example.com
+2025-10-14 00:45:20 | INFO     | audit | AUDIT: create | Application:APP_F704C4E2 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:45:20.037550
+2025-10-14 00:45:20 | INFO     | application_collector | Application collected successfully: APP_F704C4E2
+2025-10-14 00:45:21 | INFO     | api | Application submitted: APP_F704C4E2 (Cycle: Winter 2025)
+2025-10-14 00:45:21 | INFO     | api | Starting background processing for APP_F704C4E2
+2025-10-14 00:45:22 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 00:45:23 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 00:45:23 | INFO     | phase1_pipeline | [APP_F704C4E2] Starting Phase 1 pipeline
+2025-10-14 00:45:23 | INFO     | phase1_pipeline | [APP_F704C4E2] Starting identity scrubbing
+2025-10-14 00:45:23 | INFO     | identity_scrubber | Scrubbing application: APP_F704C4E2
+2025-10-14 00:45:24 | INFO     | identity_scrubber | Applied 3 redactions to APP_F704C4E2
+2025-10-14 00:45:27 | INFO     | identity_scrubber | Successfully scrubbed APP_F704C4E2 → ANON_1760366724545_ECEFD4
+2025-10-14 00:45:27 | INFO     | phase1_pipeline | [APP_F704C4E2] Identity scrubbing complete → ANON_1760366724545_ECEFD4
+2025-10-14 00:45:27 | INFO     | phase1_pipeline | [APP_F704C4E2] Starting worker evaluation (attempt 1/3)
+2025-10-14 00:45:27 | INFO     | worker_llm | Evaluating ANON_1760366724545_ECEFD4 (attempt 1)
+2025-10-14 00:46:06 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_17929F9F | actor=worker_llm | details={'anonymized_id': 'ANON_1760366724545_ECEFD4', 'attempt_number': 1, 'total_score': 81.65} | timestamp=2025-10-13T19:46:06.526326
+2025-10-14 00:46:06 | INFO     | worker_llm | Worker evaluation complete: ANON_1760366724545_ECEFD4 → 81.65/100 (attempt 1)
+2025-10-14 00:46:06 | ERROR    | phase1_pipeline | [APP_F704C4E2] Worker evaluation failed: type object 'ApplicationStatus' has no attribute 'JUDGE_REVIEW'
+2025-10-14 00:46:06 | INFO     | phase1_pipeline | [APP_F704C4E2] Starting judge review
+2025-10-14 00:46:06 | INFO     | judge_llm | Validating worker evaluation for ANON_1760366724545_ECEFD4 (attempt 1)
+2025-10-14 00:46:47 | ERROR    | phase1_pipeline | [APP_F704C4E2] Judge review failed: Class 'src.models.schemas.JudgeResult' is not mapped
+2025-10-14 00:46:47 | ERROR    | phase1_pipeline | [APP_F704C4E2] No judge result in decision gate
+2025-10-14 00:46:47 | ERROR    | phase1_pipeline | [APP_F704C4E2] Pipeline execution failed: 'dict' object has no attribute 'status'
+2025-10-14 00:46:47 | INFO     | api | Completed background processing for APP_F704C4E2
+2025-10-14 00:48:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:49:05 | INFO     | application_collector | Collecting new application from ea@example.com
+2025-10-14 00:49:06 | INFO     | audit | AUDIT: create | Application:APP_0FAB0220 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:49:06.143859
+2025-10-14 00:49:06 | INFO     | application_collector | Application collected successfully: APP_0FAB0220
+2025-10-14 00:49:07 | INFO     | api | Application submitted: APP_0FAB0220 (Cycle: Winter 2025)
+2025-10-14 00:49:07 | INFO     | api | Starting background processing for APP_0FAB0220
+2025-10-14 00:49:08 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 00:49:09 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 00:49:09 | INFO     | phase1_pipeline | [APP_0FAB0220] Starting Phase 1 pipeline
+2025-10-14 00:49:09 | INFO     | phase1_pipeline | [APP_0FAB0220] Starting identity scrubbing
+2025-10-14 00:49:09 | INFO     | identity_scrubber | Scrubbing application: APP_0FAB0220
+2025-10-14 00:49:09 | INFO     | identity_scrubber | Applied 3 redactions to APP_0FAB0220
+2025-10-14 00:49:12 | INFO     | identity_scrubber | Successfully scrubbed APP_0FAB0220 → ANON_1760366949960_178569
+2025-10-14 00:49:12 | INFO     | phase1_pipeline | [APP_0FAB0220] Identity scrubbing complete → ANON_1760366949960_178569
+2025-10-14 00:49:12 | INFO     | phase1_pipeline | [APP_0FAB0220] Starting worker evaluation (attempt 1/3)
+2025-10-14 00:49:12 | INFO     | worker_llm | Evaluating ANON_1760366949960_178569 (attempt 1)
+2025-10-14 00:49:38 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_9A2F20D1 | actor=worker_llm | details={'anonymized_id': 'ANON_1760366949960_178569', 'attempt_number': 1, 'total_score': 72.8} | timestamp=2025-10-13T19:49:38.544548
+2025-10-14 00:49:38 | INFO     | worker_llm | Worker evaluation complete: ANON_1760366949960_178569 → 72.80/100 (attempt 1)
+2025-10-14 00:49:38 | INFO     | phase1_pipeline | [APP_0FAB0220] Worker evaluation complete (attempt 1): 72.80/100
+2025-10-14 00:49:38 | INFO     | phase1_pipeline | [APP_0FAB0220] Starting judge review
+2025-10-14 00:49:38 | INFO     | judge_llm | Validating worker evaluation for ANON_1760366949960_178569 (attempt 1)
+2025-10-14 00:50:04 | ERROR    | phase1_pipeline | [APP_0FAB0220] Judge review failed: Class 'src.models.schemas.JudgeResult' is not mapped
+2025-10-14 00:50:04 | ERROR    | phase1_pipeline | [APP_0FAB0220] No judge result in decision gate
+2025-10-14 00:50:04 | ERROR    | phase1_pipeline | [APP_0FAB0220] Pipeline execution failed: 'dict' object has no attribute 'status'
+2025-10-14 00:50:04 | INFO     | api | Completed background processing for APP_0FAB0220
+2025-10-14 00:53:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:54:32 | INFO     | application_collector | Collecting new application from jd@vance.com
+2025-10-14 00:54:33 | INFO     | audit | AUDIT: create | Application:APP_5FC592CC | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T19:54:33.089877
+2025-10-14 00:54:33 | INFO     | application_collector | Application collected successfully: APP_5FC592CC
+2025-10-14 00:54:34 | INFO     | api | Application submitted: APP_5FC592CC (Cycle: Winter 2025)
+2025-10-14 00:54:34 | INFO     | api | Starting background processing for APP_5FC592CC
+2025-10-14 00:54:35 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 00:54:36 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 00:54:36 | INFO     | phase1_pipeline | [APP_5FC592CC] Starting Phase 1 pipeline
+2025-10-14 00:54:36 | INFO     | phase1_pipeline | [APP_5FC592CC] Starting identity scrubbing
+2025-10-14 00:54:36 | INFO     | identity_scrubber | Scrubbing application: APP_5FC592CC
+2025-10-14 00:54:36 | INFO     | identity_scrubber | Applied 3 redactions to APP_5FC592CC
+2025-10-14 00:54:39 | INFO     | identity_scrubber | Successfully scrubbed APP_5FC592CC → ANON_1760367276831_F9D1B4
+2025-10-14 00:54:39 | INFO     | phase1_pipeline | [APP_5FC592CC] Identity scrubbing complete → ANON_1760367276831_F9D1B4
+2025-10-14 00:54:39 | INFO     | phase1_pipeline | [APP_5FC592CC] Starting worker evaluation (attempt 1/3)
+2025-10-14 00:54:39 | INFO     | worker_llm | Evaluating ANON_1760367276831_F9D1B4 (attempt 1)
+2025-10-14 00:55:08 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_0E6354C4 | actor=worker_llm | details={'anonymized_id': 'ANON_1760367276831_F9D1B4', 'attempt_number': 1, 'total_score': 78.75} | timestamp=2025-10-13T19:55:08.773713
+2025-10-14 00:55:08 | INFO     | worker_llm | Worker evaluation complete: ANON_1760367276831_F9D1B4 → 78.75/100 (attempt 1)
+2025-10-14 00:55:08 | INFO     | phase1_pipeline | [APP_5FC592CC] Worker evaluation complete (attempt 1): 78.75/100
+2025-10-14 00:55:08 | INFO     | phase1_pipeline | [APP_5FC592CC] Starting judge review
+2025-10-14 00:55:08 | INFO     | judge_llm | Validating worker evaluation for ANON_1760367276831_F9D1B4 (attempt 1)
+2025-10-14 00:55:32 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_C76C480E | actor=judge_llm | details={'anonymized_id': 'ANON_1760367276831_F9D1B4', 'worker_result_id': 'WKR_0E6354C4', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T19:55:32.621143
+2025-10-14 00:55:32 | INFO     | judge_llm | Judge validation complete: ANON_1760367276831_F9D1B4 → APPROVED  (quality: 88/100)
+2025-10-14 00:55:32 | INFO     | phase1_pipeline | [APP_5FC592CC] Judge review complete: APPROVED (quality: 88/100)
+2025-10-14 00:55:32 | INFO     | phase1_pipeline | [APP_5FC592CC] Decision: APPROVED → final scoring
+2025-10-14 00:55:32 | INFO     | phase1_pipeline | [APP_5FC592CC] Creating final score
+2025-10-14 00:55:32 | ERROR    | phase1_pipeline | [APP_5FC592CC] Final scoring failed: 1 validation error for FinalScore
+score_id
+  Field required [type=missing, input_value={'anonymized_id': 'ANON_1...13, 19, 55, 32, 626145)}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.12/v/missing
+2025-10-14 00:55:32 | INFO     | phase1_pipeline | [APP_5FC592CC] Generating hash chain entry
+2025-10-14 00:55:32 | ERROR    | phase1_pipeline | [APP_5FC592CC] Hash generation failed: 'NoneType' object has no attribute 'anonymized_id'
+2025-10-14 00:55:32 | INFO     | phase1_pipeline | [APP_5FC592CC] Sending notification
+2025-10-14 00:55:33 | ERROR    | phase1_pipeline | [APP_5FC592CC] Notification failed: 'NoneType' object has no attribute 'final_score'
+2025-10-14 00:55:33 | WARNING  | phase1_pipeline | [APP_5FC592CC] Completed despite notification failure
+2025-10-14 00:55:33 | ERROR    | phase1_pipeline | [APP_5FC592CC] Pipeline execution failed: 'dict' object has no attribute 'status'
+2025-10-14 00:55:33 | INFO     | api | Completed background processing for APP_5FC592CC
+2025-10-14 00:57:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 00:58:59 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 01:00:25 | INFO     | application_collector | Collecting new application from jd@example.com
+2025-10-14 01:00:26 | INFO     | audit | AUDIT: create | Application:APP_44116D53 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T20:00:26.836880
+2025-10-14 01:00:26 | INFO     | application_collector | Application collected successfully: APP_44116D53
+2025-10-14 01:00:28 | INFO     | api | Application submitted: APP_44116D53 (Cycle: Winter 2025)
+2025-10-14 01:00:28 | INFO     | api | Starting background processing for APP_44116D53
+2025-10-14 01:00:29 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 01:00:30 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 01:00:30 | INFO     | phase1_pipeline | [APP_44116D53] Starting Phase 1 pipeline
+2025-10-14 01:00:30 | INFO     | phase1_pipeline | [APP_44116D53] Starting identity scrubbing
+2025-10-14 01:00:30 | INFO     | identity_scrubber | Scrubbing application: APP_44116D53
+2025-10-14 01:00:30 | INFO     | identity_scrubber | Applied 3 redactions to APP_44116D53
+2025-10-14 01:00:33 | INFO     | identity_scrubber | Successfully scrubbed APP_44116D53 → ANON_1760367630800_848908
+2025-10-14 01:00:33 | INFO     | phase1_pipeline | [APP_44116D53] Identity scrubbing complete → ANON_1760367630800_848908
+2025-10-14 01:00:33 | INFO     | phase1_pipeline | [APP_44116D53] Starting worker evaluation (attempt 1/3)
+2025-10-14 01:00:33 | INFO     | worker_llm | Evaluating ANON_1760367630800_848908 (attempt 1)
+2025-10-14 01:01:00 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_97D7C794 | actor=worker_llm | details={'anonymized_id': 'ANON_1760367630800_848908', 'attempt_number': 1, 'total_score': 81.8} | timestamp=2025-10-13T20:01:00.893638
+2025-10-14 01:01:00 | INFO     | worker_llm | Worker evaluation complete: ANON_1760367630800_848908 → 81.80/100 (attempt 1)
+2025-10-14 01:01:00 | INFO     | phase1_pipeline | [APP_44116D53] Worker evaluation complete (attempt 1): 81.80/100
+2025-10-14 01:01:00 | INFO     | phase1_pipeline | [APP_44116D53] Starting judge review
+2025-10-14 01:01:00 | INFO     | judge_llm | Validating worker evaluation for ANON_1760367630800_848908 (attempt 1)
+2025-10-14 01:01:22 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_D38446F4 | actor=judge_llm | details={'anonymized_id': 'ANON_1760367630800_848908', 'worker_result_id': 'WKR_97D7C794', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T20:01:22.016074
+2025-10-14 01:01:22 | INFO     | judge_llm | Judge validation complete: ANON_1760367630800_848908 → APPROVED  (quality: 88/100)
+2025-10-14 01:01:22 | INFO     | phase1_pipeline | [APP_44116D53] Judge review complete: APPROVED (quality: 88/100)
+2025-10-14 01:01:22 | INFO     | phase1_pipeline | [APP_44116D53] Decision: APPROVED → final scoring
+2025-10-14 01:01:22 | INFO     | phase1_pipeline | [APP_44116D53] Creating final score
+2025-10-14 01:01:22 | INFO     | audit | AUDIT: evaluate | FinalScore:ANON_1760367630800_848908 | actor=system | details={'final_score': 81.8, 'worker_attempts': 1} | timestamp=2025-10-13T20:01:22.592968
+2025-10-14 01:01:22 | INFO     | phase1_pipeline | [APP_44116D53] Final score created: 81.80/100
+2025-10-14 01:01:22 | INFO     | phase1_pipeline | [APP_44116D53] Generating hash chain entry
+2025-10-14 01:01:22 | ERROR    | phase1_pipeline | [APP_44116D53] Hash generation failed: Class 'src.models.schemas.HashChainEntry' is not mapped
+2025-10-14 01:01:22 | INFO     | phase1_pipeline | [APP_44116D53] Sending notification
+2025-10-14 01:01:26 | ERROR    | email_service | Failed to send email to jd@example.com: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials ffacd0b85a97d-426ce5e8207sm19546268f8f.47 - gsmtp')
+2025-10-14 01:01:26 | INFO     | phase1_pipeline | [APP_44116D53] Pipeline complete!
+2025-10-14 01:01:26 | ERROR    | phase1_pipeline | [APP_44116D53] Pipeline execution failed: 'dict' object has no attribute 'status'
+2025-10-14 01:01:26 | INFO     | api | Completed background processing for APP_44116D53
+2025-10-14 01:03:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 01:04:25 | INFO     | application_collector | Collecting new application from jd@example.com
+2025-10-14 01:04:26 | INFO     | audit | AUDIT: create | Application:APP_FF6F2927 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-13T20:04:26.688189
+2025-10-14 01:04:26 | INFO     | application_collector | Application collected successfully: APP_FF6F2927
+2025-10-14 01:04:29 | INFO     | api | Application submitted: APP_FF6F2927 (Cycle: Winter 2025)
+2025-10-14 01:04:29 | INFO     | api | Starting background processing for APP_FF6F2927
+2025-10-14 01:04:29 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-14 01:04:30 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-14 01:04:30 | INFO     | phase1_pipeline | [APP_FF6F2927] Starting Phase 1 pipeline
+2025-10-14 01:04:30 | INFO     | phase1_pipeline | [APP_FF6F2927] Starting identity scrubbing
+2025-10-14 01:04:30 | INFO     | identity_scrubber | Scrubbing application: APP_FF6F2927
+2025-10-14 01:04:31 | INFO     | identity_scrubber | Applied 3 redactions to APP_FF6F2927
+2025-10-14 01:04:34 | INFO     | identity_scrubber | Successfully scrubbed APP_FF6F2927 → ANON_1760367871758_9550D1
+2025-10-14 01:04:34 | INFO     | phase1_pipeline | [APP_FF6F2927] Identity scrubbing complete → ANON_1760367871758_9550D1
+2025-10-14 01:04:34 | INFO     | phase1_pipeline | [APP_FF6F2927] Starting worker evaluation (attempt 1/3)
+2025-10-14 01:04:34 | INFO     | worker_llm | Evaluating ANON_1760367871758_9550D1 (attempt 1)
+2025-10-14 01:04:57 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_1C7DC720 | actor=worker_llm | details={'anonymized_id': 'ANON_1760367871758_9550D1', 'attempt_number': 1, 'total_score': 78.75} | timestamp=2025-10-13T20:04:57.035381
+2025-10-14 01:04:57 | INFO     | worker_llm | Worker evaluation complete: ANON_1760367871758_9550D1 → 78.75/100 (attempt 1)
+2025-10-14 01:04:57 | INFO     | phase1_pipeline | [APP_FF6F2927] Worker evaluation complete (attempt 1): 78.75/100
+2025-10-14 01:04:57 | INFO     | phase1_pipeline | [APP_FF6F2927] Starting judge review
+2025-10-14 01:04:57 | INFO     | judge_llm | Validating worker evaluation for ANON_1760367871758_9550D1 (attempt 1)
+2025-10-14 01:05:21 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_7C97D616 | actor=judge_llm | details={'anonymized_id': 'ANON_1760367871758_9550D1', 'worker_result_id': 'WKR_1C7DC720', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T20:05:21.626427
+2025-10-14 01:05:21 | INFO     | judge_llm | Judge validation complete: ANON_1760367871758_9550D1 → APPROVED  (quality: 86/100)
+2025-10-14 01:05:21 | INFO     | phase1_pipeline | [APP_FF6F2927] Judge review complete: APPROVED (quality: 86/100)
+2025-10-14 01:05:21 | INFO     | phase1_pipeline | [APP_FF6F2927] Decision: APPROVED → final scoring
+2025-10-14 01:05:21 | INFO     | phase1_pipeline | [APP_FF6F2927] Creating final score
+2025-10-14 01:05:22 | INFO     | audit | AUDIT: evaluate | FinalScore:ANON_1760367871758_9550D1 | actor=system | details={'final_score': 78.75, 'worker_attempts': 1} | timestamp=2025-10-13T20:05:22.189103
+2025-10-14 01:05:22 | INFO     | phase1_pipeline | [APP_FF6F2927] Final score created: 78.75/100
+2025-10-14 01:05:22 | INFO     | phase1_pipeline | [APP_FF6F2927] Generating hash chain entry
+2025-10-14 01:05:23 | INFO     | audit | AUDIT: update | HashChainEntry:ANON_1760367871758_9550D1 | actor=hash_chain_generator | details={'hash': '9dcec9cc1fba2d71a285e76226af8ae47b56dc5be8edd8f87180afda90875be0'} | timestamp=2025-10-13T20:05:23.199589
+2025-10-14 01:05:23 | INFO     | hash_chain | Created hash chain entry for ANON_1760367871758_9550D1: 9dcec9cc1fba2d71...
+2025-10-14 01:05:23 | INFO     | phase1_pipeline | [APP_FF6F2927] Hash generated: 9dcec9cc1fba2d71...
+2025-10-14 01:05:23 | INFO     | phase1_pipeline | [APP_FF6F2927] Sending notification
+2025-10-14 01:05:28 | ERROR    | email_service | Failed to send email to jd@example.com: (535, b'5.7.8 Username and Password not accepted. For more information, go to\n5.7.8  https://support.google.com/mail/?p=BadCredentials 5b1f17b1804b1-46fc155143fsm142710205e9.11 - gsmtp')
+2025-10-14 01:05:28 | INFO     | phase1_pipeline | [APP_FF6F2927] Pipeline complete!
+2025-10-14 01:05:28 | ERROR    | phase1_pipeline | [APP_FF6F2927] Pipeline execution failed: 'dict' object has no attribute 'status'
+2025-10-14 01:05:28 | INFO     | api | Completed background processing for APP_FF6F2927
+2025-10-14 01:14:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0

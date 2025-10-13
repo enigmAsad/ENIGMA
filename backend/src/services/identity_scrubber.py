@@ -153,11 +153,11 @@ class IdentityScrubber:
         random_suffix = uuid.uuid4().hex[:6].upper()
         return f"ANON_{timestamp_ms}_{random_suffix}"
 
-    def scrub_application(self, application_id: str) -> AnonymizedApplication:
+    def scrub_application(self, application: Application) -> AnonymizedApplication:
         """Scrub PII from application and create anonymized version.
 
         Args:
-            application_id: Application ID to scrub
+            application: The Application object to scrub
 
         Returns:
             AnonymizedApplication: Anonymized application
@@ -165,12 +165,8 @@ class IdentityScrubber:
         Raises:
             ValueError: If application not found
         """
+        application_id = application.application_id
         logger.info(f"Scrubbing application: {application_id}")
-
-        # Get application from database
-        application = self.app_repo.get_by_application_id(application_id)
-        if not application:
-            raise ValueError(f"Application {application_id} not found")
 
         # Check if already anonymized
         existing_anon = self.app_repo.get_anonymized_by_application_id(application_id)
@@ -236,9 +232,6 @@ class IdentityScrubber:
                 "total_redactions": total_redactions
             }
         )
-
-        # Commit transaction
-        self.db.commit()
 
         logger.info(f"Successfully scrubbed {application_id} → {anonymized_id}")
         return anonymized

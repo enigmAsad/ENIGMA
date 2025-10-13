@@ -27,7 +27,9 @@ target_metadata = Base.metadata
 
 # Get database URL from settings
 settings = get_settings()
-config.set_main_option("sqlalchemy.url", settings.database_url)
+# Escape the '%' character for configparser interpolation
+db_url_for_alembic = settings.database_url.replace('%', '%%')
+config.set_main_option("sqlalchemy.url", db_url_for_alembic)
 
 
 def run_migrations_offline() -> None:

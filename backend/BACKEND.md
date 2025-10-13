@@ -1,7 +1,7 @@
 # ENIGMA Backend - Technical Documentation
 
-**Version:** 2.0.3
-**Last Updated:** 2025-10-12
+**Version:** 2.0.5
+**Last Updated:** 2025-10-14
 **Python Version:** 3.12+
 **Status:** Production Ready
 
@@ -180,7 +180,7 @@ ENIGMA uses Pydantic for API validation and SQLAlchemy for ORM mapping.
 
 **AdmissionPhaseEnum:** SUBMISSION | FROZEN | PREPROCESSING | BATCH_PREP | PROCESSING | SCORED | SELECTION | PUBLISHED | COMPLETED
 
-**ApplicationStatusEnum:** SUBMITTED | FINALIZED | PREPROCESSING | BATCH_READY | PROCESSING | SCORED | SELECTED | NOT_SELECTED | PUBLISHED
+**ApplicationStatusEnum:** SUBMITTED | IDENTITY_SCRUBBING | FINALIZED | PREPROCESSING | BATCH_READY | PROCESSING | JUDGE_REVIEW | SCORED | HASH_GENERATION | NOTIFICATION | COMPLETED | SELECTED | NOT_SELECTED | PUBLISHED
 
 **AdminRoleEnum:** admin | super_admin | auditor
 
@@ -525,6 +525,14 @@ echo $DATABASE_URL
 # Use Supabase transaction pooler (port 6543)
 ```
 
+### Alembic `ValueError: invalid interpolation syntax`
+
+When running `alembic` commands, you may encounter a `ValueError` related to "invalid interpolation syntax" if your `DATABASE_URL` contains a literal `%` character. This commonly occurs if your password contains an `@` symbol that you have correctly URL-encoded to `%40`.
+
+**Cause:** Alembic uses Python's `configparser` library, which interprets the `%` as a special character for string formatting.
+
+**Solution:** The `alembic/env.py` script has been updated to automatically handle this. It escapes the `%` character before passing the URL to the configuration parser. This ensures that a standard, URL-encoded `DATABASE_URL` in your `.env` file will work correctly for both the main application and for Alembic, with no manual changes needed.
+
 ### Migration Problems
 
 **Check Migration Status:**
@@ -575,6 +583,20 @@ with get_db_context() as db:
 
 ## Changelog
 
+### v2.0.5 (2025-10-14) - Real-Time Pipeline Persistence Fixes
+- **Fixed**: Corrected a recurring persistence error in the real-time evaluation pipeline where Pydantic schemas were incorrectly passed to the database repository instead of SQLAlchemy models. This resolved a `Class is not mapped` error that occurred sequentially in the `JudgeLLM`, `FinalScore`, and `HashChain` processing steps.
+- **Fixed**: Resolved a `ValidationError` in the final scoring step by ensuring the Pydantic `FinalScore` model was created *after* the database record was persisted, allowing the auto-generated `score_id` to be populated correctly.
+- **Fixed**: Corrected an `AttributeError` for a missing `JUDGE_REVIEW` status by updating the `ApplicationStatus` enum to include all states used in the real-time pipeline.
+- **Improved**: The real-time application processing pipeline is now fully functional and robust, correctly persisting all artifacts (judge results, final scores, hash entries) to the database.
+- **Location**: `src/services/judge_llm.py`, `src/services/hash_chain.py`, `src/orchestration/phase1_pipeline.py`, `src/models/schemas.py`
+
+### v2.0.4 (2025-10-13) - Pipeline & Config Fixes
+- **Fixed**: Resolved `TypeError` in the background processing pipeline by removing an incorrect argument from the `IdentityScrubber` constructor.
+- **Fixed**: Corrected an `AttributeError` by adding the missing `IDENTITY_SCRUBBING` status to the `ApplicationStatus` enum in `src/models/schemas.py`.
+- **Fixed**: Ensured transactional integrity in the `IdentityScrubber` service by removing a premature `db.commit()` call, allowing the entire background pipeline to be atomic.
+- **Improved**: Updated `alembic/env.py` to automatically handle special characters (e.g., `%`) in the `DATABASE_URL`. This allows a standard URL-encoded string to be used in the `.env` file for both the main application and Alembic, resolving `ValueError: invalid interpolation syntax` during migrations.
+- **Location**: `src/orchestration/phase1_pipeline.py`, `src/models/schemas.py`, `src/services/identity_scrubber.py`, `alembic/env.py`
+
 ### v2.0.3 (2025-10-12) - Status & Audit Improvements
 - **Improved**: `/applications/{id}` now returns normalized status values, phase-aware guidance, and anonymized IDs when present.
 - **Aligned**: Audit logging helpers map to valid `AuditActionEnum` values to prevent enum errors during submissions.
@@ -601,7 +623,7 @@ with get_db_context() as db:
 
 ---
 
-**Document Version:** 2.0.2
+**Document Version:** 2.0.5
 **Maintainer:** ENIGMA Development Team
 
 ## Additional Resources

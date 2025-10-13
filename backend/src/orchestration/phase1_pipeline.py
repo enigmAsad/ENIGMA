@@ -8,7 +8,7 @@ from langgraph.graph import StateGraph, END
 from pydantic import BaseModel
 
 from src.models.schemas import (
-    Application,
+    Application as PydanticApplication,  # Alias for clarity
     AnonymizedApplication,
     WorkerResult,
     JudgeResult,
@@ -16,6 +16,10 @@ from src.models.schemas import (
     ApplicationStatus,
     JudgeDecision,
     PipelineState
+)
+from src.database.models import (
+    Application as SQLAlchemyApplication,
+    FinalScore as FinalScoreModel
 )
 from src.services.application_collector import ApplicationCollector
 from src.services.identity_scrubber import IdentityScrubber
@@ -128,21 +132,26 @@ class Phase1Pipeline:
             # Get application
             application = state.application_data
             if not application:
-                application = self.app_repo.get_by_application_id(state.application_id)
-                if not application:
+                # This is a fallback, should not happen in normal flow
+                db_application = self.app_repo.get_by_application_id(state.application_id)
+                if not db_application:
                     raise ValueError(f"Application not found: {state.application_id}")
+                application = PydanticApplication.from_orm(db_application)
 
             # Scrub identity
-            anonymized = self.identity_scrubber.scrub_application(application)
+            db_anonymized = self.identity_scrubber.scrub_application(application)
+
+            # Convert to Pydantic model for the state
+            pydantic_anonymized = AnonymizedApplication.from_orm(db_anonymized)
 
             # Update state
-            state.anonymized_id = anonymized.anonymized_id
-            state.anonymized_data = anonymized
-            state.status = ApplicationStatus.WORKER_EVALUATION
+            state.anonymized_id = pydantic_anonymized.anonymized_id
+            state.anonymized_data = pydantic_anonymized
+            state.status = ApplicationStatus.PROCESSING
             state.updated_at = datetime.utcnow()
 
             logger.info(
-                f"[{state.application_id}] Identity scrubbing complete → {anonymized.anonymized_id}"
+                f"[{state.application_id}] Identity scrubbing complete → {pydantic_anonymized.anonymized_id}"
             )
 
         except Exception as e:
@@ -282,8 +291,8 @@ class Phase1Pipeline:
         try:
             worker_result = state.worker_result
 
-            # Create final score
-            final_score = FinalScore(
+            # Create SQLAlchemy model for persistence
+            db_final_score = FinalScoreModel(
                 anonymized_id=state.anonymized_id,
                 final_score=worker_result.total_score,
                 academic_score=worker_result.academic_score,
@@ -294,26 +303,30 @@ class Phase1Pipeline:
                 strengths=self._extract_strengths(worker_result),
                 areas_for_improvement=self._extract_improvements(worker_result),
                 worker_attempts=state.worker_attempt,
-                timestamp=datetime.utcnow()
+                timestamp=datetime.utcnow(),
+                status=ApplicationStatus.SCORED  # Set initial status
             )
 
-            # Persist final score
-            self.app_repo.create(final_score)
+            # Persist final score (this will populate the score_id)
+            self.app_repo.create(db_final_score)
+
+            # Create Pydantic model from the persisted DB object
+            pydantic_final_score = FinalScore.from_orm(db_final_score)
 
             # Update state
-            state.final_score = final_score
+            state.final_score = pydantic_final_score
             state.status = ApplicationStatus.HASH_GENERATION
             state.updated_at = datetime.utcnow()
 
             # Audit log
             self.audit_logger.log_final_scoring(
                 anonymized_id=state.anonymized_id,
-                final_score=final_score.final_score,
+                final_score=pydantic_final_score.final_score,
                 attempts=state.worker_attempt
             )
 
             logger.info(
-                f"[{state.application_id}] Final score created: {final_score.final_score:.2f}/100"
+                f"[{state.application_id}] Final score created: {pydantic_final_score.final_score:.2f}/100"
             )
 
         except Exception as e:
@@ -451,21 +464,24 @@ class Phase1Pipeline:
 
         return improvements
 
-    def run(self, application: Application) -> PipelineState:
+    def run(self, application: SQLAlchemyApplication) -> PipelineState:
         """Run the complete Phase 1 pipeline for an application.
 
         Args:
-            application: Application to process
+            application: SQLAlchemy Application model instance to process
 
         Returns:
             PipelineState: Final pipeline state
         """
         logger.info(f"[{application.application_id}] Starting Phase 1 pipeline")
 
+        # Convert SQLAlchemy model to Pydantic model for pipeline state
+        pydantic_app = PydanticApplication.from_orm(application)
+
         # Initialize state
         initial_state = PipelineState(
-            application_id=application.application_id,
-            application_data=application,
+            application_id=pydantic_app.application_id,
+            application_data=pydantic_app,
             max_attempts=self.settings.max_retry_attempts,
             status=ApplicationStatus.IDENTITY_SCRUBBING
         )
@@ -493,7 +509,7 @@ class Phase1Pipeline:
             return initial_state
 
 
-def run_pipeline(application: Application) -> PipelineState:
+def run_pipeline(application: SQLAlchemyApplication) -> PipelineState:
     """Convenience function to run Phase 1 pipeline.
 
     Args:
@@ -513,8 +529,7 @@ def run_pipeline(application: Application) -> PipelineState:
         )
 
         identity_scrubber = IdentityScrubber(
-            db=db,
-            audit_logger=audit_logger
+            db=db
         )
 
         worker_llm = WorkerLLM(
@@ -547,3 +562,5 @@ def run_pipeline(application: Application) -> PipelineState:
         )
 
     return pipeline.run(application)
+
+

@@ -8,6 +8,7 @@ from datetime import datetime
 from openai import OpenAI, APIError, RateLimitError, APITimeoutError
 
 from src.models.schemas import AnonymizedApplication, WorkerResult
+from src.database.models import WorkerResult as SQLAlchemyWorkerResult
 from src.config.settings import get_settings
 from src.database.repositories import ApplicationRepository
 from src.utils.logger import get_logger, AuditLogger
@@ -309,7 +310,7 @@ This is attempt #{attempt_number}. Please address the following feedback:
             )
             evaluation_data["total_score"] = round(calculated_total, 2)
 
-        # Create WorkerResult
+        # Create WorkerResult Pydantic model
         worker_result = WorkerResult(
             anonymized_id=application.anonymized_id,
             attempt_number=attempt_number,
@@ -325,8 +326,9 @@ This is attempt #{attempt_number}. Please address the following feedback:
             model_used=self.settings.worker_model
         )
 
-        # Persist result
-        self.app_repo.create(worker_result)
+        # Create and persist SQLAlchemy model
+        db_worker_result = SQLAlchemyWorkerResult(**worker_result.model_dump())
+        self.app_repo.create(db_worker_result)
 
         # Audit log
         if self.audit_logger:

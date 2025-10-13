@@ -1,11 +1,10 @@
 """FastAPI REST API wrapper for ENIGMA Phase 1 backend."""
 
-from fastapi import FastAPI, HTTPException, BackgroundTasks, Depends, Header
+from fastapi import FastAPI, HTTPException, Depends, Header
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
-import asyncio
 import logging
 
 from src.config.settings import get_settings
@@ -30,7 +29,6 @@ from src.database.engine import get_db
 from src.database.repositories import AdminRepository, ApplicationRepository, BatchRepository
 from src.database.models import BatchTypeEnum
 from src.utils.logger import get_logger, AuditLogger
-from src.orchestration.phase1_pipeline import run_pipeline
 from sqlalchemy.orm import Session
 
 # Initialize
@@ -151,17 +149,9 @@ async def get_current_admin(authorization: str = Header(None), db: Session = Dep
     return admin
 
 
-# Background task to process application
-async def process_application_background(application: Application):
-    """Process application in background."""
-    try:
-        logger.info(f"Starting background processing for {application.application_id}")
-        # Run pipeline in executor to avoid blocking
-        loop = asyncio.get_event_loop()
-        await loop.run_in_executor(None, run_pipeline, application)
-        logger.info(f"Completed background processing for {application.application_id}")
-    except Exception as e:
-        logger.error(f"Background processing failed for {application.application_id}: {e}")
+# Background processing removed - using 9-phase batch workflow instead
+# Applications are now processed in batches during Phase 3 (preprocessing)
+# and Phase 5 (LLM batch processing), not immediately on submission
 
 
 # Routes
@@ -202,12 +192,13 @@ async def health_check(db: Session = Depends(get_db)):
 @app.post("/applications", response_model=ApplicationSubmitResponse)
 async def submit_application(
     request: ApplicationSubmitRequest,
-    background_tasks: BackgroundTasks,
     db: Session = Depends(get_db)
 ):
     """
-    Submit a new application for Phase 1 evaluation.
-    Processing happens asynchronously in the background.
+    Submit a new application (Phase 1: SUBMISSION).
+
+    Application is stored with PII intact. Identity scrubbing and evaluation
+    occur later during Phase 3 (preprocessing) after the admissions window closes.
     """
     try:
         admin_repo = AdminRepository(db)
@@ -256,15 +247,15 @@ async def submit_application(
         # Increment seat counter
         admin_repo.increment_cycle_seats(active_cycle.cycle_id)
 
-        # Queue for background processing
-        background_tasks.add_task(process_application_background, application)
+        # No background processing - applications will be evaluated in Phase 3 (preprocessing)
+        # and Phase 5 (LLM batch processing) after admissions close
 
         logger.info(f"Application submitted: {application.application_id} (Cycle: {active_cycle.cycle_name})")
 
         return ApplicationSubmitResponse(
             success=True,
             application_id=application.application_id,
-            message="Application submitted successfully. Processing in background.",
+            message="Application submitted successfully. Your application will be evaluated after the admissions window closes.",
             status=ApplicationStatus.SUBMITTED.value,
             timestamp=datetime.utcnow()
         )

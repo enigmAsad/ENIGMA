@@ -93,11 +93,19 @@ class PhaseManager:
     def start_preprocessing(self, cycle_id: str) -> AdmissionCycle:
         """Transition from FROZEN to PREPROCESSING phase.
 
-        Phase 2 → Phase 3: Merit Pre-Processing
+        Phase 2 → Phase 3: Identity Scrubbing + Merit Pre-Processing
+
+        ⭐ CRITICAL PHASE: This is where PII removal happens
 
         Actions:
-        - Compute deterministic metrics for all finalized applications
-        - Calculate test averages, academic scores, percentiles
+        1. Scrub identity for all finalized applications
+           - Remove PII from essays and achievements
+           - Create anonymized_applications records
+           - Create encrypted identity_mapping records
+        2. Compute deterministic metrics
+           - Calculate test averages, academic scores
+           - Store in deterministic_metrics table
+        3. Mark applications as BATCH_READY for export
 
         Args:
             cycle_id: Cycle ID
@@ -108,7 +116,7 @@ class PhaseManager:
         Raises:
             PhaseTransitionError: If transition is invalid
         """
-        logger.info(f"Starting preprocessing for cycle {cycle_id}")
+        logger.info(f"Starting preprocessing (scrubbing + metrics) for cycle {cycle_id}")
 
         cycle = self.admin_repo.get_cycle_by_id(cycle_id)
         if not cycle:
@@ -119,45 +127,73 @@ class PhaseManager:
                 f"Can only preprocess from FROZEN phase, currently in {cycle.phase.value}"
             )
 
-        # Update phase
+        # Update phase to PREPROCESSING
         cycle = self.admin_repo.update_cycle_phase(cycle_id, AdmissionPhaseEnum.PREPROCESSING)
 
-        # Compute deterministic metrics for all finalized applications
+        # Get all finalized applications
         applications = self.app_repo.get_by_cycle(
             cycle_id,
             status=ApplicationStatusEnum.FINALIZED,
             limit=100000
         )
 
-        computed_count = 0
+        if not applications:
+            raise PhaseTransitionError(f"No finalized applications found for cycle {cycle_id}")
+
+        logger.info(f"Processing {len(applications)} finalized applications")
+
+        # Import identity scrubber
+        from src.services.identity_scrubber import IdentityScrubber
+        scrubber = IdentityScrubber(self.db)
+
+        scrubbed_count = 0
+        metrics_count = 0
+        failed_count = 0
+
+        # Process each application: SCRUB → COMPUTE METRICS
         for app in applications:
-            # Check if metrics already exist
-            existing_metrics = self.app_repo.get_deterministic_metrics(app.application_id)
-            if existing_metrics:
+            try:
+                # STEP 1: SCRUB IDENTITY (creates anonymized_applications + identity_mapping)
+                existing_anon = self.app_repo.get_anonymized_by_application_id(app.application_id)
+                if not existing_anon:
+                    anonymized = scrubber.scrub_application(app.application_id)
+                    scrubbed_count += 1
+                    logger.debug(f"Scrubbed {app.application_id} → {anonymized.anonymized_id}")
+                else:
+                    logger.debug(f"Application {app.application_id} already scrubbed")
+
+                # STEP 2: COMPUTE DETERMINISTIC METRICS
+                existing_metrics = self.app_repo.get_deterministic_metrics(app.application_id)
+                if not existing_metrics:
+                    # Compute test average
+                    test_scores = app.test_scores
+                    if test_scores:
+                        test_average = sum(test_scores.values()) / len(test_scores)
+                    else:
+                        test_average = 0.0
+
+                    # Normalize GPA to 0-100 scale
+                    academic_score_computed = (app.gpa / 4.0) * 100.0
+
+                    # Create metrics
+                    self.app_repo.create_deterministic_metrics(
+                        application_id=app.application_id,
+                        test_average=test_average,
+                        academic_score_computed=academic_score_computed
+                    )
+                    metrics_count += 1
+                else:
+                    logger.debug(f"Metrics already computed for {app.application_id}")
+
+            except Exception as e:
+                logger.error(f"Failed to process {app.application_id}: {e}")
+                failed_count += 1
                 continue
-
-            # Compute test average
-            test_scores = app.test_scores
-            if test_scores:
-                test_average = sum(test_scores.values()) / len(test_scores)
-            else:
-                test_average = 0.0
-
-            # Normalize GPA to 0-100 scale
-            academic_score_computed = (app.gpa / 4.0) * 100.0
-
-            # Create metrics
-            self.app_repo.create_deterministic_metrics(
-                application_id=app.application_id,
-                test_average=test_average,
-                academic_score_computed=academic_score_computed
-            )
-            computed_count += 1
 
         # TODO: Compute percentile ranks
         # self.app_repo.compute_percentile_ranks(cycle_id)
 
-        # Update application statuses
+        # STEP 3: Update application statuses to BATCH_READY (ready for Phase 4 export)
         from sqlalchemy import update
         stmt = (
             update(Application)
@@ -165,13 +201,18 @@ class PhaseManager:
                 Application.admission_cycle_id == cycle_id,
                 Application.status == ApplicationStatusEnum.FINALIZED
             )
-            .values(status=ApplicationStatusEnum.PREPROCESSING)
+            .values(status=ApplicationStatusEnum.BATCH_READY)
         )
-        self.db.execute(stmt)
+        result = self.db.execute(stmt)
+        batch_ready_count = result.rowcount
 
         self.db.commit()
 
-        logger.info(f"Computed metrics for {computed_count} applications")
+        logger.info(
+            f"Preprocessing complete for cycle {cycle_id}: "
+            f"{scrubbed_count} scrubbed, {metrics_count} metrics computed, "
+            f"{batch_ready_count} marked BATCH_READY, {failed_count} failed"
+        )
         return cycle
 
     def start_batch_prep(self, cycle_id: str) -> AdmissionCycle:
@@ -180,14 +221,18 @@ class PhaseManager:
         Phase 3 → Phase 4: Batch Preparation
 
         Actions:
-        - Mark applications as ready for batch export
-        - Update phase to BATCH_PREP
+        - Verify applications are BATCH_READY (already set by preprocessing)
+        - Update cycle phase to BATCH_PREP
+        - Ready for JSONL export
 
         Args:
             cycle_id: Cycle ID
 
         Returns:
             AdmissionCycle: Updated cycle
+
+        Raises:
+            PhaseTransitionError: If no applications are BATCH_READY
         """
         logger.info(f"Starting batch prep for cycle {cycle_id}")
 
@@ -197,28 +242,30 @@ class PhaseManager:
 
         if cycle.phase != AdmissionPhaseEnum.PREPROCESSING:
             raise PhaseTransitionError(
-                f"Can only start batch prep from PREPROCESSING phase"
+                f"Can only start batch prep from PREPROCESSING phase, currently in {cycle.phase.value}"
             )
 
-        # Update application statuses to BATCH_READY
-        from sqlalchemy import update
-        stmt = (
-            update(Application)
-            .where(
-                Application.admission_cycle_id == cycle_id,
-                Application.status == ApplicationStatusEnum.PREPROCESSING
-            )
-            .values(status=ApplicationStatusEnum.BATCH_READY)
+        # Verify applications are BATCH_READY (set by preprocessing phase)
+        batch_ready_count = self.app_repo.count_by_cycle(
+            cycle_id,
+            status=ApplicationStatusEnum.BATCH_READY
         )
-        result = self.db.execute(stmt)
-        batch_ready_count = result.rowcount
 
-        # Update phase
+        if batch_ready_count == 0:
+            raise PhaseTransitionError(
+                f"No BATCH_READY applications found for cycle {cycle_id}. "
+                "Preprocessing may have failed."
+            )
+
+        # Update cycle phase to BATCH_PREP
         cycle = self.admin_repo.update_cycle_phase(cycle_id, AdmissionPhaseEnum.BATCH_PREP)
 
         self.db.commit()
 
-        logger.info(f"{batch_ready_count} applications ready for batch processing")
+        logger.info(
+            f"Batch prep phase started for cycle {cycle_id}: "
+            f"{batch_ready_count} applications ready for export"
+        )
         return cycle
 
     def start_processing(self, cycle_id: str) -> AdmissionCycle:

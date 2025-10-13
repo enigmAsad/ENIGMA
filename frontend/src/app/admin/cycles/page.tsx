@@ -128,29 +128,30 @@ export default function AdminCyclesPage() {
     const actions = [];
     const phase = cycle.phase;
 
+    // Backend returns lowercase phase values (e.g., 'submission', 'batch_prep')
     switch (phase) {
-      case 'SUBMISSION':
+      case 'submission':
         actions.push({ key: 'freeze', label: 'Freeze Cycle', variant: 'primary' });
         break;
-      case 'FROZEN':
+      case 'frozen':
         actions.push({ key: 'preprocess', label: 'Start Preprocessing', variant: 'primary' });
         break;
-      case 'PREPROCESSING':
+      case 'preprocessing':
         actions.push({ key: 'export', label: 'Export for LLM', variant: 'primary' });
         break;
-      case 'BATCH_PREP':
+      case 'batch_prep':
         actions.push({ key: 'processing', label: 'Start LLM Processing', variant: 'primary' });
         break;
-      case 'PROCESSING':
+      case 'processing':
         // No direct action - LLM processing happens externally
         break;
-      case 'SCORED':
+      case 'scored':
         actions.push({ key: 'select', label: 'Perform Selection', variant: 'primary' });
         break;
-      case 'SELECTION':
+      case 'selection':
         actions.push({ key: 'publish', label: 'Publish Results', variant: 'primary' });
         break;
-      case 'PUBLISHED':
+      case 'published':
         actions.push({ key: 'complete', label: 'Complete Cycle', variant: 'secondary' });
         break;
     }

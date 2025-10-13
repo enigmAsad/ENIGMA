@@ -83,6 +83,7 @@ class ApplicationStatusResponse(BaseModel):
 class ResultsResponse(BaseModel):
     """Response with final results."""
     anonymized_id: str
+    status: str  # SELECTED, NOT_SELECTED, or PUBLISHED
     final_score: float
     academic_score: float
     test_score: float
@@ -339,8 +340,12 @@ async def get_results(anonymized_id: str, db: Session = Depends(get_db)):
                 detail="Results not found. Evaluation may still be in progress."
             )
 
+        # Get status value (handle enum or string)
+        status_value = final_score.status.value if hasattr(final_score.status, "value") else str(final_score.status)
+
         return ResultsResponse(
             anonymized_id=anonymized_id,
+            status=status_value,
             final_score=final_score.final_score,
             academic_score=final_score.academic_score,
             test_score=final_score.test_score,

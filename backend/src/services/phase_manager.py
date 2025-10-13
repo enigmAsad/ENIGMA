@@ -554,10 +554,11 @@ class PhaseManager:
         )
         self.db.execute(stmt)
 
-        # Update final scores to PUBLISHED status and refresh hash for transparency
+        # ✅ FIX: Refresh hash without changing status (preserve SELECTED/NOT_SELECTED)
+        # Get final scores for hash refresh WITHOUT updating their status
         from src.database.models import FinalScore, AnonymizedApplication
-        scoring_stmt = (
-            update(FinalScore)
+        select_stmt = (
+            select(FinalScore)
             .where(
                 FinalScore.anonymized_id.in_(
                     select(AnonymizedApplication.anonymized_id)
@@ -565,10 +566,8 @@ class PhaseManager:
                     .where(Application.admission_cycle_id == cycle_id)
                 )
             )
-            .values(status=ApplicationStatusEnum.PUBLISHED)
-            .returning(FinalScore)
         )
-        published_scores = list(self.db.execute(scoring_stmt).scalars().all())
+        published_scores = list(self.db.execute(select_stmt).scalars().all())
 
         if published_scores:
             from src.database.repositories import AuditRepository

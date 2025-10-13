@@ -1053,3 +1053,6 @@ DETAIL:  Failing row contains (null, ANON_1760355123657_3542D0, phase1_final, {"
 2025-10-13 22:25:45 | INFO     | phase_manager | Completing cycle CYC_20251013_171912
 2025-10-13 22:25:46 | INFO     | phase_manager | Cycle CYC_20251013_171912 completed
 2025-10-13 22:25:46 | INFO     | api | Cycle CYC_20251013_171912 completed by admin asad
+2025-10-13 22:32:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:32:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 22:36:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0

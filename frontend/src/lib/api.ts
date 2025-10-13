@@ -33,6 +33,7 @@ export interface ApplicationStatusResponse {
 
 export interface ResultsResponse {
   anonymized_id: string;
+  status: string;  // SELECTED, NOT_SELECTED, or PUBLISHED
   final_score: number;
   academic_score: number;
   test_score: number;

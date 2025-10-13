@@ -414,12 +414,14 @@ class PhaseManager:
         # Mark top applicants as SELECTED
         selected_count = 0
         cutoff_score = None
+        selected_anonymized_ids = []
 
         for score in top_scores:
             self.app_repo.update_final_score_status(
                 score.anonymized_id,
                 ApplicationStatusEnum.SELECTED
             )
+            selected_anonymized_ids.append(score.anonymized_id)
             selected_count += 1
             cutoff_score = score.final_score
 
@@ -442,6 +444,40 @@ class PhaseManager:
         )
         result = self.db.execute(not_selected_stmt)
         not_selected_count = result.rowcount
+
+        # ✅ FIX: Also update applications table to sync status
+        # Update SELECTED applications
+        if selected_anonymized_ids:
+            selected_apps_stmt = (
+                update(Application)
+                .where(
+                    Application.admission_cycle_id == cycle_id,
+                    Application.application_id.in_(
+                        select(AnonymizedApplication.application_id)
+                        .where(AnonymizedApplication.anonymized_id.in_(selected_anonymized_ids))
+                    )
+                )
+                .values(status=ApplicationStatusEnum.SELECTED)
+            )
+            self.db.execute(selected_apps_stmt)
+            logger.info(f"Updated {len(selected_anonymized_ids)} applications to SELECTED status")
+
+        # Update NOT_SELECTED applications
+        not_selected_apps_stmt = (
+            update(Application)
+            .where(
+                Application.admission_cycle_id == cycle_id,
+                Application.status == ApplicationStatusEnum.SCORED,
+                Application.application_id.in_(
+                    select(AnonymizedApplication.application_id)
+                    .join(FinalScore, AnonymizedApplication.anonymized_id == FinalScore.anonymized_id)
+                    .where(FinalScore.status == ApplicationStatusEnum.NOT_SELECTED)
+                )
+            )
+            .values(status=ApplicationStatusEnum.NOT_SELECTED)
+        )
+        not_selected_apps_result = self.db.execute(not_selected_apps_stmt)
+        logger.info(f"Updated {not_selected_apps_result.rowcount} applications to NOT_SELECTED status")
 
         # Update cycle selected_count
         self.admin_repo.update_selected_count(cycle_id, selected_count)

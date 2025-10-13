@@ -129,6 +129,9 @@ Evaluates anonymized applications using OpenAI models, persists `worker_results`
 ### Judge LLM (`src/services/judge_llm.py`)
 Validates Worker evaluations, persists `judge_results`, and enforces bias/rubric checks before final scores are committed.
 
+### Hash Chain Generator (`src/services/hash_chain.py`)
+Creates SHA-256 linked audit entries for every finalized score, ensuring a tamper-evident decision trail that can be verified on demand.
+
 ### Phase Manager (`src/services/phase_manager.py`)
 Manages 9-phase admission cycle workflow with validation gates and state transitions.
 
@@ -306,6 +309,7 @@ ENIGMA now ships with an internal batch pipeline (Phases 4-6):
 - Single-click automation from the admin portal
 - Consistent audit logging and error handling inside the backend
 - Optional JSONL export/import retained for offline or large-scale batch scenarios
+- Hash-chain entries generated automatically for each `final_scores` write
 
 ### Real-Time LLM (Optional)
 

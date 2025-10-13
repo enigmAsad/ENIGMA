@@ -297,9 +297,24 @@ class PhaseManager:
         if not cycle:
             raise PhaseTransitionError(f"Cycle {cycle_id} not found")
 
-        if cycle.phase != AdmissionPhaseEnum.BATCH_PREP:
+        if cycle.phase not in {
+            AdmissionPhaseEnum.BATCH_PREP,
+            AdmissionPhaseEnum.PROCESSING,
+            AdmissionPhaseEnum.SCORED,
+        }:
             raise PhaseTransitionError(
-                f"Can only start processing from BATCH_PREP phase"
+                f"Can only start processing from BATCH_PREP or PROCESSING phases"
+            )
+
+        if cycle.phase == AdmissionPhaseEnum.SCORED:
+            logger.info(
+                f"Cycle {cycle_id} already scored; skipping start_processing"
+            )
+            return cycle
+
+        if cycle.phase == AdmissionPhaseEnum.PROCESSING:
+            logger.info(
+                f"Cycle {cycle_id} already in PROCESSING phase; refreshing application statuses"
             )
 
         # Update application statuses
@@ -314,12 +329,15 @@ class PhaseManager:
         )
         self.db.execute(stmt)
 
-        # Update phase
-        cycle = self.admin_repo.update_cycle_phase(cycle_id, AdmissionPhaseEnum.PROCESSING)
+        # Update phase if we were not already processing
+        if cycle.phase != AdmissionPhaseEnum.PROCESSING:
+            cycle = self.admin_repo.update_cycle_phase(cycle_id, AdmissionPhaseEnum.PROCESSING)
+            self.db.commit()
+            logger.info(f"Cycle {cycle_id} now in PROCESSING phase")
+        else:
+            self.db.commit()
+            logger.info(f"Cycle {cycle_id} remains in PROCESSING phase")
 
-        self.db.commit()
-
-        logger.info(f"Cycle {cycle_id} now in PROCESSING phase")
         return cycle
 
     def mark_scored(self, cycle_id: str) -> AdmissionCycle:

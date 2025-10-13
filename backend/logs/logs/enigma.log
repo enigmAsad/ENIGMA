@@ -709,3 +709,40 @@ DETAIL:  Key (triggered_by)=(asad) is not present in table "admin_users".
 2025-10-13 20:50:44 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_150348
 2025-10-13 20:50:45 | ERROR    | api | Failed to start processing for cycle CYC_20251013_150348: Can only start processing from BATCH_PREP phase
 2025-10-13 20:50:45 | ERROR    | database | Database session error: 400: Can only start processing from BATCH_PREP phase
+2025-10-13 20:54:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:55:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:56:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 20:57:16 | INFO     | worker_llm | Loaded worker prompt from file
+2025-10-13 20:57:16 | INFO     | judge_llm | Loaded judge prompt from file
+2025-10-13 20:57:16 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_143536
+2025-10-13 20:57:17 | INFO     | phase_manager | Cycle CYC_20251013_143536 already in PROCESSING phase; refreshing application statuses
+2025-10-13 20:57:17 | INFO     | phase_manager | Cycle CYC_20251013_143536 remains in PROCESSING phase
+2025-10-13 20:57:20 | INFO     | worker_llm | Evaluating ANON_1760348328420_CC19A5 (attempt 1)
+2025-10-13 20:57:40 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_657DA3BB | actor=worker_llm | details={'anonymized_id': 'ANON_1760348328420_CC19A5', 'attempt_number': 1, 'total_score': 88.1} | timestamp=2025-10-13T15:57:40.537889
+2025-10-13 20:57:42 | INFO     | worker_llm | Worker evaluation complete: ANON_1760348328420_CC19A5 → 88.10/100 (attempt 1)
+2025-10-13 20:57:42 | INFO     | judge_llm | Validating worker evaluation for ANON_1760348328420_CC19A5 (attempt 1)
+2025-10-13 20:58:10 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_0ED79D32 | actor=judge_llm | details={'anonymized_id': 'ANON_1760348328420_CC19A5', 'worker_result_id': 'WKR_657DA3BB', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T15:58:10.421475
+2025-10-13 20:58:11 | INFO     | judge_llm | Judge validation complete: ANON_1760348328420_CC19A5 → APPROVED  (quality: 92/100)
+2025-10-13 20:58:12 | INFO     | worker_llm | Evaluating ANON_1760348333999_A52ECD (attempt 1)
+2025-10-13 20:58:40 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_98C65B93 | actor=worker_llm | details={'anonymized_id': 'ANON_1760348333999_A52ECD', 'attempt_number': 1, 'total_score': 63.15} | timestamp=2025-10-13T15:58:40.321743
+2025-10-13 20:58:41 | INFO     | worker_llm | Worker evaluation complete: ANON_1760348333999_A52ECD → 63.15/100 (attempt 1)
+2025-10-13 20:58:42 | INFO     | judge_llm | Validating worker evaluation for ANON_1760348333999_A52ECD (attempt 1)
+2025-10-13 20:59:04 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_9FDF33E9 | actor=judge_llm | details={'anonymized_id': 'ANON_1760348333999_A52ECD', 'worker_result_id': 'WKR_98C65B93', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-13T15:59:04.430276
+2025-10-13 20:59:05 | INFO     | judge_llm | Judge validation complete: ANON_1760348333999_A52ECD → APPROVED  (quality: 85/100)
+2025-10-13 20:59:09 | INFO     | phase_manager | Marking cycle CYC_20251013_143536 as scored
+2025-10-13 20:59:11 | INFO     | phase_manager | Cycle CYC_20251013_143536 marked as SCORED
+2025-10-13 20:59:11 | INFO     | api | LLM processing completed for cycle CYC_20251013_143536 by admin asad
+2025-10-13 20:59:23 | INFO     | phase_manager | Performing selection for cycle CYC_20251013_143536
+2025-10-13 20:59:26 | INFO     | phase_manager | Selection complete: 1 selected, 1 not selected
+2025-10-13 20:59:26 | INFO     | api | Selection performed for cycle CYC_20251013_143536 by admin asad
+2025-10-13 20:59:49 | INFO     | phase_manager | Publishing results for cycle CYC_20251013_143536
+2025-10-13 20:59:50 | INFO     | phase_manager | Results published for cycle CYC_20251013_143536
+2025-10-13 20:59:50 | INFO     | api | Results published for cycle CYC_20251013_143536 by admin asad
+2025-10-13 21:00:58 | INFO     | phase_manager | Completing cycle CYC_20251013_143536
+2025-10-13 21:00:58 | INFO     | phase_manager | Cycle CYC_20251013_143536 completed
+2025-10-13 21:00:58 | INFO     | api | Cycle CYC_20251013_143536 completed by admin asad
+2025-10-13 21:04:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:04:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:05:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:05:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-13 21:05:56 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0

@@ -45,7 +45,7 @@ class PhaseManager:
         self.admin_repo = AdminRepository(db)
         self.app_repo = ApplicationRepository(db)
 
-    def freeze_cycle(self, cycle_id: str) -> AdmissionCycle:
+    def freeze_cycle(self, cycle_id: str, closed_by: str) -> AdmissionCycle:
         """Transition from SUBMISSION to FROZEN phase.
 
         Phase 1 → Phase 2: Data Freeze
@@ -57,6 +57,7 @@ class PhaseManager:
 
         Args:
             cycle_id: Cycle ID to freeze
+            closed_by: Admin ID who is freezing the cycle
 
         Returns:
             AdmissionCycle: Updated cycle
@@ -64,7 +65,7 @@ class PhaseManager:
         Raises:
             PhaseTransitionError: If transition is invalid
         """
-        logger.info(f"Freezing cycle {cycle_id}")
+        logger.info(f"Freezing cycle {cycle_id} by admin {closed_by}")
 
         cycle = self.admin_repo.get_cycle_by_id(cycle_id)
         if not cycle:
@@ -75,8 +76,8 @@ class PhaseManager:
                 f"Can only freeze from SUBMISSION phase, currently in {cycle.phase.value}"
             )
 
-        # Close cycle
-        cycle = self.admin_repo.close_cycle(cycle_id, "system")
+        # Close cycle with actual admin ID
+        cycle = self.admin_repo.close_cycle(cycle_id, closed_by)
 
         # Finalize all submitted applications
         finalized_count = self.app_repo.finalize_applications(cycle_id)

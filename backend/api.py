@@ -784,7 +784,7 @@ async def freeze_cycle(
     """Phase 1 → Phase 2: Freeze admission cycle and finalize applications."""
     try:
         phase_mgr = PhaseManager(db)
-        cycle = phase_mgr.freeze_cycle(cycle_id)
+        cycle = phase_mgr.freeze_cycle(cycle_id, closed_by=admin["admin_id"])
 
         logger.info(f"Cycle {cycle_id} frozen by admin {admin["username"]}")
         return cycle

@@ -59,15 +59,15 @@ class BatchProcessingService:
         """
         logger.info(f"Exporting applications for cycle {cycle_id} to JSONL")
 
-        # Get all finalized applications
+        # Get all applications ready for batch export
         applications = self.app_repo.get_by_cycle(
             cycle_id,
-            status=ApplicationStatusEnum.FINALIZED,
+            status=ApplicationStatusEnum.BATCH_READY,
             limit=10000  # Adjust as needed
         )
 
         if not applications:
-            raise ValueError(f"No finalized applications found for cycle {cycle_id}")
+            raise ValueError(f"No applications ready for batch export found for cycle {cycle_id}")
 
         # Create export directory if not exists
         export_dir = self.settings.batch_export_dir

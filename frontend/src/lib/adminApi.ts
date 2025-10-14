@@ -22,7 +22,7 @@ export interface AdminLoginResponse {
 export interface AdmissionCycle {
   cycle_id: string;
   cycle_name: string;
-  phase: 'SUBMISSION' | 'FROZEN' | 'PREPROCESSING' | 'BATCH_PREP' | 'PROCESSING' | 'SCORED' | 'SELECTION' | 'PUBLISHED' | 'COMPLETED';
+  phase: 'submission' | 'frozen' | 'preprocessing' | 'batch_prep' | 'processing' | 'scored' | 'selection' | 'published' | 'completed';
   is_open: boolean;
   max_seats: number;
   current_seats: number;

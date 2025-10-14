@@ -129,28 +129,28 @@ export default function AdminCyclesPage() {
     const phase = cycle.phase;
 
     switch (phase) {
-      case 'SUBMISSION':
+      case 'submission':
         actions.push({ key: 'freeze', label: 'Freeze Cycle', variant: 'primary' });
         break;
-      case 'FROZEN':
+      case 'frozen':
         actions.push({ key: 'preprocess', label: 'Start Preprocessing', variant: 'primary' });
         break;
-      case 'PREPROCESSING':
+      case 'preprocessing':
         actions.push({ key: 'export', label: 'Export for LLM', variant: 'primary' });
         break;
-      case 'BATCH_PREP':
+      case 'batch_prep':
         actions.push({ key: 'processing', label: 'Start LLM Processing', variant: 'primary' });
         break;
-      case 'PROCESSING':
+      case 'processing':
         // No direct action - LLM processing happens externally
         break;
-      case 'SCORED':
+      case 'scored':
         actions.push({ key: 'select', label: 'Perform Selection', variant: 'primary' });
         break;
-      case 'SELECTION':
+      case 'selection':
         actions.push({ key: 'publish', label: 'Publish Results', variant: 'primary' });
         break;
-      case 'PUBLISHED':
+      case 'published':
         actions.push({ key: 'complete', label: 'Complete Cycle', variant: 'secondary' });
         break;
     }
@@ -196,10 +196,18 @@ export default function AdminCyclesPage() {
   const handleCloseCycle = async (cycleId: string) => {
     setProcessing(cycleId);
     try {
-      await adminApiClient.closeCycle(cycleId);
+      // Find the cycle to check its phase
+      const cycle = cycles.find(c => c.cycle_id === cycleId);
+
+      // If in submission phase, "closing" should mean "freezing" to advance the pipeline
+      if (cycle && cycle.phase === 'submission') {
+        await adminApiClient.freezeCycle(cycleId);
+      } else {
+        await adminApiClient.closeCycle(cycleId);
+      }
       await loadCycles();
     } catch (error: any) {
-      alert(error.message || 'Failed to close cycle');
+      alert(error.message || 'Failed to close or freeze cycle');
     } finally {
       setProcessing(null);
     }
@@ -385,7 +393,7 @@ export default function AdminCyclesPage() {
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
                             <h3 className="text-xl font-bold text-gray-900">{cycle.cycle_name}</h3>
-                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${cycle.phase === 'COMPLETED'
+                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${cycle.phase === 'completed'
                               ? 'bg-green-100 text-green-700'
                               : cycle.is_open
                                 ? 'bg-blue-100 text-blue-700'
@@ -549,7 +557,7 @@ export default function AdminCyclesPage() {
                           )}
 
                           {/* Batch Management - Show for PROCESSING and SCORED phases */}
-                          {(cycle.phase === 'PROCESSING' || cycle.phase === 'SCORED') && (
+                          {(cycle.phase === 'processing' || cycle.phase === 'scored') && (
                             <div className="mb-6">
                               <BatchManagement
                                 cycleId={cycle.cycle_id}

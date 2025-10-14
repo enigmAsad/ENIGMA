@@ -28,7 +28,7 @@ class ApplicationStatus(str, Enum):
     FAILED = "failed"                    # Error state
 
 
-class AdmissionPhase(str, Enum):
+class AdmissionPhaseEnum(str, Enum):
     """Admission cycle workflow phases."""
     SUBMISSION = "submission"            # Phase 1: Accepting applications
     FROZEN = "frozen"                    # Phase 2: Data locked, no more submissions
@@ -429,7 +429,7 @@ class AdmissionCycle(BaseModel):
 
     cycle_id: str = Field(default_factory=lambda: f"CYC_{uuid.uuid4().hex[:8].upper()}")
     cycle_name: str = Field(..., min_length=3, max_length=100, description="e.g., 'Fall 2025 Admissions'")
-    phase: AdmissionPhase = Field(default=AdmissionPhase.SUBMISSION, description="Current workflow phase")
+    phase: AdmissionPhaseEnum = Field(default=AdmissionPhaseEnum.SUBMISSION, description="Current workflow phase")
     is_open: bool = Field(default=False, description="Whether admissions are currently open")
     max_seats: int = Field(..., gt=0, description="Maximum number of admissions")
     current_seats: int = Field(default=0, ge=0, description="Current number of applications")

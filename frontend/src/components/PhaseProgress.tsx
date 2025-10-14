@@ -8,15 +8,15 @@ interface PhaseProgressProps {
 }
 
 const PHASES = [
-  { id: 'SUBMISSION', name: 'Submission', description: 'Applications Open' },
-  { id: 'FROZEN', name: 'Frozen', description: 'Data Locked' },
-  { id: 'PREPROCESSING', name: 'Preprocessing', description: 'Computing Metrics' },
-  { id: 'BATCH_PREP', name: 'Batch Prep', description: 'Export Ready' },
-  { id: 'PROCESSING', name: 'Processing', description: 'LLM Running' },
-  { id: 'SCORED', name: 'Scored', description: 'Results Ready' },
-  { id: 'SELECTION', name: 'Selection', description: 'Top-K Selection' },
-  { id: 'PUBLISHED', name: 'Published', description: 'Results Live' },
-  { id: 'COMPLETED', name: 'Completed', description: 'Cycle Closed' },
+  { id: 'submission', name: 'Submission', description: 'Applications Open' },
+  { id: 'frozen', name: 'Frozen', description: 'Data Locked' },
+  { id: 'preprocessing', name: 'Preprocessing', description: 'Computing Metrics' },
+  { id: 'batch_prep', name: 'Batch Prep', description: 'Export Ready' },
+  { id: 'processing', name: 'Processing', description: 'LLM Running' },
+  { id: 'scored', name: 'Scored', description: 'Results Ready' },
+  { id: 'selection', name: 'Selection', description: 'Top-K Selection' },
+  { id: 'published', name: 'Published', description: 'Results Live' },
+  { id: 'completed', name: 'Completed', description: 'Cycle Closed' },
 ];
 
 export default function PhaseProgress({ currentPhase, className = '' }: PhaseProgressProps) {

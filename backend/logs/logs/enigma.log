@@ -784,3 +784,73 @@ score_id
 2025-10-14 01:05:28 | ERROR    | phase1_pipeline | [APP_FF6F2927] Pipeline execution failed: 'dict' object has no attribute 'status'
 2025-10-14 01:05:28 | INFO     | api | Completed background processing for APP_FF6F2927
 2025-10-14 01:14:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 13:50:00 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 13:50:00 | INFO     | main | Running prerequisite checks...
+2025-10-14 13:50:00 | INFO     | main | Verifying database connection...
+2025-10-14 13:50:05 | INFO     | database | Database connection verified successfully
+2025-10-14 13:50:05 | INFO     | main | ✅ Database connection successful
+2025-10-14 13:50:05 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-14 13:50:05 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-14 13:50:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 14:20:01 | INFO     | application_collector | Collecting new application from fa@example.com
+2025-10-14 14:20:02 | INFO     | audit | AUDIT: create | Application:APP_F27A815B | actor=system | details={'stage': 'intake'} | timestamp=2025-10-14T09:20:02.117262
+2025-10-14 14:20:02 | INFO     | application_collector | Application collected successfully: APP_F27A815B
+2025-10-14 14:20:03 | INFO     | api | Application submitted: APP_F27A815B (Cycle: Winter 2025)
+2025-10-14 14:22:03 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-14 14:22:07 | INFO     | admin_auth | Login successful for enigma
+2025-10-14 14:30:12 | INFO     | api | Closed admission cycle: Winter 2025
+2025-10-14 14:32:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 14:37:10 | INFO     | api | Closed admission cycle: Winter 2025
+2025-10-14 14:42:52 | INFO     | api | Closed admission cycle: Winter 2025
+2025-10-14 14:51:03 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 14:51:27 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 14:56:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 14:57:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 14:57:28 | INFO     | main | Running prerequisite checks...
+2025-10-14 14:57:28 | INFO     | main | Verifying database connection...
+2025-10-14 14:57:33 | INFO     | database | Database connection verified successfully
+2025-10-14 14:57:33 | INFO     | main | ✅ Database connection successful
+2025-10-14 14:57:33 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-14 14:57:33 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-14 14:57:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 15:06:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 15:07:01 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 15:08:33 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 15:08:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 15:08:56 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 15:11:42 | INFO     | admin_auth | Login attempt for username: enigma
+2025-10-14 15:11:49 | INFO     | admin_auth | Login successful for enigma
+2025-10-14 15:22:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 15:24:10 | INFO     | phase_manager | Freezing cycle CYC_20251013_153443
+2025-10-14 15:24:10 | ERROR    | api | Failed to close cycle: (psycopg2.errors.ForeignKeyViolation) insert or update on table "admission_cycles" violates foreign key constraint "admission_cycles_closed_by_fkey"
+DETAIL:  Key (closed_by)=(system) is not present in table "admin_users".
+
+[SQL: UPDATE admission_cycles SET is_open=%(is_open)s, closed_at=%(closed_at)s, closed_by=%(closed_by)s WHERE admission_cycles.cycle_id = %(cycle_id_1)s RETURNING admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by]
+[parameters: {'is_open': False, 'closed_at': datetime.datetime(2025, 10, 14, 10, 24, 10, 686049, tzinfo=datetime.timezone.utc), 'closed_by': 'system', 'cycle_id_1': 'CYC_20251013_153443'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-14 15:24:10 | ERROR    | database | Database session error: 500: (psycopg2.errors.ForeignKeyViolation) insert or update on table "admission_cycles" violates foreign key constraint "admission_cycles_closed_by_fkey"
+DETAIL:  Key (closed_by)=(system) is not present in table "admin_users".
+
+[SQL: UPDATE admission_cycles SET is_open=%(is_open)s, closed_at=%(closed_at)s, closed_by=%(closed_by)s WHERE admission_cycles.cycle_id = %(cycle_id_1)s RETURNING admission_cycles.cycle_id, admission_cycles.cycle_name, admission_cycles.phase, admission_cycles.is_open, admission_cycles.max_seats, admission_cycles.current_seats, admission_cycles.selected_count, admission_cycles.result_date, admission_cycles.start_date, admission_cycles.end_date, admission_cycles.created_at, admission_cycles.created_by, admission_cycles.closed_at, admission_cycles.closed_by]
+[parameters: {'is_open': False, 'closed_at': datetime.datetime(2025, 10, 14, 10, 24, 10, 686049, tzinfo=datetime.timezone.utc), 'closed_by': 'system', 'cycle_id_1': 'CYC_20251013_153443'}]
+(Background on this error at: https://sqlalche.me/e/20/gkpj)
+2025-10-14 15:26:41 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 15:27:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 15:28:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 15:28:33 | INFO     | phase_manager | Freezing cycle CYC_20251013_153443
+2025-10-14 15:28:33 | INFO     | phase_manager | Finalized 1 applications
+2025-10-14 15:28:34 | INFO     | phase_manager | Cycle CYC_20251013_153443 frozen successfully
+2025-10-14 15:28:34 | INFO     | api | Closed and froze submission cycle: Winter 2025
+2025-10-14 15:42:23 | INFO     | phase_manager | Starting preprocessing for cycle CYC_20251013_153443
+2025-10-14 15:42:25 | INFO     | phase_manager | Computed metrics for 1 applications
+2025-10-14 15:42:25 | INFO     | api | Preprocessing started for cycle CYC_20251013_153443 by admin enigma
+2025-10-14 15:44:21 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251013_153443
+2025-10-14 15:44:22 | INFO     | phase_manager | 1 applications ready for batch processing
+2025-10-14 15:44:22 | INFO     | batch_processor | Exporting applications for cycle CYC_20251013_153443 to JSONL
+2025-10-14 15:44:23 | ERROR    | api | Failed to export batch data for cycle CYC_20251013_153443: No finalized applications found for cycle CYC_20251013_153443
+2025-10-14 15:44:23 | ERROR    | database | Database session error: 400: No finalized applications found for cycle CYC_20251013_153443
+2025-10-14 15:48:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 15:48:53 | INFO     | phase_manager | Starting processing for cycle CYC_20251013_153443
+2025-10-14 15:48:55 | INFO     | phase_manager | Cycle CYC_20251013_153443 now in PROCESSING phase
+2025-10-14 15:48:55 | INFO     | api | LLM processing started for cycle CYC_20251013_153443 by admin enigma
+2025-10-14 15:55:06 | ERROR    | database | Database session error: 404: Batch not found

@@ -19,7 +19,10 @@ from src.models.schemas import (
     CreateCycleRequest,
     UpdateCycleRequest,
     AdmissionInfoResponse,
+    AdmissionPhaseEnum,
+
 )
+
 from src.services.application_collector import ApplicationCollector
 from src.services.hash_chain import HashChainGenerator
 from src.services.admin_auth import AdminAuthService
@@ -28,7 +31,9 @@ from src.services.phase_manager import PhaseManager
 from src.services.batch_processor import BatchProcessingService
 from src.database.engine import get_db
 from src.database.repositories import AdminRepository, ApplicationRepository, BatchRepository
-from src.database.models import BatchTypeEnum
+from src.database.models import (
+    BatchTypeEnum
+)
 from src.utils.logger import get_logger, AuditLogger
 from src.orchestration.phase1_pipeline import run_pipeline
 from sqlalchemy.orm import Session
@@ -687,15 +692,28 @@ async def close_cycle(
     admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
-    """Close admission cycle."""
+    """
+    Close admission cycle.
+
+    If the cycle is in the SUBMISSION phase, this will also freeze the cycle
+    and advance it to the FROZEN phase. Otherwise, it just marks the cycle
+    as not open.
+    """
     try:
         admin_repo = AdminRepository(db)
-        cycle = admin_repo.close_cycle(cycle_id, admin["admin_id"])
+        cycle = admin_repo.get_cycle_by_id(cycle_id)
 
         if not cycle:
             raise HTTPException(status_code=404, detail="Cycle not found")
 
-        logger.info(f"Closed admission cycle: {cycle.cycle_name}")
+        # If in submission phase, closing the cycle should freeze it
+        if cycle.phase == AdmissionPhaseEnum.SUBMISSION:
+            phase_mgr = PhaseManager(db)
+            cycle = phase_mgr.freeze_cycle(cycle_id, admin["admin_id"])
+            logger.info(f"Closed and froze submission cycle: {cycle.cycle_name}")
+        else:
+            cycle = admin_repo.close_cycle(cycle_id, admin["admin_id"])
+            logger.info(f"Closed admission cycle: {cycle.cycle_name}")
 
         return cycle
 

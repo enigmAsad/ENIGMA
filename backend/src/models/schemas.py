@@ -79,6 +79,59 @@ class JudgeDecision(str, Enum):
 
 # Base Models
 
+
+class StudentStatus(str, Enum):
+    """Student account lifecycle status."""
+
+    ACTIVE = "active"
+    SUSPENDED = "suspended"
+    DELETED = "deleted"
+
+
+class StudentAccount(BaseModel):
+    """Student identity derived from OAuth providers."""
+
+    model_config = ConfigDict(validate_assignment=True)
+
+    student_id: str = Field(default_factory=lambda: f"STU_{uuid.uuid4().hex[:8].upper()}")
+    primary_email: EmailStr
+    display_name: Optional[str] = None
+    status: StudentStatus = Field(default=StudentStatus.ACTIVE)
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+    verified_at: Optional[datetime] = None
+
+
+class OAuthIdentity(BaseModel):
+    """Linked OAuth identity record (Google, etc.)."""
+
+    model_config = ConfigDict(validate_assignment=True)
+
+    identity_id: Optional[int] = None
+    student_id: str
+    provider: str = Field(..., description="OAuth provider name, e.g., 'google'")
+    provider_sub: str = Field(..., description="Provider subject identifier")
+    email: EmailStr
+    email_verified: bool = True
+    raw_profile: Optional[Dict[str, Any]] = None
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
+
+
+class StudentSession(BaseModel):
+    """Authenticated session bound to HttpOnly cookies."""
+
+    model_config = ConfigDict(validate_assignment=True)
+
+    session_id: str
+    student_id: str
+    session_token: str
+    expires_at: datetime
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    last_active_at: datetime = Field(default_factory=datetime.utcnow)
+    revoked: bool = False
+
+
 class Application(BaseModel):
     """Raw application submitted by applicant."""
     model_config = ConfigDict(validate_assignment=True)
@@ -108,6 +161,10 @@ class Application(BaseModel):
 
     # Metadata
     status: ApplicationStatus = Field(default=ApplicationStatus.SUBMITTED)
+    student_id: Optional[str] = Field(
+        default=None,
+        description="Linked student account when submitted via OAuth session",
+    )
 
     @field_validator('test_scores')
     @classmethod

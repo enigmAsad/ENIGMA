@@ -1,6 +1,6 @@
 """FastAPI REST API wrapper for ENIGMA Phase 1 backend."""
 
-from fastapi import FastAPI, HTTPException, Depends, Header
+from fastapi import FastAPI, HTTPException, Depends, Header, Response, Cookie
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field
 from typing import Dict, Any, List, Optional
@@ -22,7 +22,7 @@ from src.models.schemas import (
 from src.services.application_collector import ApplicationCollector
 from src.services.hash_chain import HashChainGenerator
 from src.services.admin_auth import AdminAuthService
-from src.services.admin_auth import AdminAuthService
+from src.services.student_auth import StudentAuthService
 from src.services.phase_manager import PhaseManager
 from src.services.batch_processor import BatchProcessingService
 from src.database.engine import get_db
@@ -122,6 +122,51 @@ class DashboardStatsResponse(BaseModel):
     timestamp: datetime
 
 
+class StudentAuthStartResponse(BaseModel):
+    """Response payload for initiating student OAuth."""
+
+    authorization_url: str
+    state: str
+
+
+class StudentProfileResponse(BaseModel):
+    """Student profile returned when authenticated."""
+
+    student_id: str
+    primary_email: EmailStr
+    display_name: Optional[str]
+    status: str
+
+
+class StudentSessionResponse(BaseModel):
+    """Response after successful student login."""
+
+    success: bool
+    student: StudentProfileResponse
+
+
+class StudentLogoutResponse(BaseModel):
+    success: bool
+    message: str
+
+
+# Student session helpers
+
+
+def get_student_auth_service(db: Session = Depends(get_db)) -> StudentAuthService:
+    return StudentAuthService(db)
+
+
+def get_student_session(
+    session_token: Optional[str] = Cookie(default=None, alias="enigma_student_session"),
+    db: Session = Depends(get_db),
+) -> Optional[Dict[str, Any]]:
+    if not session_token:
+        return None
+    auth_service = StudentAuthService(db)
+    return auth_service.validate_session(session_token)
+
+
 # Admin Authentication Dependency
 async def get_current_admin(authorization: str = Header(None), db: Session = Depends(get_db)) -> Dict[str, Any]:
     """Dependency to get current authenticated admin.
@@ -190,10 +235,42 @@ async def health_check(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail=f"Health check failed: {str(e)}")
 
 
+@app.post("/auth/student/google/start", response_model=StudentAuthStartResponse)
+async def start_student_google_login(
+    redirect_uri: str,
+    code_challenge: str,
+    db: Session = Depends(get_db),
+):
+    settings = get_settings()
+    auth_service = StudentAuthService(db)
+
+    state_payload = auth_service.create_auth_state(
+        code_challenge=code_challenge,
+        code_verifier=None,
+        redirect_uri=redirect_uri,
+    )
+
+    authorization_url = (
+        f"{auth_service.google_authorize_url}?response_type=code"
+        f"&client_id={settings.google_client_id}"
+        f"&redirect_uri={redirect_uri}"
+        f"&scope=openid%20email%20profile"
+        f"&state={state_payload['state']}"
+        f"&code_challenge={code_challenge}"
+        f"&code_challenge_method=S256"
+    )
+
+    return StudentAuthStartResponse(
+        authorization_url=authorization_url,
+        state=state_payload["state"],
+    )
+
+
 @app.post("/applications", response_model=ApplicationSubmitResponse)
 async def submit_application(
     request: ApplicationSubmitRequest,
-    db: Session = Depends(get_db)
+    db: Session = Depends(get_db),
+    student_session: Optional[Dict[str, Any]] = Depends(get_student_session)
 ):
     """
     Submit a new application (Phase 1: SUBMISSION).
@@ -238,9 +315,32 @@ async def submit_application(
             audit_logger=audit_logger
         )
 
-        # Create application object
         app_data = request.model_dump()
+
+        if student_session:
+            student_id = student_session["student_id"]
+            app_data["email"] = student_session["primary_email"]
+            app_data["student_id"] = student_id
+
+            # Enforce one application per cycle per student
+            existing_query = db.query(ApplicationRepository.model).filter(  # type: ignore[attr-defined]
+                ApplicationRepository.model.student_id == student_id,
+                ApplicationRepository.model.admission_cycle_id == active_cycle.cycle_id,
+            )
+            if existing_query.first():
+                raise HTTPException(
+                    status_code=400,
+                    detail="You have already submitted an application for this admission cycle.",
+                )
+
         application = app_collector.collect_application(app_data)
+
+        if student_session:
+            # Ensure persisted record links to student account
+            application_record = ApplicationRepository(db).get_by_application_id(application.application_id)
+            if application_record:
+                application_record.student_id = student_session["student_id"]
+                db.flush()
 
         # Increment seat counter
         admin_repo.increment_cycle_seats(active_cycle.cycle_id)

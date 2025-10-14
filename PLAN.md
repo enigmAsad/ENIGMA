@@ -1,6 +1,6 @@
-# ENIGMA MVP - Implementation-Only Specification
+# ENIGMA System Plan (Production-Ready)
 
-**Status:** Phase 1 ✅ Complete (PostgreSQL) | Phase 2 🔄 Planned
+**Status:** Phase 1 ✅ Complete (PostgreSQL) | Accounts & SSO 🔄 Planned | Phase 2 🔄 Planned
 
 ## Scope
 - Standalone admissions portal with two-phase selection
@@ -14,6 +14,13 @@
   - Bias monitoring focuses on evaluators, not applicants
   - Real-time transcription and LLM analysis
   - Evaluator dashboard with nudge system
+  
+**Accounts & Authentication (Production add-on)** 🔄 **PLANNED**
+- Google OAuth (OIDC + PKCE) student login (additional IdPs later)
+- Enforce one application per admission cycle per student account
+- Application submission derives contact email from SSO; no separate email input
+- Preserve anonymization: evaluators only see anonymized records; student identity never enters evaluator context
+- Link all application/interview records to the student account in the audit trail (no PII exposure to evaluators)
 
 ## System Architecture
 
@@ -38,6 +45,12 @@
 - COI declaration form: simple consent/declaration prior to interview
 - Evaluator nudge UI: soft alerts for biased language; hard flags for policy violations
 - Evaluator dashboard: live interview console, digital rubric, justification fields
+
+**🔄 Accounts & SSO - Planned (Frontend):**
+- Student sign-in with Google (OIDC + PKCE)
+- Submission flow uses authenticated session; no manual email field
+- Student dashboard lists applications and interview schedule (Phase 2)
+- Session stored in HttpOnly cookies with CSRF protection
 
 ### Backend (FastAPI + PostgreSQL + Python 3.12)
 
@@ -78,6 +91,13 @@
 - Email notification system: confirmation, shortlist, final results
 - Appeal handler: inbox intake, review queue
 
+**🔄 Accounts & SSO - Planned (Backend):**
+- Student OIDC (Google) login endpoint; verify `email_verified`
+- Store identity bindings (`provider`, `provider_sub`, `email`) and session issuance
+- Submission endpoint requires student session; derive email from SSO claims
+- Enforce one application per cycle per student via DB unique index and service-layer checks
+- Maintain strict separation: PII in encrypted stores; evaluators see only anonymized IDs
+
 ### Data Layer
 
 **✅ Phase 1 - PostgreSQL Schema (14 Tables):**
@@ -103,11 +123,17 @@
 
 **Relationships:**
 - admission_cycles (1:N) → applications (1:1) → anonymized_applications
+- student_accounts (1:N) → applications
 - anonymized_applications (1:1) → identity_mapping
 - anonymized_applications (1:N) → worker_results (1:N) → judge_results
 - anonymized_applications (1:1) → final_scores
 - admin_users (1:N) → admin_sessions, admission_cycles
 - Full hash chain linkage across audit_logs
+
+**🔄 Accounts & SSO - New Tables (Planned):**
+- **student_accounts**: Student identity source (primary_email, status, created_at, verified_at)
+- **oauth_identities**: `student_id`, `provider`, `provider_sub`, `email`, `email_verified`
+- Add `student_id` FK to **applications**; create unique index on `(student_id, admission_cycle_id)`
 
 **🔄 Phase 2 - Additional Tables (Planned):**
 - **live_sessions**: Session metadata and scheduling
@@ -169,6 +195,9 @@
 - **Human Evaluator**: Conduct live interviews, score via digital rubric, write justifications
 - **Admin** (additional): Manage evaluators, review bias flags, handle appeals, oversee re-assignments
 
+**🔄 Accounts & SSO - Planned:**
+- **Student**: Auth via Google; create/claim applications; manage interviews; all actions audited; evaluator view remains anonymized
+
 ### Lifecycle
 
 **✅ Phase 1: AI Merit Screening (9-Phase Workflow) - Implemented:**
@@ -196,6 +225,12 @@
 - Combine validated interview scores with Phase 1
 - Update hash chain and audit logs
 
+**🔄 Accounts & SSO - Planned (Lifecycle Changes):**
+- SUBMISSION requires authenticated student session (Google); one application per cycle per account enforced
+- Submission email derived from SSO claim (no form email field); PII remains in encrypted stores and is removed during anonymization
+- Interview scheduling/rescheduling and COI actions require authenticated student session; evaluator tools use only anonymized IDs
+ - Student portal stays in sync via relational links: student_accounts → applications → anonymized_applications; evaluation/selection status updates propagate to the student dashboard automatically (no evaluator exposure to identity)
+
 **🔄 Additional Features - Planned:**
 - **Notifications**: Email confirmations, shortlist, final results with verification link
 - **Appeals**: Intake, review queue, resolution tracking
@@ -207,9 +242,12 @@
 - Monitoring focus: evaluator bias referencing protected attributes or irrelevant factors
 
 ### Audit Trail
-- Decision record persisted and hashed using SHA-256
-- Public verification via hash chain validation
-- Integrity breaks detectable on any post-hoc changes
+ - Decision-critical evaluation events only, recorded under anonymized IDs:
+   - evaluation_started, worker_result, judge_result, final_score_committed, selection_decision, results_published
+ - Hash-chained integrity with payload digests only (input_hash/output_hash). No raw payloads or PII in audit rows
+ - Database-level audit trail for DML tamper evidence (append-only): table, operation, primary_key, before_hash, after_hash, tx_id, timestamp; periodic root-hash anchoring
+ - Public verification via hash chain validation; integrity breaks detectable on any post-hoc changes
+ - Operational/auth/session events are excluded from the hash chain (kept in standard logs/metrics if needed)
 
 ### Explainability
 - Include: Phase 1 score; interview score; final combined score

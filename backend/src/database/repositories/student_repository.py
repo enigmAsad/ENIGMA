@@ -140,7 +140,6 @@ class StudentAuthStateRepository(BaseRepository[StudentAuthState]):
         self,
         state: str,
         code_challenge: str,
-        code_verifier_hash: str,
         redirect_uri: str,
         nonce: Optional[str],
         expires_at: datetime,
@@ -148,7 +147,7 @@ class StudentAuthStateRepository(BaseRepository[StudentAuthState]):
         record = StudentAuthState(
             state=state,
             code_challenge=code_challenge,
-            code_verifier_hash=code_verifier_hash,
+            code_verifier_hash="",  # This will be set during the callback
             redirect_uri=redirect_uri,
             nonce=nonce,
             expires_at=expires_at,

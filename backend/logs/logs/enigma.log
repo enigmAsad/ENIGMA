@@ -1153,3 +1153,45 @@ DETAIL:  Failing row contains (null, ANON_1760355123657_3542D0, phase1_final, {"
 2025-10-14 23:15:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-14 23:16:01 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
 2025-10-14 23:20:46 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:25:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:26:25 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:29:46 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:30:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:42:59 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:42:59 | INFO     | main | Running prerequisite checks...
+2025-10-14 23:42:59 | INFO     | main | Verifying database connection...
+2025-10-14 23:43:04 | INFO     | database | Database connection verified successfully
+2025-10-14 23:43:04 | INFO     | main | ✅ Database connection successful
+2025-10-14 23:43:04 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-14 23:43:04 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-14 23:43:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:50:08 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:50:08 | INFO     | main | Running prerequisite checks...
+2025-10-14 23:50:08 | INFO     | main | Verifying database connection...
+2025-10-14 23:50:13 | INFO     | database | Database connection verified successfully
+2025-10-14 23:50:13 | INFO     | main | ✅ Database connection successful
+2025-10-14 23:50:13 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-14 23:50:13 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-14 23:50:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:52:08 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:58:15 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-14 23:58:58 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:13:30 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('body',), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:15:44 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('body',), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:39:42 | WARNING  | student_auth | Invalid or expired OAuth state
+2025-10-15 00:39:42 | WARNING  | api | Student login failed: Invalid or expired state
+2025-10-15 00:39:42 | ERROR    | database | Database session error: 400: Invalid or expired state
+2025-10-15 00:42:00 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:42:12 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:42:47 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:43:25 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:46:08 | ERROR    | student_auth | Failed to exchange Google authorization code
+2025-10-15 00:46:08 | WARNING  | api | Student login failed: Failed to exchange authorization code
+2025-10-15 00:46:08 | ERROR    | database | Database session error: 400: Failed to exchange authorization code
+2025-10-15 00:50:13 | ERROR    | student_auth | Failed to exchange Google authorization code
+2025-10-15 00:50:13 | WARNING  | api | Student login failed: Failed to exchange authorization code
+2025-10-15 00:50:13 | ERROR    | database | Database session error: 400: Failed to exchange authorization code
+2025-10-15 00:53:51 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

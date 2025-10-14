@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import hashlib
 import secrets
 import uuid
@@ -42,7 +43,9 @@ class StudentAuthService:
     # ------------------------------------------------------------------
 
     def _hash_code_verifier(self, code_verifier: str) -> str:
-        return hashlib.sha256(code_verifier.encode("ascii")).hexdigest()
+        """Hashes the code verifier using SHA-256 and base64url encodes it for PKCE."""
+        digest = hashlib.sha256(code_verifier.encode("utf-8")).digest()
+        return base64.urlsafe_b64encode(digest).rstrip(b'=').decode('utf-8')
 
     def _hash_session_token(self, session_token: str) -> str:
         return hashlib.sha256(session_token.encode("ascii")).hexdigest()
@@ -76,17 +79,17 @@ class StudentAuthService:
     def create_auth_state(
         self,
         code_challenge: str,
-        code_verifier: str,
         redirect_uri: str,
     ) -> Dict[str, str]:
         state = self._generate_state()
         nonce = self._generate_nonce()
         expires_at = datetime.now(timezone.utc) + timedelta(minutes=10)
 
+        # The code_verifier is not stored, only its hash is used in the callback.
+        # Here, we store the challenge to associate it with the state.
         self.auth_states.create_state(
             state=state,
             code_challenge=code_challenge,
-            code_verifier_hash=self._hash_code_verifier(code_verifier),
             redirect_uri=redirect_uri,
             nonce=nonce,
             expires_at=expires_at,
@@ -272,9 +275,10 @@ class StudentAuthService:
         if not state_record:
             raise HTTPException(status_code=400, detail="Invalid or expired state")
 
-        expected_code_verifier_hash = state_record.code_verifier_hash
-        if expected_code_verifier_hash != self._hash_code_verifier(code_verifier):
-            logger.warning("Code verifier mismatch for state %s", state)
+        # Verify the PKCE code challenge
+        computed_challenge = self._hash_code_verifier(code_verifier)
+        if state_record.code_challenge != computed_challenge:
+            logger.warning("PKCE code_challenge mismatch for state %s", state)
             raise HTTPException(status_code=400, detail="Invalid code verifier")
 
         tokens = await self.exchange_code_for_tokens(code, code_verifier, redirect_uri)

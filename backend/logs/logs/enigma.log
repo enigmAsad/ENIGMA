@@ -1195,3 +1195,68 @@ DETAIL:  Failing row contains (null, ANON_1760355123657_3542D0, phase1_final, {"
 {
     "taskName": null
 }
+2025-10-15 01:18:31 | ERROR    | student_auth | Failed to exchange Google authorization code
+{
+    "taskName": "Task-10",
+    "status": 400,
+    "body": {
+        "error": "invalid_grant",
+        "error_description": "Malformed auth code."
+    }
+}
+2025-10-15 01:18:31 | WARNING  | api | Student login failed: Failed to exchange authorization code
+{
+    "taskName": "Task-10"
+}
+2025-10-15 01:18:31 | ERROR    | database | Database session error: 400: Failed to exchange authorization code
+{
+    "taskName": null
+}
+2025-10-15 01:37:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 01:37:58 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 01:37:58 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 01:38:03 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 01:38:03 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 01:38:03 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 01:38:03 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 01:38:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 01:40:37 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 01:40:44 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+{
+    "taskName": null
+}
+2025-10-15 01:42:23 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 01:42:47 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}

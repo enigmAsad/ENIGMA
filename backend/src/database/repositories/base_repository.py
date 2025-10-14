@@ -25,19 +25,26 @@ class BaseRepository(Generic[ModelType]):
         self.model = model
         self.db = db
 
-    def create(self, obj: ModelType) -> ModelType:
+    def create(self, obj: ModelType | Dict[str, Any]) -> ModelType:
         """Create a new record.
 
+        Accepts either a SQLAlchemy model instance or a dictionary of field values.
+
         Args:
-            obj: Model instance to create
+            obj: Model instance or data dictionary to insert
 
         Returns:
             ModelType: Created instance
         """
-        self.db.add(obj)
+        if isinstance(obj, dict):
+            instance = self.model(**obj)
+        else:
+            instance = obj
+
+        self.db.add(instance)
         self.db.flush()
-        self.db.refresh(obj)
-        return obj
+        self.db.refresh(instance)
+        return instance
 
     def get_by_id(self, id_value: Any, id_field: str = "id") -> Optional[ModelType]:
         """Get record by ID.

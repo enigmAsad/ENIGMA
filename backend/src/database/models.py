@@ -7,7 +7,7 @@ indexes, and constraints for the 9-phase batch processing workflow.
 from datetime import datetime
 from sqlalchemy import (
     Column, String, Integer, Float, Boolean, Text, DateTime,
-    ForeignKey, Index, Enum as SQLEnum, TIMESTAMP, JSON
+    ForeignKey, Index, Enum as SQLEnum, TIMESTAMP, JSON, UniqueConstraint
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import JSONB
@@ -87,6 +87,104 @@ class JudgeDecisionEnum(str, enum.Enum):
 
 
 # Database Models
+
+
+class StudentStatusEnum(str, enum.Enum):
+    """Student account status enum."""
+
+    ACTIVE = "active"
+    SUSPENDED = "suspended"
+    DELETED = "deleted"
+
+
+class StudentAccount(Base):
+    """Student account table for authenticated applicants."""
+
+    __tablename__ = "student_accounts"
+
+    student_id = Column(String(50), primary_key=True)
+    primary_email = Column(String(255), nullable=False, unique=True)
+    display_name = Column(String(255), nullable=True)
+    status = Column(SQLEnum(StudentStatusEnum), nullable=False, default=StudentStatusEnum.ACTIVE)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+    updated_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+    verified_at = Column(TIMESTAMP(timezone=True), nullable=True)
+
+    # Relationships
+    applications = relationship("Application", back_populates="student")
+    oauth_identities = relationship("OAuthIdentity", back_populates="student", cascade="all, delete-orphan")
+    sessions = relationship("StudentSession", back_populates="student", cascade="all, delete-orphan")
+
+    __table_args__ = (
+        Index("idx_student_status", "status"),
+    )
+
+
+class OAuthIdentity(Base):
+    """Linked OAuth identity for a student account."""
+
+    __tablename__ = "oauth_identities"
+
+    identity_id = Column(Integer, primary_key=True, autoincrement=True)
+    student_id = Column(String(50), ForeignKey("student_accounts.student_id", ondelete="CASCADE"), nullable=False)
+    provider = Column(String(50), nullable=False)
+    provider_sub = Column(String(255), nullable=False)
+    email = Column(String(255), nullable=False)
+    email_verified = Column(Boolean, nullable=False, default=False)
+    raw_profile = Column(JSONB, nullable=True)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+    updated_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    student = relationship("StudentAccount", back_populates="oauth_identities")
+
+    __table_args__ = (
+        UniqueConstraint("provider", "provider_sub", name="uq_oauth_provider_sub"),
+        Index("idx_oauth_student", "student_id"),
+    )
+
+
+class StudentSession(Base):
+    """Student session table for cookie-based authentication."""
+
+    __tablename__ = "student_sessions"
+
+    session_id = Column(String(64), primary_key=True)
+    student_id = Column(String(50), ForeignKey("student_accounts.student_id", ondelete="CASCADE"), nullable=False)
+    session_token_hash = Column(String(128), nullable=False, unique=True)
+    expires_at = Column(TIMESTAMP(timezone=True), nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+    last_active_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+    ip_address = Column(String(45), nullable=True)
+    user_agent = Column(Text, nullable=True)
+    revoked = Column(Boolean, nullable=False, default=False)
+
+    # Relationships
+    student = relationship("StudentAccount", back_populates="sessions")
+
+    __table_args__ = (
+        Index("idx_student_session_student", "student_id"),
+        Index("idx_student_session_token", "session_token_hash"),
+    )
+
+
+class StudentAuthState(Base):
+    """Transient OIDC/PKCE state tracking for login flows."""
+
+    __tablename__ = "student_auth_states"
+
+    state = Column(String(64), primary_key=True)
+    code_challenge = Column(String(128), nullable=False)
+    code_verifier_hash = Column(String(128), nullable=False)
+    nonce = Column(String(64), nullable=True)
+    redirect_uri = Column(Text, nullable=False)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+    expires_at = Column(TIMESTAMP(timezone=True), nullable=False)
+    consumed = Column(Boolean, nullable=False, default=False)
+
+    __table_args__ = (
+        Index("idx_auth_state_expires", "expires_at"),
+    )
 
 class AdmissionCycle(Base):
     """Admission cycle table - manages application periods and phases."""
@@ -173,6 +271,7 @@ class Application(Base):
 
     application_id = Column(String(50), primary_key=True)
     admission_cycle_id = Column(String(50), ForeignKey("admission_cycles.cycle_id"), nullable=False)
+    student_id = Column(String(50), ForeignKey("student_accounts.student_id", ondelete="SET NULL"), nullable=True)
     timestamp = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
 
     # PII fields (encrypted in identity_mapping)
@@ -196,12 +295,14 @@ class Application(Base):
     cycle = relationship("AdmissionCycle", back_populates="applications")
     anonymized = relationship("AnonymizedApplication", back_populates="application", uselist=False)
     deterministic_metrics = relationship("DeterministicMetrics", back_populates="application", uselist=False)
+    student = relationship("StudentAccount", back_populates="applications")
 
     # Indexes
     __table_args__ = (
         Index("idx_app_cycle_status", "admission_cycle_id", "status"),
         Index("idx_app_id", "application_id"),
         Index("idx_app_email", "email"),
+        UniqueConstraint("student_id", "admission_cycle_id", name="uq_application_student_cycle"),
     )
 
 

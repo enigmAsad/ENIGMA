@@ -154,6 +154,26 @@ class Settings(BaseSettings):
         description="Admin JWT token expiry time in hours"
     )
 
+    # Student OAuth Configuration
+    google_client_id: str = Field(
+        ...,
+        description="Google OAuth 2.0 client ID"
+    )
+    google_client_secret: str = Field(
+        ...,
+        description="Google OAuth 2.0 client secret"
+    )
+    google_oauth_redirect_base: str = Field(
+        ...,
+        description="Base URL used to compute OAuth redirect URIs"
+    )
+    student_session_ttl_hours: int = Field(
+        default=8,
+        ge=1,
+        le=72,
+        description="Student session lifetime in hours"
+    )
+
     # Logging
     log_level: str = Field(
         default="INFO",

@@ -6,6 +6,7 @@ from .worker_llm import WorkerLLM
 from .judge_llm import JudgeLLM
 from .hash_chain import HashChainGenerator
 from .email_service import EmailService
+from .student_auth import StudentAuthService
 
 __all__ = [
     "ApplicationCollector",
@@ -14,4 +15,5 @@ __all__ = [
     "JudgeLLM",
     "HashChainGenerator",
     "EmailService",
+    "StudentAuthService",
 ]

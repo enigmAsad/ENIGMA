@@ -30,6 +30,20 @@
 
 ENIGMA is an **AI-powered blind merit screening system** designed to eliminate bias in university admissions through a production-ready PostgreSQL backend with a **9-phase workflow** for automated LLM processing, comprehensive audit logging, and enterprise-grade security.
 
+### Phase 1.5 Student Accounts Progress
+
+**Completed for Update Phase 1**
+- Added student authentication schema (accounts, OAuth identities, sessions, PKCE state) with Alembic migration `20251014_0000_add_student_accounts`.
+- Implemented core repositories and `StudentAuthService` to manage Google OAuth exchange, account provisioning, and session lifecycle.
+- Extended application models/schemas to link submissions to authenticated student accounts and enforce per-cycle uniqueness.
+- Updated configuration to require Google OAuth credentials and student session TTL settings.
+
+**Remaining for Update Phase 1**
+- Expose student-facing endpoints (`/auth/student/google/callback`, `/auth/student/logout`, `/auth/student/me`) and wire HttpOnly cookie issuance.
+- Enforce authenticated submission path in `/applications` with per-cycle duplicate guard and migrate existing data where needed.
+- Add automated tests covering OAuth state validation, session issuance/revocation, and application submission flow under authentication.
+- Finalize documentation, env samples, and operational runbooks for Google OAuth configuration and student dashboard consumption.
+
 ### Key Features
 
 - **Blind Evaluation**: Complete PII removal with Fernet encryption
@@ -585,6 +599,13 @@ with get_db_context() as db:
 ---
 
 ## Changelog
+
+### v2.1.0 (2025-10-14) - Student Accounts & Google OAuth
+- **Added**: Student authentication tables (`student_accounts`, `oauth_identities`, `student_sessions`, `student_auth_states`) with new Alembic migration `20251014_0000_add_student_accounts`.
+- **Added**: Google OAuth (OIDC + PKCE) login flow issuing HttpOnly student sessions with `/auth/student/google/start`, `/auth/student/google/callback`, `/auth/student/logout`, and `/auth/student/me` endpoints.
+- **Updated**: Application submission now requires authenticated student sessions; email derives from Google profile and backend enforces one application per cycle per student.
+- **Added**: Student-linked application retrieval via `/auth/student/me` to power the new student dashboard experience.
+- **Config**: Introduced new environment variables `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_OAUTH_REDIRECT_BASE`, and `STUDENT_SESSION_TTL_HOURS`.
 
 ### v2.0.5 (2025-10-13) - Critical Workflow & Results Display Fixes
 - **Fixed**: Hash chain `chain_id` changed from `String(50)` to `Integer` with `autoincrement=True` to resolve NULL constraint violations during hash chain entry creation (`models.py:451`).

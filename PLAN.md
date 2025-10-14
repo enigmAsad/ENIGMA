@@ -1,6 +1,6 @@
-# ENIGMA MVP - Implementation-Only Specification
+# ENIGMA System Plan (Production-Ready)
 
-**Status:** Phase 1 ✅ Complete (PostgreSQL) | Phase 2 🔄 Planned
+**Status:** Phase 1 ✅ Complete (PostgreSQL) | Accounts & SSO ⏳ In Progress | Phase 2 🔄 Planned
 
 ## Scope
 - Standalone admissions portal with two-phase selection
@@ -14,6 +14,14 @@
   - Bias monitoring focuses on evaluators, not applicants
   - Real-time transcription and LLM analysis
   - Evaluator dashboard with nudge system
+  
+**Student Accounts & SSO (Phase 1.5)** ⏳ **IN PROGRESS**
+- Google OAuth (OIDC + PKCE) student login
+- Enforce one application per admission cycle per student account
+- Application submission derives contact email from SSO; no separate email input
+- Preserve anonymization: evaluators only see anonymized records; student identity never enters evaluator context
+- Student actions (e.g., application submission) will be linked to their account in operational logs. The cryptographic audit trail for evaluation decisions will remain fully anonymized, referencing only anonymized application IDs to ensure integrity.
+- A dedicated student dashboard will replace the public ID-based status checker, allowing users to manage their applications from a secure, authenticated session.
 
 ## System Architecture
 
@@ -38,6 +46,12 @@
 - COI declaration form: simple consent/declaration prior to interview
 - Evaluator nudge UI: soft alerts for biased language; hard flags for policy violations
 - Evaluator dashboard: live interview console, digital rubric, justification fields
+
+**⏳ Accounts & SSO - In Progress (Frontend):**
+- Student sign-in with Google (OIDC + PKCE)
+- Submission flow uses authenticated session; no manual email field
+- Student dashboard to manage applications (view status, results), replacing the public status checker page for authenticated users.
+- Session stored in HttpOnly cookies with CSRF protection
 
 ### Backend (FastAPI + PostgreSQL + Python 3.12)
 
@@ -78,6 +92,13 @@
 - Email notification system: confirmation, shortlist, final results
 - Appeal handler: inbox intake, review queue
 
+**⏳ Accounts & SSO - In Progress (Backend):**
+- Student OIDC (Google) login endpoint; verify `email_verified`
+- Store identity bindings (`provider`, `provider_sub`, `email`) and session issuance
+- Submission endpoint requires student session; derive email from SSO claims
+- Enforce one application per cycle per student via DB unique index and service-layer checks
+- Maintain strict separation: PII in encrypted stores; evaluators see only anonymized IDs
+
 ### Data Layer
 
 **✅ Phase 1 - PostgreSQL Schema (14 Tables):**
@@ -103,11 +124,27 @@
 
 **Relationships:**
 - admission_cycles (1:N) → applications (1:1) → anonymized_applications
+- **New Flow**: `student_accounts` (1:N) → `applications`
 - anonymized_applications (1:1) → identity_mapping
 - anonymized_applications (1:N) → worker_results (1:N) → judge_results
 - anonymized_applications (1:1) → final_scores
 - admin_users (1:N) → admin_sessions, admission_cycles
 - Full hash chain linkage across audit_logs
+
+**Data Flow for Evaluation and Results for Phase 1**
+- The core data flow is designed to ensure a blind evaluation while allowing results to be securely delivered back to the student.
+- **Forward Path (Submission & Evaluation):** `student_accounts` → `applications` → `anonymized_applications` → `final_scores`.
+  - An authenticated student submits an `application`.
+  - The system creates a corresponding `anonymized_application`, stripping all PII.
+  - All evaluation work (worker/judge results) culminates in a `final_score` record linked to the `anonymized_application`.
+- **Return Path (Results Display):** `final_scores` → `anonymized_applications` → `applications` → `student_accounts`.
+  - The selection decision (`SELECTED`/`NOT_SELECTED`) is stored in the `final_scores` table.
+  - When a student views their dashboard, the system uses this reverse linkage to find the relevant decision and display it securely, without ever exposing the student's identity during the evaluation phases.
+
+**⏳ Accounts & SSO - New Tables (In Progress):**
+- **student_accounts**: Student identity source (primary_email, status, created_at, verified_at)
+- **oauth_identities**: `student_id`, `provider`, `provider_sub`, `email`, `email_verified`
+- Add `student_id` FK to **applications**; create unique index on `(student_id, admission_cycle_id)`
 
 **🔄 Phase 2 - Additional Tables (Planned):**
 - **live_sessions**: Session metadata and scheduling
@@ -169,10 +206,13 @@
 - **Human Evaluator**: Conduct live interviews, score via digital rubric, write justifications
 - **Admin** (additional): Manage evaluators, review bias flags, handle appeals, oversee re-assignments
 
+**⏳ Accounts & SSO - In Progress:**
+- **Student**: Authenticates via Google. Submits and manages their application(s) through a dedicated dashboard. All actions are linked to their account while preserving the anonymity of the evaluation process.
+
 ### Lifecycle
 
 **✅ Phase 1: AI Merit Screening (9-Phase Workflow) - Implemented:**
-1. **SUBMISSION**: Collect applications via public API with real-time seat tracking
+1. **SUBMISSION**: Applications are collected through an SSO-authenticated public API, enabling verified student submissions with real-time seat availability tracking.
 2. **FROZEN**: Admin freezes cycle; all applications marked as FINALIZED
 3. **PREPROCESSING**: Compute deterministic metrics (GPA, test averages, percentile ranks)
 4. **BATCH_PREP**: Export anonymized applications to JSONL for LLM batch processing
@@ -196,6 +236,11 @@
 - Combine validated interview scores with Phase 1
 - Update hash chain and audit logs
 
+**⏳ Accounts & SSO - In Progress (Lifecycle Changes):**
+- **Authenticated Submissions**: Application submission now requires an authenticated student session (via Google). The system will enforce a one-application-per-cycle limit per student account.
+- **SSO-Derived Identity**: The applicant's email will be derived from the SSO claims, removing the need for a manual email field in the form. This PII is immediately subject to the existing encryption and anonymization process.
+- **Student Dashboard & Results Delivery**: The public, ID-based status checker is replaced by a secure student dashboard. When results are published, the system uses the relational link from `final_scores` back to the `student_account` (via the anonymized and original application records) to display the final decision and feedback to the correctly authenticated student. This "round-trip" data flow is central to maintaining a blind evaluation while providing a personalized user experience.
+
 **🔄 Additional Features - Planned:**
 - **Notifications**: Email confirmations, shortlist, final results with verification link
 - **Appeals**: Intake, review queue, resolution tracking
@@ -207,9 +252,12 @@
 - Monitoring focus: evaluator bias referencing protected attributes or irrelevant factors
 
 ### Audit Trail
-- Decision record persisted and hashed using SHA-256
-- Public verification via hash chain validation
-- Integrity breaks detectable on any post-hoc changes
+ - Decision-critical evaluation events only, recorded under anonymized IDs:
+   - evaluation_started, worker_result, judge_result, final_score_committed, selection_decision, results_published
+ - Hash-chained integrity with payload digests only (input_hash/output_hash). No raw payloads or PII in audit rows. The chain is anchored to anonymized application IDs only.
+ - Database-level audit trail for DML tamper evidence (append-only): table, operation, primary_key, before_hash, after_hash, tx_id, timestamp; periodic root-hash anchoring
+ - Public verification via hash chain validation; integrity breaks detectable on any post-hoc changes
+ - Operational/auth/session events are excluded from the hash chain (kept in standard logs/metrics if needed)
 
 ### Explainability
 - Include: Phase 1 score; interview score; final combined score

@@ -75,7 +75,7 @@ class ApplicationCollector:
             gpa=application.gpa,
             test_scores=application.test_scores,
             essay=application.essay,
-            achievements=application.achievements
+            achievements=application.achievements,
         )
 
         # Audit log

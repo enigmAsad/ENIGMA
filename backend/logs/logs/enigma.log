@@ -1260,3 +1260,15 @@ DETAIL:  Failing row contains (null, ANON_1760355123657_3542D0, phase1_final, {"
 {
     "taskName": null
 }
+2025-10-15 01:52:34 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 01:53:10 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 01:53:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}

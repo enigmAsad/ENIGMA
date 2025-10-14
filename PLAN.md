@@ -131,7 +131,7 @@
 - admin_users (1:N) → admin_sessions, admission_cycles
 - Full hash chain linkage across audit_logs
 
-**Data Flow for Evaluation and Results:**
+**Data Flow for Evaluation and Results for Phase 1**
 - The core data flow is designed to ensure a blind evaluation while allowing results to be securely delivered back to the student.
 - **Forward Path (Submission & Evaluation):** `student_accounts` → `applications` → `anonymized_applications` → `final_scores`.
   - An authenticated student submits an `application`.
@@ -212,7 +212,7 @@
 ### Lifecycle
 
 **✅ Phase 1: AI Merit Screening (9-Phase Workflow) - Implemented:**
-1. **SUBMISSION**: Collect applications via public API with real-time seat tracking
+1. **SUBMISSION**: Applications are collected through an SSO-authenticated public API, enabling verified student submissions with real-time seat availability tracking.
 2. **FROZEN**: Admin freezes cycle; all applications marked as FINALIZED
 3. **PREPROCESSING**: Compute deterministic metrics (GPA, test averages, percentile ranks)
 4. **BATCH_PREP**: Export anonymized applications to JSONL for LLM batch processing

@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     try {
       const codeVerifier = createCodeVerifier();
       const codeChallenge = await createCodeChallenge(codeVerifier);
-      const redirectUri = `${window.location.origin}/auth/callback`;
+      const redirectUri = `${window.location.origin}/auth/google/callback`;
 
       sessionStorage.setItem('code_verifier', codeVerifier);
       sessionStorage.setItem('redirect_uri', redirectUri);

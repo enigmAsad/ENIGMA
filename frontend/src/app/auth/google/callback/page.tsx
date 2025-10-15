@@ -15,17 +15,19 @@ export default function GoogleCallbackPage() {
       const code = searchParams.get('code');
       const state = searchParams.get('state');
       const codeVerifier = sessionStorage.getItem('code_verifier');
+      const redirectUri = sessionStorage.getItem('redirect_uri');
 
-      if (code && state && codeVerifier) {
+      if (code && state && codeVerifier && redirectUri) {
         try {
-          await studentApiClient.completeGoogleLogin(code, state, codeVerifier);
+          await studentApiClient.completeGoogleLogin(code, state, codeVerifier, redirectUri);
           sessionStorage.removeItem('code_verifier');
+          sessionStorage.removeItem('redirect_uri');
           router.push('/student/dashboard');
         } catch (err: any) {
           setError(err.message);
         }
       } else {
-        setError('Missing code, state, or verifier from Google');
+        setError('Missing code, state, verifier, or redirect URI from login flow');
       }
     };
 

@@ -20,7 +20,7 @@ branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
 
-studentstatusenum = sa.Enum("active", "suspended", "deleted", name="studentstatusenum")
+studentstatusenum = sa.Enum("ACTIVE", "SUSPENDED", "DELETED", name="studentstatusenum")
 
 
 def upgrade() -> None:

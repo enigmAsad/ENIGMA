@@ -105,7 +105,7 @@ class StudentAccount(Base):
     student_id = Column(String(50), primary_key=True)
     primary_email = Column(String(255), nullable=False, unique=True)
     display_name = Column(String(255), nullable=True)
-    status = Column(SQLEnum(StudentStatusEnum), nullable=False, default=StudentStatusEnum.ACTIVE)
+    status = Column(SQLEnum(StudentStatusEnum, native_enum=True), nullable=False, default=StudentStatusEnum.ACTIVE)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
     updated_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
     verified_at = Column(TIMESTAMP(timezone=True), nullable=True)

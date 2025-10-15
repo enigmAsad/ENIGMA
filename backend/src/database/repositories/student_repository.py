@@ -36,7 +36,6 @@ class StudentRepository(BaseRepository[StudentAccount]):
             primary_email=primary_email,
             display_name=display_name,
             verified_at=verified_at,
-            status=StudentStatusEnum.ACTIVE,
         )
         self.db.add(student)
         self.db.flush()

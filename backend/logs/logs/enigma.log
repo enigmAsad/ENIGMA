@@ -1272,3 +1272,397 @@ DETAIL:  Failing row contains (null, ANON_1760355123657_3542D0, phase1_final, {"
 {
     "taskName": null
 }
+2025-10-15 18:45:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 18:45:52 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 18:45:52 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 18:45:57 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 18:45:57 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 18:45:57 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 18:45:57 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 18:45:59 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 18:48:06 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:50:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:52:24 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:53:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:53:17 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:53:20 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:55:29 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:56:17 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:56:24 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:56:41 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:56:52 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:56:59 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_3BE77574', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 13, 56, 58, 653413), 'updated_at': datetime.datetime(2025, 10, 15, 13, 56, 58, 653413), 'verified_at': datetime.datetime(2025, 10, 15, 13, 56, 58, 650412, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-47"
+}
+2025-10-15 18:56:59 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 18:59:08 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 18:59:28 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:59:30 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_049260C0', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 13, 59, 30, 384336), 'updated_at': datetime.datetime(2025, 10, 15, 13, 59, 30, 384336), 'verified_at': datetime.datetime(2025, 10, 15, 13, 59, 30, 381334, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-5"
+}
+2025-10-15 18:59:30 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 18:59:54 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 18:59:55 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 18:59:55 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 18:59:59 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 18:59:59 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 18:59:59 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 18:59:59 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 19:00:02 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 19:00:05 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:00:31 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:00:34 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_A7968B46', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 14, 0, 33, 519989), 'updated_at': datetime.datetime(2025, 10, 15, 14, 0, 33, 519989), 'verified_at': datetime.datetime(2025, 10, 15, 14, 0, 33, 517953, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-10"
+}
+2025-10-15 19:00:34 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 19:03:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 19:04:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:04:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:04:52 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:04:55 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_C3C70CDB', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 14, 4, 54, 767598), 'updated_at': datetime.datetime(2025, 10, 15, 14, 4, 54, 767598), 'verified_at': datetime.datetime(2025, 10, 15, 14, 4, 54, 765598, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-12"
+}
+2025-10-15 19:04:55 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 19:05:49 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:05:49 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:07:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": "Task-1"
+}
+2025-10-15 19:07:54 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 19:07:54 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 19:07:54 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 19:07:59 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 19:07:59 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 19:07:59 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 19:07:59 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 19:08:01 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 19:08:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:08:22 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:08:26 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_C965BD71', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 14, 8, 25, 966898), 'updated_at': datetime.datetime(2025, 10, 15, 14, 8, 25, 966898), 'verified_at': datetime.datetime(2025, 10, 15, 14, 8, 25, 962897, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-12"
+}
+2025-10-15 19:08:26 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:03:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:05:54 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:09:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:09:45 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 20:09:45 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 20:09:50 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 20:09:50 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 20:09:50 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 20:09:50 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 20:09:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:10:01 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:10:13 | ERROR    | database | Database session error: (psycopg2.errors.UndefinedTable) relation "student_auth_states" does not exist
+LINE 1: INSERT INTO student_auth_states (state, code_challenge, code...
+                    ^
+
+[SQL: INSERT INTO student_auth_states (state, code_challenge, code_verifier_hash, nonce, redirect_uri, created_at, expires_at, consumed) VALUES (%(state)s, %(code_challenge)s, %(code_verifier_hash)s, %(nonce)s, %(redirect_uri)s, %(created_at)s, %(expires_at)s, %(consumed)s)]
+[parameters: {'state': '8ENF1cdeLA0RghBVPyhmmw', 'code_challenge': 'ZDyEGy_mrg5A0Ueyo2bFeI1QiGE6TzmPM-ug-sl11Lo', 'code_verifier_hash': '', 'nonce': 'FJllm7TD9ic-swekW1Qnog', 'redirect_uri': 'http://localhost:3000/auth/google/callback', 'created_at': datetime.datetime(2025, 10, 15, 15, 10, 12, 420110), 'expires_at': datetime.datetime(2025, 10, 15, 15, 20, 8, 419316, tzinfo=datetime.timezone.utc), 'consumed': False}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+{
+    "taskName": null
+}
+2025-10-15 20:10:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:12:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:12:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:13:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:13:20 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:13:28 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_B8EF7B7C', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 15, 13, 27, 604621), 'updated_at': datetime.datetime(2025, 10, 15, 15, 13, 27, 604621), 'verified_at': datetime.datetime(2025, 10, 15, 15, 13, 27, 602619, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-13"
+}
+2025-10-15 20:13:28 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:15:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:17:37 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:17:37 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:17:50 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:17:53 | INFO     | student_auth | Created new student account STU_F5355E37 for arsalansikander0216@gmail.com
+{
+    "taskName": "Task-16"
+}
+2025-10-15 20:17:54 | INFO     | student_auth | Linked OAuth identity google:113590372563471847411 to student STU_F5355E37
+{
+    "taskName": "Task-16"
+}
+2025-10-15 20:17:54 | INFO     | student_auth | Issued session STS_CACB8DC40C for student STU_F5355E37
+{
+    "taskName": "Task-16"
+}
+2025-10-15 20:17:54 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-16"
+}
+2025-10-15 20:17:54 | ERROR    | api | An unexpected error occurred during student login: 'Settings' object has no attribute 'debug'
+{
+    "taskName": "Task-16"
+}
+2025-10-15 20:17:54 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:19:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

@@ -19,8 +19,10 @@ from src.database.repositories import (
     OAuthIdentityRepository,
     StudentSessionRepository,
     StudentAuthStateRepository,
+    ApplicationRepository,  # Import ApplicationRepository
+    AdminRepository,        # Import AdminRepository
 )
-from src.database.models import StudentStatusEnum
+from src.database.models import StudentStatusEnum, Application, FinalScore
 from src.utils.logger import get_logger
 
 
@@ -37,6 +39,8 @@ class StudentAuthService:
         self.identities = OAuthIdentityRepository(db)
         self.sessions = StudentSessionRepository(db)
         self.auth_states = StudentAuthStateRepository(db)
+        self.applications = ApplicationRepository(db) # Add application repo
+        self.admins = AdminRepository(db) # Add admin repo
 
     # ------------------------------------------------------------------
     # PKCE / OIDC helpers
@@ -332,6 +336,30 @@ class StudentAuthService:
         if not student or student.status != StudentStatusEnum.ACTIVE:
             return None
 
+        # --- Fetch Application Data ---
+        application_data = None
+        # Find the most recent application for this student
+        application = self.db.query(Application).filter(
+            Application.student_id == student.student_id
+        ).order_by(Application.created_at.desc()).first()
+
+        if application:
+            results = self.db.query(FinalScore).filter(
+                FinalScore.anonymized_id == application.anonymized.anonymized_id
+            ).first() if application.anonymized else None
+
+            application_data = {
+                "status": {
+                    "application_id": application.application_id,
+                    "anonymized_id": application.anonymized.anonymized_id if application.anonymized else None,
+                    "status": application.status.value,
+                    "message": "Status retrieved",
+                    "timestamp": application.updated_at or application.timestamp,
+                },
+                "results": results
+            }
+        # --------------------------------
+
         # Update last_active timestamp for rolling activity
         self.sessions.update(
             session.session_id,
@@ -344,6 +372,7 @@ class StudentAuthService:
             "primary_email": student.primary_email,
             "display_name": student.display_name,
             "status": student.status.value,
+            "application": application_data,  # Include application data
         }
 
     def cleanup(self) -> Dict[str, int]:

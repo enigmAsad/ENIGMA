@@ -5,11 +5,17 @@
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
+import { ApplicationStatusResponse, ResultsResponse, ApplicationSubmitRequest, ApplicationSubmitResponse } from './api';
+
 export interface Student {
   student_id: string;
   primary_email: string;
   display_name: string | null;
   status: string;
+  application?: {
+    status: ApplicationStatusResponse;
+    results: ResultsResponse | null;
+  } | null;
 }
 
 export interface StudentSessionResponse {
@@ -80,6 +86,13 @@ class StudentAPIClient {
   async logout(): Promise<{ success: boolean }> {
     return this.request<{ success: boolean }>('/auth/student/logout', {
       method: 'POST',
+    });
+  }
+
+  async submitApplication(data: ApplicationSubmitRequest): Promise<ApplicationSubmitResponse> {
+    return this.request<ApplicationSubmitResponse>('/applications', {
+      method: 'POST',
+      body: JSON.stringify(data),
     });
   }
 }

@@ -1,7 +1,7 @@
 
 'use client';
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import { studentApiClient, Student } from '@/lib/studentApi';
 import { createCodeVerifier, createCodeChallenge } from '@/lib/pkce';
 
@@ -12,6 +12,7 @@ interface AuthContextType {
   login: () => Promise<void>;
   logout: () => Promise<void>;
   setStudent: (student: Student | null) => void;
+  refreshStudent: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -21,19 +22,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    const verifyStudent = async () => {
-      try {
-        const currentStudent = await studentApiClient.getMe();
-        setStudent(currentStudent);
-      } catch (err) {
-        setStudent(null);
-      } finally {
-        setLoading(false);
-      }
-    };
-    verifyStudent();
+  const verifyStudent = useCallback(async () => {
+    try {
+      const currentStudent = await studentApiClient.getMe();
+      setStudent(currentStudent);
+    } catch (err) {
+      setStudent(null);
+    } finally {
+      setLoading(false);
+    }
   }, []);
+
+  useEffect(() => {
+    verifyStudent();
+  }, [verifyStudent]);
 
   const login = async () => {
     try {
@@ -60,8 +62,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const refreshStudent = async () => {
+    setLoading(true);
+    await verifyStudent();
+  };
+
   return (
-    <AuthContext.Provider value={{ student, loading, error, login, logout, setStudent }}>
+    <AuthContext.Provider value={{ student, loading, error, login, logout, setStudent, refreshStudent }}>
       {children}
     </AuthContext.Provider>
   );

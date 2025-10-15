@@ -9,7 +9,7 @@ import logging
 
 from src.config.settings import get_settings
 from src.models.schemas import (
-    Application,
+    Application as ApplicationSchema,
     ApplicationStatus,
     AdminUser,
     AdmissionCycle,
@@ -27,7 +27,7 @@ from src.services.phase_manager import PhaseManager
 from src.services.batch_processor import BatchProcessingService
 from src.database.engine import get_db
 from src.database.repositories import AdminRepository, ApplicationRepository, BatchRepository
-from src.database.models import BatchTypeEnum, ApplicationStatusEnum
+from src.database.models import Application, BatchTypeEnum, ApplicationStatusEnum
 from src.utils.logger import get_logger, AuditLogger
 from sqlalchemy.orm import Session
 
@@ -129,6 +129,10 @@ class StudentAuthStartResponse(BaseModel):
     state: str
 
 
+class StudentApplicationData(BaseModel):
+    status: ApplicationStatusResponse
+    results: Optional[ResultsResponse]
+
 class StudentProfileResponse(BaseModel):
     """Student profile returned when authenticated."""
 
@@ -136,6 +140,7 @@ class StudentProfileResponse(BaseModel):
     primary_email: EmailStr
     display_name: Optional[str]
     status: str
+    application: Optional[StudentApplicationData] = None
 
 
 class StudentSessionResponse(BaseModel):
@@ -346,7 +351,9 @@ async def get_current_student(
     if not student_session:
         raise HTTPException(status_code=401, detail="Not authenticated")
 
-    return StudentProfileResponse(**student_session)
+    # The student_session dictionary now contains the application data.
+    # Pydantic will automatically map it to the StudentProfileResponse model.
+    return student_session
 
 
 @app.post("/auth/student/logout", response_model=StudentLogoutResponse)
@@ -421,9 +428,9 @@ async def submit_application(
             app_data["student_id"] = student_id
 
             # Enforce one application per cycle per student
-            existing_query = db.query(ApplicationRepository.model).filter(  # type: ignore[attr-defined]
-                ApplicationRepository.model.student_id == student_id,
-                ApplicationRepository.model.admission_cycle_id == active_cycle.cycle_id,
+            existing_query = db.query(Application).filter(
+                Application.student_id == student_id,
+                Application.admission_cycle_id == active_cycle.cycle_id,
             )
             if existing_query.first():
                 raise HTTPException(

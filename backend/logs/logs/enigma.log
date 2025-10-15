@@ -1764,3 +1764,691 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": null
 }
+2025-10-15 20:29:56 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:30:00 | INFO     | student_auth | Issued session STS_7549DEE57F for student STU_F5355E37
+{
+    "taskName": "Task-12"
+}
+2025-10-15 20:30:00 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-12"
+}
+2025-10-15 20:33:36 | INFO     | student_auth | Revoked session STS_7549DEE57F
+{
+    "taskName": "Task-24"
+}
+2025-10-15 20:33:51 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:33:55 | INFO     | student_auth | Issued session STS_C66D7A0382 for student STU_F5355E37
+{
+    "taskName": "Task-30"
+}
+2025-10-15 20:33:55 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-30"
+}
+2025-10-15 20:34:00 | INFO     | student_auth | Revoked session STS_C66D7A0382
+{
+    "taskName": "Task-35"
+}
+2025-10-15 20:36:41 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:36:45 | INFO     | student_auth | Issued session STS_F34B2030AD for student STU_F5355E37
+{
+    "taskName": "Task-44"
+}
+2025-10-15 20:36:45 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-44"
+}
+2025-10-15 20:36:49 | INFO     | student_auth | Revoked session STS_F34B2030AD
+{
+    "taskName": "Task-49"
+}
+2025-10-15 20:37:04 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 22:55:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 22:55:35 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 22:55:35 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 22:55:40 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 22:55:40 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 22:55:40 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 22:55:40 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 22:55:42 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 22:56:38 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 22:56:44 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 22:57:17 | INFO     | create_admin | Admin user created successfully: enigma
+{
+    "taskName": null
+}
+2025-10-15 22:57:24 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-11"
+}
+2025-10-15 22:57:31 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-11"
+}
+2025-10-15 22:59:31 | INFO     | api | Created and opened admission cycle: Test Session
+{
+    "taskName": "Task-36"
+}
+2025-10-15 22:59:44 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 22:59:53 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 22:59:58 | INFO     | student_auth | Issued session STS_85EF4F68BF for student STU_F5355E37
+{
+    "taskName": "Task-51"
+}
+2025-10-15 22:59:59 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-51"
+}
+2025-10-15 23:01:12 | INFO     | application_collector | Collecting new application from tu@gmail.com
+{
+    "taskName": "Task-62"
+}
+2025-10-15 23:01:13 | INFO     | audit | AUDIT: create | Application:APP_F1D8AB93 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-15T18:01:13.374151
+{
+    "taskName": "Task-62"
+}
+2025-10-15 23:01:13 | INFO     | application_collector | Application collected successfully: APP_F1D8AB93
+{
+    "taskName": "Task-62"
+}
+2025-10-15 23:01:13 | INFO     | api | Application submitted: APP_F1D8AB93 (Cycle: Test Session)
+{
+    "taskName": "Task-62"
+}
+2025-10-15 23:01:36 | INFO     | api | Closed admission cycle: Test Session
+{
+    "taskName": "Task-74"
+}
+2025-10-15 23:01:50 | INFO     | phase_manager | Freezing cycle CYC_20251015_175930 by admin ADM_ENIGMA
+{
+    "taskName": "Task-82"
+}
+2025-10-15 23:01:51 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-82"
+}
+2025-10-15 23:01:52 | INFO     | phase_manager | Cycle CYC_20251015_175930 frozen successfully
+{
+    "taskName": "Task-82"
+}
+2025-10-15 23:01:52 | INFO     | api | Cycle CYC_20251015_175930 frozen by admin enigma
+{
+    "taskName": "Task-82"
+}
+2025-10-15 23:02:06 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251015_175930
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:07 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:08 | INFO     | identity_scrubber | Scrubbing application: APP_F1D8AB93
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:08 | INFO     | identity_scrubber | Applied 3 redactions to APP_F1D8AB93
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:11 | INFO     | identity_scrubber | Successfully scrubbed APP_F1D8AB93 → ANON_1760533328573_785765
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:13 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251015_175930: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:13 | INFO     | api | Preprocessing started for cycle CYC_20251015_175930 by admin enigma
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:25 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:27 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:27 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251015_175930
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:28 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251015_175930: 1 applications ready for export
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:28 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251015_175930 to JSONL
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:29 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251015_175930_20251015_180229.jsonl
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:30 | INFO     | api | Batch export completed for cycle CYC_20251015_175930 by admin enigma
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:48 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:02:49 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:02:49 | INFO     | phase_manager | Starting processing for cycle CYC_20251015_175930
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:02:50 | INFO     | phase_manager | Cycle CYC_20251015_175930 now in PROCESSING phase
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:02:53 | INFO     | worker_llm | Evaluating ANON_1760533328573_785765 (attempt 1)
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:16 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_E8569B7F | actor=worker_llm | details={'anonymized_id': 'ANON_1760533328573_785765', 'attempt_number': 1, 'total_score': 81.5} | timestamp=2025-10-15T18:03:16.846754
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:18 | INFO     | worker_llm | Worker evaluation complete: ANON_1760533328573_785765 → 81.50/100 (attempt 1)
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:18 | INFO     | judge_llm | Validating worker evaluation for ANON_1760533328573_785765 (attempt 1)
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:45 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_2C8B21CC | actor=judge_llm | details={'anonymized_id': 'ANON_1760533328573_785765', 'worker_result_id': 'WKR_E8569B7F', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-15T18:03:45.830141
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:47 | INFO     | judge_llm | Judge validation complete: ANON_1760533328573_785765 → APPROVED  (quality: 87/100)
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:49 | INFO     | audit | AUDIT: update | HashChain:ANON_1760533328573_785765 | actor=hash_chain_generator | details={'hash': '1e5f0e0ceea9e5a06f1071e3020f71c558f2ea9defc1522579463bcdc8aedbdc'} | timestamp=2025-10-15T18:03:49.941169
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:51 | INFO     | hash_chain | Created hash chain entry for ANON_1760533328573_785765: 1e5f0e0ceea9e5a0...
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:52 | INFO     | phase_manager | Marking cycle CYC_20251015_175930 as scored
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:53 | INFO     | phase_manager | Cycle CYC_20251015_175930 marked as SCORED
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:53 | INFO     | api | LLM processing completed for cycle CYC_20251015_175930 by admin enigma
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:04:08 | INFO     | phase_manager | Performing selection for cycle CYC_20251015_175930
+{
+    "taskName": "Task-121"
+}
+2025-10-15 23:04:10 | INFO     | phase_manager | Updated 1 applications to SELECTED status
+{
+    "taskName": "Task-121"
+}
+2025-10-15 23:04:10 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-121"
+}
+2025-10-15 23:04:12 | INFO     | phase_manager | Selection complete: 1 selected, 0 not selected
+{
+    "taskName": "Task-121"
+}
+2025-10-15 23:04:12 | INFO     | api | Selection performed for cycle CYC_20251015_175930 by admin enigma
+{
+    "taskName": "Task-121"
+}
+2025-10-15 23:04:59 | INFO     | phase_manager | Publishing results for cycle CYC_20251015_175930
+{
+    "taskName": "Task-132"
+}
+2025-10-15 23:05:01 | INFO     | hash_chain | Created hash chain entry for ANON_1760533328573_785765: b36bb4654378b4e3...
+{
+    "taskName": "Task-132"
+}
+2025-10-15 23:05:02 | INFO     | phase_manager | Results published for cycle CYC_20251015_175930
+{
+    "taskName": "Task-132"
+}
+2025-10-15 23:05:02 | INFO     | api | Results published for cycle CYC_20251015_175930 by admin enigma
+{
+    "taskName": "Task-132"
+}
+2025-10-15 23:05:17 | INFO     | phase_manager | Completing cycle CYC_20251015_175930
+{
+    "taskName": "Task-141"
+}
+2025-10-15 23:05:17 | INFO     | phase_manager | Cycle CYC_20251015_175930 completed
+{
+    "taskName": "Task-141"
+}
+2025-10-15 23:05:17 | INFO     | api | Cycle CYC_20251015_175930 completed by admin enigma
+{
+    "taskName": "Task-141"
+}
+2025-10-15 23:06:38 | INFO     | student_auth | Revoked session STS_85EF4F68BF
+{
+    "taskName": "Task-171"
+}
+2025-10-15 23:55:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 23:55:14 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:02:48 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:02:48 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:04:02 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:04:02 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:04:06 | INFO     | student_auth | Issued session STS_AA30CCD83A for student STU_F5355E37
+{
+    "taskName": "Task-195"
+}
+2025-10-16 00:04:06 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-195"
+}
+2025-10-16 00:04:06 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-202"
+}
+2025-10-16 00:04:10 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-202"
+}
+2025-10-16 00:07:23 | INFO     | api | Created and opened admission cycle: Test Cycle 2
+{
+    "taskName": "Task-231"
+}
+2025-10-16 00:10:50 | ERROR    | api | Application submission failed: type object 'ApplicationRepository' has no attribute 'model'
+{
+    "taskName": "Task-274"
+}
+2025-10-16 00:10:50 | ERROR    | database | Database session error: 400: type object 'ApplicationRepository' has no attribute 'model'
+{
+    "taskName": null
+}
+2025-10-16 00:13:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:14:03 | ERROR    | api | Application submission failed: Column expression, FROM clause, or other columns clause element expected, got <class 'src.models.schemas.Application'>.
+{
+    "taskName": "Task-4"
+}
+2025-10-16 00:14:03 | ERROR    | database | Database session error: 400: Column expression, FROM clause, or other columns clause element expected, got <class 'src.models.schemas.Application'>.
+{
+    "taskName": null
+}
+2025-10-16 00:17:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:17:52 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-4"
+}
+2025-10-16 00:17:53 | INFO     | audit | AUDIT: create | Application:APP_BD871B55 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-15T19:17:53.825079
+{
+    "taskName": "Task-4"
+}
+2025-10-16 00:17:53 | INFO     | application_collector | Application collected successfully: APP_BD871B55
+{
+    "taskName": "Task-4"
+}
+2025-10-16 00:17:54 | INFO     | api | Application submitted: APP_BD871B55 (Cycle: Test Cycle 2)
+{
+    "taskName": "Task-4"
+}
+2025-10-16 00:21:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:24:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:24:36 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:25:07 | INFO     | student_auth | Revoked session STS_AA30CCD83A
+{
+    "taskName": "Task-7"
+}
+2025-10-16 00:25:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:25:18 | INFO     | student_auth | Issued session STS_D0D946D7AF for student STU_F5355E37
+{
+    "taskName": "Task-15"
+}
+2025-10-16 00:25:19 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-15"
+}
+2025-10-16 00:25:45 | INFO     | api | Closed admission cycle: Test Cycle 2
+{
+    "taskName": "Task-25"
+}
+2025-10-16 00:26:00 | INFO     | student_auth | Revoked session STS_D0D946D7AF
+{
+    "taskName": "Task-36"
+}
+2025-10-16 00:26:07 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:26:11 | INFO     | student_auth | Issued session STS_0F5E1B2CDF for student STU_F5355E37
+{
+    "taskName": "Task-43"
+}
+2025-10-16 00:26:11 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-43"
+}
+2025-10-16 00:26:48 | ERROR    | database | Database session error: 400: Cannot delete cycle with submitted applications. Archive or remove applications first.
+{
+    "taskName": null
+}
+2025-10-16 00:27:29 | INFO     | api | Created and opened admission cycle: Test Cycle 3
+{
+    "taskName": "Task-73"
+}
+2025-10-16 00:29:04 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-104"
+}
+2025-10-16 00:29:05 | INFO     | audit | AUDIT: create | Application:APP_4804B49A | actor=system | details={'stage': 'intake'} | timestamp=2025-10-15T19:29:05.055821
+{
+    "taskName": "Task-104"
+}
+2025-10-16 00:29:05 | INFO     | application_collector | Application collected successfully: APP_4804B49A
+{
+    "taskName": "Task-104"
+}
+2025-10-16 00:29:05 | INFO     | api | Application submitted: APP_4804B49A (Cycle: Test Cycle 3)
+{
+    "taskName": "Task-104"
+}
+2025-10-16 00:29:07 | ERROR    | database | Database session error: 'Application' object has no attribute 'anonymized_application'
+{
+    "taskName": null
+}
+2025-10-16 00:29:16 | ERROR    | database | Database session error: 'Application' object has no attribute 'anonymized_application'
+{
+    "taskName": null
+}
+2025-10-16 00:29:25 | ERROR    | database | Database session error: 'Application' object has no attribute 'anonymized_application'
+{
+    "taskName": null
+}
+2025-10-16 00:29:27 | INFO     | student_auth | Issued session STS_A278C2F449 for student STU_F5355E37
+{
+    "taskName": "Task-114"
+}
+2025-10-16 00:29:27 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-114"
+}
+2025-10-16 00:32:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:33:33 | INFO     | api | Closed admission cycle: Test Cycle 3
+{
+    "taskName": "Task-5"
+}
+2025-10-16 00:35:21 | INFO     | api | Created and opened admission cycle: Test Cycle 4
+{
+    "taskName": "Task-24"
+}
+2025-10-16 00:36:20 | INFO     | student_auth | Revoked session STS_A278C2F449
+{
+    "taskName": "Task-46"
+}
+2025-10-16 00:36:25 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:36:30 | INFO     | student_auth | Issued session STS_44347EE305 for student STU_F5355E37
+{
+    "taskName": "Task-54"
+}
+2025-10-16 00:36:31 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-54"
+}
+2025-10-16 00:37:15 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-69"
+}
+2025-10-16 00:37:16 | INFO     | audit | AUDIT: create | Application:APP_98E8D17E | actor=system | details={'stage': 'intake'} | timestamp=2025-10-15T19:37:16.286188
+{
+    "taskName": "Task-69"
+}
+2025-10-16 00:37:16 | INFO     | application_collector | Application collected successfully: APP_98E8D17E
+{
+    "taskName": "Task-69"
+}
+2025-10-16 00:37:17 | INFO     | api | Application submitted: APP_98E8D17E (Cycle: Test Cycle 4)
+{
+    "taskName": "Task-69"
+}
+2025-10-16 00:37:27 | INFO     | api | Closed admission cycle: Test Cycle 4
+{
+    "taskName": "Task-74"
+}
+2025-10-16 00:37:49 | INFO     | phase_manager | Freezing cycle CYC_20251015_193520 by admin ADM_ENIGMA
+{
+    "taskName": "Task-89"
+}
+2025-10-16 00:37:50 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-89"
+}
+2025-10-16 00:37:51 | INFO     | phase_manager | Cycle CYC_20251015_193520 frozen successfully
+{
+    "taskName": "Task-89"
+}
+2025-10-16 00:37:51 | INFO     | api | Cycle CYC_20251015_193520 frozen by admin enigma
+{
+    "taskName": "Task-89"
+}
+2025-10-16 00:38:23 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251015_193520
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:24 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:24 | INFO     | identity_scrubber | Scrubbing application: APP_98E8D17E
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:25 | INFO     | identity_scrubber | Applied 3 redactions to APP_98E8D17E
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:28 | INFO     | identity_scrubber | Successfully scrubbed APP_98E8D17E → ANON_1760539105218_C5AF5E
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:29 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251015_193520: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:29 | INFO     | api | Preprocessing started for cycle CYC_20251015_193520 by admin enigma
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:39:11 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:12 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:12 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251015_193520
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:13 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251015_193520: 1 applications ready for export
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:13 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251015_193520 to JSONL
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:15 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251015_193520_20251015_193914.jsonl
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:15 | INFO     | api | Batch export completed for cycle CYC_20251015_193520 by admin enigma
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:43:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:44:27 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:28 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:28 | INFO     | phase_manager | Starting processing for cycle CYC_20251015_193520
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:29 | INFO     | phase_manager | Cycle CYC_20251015_193520 now in PROCESSING phase
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:32 | INFO     | worker_llm | Evaluating ANON_1760539105218_C5AF5E (attempt 1)
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:58 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_C98DB419 | actor=worker_llm | details={'anonymized_id': 'ANON_1760539105218_C5AF5E', 'attempt_number': 1, 'total_score': 86.25} | timestamp=2025-10-15T19:44:58.465977
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:59 | INFO     | worker_llm | Worker evaluation complete: ANON_1760539105218_C5AF5E → 86.25/100 (attempt 1)
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:00 | INFO     | judge_llm | Validating worker evaluation for ANON_1760539105218_C5AF5E (attempt 1)
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:19 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_DDF7C3B7 | actor=judge_llm | details={'anonymized_id': 'ANON_1760539105218_C5AF5E', 'worker_result_id': 'WKR_C98DB419', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-15T19:45:19.811103
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:21 | INFO     | judge_llm | Judge validation complete: ANON_1760539105218_C5AF5E → APPROVED  (quality: 88/100)
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:23 | INFO     | audit | AUDIT: update | HashChain:ANON_1760539105218_C5AF5E | actor=hash_chain_generator | details={'hash': 'd137b3e1dac1f4397e66c5659ca892779333402d74d5d861cd2fb53d5de78c0b'} | timestamp=2025-10-15T19:45:23.998795
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:25 | INFO     | hash_chain | Created hash chain entry for ANON_1760539105218_C5AF5E: d137b3e1dac1f439...
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:26 | INFO     | phase_manager | Marking cycle CYC_20251015_193520 as scored
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:27 | INFO     | phase_manager | Cycle CYC_20251015_193520 marked as SCORED
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:27 | INFO     | api | LLM processing completed for cycle CYC_20251015_193520 by admin enigma
+{
+    "taskName": "Task-11"
+}

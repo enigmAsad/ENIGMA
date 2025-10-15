@@ -12,15 +12,24 @@ import TextArea from '@/components/TextArea';
 import Button from '@/components/Button';
 import { apiClient, ApplicationSubmitRequest } from '@/lib/api';
 import { adminApiClient, type AdmissionInfo } from '@/lib/adminApi';
+import { useAuth } from '@/hooks/useStudentAuth';
 
 export default function ApplyPage() {
   const router = useRouter();
+  const { student, loading: authLoading } = useAuth();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState(false);
   const [applicationId, setApplicationId] = useState<string | null>(null);
   const [admissionInfo, setAdmissionInfo] = useState<AdmissionInfo | null>(null);
   const [loadingAdmissionInfo, setLoadingAdmissionInfo] = useState(true);
+
+  useEffect(() => {
+    if (!authLoading && !student) {
+      router.push('/student/login');
+    }
+  }, [authLoading, student, router]);
 
   useEffect(() => {
     const fetchAdmissionInfo = async () => {
@@ -33,8 +42,10 @@ export default function ApplyPage() {
         setLoadingAdmissionInfo(false);
       }
     };
-    fetchAdmissionInfo();
-  }, []);
+    if (student) {
+      fetchAdmissionInfo();
+    }
+  }, [student]);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -160,6 +171,14 @@ export default function ApplyPage() {
       setIsSubmitting(false);
     }
   };
+
+  if (authLoading || (!student && !authLoading)) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   if (success && applicationId) {
     return (

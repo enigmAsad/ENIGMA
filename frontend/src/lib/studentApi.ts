@@ -8,9 +8,13 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 export interface Student {
   student_id: string;
   primary_email: string;
+  display_name: string | null;
   status: string;
-  created_at: string;
-  updated_at: string;
+}
+
+export interface StudentSessionResponse {
+  success: boolean;
+  student: Student;
 }
 
 export interface StartAuthResponse {
@@ -62,8 +66,8 @@ class StudentAPIClient {
     });
   }
 
-  async completeGoogleLogin(code: string, state: string, code_verifier: string, redirect_uri: string): Promise<{ success: boolean }> {
-    return this.request<{ success: boolean }>('/auth/student/google/callback', {
+  async completeGoogleLogin(code: string, state: string, code_verifier: string, redirect_uri: string): Promise<StudentSessionResponse> {
+    return this.request<StudentSessionResponse>('/auth/student/google/callback', {
       method: 'POST',
       body: JSON.stringify({ code, state, code_verifier, redirect_uri }),
     });

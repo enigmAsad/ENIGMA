@@ -1666,3 +1666,101 @@ LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
 {
     "taskName": null
 }
+2025-10-15 20:20:15 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:20:15 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:20:23 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:20:26 | INFO     | student_auth | Issued session STS_457F48DA55 for student STU_F5355E37
+{
+    "taskName": "Task-18"
+}
+2025-10-15 20:20:27 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-18"
+}
+2025-10-15 20:22:24 | INFO     | student_auth | Revoked session STS_457F48DA55
+{
+    "taskName": "Task-38"
+}
+2025-10-15 20:24:07 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:26:07 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.QueryCanceled) canceling statement due to statement timeout
+CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
+
+[SQL: UPDATE student_auth_states SET consumed=%(consumed)s WHERE student_auth_states.state = %(state_1)s AND student_auth_states.consumed = false AND student_auth_states.expires_at >= %(expires_at_1)s RETURNING student_auth_states.state, student_auth_states.code_challenge, student_auth_states.code_verifier_hash, student_auth_states.nonce, student_auth_states.redirect_uri, student_auth_states.created_at, student_auth_states.expires_at, student_auth_states.consumed]
+[parameters: {'consumed': True, 'state_1': 'iPIxtwNGSl5NyhvzJ7Bt0Q', 'expires_at_1': datetime.datetime(2025, 10, 15, 15, 24, 7, 14401, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-52"
+}
+2025-10-15 20:26:07 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:26:07 | ERROR    | api | An unexpected error occurred during student login: 
+{
+    "taskName": "Task-50"
+}
+2025-10-15 20:26:07 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:28:20 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.QueryCanceled) canceling statement due to statement timeout
+CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
+
+[SQL: UPDATE student_auth_states SET consumed=%(consumed)s WHERE student_auth_states.state = %(state_1)s AND student_auth_states.consumed = false AND student_auth_states.expires_at >= %(expires_at_1)s RETURNING student_auth_states.state, student_auth_states.code_challenge, student_auth_states.code_verifier_hash, student_auth_states.nonce, student_auth_states.redirect_uri, student_auth_states.created_at, student_auth_states.expires_at, student_auth_states.consumed]
+[parameters: {'consumed': True, 'state_1': 'iPIxtwNGSl5NyhvzJ7Bt0Q', 'expires_at_1': datetime.datetime(2025, 10, 15, 15, 26, 17, 647750, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-82"
+}
+2025-10-15 20:28:29 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:36 | INFO     | student_auth | Issued session STS_AABE8E0001 for student STU_F5355E37
+{
+    "taskName": "Task-76"
+}
+2025-10-15 20:28:36 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-76"
+}
+2025-10-15 20:29:12 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

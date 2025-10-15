@@ -103,6 +103,10 @@ class StudentAuthService:
         if not record:
             logger.warning("Invalid or expired OAuth state")
             return None
+
+        # Commit immediately to release the lock on the auth_states table
+        self.db.commit()
+
         return record
 
     # ------------------------------------------------------------------

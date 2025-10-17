@@ -345,7 +345,7 @@ class StudentAuthService:
             # Find the application for this student in the active cycle
             application = self.db.query(Application).filter(
                 Application.student_id == student.student_id,
-                Application.cycle_id == active_cycle.cycle_id
+                Application.admission_cycle_id == active_cycle.cycle_id
             ).order_by(Application.created_at.desc()).first()
 
             if application:

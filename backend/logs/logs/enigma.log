@@ -2956,3 +2956,51 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": null
 }
+2025-10-17 17:51:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-17 17:51:58 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-17 17:51:58 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-17 17:52:02 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-17 17:52:02 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-17 17:52:02 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-17 17:52:02 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-17 17:52:03 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-17 17:52:19 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 17:52:25 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 17:52:30 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-25"
+}
+2025-10-17 17:52:34 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-25"
+}

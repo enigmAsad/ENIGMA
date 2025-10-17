@@ -27,6 +27,38 @@ const formatInPKT = (dateString: string) => {
   };
 };
 
+// Utility function to convert datetime-local input (PKT) to UTC ISO string
+const convertPKTtoUTC = (datetimeLocal: string): string => {
+  if (!datetimeLocal) return '';
+
+  // datetime-local format: "2025-10-17T14:30"
+  // Parse as PKT (UTC+5) and convert to UTC
+  const pktDate = new Date(datetimeLocal);
+
+  // Subtract 5 hours to convert from PKT to UTC
+  const utcDate = new Date(pktDate.getTime() - (5 * 60 * 60 * 1000));
+
+  // Return ISO string format that backend expects
+  return utcDate.toISOString();
+};
+
+// Utility function to get current time in PKT formatted for datetime-local input
+const getCurrentPKTDatetimeLocal = (): string => {
+  const now = new Date();
+
+  // Get current time in PKT by adding 5 hours to UTC
+  const pktTime = new Date(now.getTime() + (5 * 60 * 60 * 1000));
+
+  // Format as datetime-local value: "YYYY-MM-DDTHH:mm"
+  const year = pktTime.getUTCFullYear();
+  const month = String(pktTime.getUTCMonth() + 1).padStart(2, '0');
+  const day = String(pktTime.getUTCDate()).padStart(2, '0');
+  const hours = String(pktTime.getUTCHours()).padStart(2, '0');
+  const minutes = String(pktTime.getUTCMinutes()).padStart(2, '0');
+
+  return `${year}-${month}-${day}T${hours}:${minutes}`;
+};
+
 export default function AdminCyclesPage() {
   const router = useRouter();
   const { isAuthenticated, isLoading, admin, logout } = useAdminAuth();
@@ -166,7 +198,16 @@ export default function AdminCyclesPage() {
     setProcessing('create');
 
     try {
-      await adminApiClient.createCycle(formData);
+      // Convert PKT datetime-local values to UTC ISO strings
+      const cycleData: CreateCycleRequest = {
+        cycle_name: formData.cycle_name,
+        max_seats: formData.max_seats,
+        start_date: convertPKTtoUTC(formData.start_date),
+        end_date: convertPKTtoUTC(formData.end_date),
+        result_date: convertPKTtoUTC(formData.result_date),
+      };
+
+      await adminApiClient.createCycle(cycleData);
       await loadCycles();
       setShowCreateForm(false);
       setFormData({
@@ -317,10 +358,17 @@ export default function AdminCyclesPage() {
                 />
               </div>
 
+              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                <p className="text-sm text-blue-800">
+                  <strong>Timezone:</strong> All dates and times are in <strong>Pakistan Standard Time (PKT, UTC+5)</strong>.
+                  They will be automatically converted to UTC for storage.
+                </p>
+              </div>
+
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Start Date
+                    Start Date (PKT)
                   </label>
                   <input
                     type="datetime-local"
@@ -329,11 +377,12 @@ export default function AdminCyclesPage() {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
+                  <p className="text-xs text-gray-500 mt-1">When admissions open</p>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    End Date
+                    End Date (PKT)
                   </label>
                   <input
                     type="datetime-local"
@@ -342,11 +391,12 @@ export default function AdminCyclesPage() {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
+                  <p className="text-xs text-gray-500 mt-1">Application deadline</p>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Result Date
+                    Result Date (PKT)
                   </label>
                   <input
                     type="datetime-local"
@@ -355,6 +405,7 @@ export default function AdminCyclesPage() {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
+                  <p className="text-xs text-gray-500 mt-1">When results are published</p>
                 </div>
               </div>
 

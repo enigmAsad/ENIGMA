@@ -1,6 +1,6 @@
 # ENIGMA System Plan (Production-Ready)
 
-**Status:** Phase 1 ✅ Complete (PostgreSQL) | Accounts & SSO ⏳ In Progress | Phase 2 🔄 Planned
+**Status:** Phase 1 ✅ Complete (PostgreSQL + Student Accounts) | Phase 2 🔄 Planned (Next Focus)
 
 ## Scope
 - Standalone admissions portal with two-phase selection
@@ -15,13 +15,14 @@
   - Real-time transcription and LLM analysis
   - Evaluator dashboard with nudge system
   
-**Student Accounts & SSO (Phase 1.5)** ⏳ **IN PROGRESS**
-- Google OAuth (OIDC + PKCE) student login
-- Enforce one application per admission cycle per student account
-- Application submission derives contact email from SSO; no separate email input
-- Preserve anonymization: evaluators only see anonymized records; student identity never enters evaluator context
-- Student actions (e.g., application submission) will be linked to their account in operational logs. The cryptographic audit trail for evaluation decisions will remain fully anonymized, referencing only anonymized application IDs to ensure integrity.
-- A dedicated student dashboard will replace the public ID-based status checker, allowing users to manage their applications from a secure, authenticated session.
+**Student Accounts & SSO (Phase 1.5)** ✅ **IMPLEMENTED**
+- Google OAuth (OIDC + PKCE) student login with HttpOnly session cookies
+- Enforced one application per admission cycle per student account via service and DB constraints
+- Application submission derives contact email from SSO claims; no separate email input
+- Preserves anonymization: evaluators continue to see anonymized records only; student identity never enters evaluator context
+- Student actions (e.g., application submission) are linked to their account in operational logs while the cryptographic audit trail references anonymized IDs
+- Dedicated student dashboard replaces the public ID-based status checker, enabling secure, authenticated application management
+- Next Step: Phase 2 live interviews, bias monitoring, and evaluator workflows
 
 ## System Architecture
 
@@ -47,11 +48,11 @@
 - Evaluator nudge UI: soft alerts for biased language; hard flags for policy violations
 - Evaluator dashboard: live interview console, digital rubric, justification fields
 
-**⏳ Accounts & SSO - In Progress (Frontend):**
-- Student sign-in with Google (OIDC + PKCE)
-- Submission flow uses authenticated session; no manual email field
-- Student dashboard to manage applications (view status, results), replacing the public status checker page for authenticated users.
-- Session stored in HttpOnly cookies with CSRF protection
+**✅ Accounts & SSO - Implemented (Frontend):**
+- Student sign-in with Google (OIDC + PKCE) and HttpOnly session cookies
+- Submission flow requires authenticated session; no manual email field
+- Student dashboard manages applications (status, results), replacing the public status checker for authenticated users
+- Navigation adapts to student/admin roles with contextual actions
 
 ### Backend (FastAPI + PostgreSQL + Python 3.12)
 
@@ -92,12 +93,12 @@
 - Email notification system: confirmation, shortlist, final results
 - Appeal handler: inbox intake, review queue
 
-**⏳ Accounts & SSO - In Progress (Backend):**
-- Student OIDC (Google) login endpoint; verify `email_verified`
-- Store identity bindings (`provider`, `provider_sub`, `email`) and session issuance
-- Submission endpoint requires student session; derive email from SSO claims
-- Enforce one application per cycle per student via DB unique index and service-layer checks
-- Maintain strict separation: PII in encrypted stores; evaluators see only anonymized IDs
+**✅ Accounts & SSO - Implemented (Backend):**
+- Student OIDC (Google) login endpoint verifies `email_verified`
+- Identity bindings (`provider`, `provider_sub`, `email`) with session issuance stored securely
+- Submission endpoint requires student session; derives email from SSO claims
+- Enforces one application per cycle per student via DB unique index and service-layer checks
+- Maintains strict separation: PII in encrypted stores; evaluators see only anonymized IDs
 
 ### Data Layer
 
@@ -141,10 +142,10 @@
   - The selection decision (`SELECTED`/`NOT_SELECTED`) is stored in the `final_scores` table.
   - When a student views their dashboard, the system uses this reverse linkage to find the relevant decision and display it securely, without ever exposing the student's identity during the evaluation phases.
 
-**⏳ Accounts & SSO - New Tables (In Progress):**
+**✅ Accounts & SSO - New Tables (Implemented):**
 - **student_accounts**: Student identity source (primary_email, status, created_at, verified_at)
 - **oauth_identities**: `student_id`, `provider`, `provider_sub`, `email`, `email_verified`
-- Add `student_id` FK to **applications**; create unique index on `(student_id, admission_cycle_id)`
+- Added `student_id` FK to **applications** with unique index on `(student_id, admission_cycle_id)`
 
 **🔄 Phase 2 - Additional Tables (Planned):**
 - **live_sessions**: Session metadata and scheduling
@@ -236,10 +237,10 @@
 - Combine validated interview scores with Phase 1
 - Update hash chain and audit logs
 
-**⏳ Accounts & SSO - In Progress (Lifecycle Changes):**
-- **Authenticated Submissions**: Application submission now requires an authenticated student session (via Google). The system will enforce a one-application-per-cycle limit per student account.
-- **SSO-Derived Identity**: The applicant's email will be derived from the SSO claims, removing the need for a manual email field in the form. This PII is immediately subject to the existing encryption and anonymization process.
-- **Student Dashboard & Results Delivery**: The public, ID-based status checker is replaced by a secure student dashboard. When results are published, the system uses the relational link from `final_scores` back to the `student_account` (via the anonymized and original application records) to display the final decision and feedback to the correctly authenticated student. This "round-trip" data flow is central to maintaining a blind evaluation while providing a personalized user experience.
+**✅ Accounts & SSO - Lifecycle Changes Implemented:**
+- **Authenticated Submissions**: Application submission now requires an authenticated student session (via Google). The system enforces a one-application-per-cycle limit per student account.
+- **SSO-Derived Identity**: The applicant's email is derived from SSO claims; PII is immediately encrypted and anonymized.
+- **Student Dashboard & Results Delivery**: The public ID-based status checker is replaced by a secure student dashboard. When results are published, the system uses the relational link from `final_scores` back to the `student_account` to display decisions and feedback while preserving evaluation anonymity.
 
 **🔄 Additional Features - Planned:**
 - **Notifications**: Email confirmations, shortlist, final results with verification link
@@ -316,24 +317,24 @@
 
 **✅ Phase 1 - Delivered:**
 - **Frontend** (Next.js 15 + React 19):
-  - Landing page with real-time admission status
-  - Application form with comprehensive validation
-  - Status checker with progress indicators
-  - Results viewer with score breakdowns
+  - Landing page with real-time admission status and student-aware CTAs
+  - Application form with comprehensive validation and SSO-bound submissions
+  - Student dashboard replacing public status checker for authenticated users
+  - Results viewer with score breakdowns and secure student context
   - Public fairness dashboard
   - Verification portal for hash validation
   - Admin portal (login, dashboard, cycle management, phase controls)
 - **Backend** (FastAPI + PostgreSQL):
-  - 14-table normalized PostgreSQL schema
-  - RESTful API with JWT authentication
+  - 14-table normalized PostgreSQL schema + student accounts tables
+  - RESTful API with JWT (admin) and Google OAuth sessions (students)
   - Repository pattern for data access
   - 9-phase admission cycle workflow
   - JSONL export/import for batch LLM processing
   - SHA-256 hash chain for audit trail
   - Admin APIs for cycle and application management
 - **Documentation**:
-  - `BACKEND.md`: Technical specification (v2.0.2)
-  - `FRONTEND.md`: Implementation guide (v1.1.1)
+  - `BACKEND.md`: Technical specification (v2.1.0)
+  - `FRONTEND.md`: Implementation guide (v1.3.0)
   - Database schema and API reference
   - Development and deployment guides
 
@@ -372,5 +373,5 @@
 | **Email Notifications** | 🔄 Planned | Confirmation, shortlist, results |
 | **Appeals System** | 🔄 Planned | Intake, review, resolution tracking |
 
-**Version:** Backend v2.0.2 | Frontend v1.1.1
-**Last Updated:** 2025-10-12
+**Version:** Backend v2.1.0 | Frontend v1.3.0
+**Last Updated:** 2025-10-14

@@ -824,13 +824,37 @@ async def get_current_admin_info(admin: Dict[str, Any] = Depends(get_current_adm
 
 
 # Admission Cycles
-@app.get("/admin/cycles", response_model=List[AdmissionCycle])
-async def get_all_cycles(admin: Dict[str, Any] = Depends(get_current_admin), db: Session = Depends(get_db)):
-    """Get all admission cycles."""
+@app.get("/admin/cycles", response_model=List[Dict[str, Any]])
+async def get_all_cycles(
+    include_stats: bool = False,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db)
+):
+    """Get all admission cycles.
+
+    Args:
+        include_stats: If True, includes application stats for each cycle (optimizes N+1 queries)
+    """
     try:
         admin_repo = AdminRepository(db)
         cycles = admin_repo.get_all_cycles()
-        return cycles
+
+        if not include_stats:
+            # Return cycles as-is for backward compatibility
+            return [cycle.__dict__ for cycle in cycles]
+
+        # Include stats to avoid N+1 queries on frontend
+        phase_mgr = PhaseManager(db)
+        result = []
+        for cycle in cycles:
+            status = phase_mgr.get_cycle_status(cycle.cycle_id)
+            if status:
+                result.append(status)
+            else:
+                # Fallback to basic cycle data if status unavailable
+                result.append(cycle.__dict__)
+
+        return result
     except Exception as e:
         logger.error(f"Failed to get cycles: {e}")
         raise HTTPException(status_code=500, detail=str(e))

@@ -180,8 +180,12 @@ class AdminAPIClient {
   }
 
   // Admission Cycles
-  async getAllCycles(): Promise<AdmissionCycle[]> {
-    const response = await fetch(`${API_BASE}/admin/cycles`, {
+  async getAllCycles(includeStats: boolean = false): Promise<AdmissionCycle[]> {
+    const url = includeStats
+      ? `${API_BASE}/admin/cycles?include_stats=true`
+      : `${API_BASE}/admin/cycles`;
+
+    const response = await fetch(url, {
       headers: this.getAuthHeader(),
     });
 

@@ -84,25 +84,26 @@ export default function AdminCyclesPage() {
 
   const loadCycles = async () => {
     try {
-      const data = await adminApiClient.getAllCycles();
+      // Fetch cycles WITH stats in a single request (optimized - no N+1 queries!)
+      const data = await adminApiClient.getAllCycles(true);
       setCycles(data);
 
-      // Load status for each cycle
-      const statusPromises = data.map(async (cycle) => {
-        try {
-          const status = await adminApiClient.getCycleStatus(cycle.cycle_id);
-          return { cycleId: cycle.cycle_id, status };
-        } catch (error) {
-          console.error(`Failed to load status for cycle ${cycle.cycle_id}:`, error);
-          return null;
-        }
-      });
-
-      const statuses = await Promise.all(statusPromises);
+      // Extract stats from the combined response
       const statusMap: Record<string, CycleStatus> = {};
-      statuses.forEach((item) => {
-        if (item) {
-          statusMap[item.cycleId] = item.status;
+      data.forEach((cycle: any) => {
+        if (cycle.stats) {
+          // When include_stats=true, the response includes stats directly
+          statusMap[cycle.cycle_id] = {
+            cycle_id: cycle.cycle_id,
+            cycle_name: cycle.cycle_name,
+            phase: cycle.phase,
+            is_open: cycle.is_open,
+            max_seats: cycle.max_seats,
+            current_seats: cycle.current_seats,
+            selected_count: cycle.selected_count,
+            stats: cycle.stats,
+            dates: cycle.dates
+          };
         }
       });
       setCycleStatuses(statusMap);

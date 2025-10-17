@@ -2452,3 +2452,435 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": "Task-11"
 }
+2025-10-17 15:03:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-17 15:03:55 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-17 15:03:55 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-17 15:04:00 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-17 15:04:00 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-17 15:04:00 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-17 15:04:00 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-17 15:04:01 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-17 15:04:34 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:04:34 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:04:34 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:04:34 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:04:53 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:04:55 | WARNING  | student_auth | PKCE code_challenge mismatch for state uwurPJibAWeRcPfwYPaxNw
+{
+    "taskName": "Task-35"
+}
+2025-10-17 15:04:55 | WARNING  | api | Student login failed: Invalid code verifier
+{
+    "taskName": "Task-35"
+}
+2025-10-17 15:04:55 | ERROR    | database | Database session error: 400: Invalid code verifier
+{
+    "taskName": null
+}
+2025-10-17 15:05:30 | WARNING  | student_auth | Invalid or expired OAuth state
+{
+    "taskName": "Task-41"
+}
+2025-10-17 15:05:30 | WARNING  | api | Student login failed: Invalid or expired state
+{
+    "taskName": "Task-41"
+}
+2025-10-17 15:05:30 | ERROR    | database | Database session error: 400: Invalid or expired state
+{
+    "taskName": null
+}
+2025-10-17 15:05:30 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:05:54 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:05:57 | INFO     | student_auth | Created new student account STU_B17774BA for asadghaffar.dev@gmail.com
+{
+    "taskName": "Task-50"
+}
+2025-10-17 15:05:58 | INFO     | student_auth | Linked OAuth identity google:106830279121320633824 to student STU_B17774BA
+{
+    "taskName": "Task-50"
+}
+2025-10-17 15:05:58 | INFO     | student_auth | Issued session STS_0F6B22277F for student STU_B17774BA
+{
+    "taskName": "Task-50"
+}
+2025-10-17 15:05:58 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-50"
+}
+2025-10-17 15:06:13 | INFO     | student_auth | Revoked session STS_0F6B22277F
+{
+    "taskName": "Task-63"
+}
+2025-10-17 15:06:21 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:06:22 | INFO     | admin_auth | Login attempt for username: asad51@gmail.com
+{
+    "taskName": "Task-70"
+}
+2025-10-17 15:06:23 | WARNING  | admin_auth | Login failed: user asad51@gmail.com not found
+{
+    "taskName": "Task-70"
+}
+2025-10-17 15:06:23 | ERROR    | database | Database session error: 401: Invalid credentials
+{
+    "taskName": null
+}
+2025-10-17 15:07:01 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-74"
+}
+2025-10-17 15:07:05 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-74"
+}
+2025-10-17 15:27:46 | INFO     | api | Created and opened admission cycle: Spring 2024
+{
+    "taskName": "Task-112"
+}
+2025-10-17 15:28:27 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:28:30 | INFO     | student_auth | Issued session STS_1DDE343312 for student STU_B17774BA
+{
+    "taskName": "Task-146"
+}
+2025-10-17 15:28:30 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-146"
+}
+2025-10-17 15:29:40 | INFO     | application_collector | Collecting new application from asadghaffar.dev@gmail.com
+{
+    "taskName": "Task-158"
+}
+2025-10-17 15:29:41 | INFO     | audit | AUDIT: create | Application:APP_BB06E6CC | actor=system | details={'stage': 'intake'} | timestamp=2025-10-17T10:29:41.175415
+{
+    "taskName": "Task-158"
+}
+2025-10-17 15:29:41 | INFO     | application_collector | Application collected successfully: APP_BB06E6CC
+{
+    "taskName": "Task-158"
+}
+2025-10-17 15:29:41 | INFO     | api | Application submitted: APP_BB06E6CC (Cycle: Spring 2024)
+{
+    "taskName": "Task-158"
+}
+2025-10-17 15:29:59 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:30:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:30:16 | INFO     | student_auth | Created new student account STU_602287F0 for asadghaffar202020@gmail.com
+{
+    "taskName": "Task-173"
+}
+2025-10-17 15:30:17 | INFO     | student_auth | Linked OAuth identity google:102431640200138901532 to student STU_602287F0
+{
+    "taskName": "Task-173"
+}
+2025-10-17 15:30:18 | INFO     | student_auth | Issued session STS_1C32BB9E26 for student STU_602287F0
+{
+    "taskName": "Task-173"
+}
+2025-10-17 15:30:18 | INFO     | student_auth | Student STU_602287F0 logged in via Google
+{
+    "taskName": "Task-173"
+}
+2025-10-17 15:31:15 | INFO     | application_collector | Collecting new application from asadghaffar202020@gmail.com
+{
+    "taskName": "Task-185"
+}
+2025-10-17 15:31:16 | INFO     | audit | AUDIT: create | Application:APP_A0442ACF | actor=system | details={'stage': 'intake'} | timestamp=2025-10-17T10:31:16.193047
+{
+    "taskName": "Task-185"
+}
+2025-10-17 15:31:16 | INFO     | application_collector | Application collected successfully: APP_A0442ACF
+{
+    "taskName": "Task-185"
+}
+2025-10-17 15:31:16 | INFO     | api | Application submitted: APP_A0442ACF (Cycle: Spring 2024)
+{
+    "taskName": "Task-185"
+}
+2025-10-17 15:31:27 | INFO     | student_auth | Revoked session STS_1DDE343312
+{
+    "taskName": "Task-192"
+}
+2025-10-17 15:31:33 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 15:31:34 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-196"
+}
+2025-10-17 15:31:37 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-196"
+}
+2025-10-17 15:32:04 | INFO     | phase_manager | Freezing cycle CYC_20251017_102745 by admin ADM_ENIGMA
+{
+    "taskName": "Task-210"
+}
+2025-10-17 15:32:05 | INFO     | phase_manager | Finalized 2 applications
+{
+    "taskName": "Task-210"
+}
+2025-10-17 15:32:05 | INFO     | phase_manager | Cycle CYC_20251017_102745 frozen successfully
+{
+    "taskName": "Task-210"
+}
+2025-10-17 15:32:05 | INFO     | api | Cycle CYC_20251017_102745 frozen by admin enigma
+{
+    "taskName": "Task-210"
+}
+2025-10-17 15:33:42 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251017_102745
+{
+    "taskName": "Task-258"
+}
+2025-10-17 15:33:42 | INFO     | phase_manager | Processing 2 finalized applications
+{
+    "taskName": "Task-258"
+}
+2025-10-17 15:33:43 | INFO     | identity_scrubber | Scrubbing application: APP_A0442ACF
+{
+    "taskName": "Task-258"
+}
+2025-10-17 15:33:43 | INFO     | identity_scrubber | Applied 7 redactions to APP_A0442ACF
+{
+    "taskName": "Task-258"
+}
+2025-10-17 15:33:46 | INFO     | identity_scrubber | Successfully scrubbed APP_A0442ACF → ANON_1760679223716_55FA8A
+{
+    "taskName": "Task-258"
+}
+2025-10-17 15:33:47 | INFO     | identity_scrubber | Scrubbing application: APP_BB06E6CC
+{
+    "taskName": "Task-258"
+}
+2025-10-17 15:33:48 | INFO     | identity_scrubber | Applied 2 redactions to APP_BB06E6CC
+{
+    "taskName": "Task-258"
+}
+2025-10-17 15:33:50 | INFO     | identity_scrubber | Successfully scrubbed APP_BB06E6CC → ANON_1760679228369_8961CE
+{
+    "taskName": "Task-258"
+}
+2025-10-17 15:33:52 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251017_102745: 2 scrubbed, 2 metrics computed, 2 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-258"
+}
+2025-10-17 15:33:52 | INFO     | api | Preprocessing started for cycle CYC_20251017_102745 by admin enigma
+{
+    "taskName": "Task-258"
+}
+2025-10-17 15:34:17 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-274"
+}
+2025-10-17 15:34:18 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-274"
+}
+2025-10-17 15:34:18 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251017_102745
+{
+    "taskName": "Task-274"
+}
+2025-10-17 15:34:19 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251017_102745: 2 applications ready for export
+{
+    "taskName": "Task-274"
+}
+2025-10-17 15:34:19 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251017_102745 to JSONL
+{
+    "taskName": "Task-274"
+}
+2025-10-17 15:34:20 | INFO     | batch_processor | Exported 2 applications to batch_exports\batch_export_CYC_20251017_102745_20251017_103419.jsonl
+{
+    "taskName": "Task-274"
+}
+2025-10-17 15:34:21 | INFO     | api | Batch export completed for cycle CYC_20251017_102745 by admin enigma
+{
+    "taskName": "Task-274"
+}
+2025-10-17 15:35:01 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:35:02 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:35:02 | INFO     | phase_manager | Starting processing for cycle CYC_20251017_102745
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:35:03 | INFO     | phase_manager | Cycle CYC_20251017_102745 now in PROCESSING phase
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:35:06 | INFO     | worker_llm | Evaluating ANON_1760679223716_55FA8A (attempt 1)
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:35:26 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_0079F11E | actor=worker_llm | details={'anonymized_id': 'ANON_1760679223716_55FA8A', 'attempt_number': 1, 'total_score': 66.05} | timestamp=2025-10-17T10:35:26.308049
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:35:27 | INFO     | worker_llm | Worker evaluation complete: ANON_1760679223716_55FA8A → 66.05/100 (attempt 1)
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:35:28 | INFO     | judge_llm | Validating worker evaluation for ANON_1760679223716_55FA8A (attempt 1)
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:35:46 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_34BC580F | actor=judge_llm | details={'anonymized_id': 'ANON_1760679223716_55FA8A', 'worker_result_id': 'WKR_0079F11E', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-17T10:35:46.635410
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:35:47 | INFO     | judge_llm | Judge validation complete: ANON_1760679223716_55FA8A → APPROVED  (quality: 84/100)
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:35:48 | INFO     | worker_llm | Evaluating ANON_1760679228369_8961CE (attempt 1)
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:11 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_F95E2896 | actor=worker_llm | details={'anonymized_id': 'ANON_1760679228369_8961CE', 'attempt_number': 1, 'total_score': 88.4} | timestamp=2025-10-17T10:36:11.997323
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:13 | INFO     | worker_llm | Worker evaluation complete: ANON_1760679228369_8961CE → 88.40/100 (attempt 1)
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:13 | INFO     | judge_llm | Validating worker evaluation for ANON_1760679228369_8961CE (attempt 1)
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:35 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_9A5C0D8F | actor=judge_llm | details={'anonymized_id': 'ANON_1760679228369_8961CE', 'worker_result_id': 'WKR_F95E2896', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-17T10:36:35.105103
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:36 | INFO     | judge_llm | Judge validation complete: ANON_1760679228369_8961CE → APPROVED  (quality: 90/100)
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:39 | INFO     | audit | AUDIT: update | HashChain:ANON_1760679223716_55FA8A | actor=hash_chain_generator | details={'hash': '3915fd765c06e19339284ca41f29ebef512463d9c8ce59c16bc0cac5ed4870bd'} | timestamp=2025-10-17T10:36:39.290195
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:40 | INFO     | hash_chain | Created hash chain entry for ANON_1760679223716_55FA8A: 3915fd765c06e193...
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:42 | INFO     | audit | AUDIT: update | HashChain:ANON_1760679228369_8961CE | actor=hash_chain_generator | details={'hash': '0a59f85cff5d7d9e4055ed46e3e02ae65d437fe0959545f9b3295e1e8b2b2f70'} | timestamp=2025-10-17T10:36:42.630870
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:43 | INFO     | hash_chain | Created hash chain entry for ANON_1760679228369_8961CE: 0a59f85cff5d7d9e...
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:44 | INFO     | phase_manager | Marking cycle CYC_20251017_102745 as scored
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:46 | INFO     | phase_manager | Cycle CYC_20251017_102745 marked as SCORED
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:36:46 | INFO     | api | LLM processing completed for cycle CYC_20251017_102745 by admin enigma
+{
+    "taskName": "Task-291"
+}
+2025-10-17 15:37:14 | INFO     | phase_manager | Performing selection for cycle CYC_20251017_102745
+{
+    "taskName": "Task-313"
+}
+2025-10-17 15:37:15 | INFO     | phase_manager | Updated 1 applications to SELECTED status
+{
+    "taskName": "Task-313"
+}
+2025-10-17 15:37:15 | INFO     | phase_manager | Updated 1 applications to NOT_SELECTED status
+{
+    "taskName": "Task-313"
+}
+2025-10-17 15:37:17 | INFO     | phase_manager | Selection complete: 1 selected, 1 not selected
+{
+    "taskName": "Task-313"
+}
+2025-10-17 15:37:17 | INFO     | api | Selection performed for cycle CYC_20251017_102745 by admin enigma
+{
+    "taskName": "Task-313"
+}
+2025-10-17 15:38:20 | INFO     | phase_manager | Publishing results for cycle CYC_20251017_102745
+{
+    "taskName": "Task-345"
+}
+2025-10-17 15:38:22 | INFO     | hash_chain | Created hash chain entry for ANON_1760679228369_8961CE: c87b5fbd83b3ba53...
+{
+    "taskName": "Task-345"
+}
+2025-10-17 15:38:23 | INFO     | hash_chain | Created hash chain entry for ANON_1760679223716_55FA8A: acb10b9df1fb8616...
+{
+    "taskName": "Task-345"
+}
+2025-10-17 15:38:24 | INFO     | phase_manager | Results published for cycle CYC_20251017_102745
+{
+    "taskName": "Task-345"
+}
+2025-10-17 15:38:24 | INFO     | api | Results published for cycle CYC_20251017_102745 by admin enigma
+{
+    "taskName": "Task-345"
+}

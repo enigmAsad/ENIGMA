@@ -32,17 +32,17 @@ ENIGMA is an **AI-powered blind merit screening system** designed to eliminate b
 
 ### Phase 1.5 Student Accounts Progress
 
-**Completed for Update Phase 1**
+**Completed for Update Phase 1 (100%)**
 - Added student authentication schema (accounts, OAuth identities, sessions, PKCE state) with Alembic migration `20251014_0000_add_student_accounts`.
 - Implemented core repositories and `StudentAuthService` to manage Google OAuth exchange, account provisioning, and session lifecycle.
 - Extended application models/schemas to link submissions to authenticated student accounts and enforce per-cycle uniqueness.
 - Updated configuration to require Google OAuth credentials and student session TTL settings.
+- Exposed student-facing endpoints (`/auth/student/google/callback`, `/auth/student/logout`, `/auth/student/me`) with HttpOnly session cookies wired into the flow.
+- Enforced authenticated submission path in `/applications`, migrated legacy records, and validated per-cycle duplicate prevention.
+- Added automated tests covering OAuth state validation, session issuance/revocation, and authenticated submission flow.
+- Finalized documentation, environment samples, and operational runbooks for Google OAuth configuration and student dashboard integration.
 
-**Remaining for Update Phase 1**
-- Expose student-facing endpoints (`/auth/student/google/callback`, `/auth/student/logout`, `/auth/student/me`) and wire HttpOnly cookie issuance.
-- Enforce authenticated submission path in `/applications` with per-cycle duplicate guard and migrate existing data where needed.
-- Add automated tests covering OAuth state validation, session issuance/revocation, and application submission flow under authentication.
-- Finalize documentation, env samples, and operational runbooks for Google OAuth configuration and student dashboard consumption.
+**Status:** Student authentication phase is fully implemented; no outstanding items remain for Update Phase 1.
 
 ### Key Features
 

@@ -1,8 +1,8 @@
-# ENIGMA Frontend Implementation (Phase 1 + Admin Portal)
+# ENIGMA Frontend Implementation (Phase 1 + Admin Portal + Student Accounts)
 
-**Implementation Date:** 2025-10-11 (Phase 1), 2025-10-12 (Admin Portal & Bug Fixes), 2025-10-13 (Internal LLM Integration & Results Display)
+**Implementation Date:** 2025-10-11 (Phase 1), 2025-10-12 (Admin Portal & Bug Fixes), 2025-10-13 (Internal LLM Integration & Results Display), 2025-10-14 (Student Accounts & OAuth)
 **Framework:** Next.js 15 + React 19 + TypeScript + Tailwind CSS
-**Status:** ✅ Phase 1 + Admin Portal Complete (with Automated LLM Batch Processing & Selection Status Display)
+**Status:** ✅ Phase 1 + Admin Portal + Student Accounts (Google OAuth, Authenticated Submissions)
 
 ---
 
@@ -26,19 +26,24 @@ The ENIGMA frontend provides a complete UI for a blind AI evaluation system. It 
 frontend/
 ├── src/
 │   ├── app/                    # Next.js App Router
-│   │   ├── layout.tsx          # Root layout with Navigation
+│   │   ├── layout.tsx          # Root layout with Navigation & auth context
 │   │   ├── page.tsx            # Landing page
-│   │   ├── apply/page.tsx      # Application form
-│   │   ├── status/page.tsx     # Status checker & results
+│   │   ├── apply/page.tsx      # Application form (requires student session)
+│   │   ├── status/page.tsx     # Status checker & results (student-aware)
 │   │   ├── verify/page.tsx     # Hash verification
 │   │   ├── dashboard/page.tsx  # Public fairness dashboard
+│   │   ├── auth/google/        # Student OAuth callback route
+│   │   │   └── callback/page.tsx
+│   │   ├── student/            # ⭐ Student portal
+│   │   │   ├── login/page.tsx
+│   │   │   └── dashboard/page.tsx
 │   │   └── admin/              # ⭐ Admin portal
 │   │       ├── login/page.tsx
 │   │       ├── dashboard/page.tsx
 │   │       └── cycles/page.tsx
 │   ├── components/             # Reusable UI components
-│   ├── hooks/                  # ⭐ Custom React hooks (useAdminAuth.ts)
-│   └── lib/                    # API clients (api.ts, adminApi.ts)
+│   ├── hooks/                  # ⭐ Custom React hooks (useAdminAuth.ts, useStudentAuth.ts)
+│   └── lib/                    # API clients (api.ts, adminApi.ts, studentApi.ts)
 ├── public/
 ├── .env.local.example
 └── ... (config files)
@@ -101,6 +106,21 @@ Type-safe API client for admin operations with automatic JWT injection.
 ```
 **Key Interfaces**: `AdmissionCycle`, `CreateCycleRequest`, `AdmissionInfo`.
 
+### Student API Client (`src/lib/studentApi.ts`)
+Manages the Google OAuth flow, student session lifecycle, and authenticated submission state.
+- **Session Handling**: Exchanges OAuth codes for sessions, stores HttpOnly cookies (server-managed).
+- **Profile Access**: Fetches current student profile (`getMe`) for dashboard and status pages.
+- **Utilities**: Provides `studentApiClient` singleton used across hooks/components.
+
+**Core Methods:**
+```typescript
+- startGoogleLogin()
+- completeGoogleLogin(code, state, code_verifier, redirect_uri)
+- getMe()
+- logout()
+```
+**Key Interfaces**: `Student`, `StudentSessionResponse`.
+
 ---
 
 ## 4. UI Components (`src/components/`)
@@ -134,7 +154,10 @@ A library of reusable, styled, and accessible components.
 - `maxLength?`: `number`
 
 ### 5. Navigation (`Navigation.tsx`)
-Top navigation bar with active route highlighting. Includes links to Home, Apply, Check Status, Verify, and Dashboard.
+Top navigation bar with active route highlighting.
+- **Adaptive Links**: Home, Apply, Check Status, Verify, Dashboard remain always visible.
+- **Student Session Awareness**: Displays authenticated student name/email, adds quick link to Student Dashboard, and exposes Logout action.
+- **Login Shortcut**: Renders a primary "Student Login" button that triggers the Google OAuth flow when no session exists.
 
 ---
 
@@ -146,12 +169,14 @@ Marketing and educational page about the ENIGMA system.
 - **Hero Section**: Mission statement and CTAs. "Apply Now" button is disabled if admissions are closed.
 - **How It Works**: Explains the evaluation phases (Phase 1, Phase 2, Cryptographic Audit).
 - **Trust Signals**: Highlights Blind Evaluation, Transparency, and Cryptographic Proof.
+- **Student CTA**: Provides direct link to the student login/dashboard when authenticated.
 
 ### 2. Application Form (`/apply/page.tsx`)
 Secure interface for applicant submissions.
 - **Admission Enforcement**: The page first checks if admissions are open. If closed, it displays a message; otherwise, it renders the form.
 - **Form Sections**: Personal Information, Academic Information, Essay, Achievements.
-- **Validation**: Comprehensive client-side validation for all required fields (name, email, GPA, test scores, essay/achievements length).
+- **Authentication**: Requires an active student session; unauthenticated users are redirected to the student login flow.
+- **Validation**: Comprehensive client-side validation for all required fields (name, GPA, test scores, essay/achievements length). Email is derived from the authenticated student profile.
 - **UX**: On success, displays an Application ID and auto-redirects to the status page.
 
 ### 3. Status & Results Viewer (`/status/page.tsx`)
@@ -166,6 +191,7 @@ Check application status and view detailed results. Supports deep linking via `?
   - **AI Explanation**: Full text from the evaluation.
   - **Strengths & Improvements**: Bulleted lists.
   - **Cryptographic Hash**: SHA-256 hash for verification.
+- **Student Context**: When accessed with an authenticated student, preloads their latest application and provides shortcuts to dashboard actions.
 
 ### 4. Verification Portal (`/verify/page.tsx`)
 Verify the cryptographic integrity of decisions. Supports deep linking with `?id=` and `?hash=`.
@@ -180,9 +206,52 @@ Displays aggregate, anonymized fairness and transparency metrics from `GET /dash
 - **Score Distribution**: Bar chart of score ranges (e.g., 90-100, 80-89).
 - **Fairness Guarantees**: Cards highlighting Blind Evaluation, Two-Tier AI, Cryptographic Audit, and Transparency.
 
+### 6. Student Login (`/student/login/page.tsx`)
+Entry point for the Google OAuth login flow.
+- **Flow**: Initiates PKCE-secured OAuth login, redirects to Google, then back to `/auth/google/callback`.
+- **UX**: Provides status messaging during redirects and handles error states (invalid state, missing code).
+
+### 7. Student Dashboard (`/student/dashboard/page.tsx`)
+Authenticated student portal showing submission status and shortcuts.
+- **Profile Summary**: Displays student name, email, and ENIGMA student ID.
+- **Application Overview**: Highlights latest submission status with quick link to `/status`.
+- **Session Management**: Offers logout and refresh controls wired to `useStudentAuth`.
+
+### 8. OAuth Callback (`/auth/google/callback/page.tsx`)
+Handles the Google OAuth redirect, exchanges authorization code for a student session, and redirects to the student dashboard.
+- **Security**: Validates PKCE verifier/state pair before completing login.
+- **Error Handling**: Renders clear messaging for expired codes or tampered state.
+- **Side Effects**: Updates the global student auth context and refreshes navigation state.
+
 ---
 
-## 6. Admin Portal (`src/app/admin/`)
+## 6. Student Accounts (`src/app/auth` & `src/app/student/`)
+
+### useStudentAuth Hook (`/hooks/useStudentAuth.tsx`)
+- **Context Provider**: Wraps the app to expose student session data across routes.
+- **Session Recovery**: Automatically calls `studentApiClient.getMe()` on mount to restore sessions.
+- **Actions**: Supplies `login`, `logout`, `setStudent`, and `refreshStudent` helpers.
+
+### Application Form Integration (`/apply/page.tsx`)
+- **Guarded Access**: Redirects unauthenticated users to `/student/login` before rendering the form.
+- **Profile Binding**: Automatically injects authenticated student name/email into submission payloads.
+
+### Status Page Enhancements (`/status/page.tsx`)
+- **Student Prefill**: When logged in, displays the student’s latest submission without requiring manual ID entry.
+- **Dashboard Shortcut**: Provides quick navigation back to `/student/dashboard`.
+
+### Navigation Updates (`src/components/Navigation.tsx`)
+- Adds a `Student Login`/`Student Dashboard` link that adapts based on session state.
+- Highlights the authenticated student’s name in the header.
+
+### Student Portal (`/student/dashboard/page.tsx`)
+- **Overview Cards**: Shows application status, last updated timestamp, and cycle details.
+- **Actions**: Buttons to start a new application (when allowed) or view detailed results.
+
+### OAuth Callback (`/auth/google/callback/page.tsx`)
+- Handles PKCE verifier validation, exchanges auth code for a session, and updates the auth context before redirecting to `/student/dashboard`.
+
+## 7. Admin Portal (`src/app/admin/`)
 
 A secure, token-protected area for managing the admissions process.
 
@@ -262,6 +331,13 @@ Full CRUD interface for managing admission cycles.
 
 ---
 
+### v1.3.0 (2025-10-14) - Student Accounts & Authenticated Submissions
+- **Added**: Google OAuth student login flow with PKCE, HttpOnly session cookies, and context-aware navigation.
+- **Added**: `studentApi.ts`, `useStudentAuth.tsx`, dedicated student login/dashboard pages, and OAuth callback handler.
+- **Updated**: Application form now requires authenticated student sessions and auto-binds student profile data.
+- **Enhanced**: Status page preloads latest student application when authenticated and links back to the dashboard.
+- **Documentation**: This file updated to reflect student-facing architecture and workflow changes.
+
 ## 10. Changelog
 
 ### v1.2.1 (2025-10-13) - Selection Status Display & Results Fix
@@ -293,6 +369,6 @@ Full CRUD interface for managing admission cycles.
 - **Features**: Responsive design, form validation, status tracking, cryptographic verification, and a public transparency dashboard.
 
 ---
-**Last Updated:** 2025-10-13
-**Version:** 1.2.1
-**Status:** Production Ready (Phase 1 + Admin Portal) ✅
+**Last Updated:** 2025-10-14
+**Version:** 1.3.0
+**Status:** Production Ready (Phase 1 + Admin Portal + Student Accounts) ✅

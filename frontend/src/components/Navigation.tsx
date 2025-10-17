@@ -6,9 +6,11 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useAuth } from '@/hooks/useStudentAuth';
 
 export default function Navigation() {
   const pathname = usePathname();
+  const { student, login, logout } = useAuth();
 
   const isActive = (path: string) => pathname === path;
 
@@ -18,7 +20,6 @@ export default function Navigation() {
     { href: '/status', label: 'Check Status' },
     { href: '/verify', label: 'Verify' },
     { href: '/dashboard', label: 'Dashboard' },
-    { href: '/student/login', label: 'Student Login' },
   ];
 
   return (
@@ -32,7 +33,7 @@ export default function Navigation() {
             </div>
           </Link>
 
-          <div className="flex space-x-1">
+          <div className="flex items-center space-x-1">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -46,6 +47,39 @@ export default function Navigation() {
                 {link.label}
               </Link>
             ))}
+            {student ? (
+              <div className="flex items-center space-x-3 ml-3">
+                <div className="hidden sm:flex flex-col text-sm text-gray-600 text-right">
+                  <span className="font-medium text-gray-900">{student.name}</span>
+                  <span className="text-xs text-gray-500">{student.email}</span>
+                </div>
+                <Link
+                  href="/student/dashboard"
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive('/student/dashboard')
+                      ? 'bg-blue-100 text-blue-700'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }`}
+                >
+                  Student Dashboard
+                </Link>
+                <button
+                  type="button"
+                  onClick={logout}
+                  className="px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+                >
+                  Logout
+                </button>
+              </div>
+            ) : (
+              <button
+                type="button"
+                onClick={login}
+                className="ml-3 px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+              >
+                Student Login
+              </button>
+            )}
           </div>
         </div>
       </div>

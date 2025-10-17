@@ -3004,3 +3004,39 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": "Task-25"
 }
+2025-10-17 18:12:21 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 18:16:05 | INFO     | api | Created and opened admission cycle: Test 6
+{
+    "taskName": "Task-94"
+}
+2025-10-17 18:20:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 18:21:35 | WARNING  | student_auth | PKCE code_challenge mismatch for state aZL6Yb_e42vKOl2Na2rbUQ
+{
+    "taskName": "Task-188"
+}
+2025-10-17 18:21:35 | WARNING  | api | Student login failed: Invalid code verifier
+{
+    "taskName": "Task-188"
+}
+2025-10-17 18:21:35 | ERROR    | database | Database session error: 400: Invalid code verifier
+{
+    "taskName": null
+}
+2025-10-17 18:21:44 | WARNING  | student_auth | Invalid or expired OAuth state
+{
+    "taskName": "Task-190"
+}
+2025-10-17 18:21:44 | WARNING  | api | Student login failed: Invalid or expired state
+{
+    "taskName": "Task-190"
+}
+2025-10-17 18:21:44 | ERROR    | database | Database session error: 400: Invalid or expired state
+{
+    "taskName": null
+}

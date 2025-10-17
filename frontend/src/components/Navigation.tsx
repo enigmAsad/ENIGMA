@@ -16,21 +16,30 @@ type UserRole = 'anonymous' | 'student' | 'admin';
 export default function Navigation() {
   const pathname = usePathname();
   const router = useRouter();
-  const { student, login: studentLogin, logout: studentLogout } = useAuth();
+  const { student, loading: studentLoading, login: studentLogin, logout: studentLogout } = useAuth();
   const [userRole, setUserRole] = useState<UserRole>('anonymous');
   const [adminData, setAdminData] = useState<any>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
 
   const isActive = (path: string) => pathname === path;
 
   // Determine user role on mount and when student state changes
   useEffect(() => {
     const checkRole = async () => {
+      // Wait for student auth to finish loading before making decisions
+      if (studentLoading) {
+        return;
+      }
+
+      setIsCheckingAuth(true);
+
       // Check admin auth first
       if (adminApiClient.isAuthenticated()) {
         try {
           const admin = await adminApiClient.getCurrentAdmin();
           setAdminData(admin);
           setUserRole('admin');
+          setIsCheckingAuth(false);
           return;
         } catch (error) {
           // Admin token is invalid, clear it
@@ -44,10 +53,12 @@ export default function Navigation() {
       } else {
         setUserRole('anonymous');
       }
+
+      setIsCheckingAuth(false);
     };
 
     checkRole();
-  }, [student]);
+  }, [student, studentLoading]);
 
   const handleAdminLogout = async () => {
     await adminApiClient.logout();
@@ -62,21 +73,20 @@ export default function Navigation() {
       case 'student':
         return [
           { href: '/', label: 'Home' },
-          { href: '/student/dashboard', label: 'My Dashboard' },
-          { href: '/verify', label: 'Verify' },
+          { href: '/student/apply', label: 'Apply' },
+          { href: '/student/applications', label: 'My Applications' },
+          { href: '/student/dashboard', label: 'Dashboard' },
         ];
       case 'admin':
         return [
           { href: '/', label: 'Home' },
           { href: '/admin/dashboard', label: 'Admin Dashboard' },
           { href: '/admin/cycles', label: 'Manage Cycles' },
-          { href: '/verify', label: 'Verify' },
         ];
       case 'anonymous':
       default:
         return [
           { href: '/', label: 'Home' },
-          { href: '/verify', label: 'Verify' },
           { href: '/dashboard', label: 'Public Dashboard' },
         ];
     }
@@ -96,7 +106,7 @@ export default function Navigation() {
           </Link>
 
           <div className="flex items-center space-x-1">
-            {navLinks.map((link) => (
+            {!isCheckingAuth && navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
@@ -110,8 +120,16 @@ export default function Navigation() {
               </Link>
             ))}
 
+            {/* Loading skeleton during auth check */}
+            {isCheckingAuth && (
+              <div className="flex items-center space-x-2">
+                <div className="h-8 w-20 bg-gray-200 rounded-lg animate-pulse"></div>
+                <div className="h-8 w-32 bg-gray-200 rounded-lg animate-pulse"></div>
+              </div>
+            )}
+
             {/* Student Auth UI */}
-            {userRole === 'student' && student && (
+            {!isCheckingAuth && userRole === 'student' && student && (
               <div className="flex items-center space-x-3 ml-3 pl-3 border-l border-gray-300">
                 <div className="hidden sm:flex flex-col text-sm text-gray-600 text-right">
                   <span className="font-medium text-gray-900">
@@ -130,7 +148,7 @@ export default function Navigation() {
             )}
 
             {/* Admin Auth UI */}
-            {userRole === 'admin' && adminData && (
+            {!isCheckingAuth && userRole === 'admin' && adminData && (
               <div className="flex items-center space-x-3 ml-3 pl-3 border-l border-gray-300">
                 <div className="hidden sm:flex flex-col text-sm text-gray-600 text-right">
                   <span className="font-medium text-gray-900">
@@ -149,7 +167,7 @@ export default function Navigation() {
             )}
 
             {/* Anonymous User UI */}
-            {userRole === 'anonymous' && (
+            {!isCheckingAuth && userRole === 'anonymous' && (
               <div className="flex items-center space-x-2 ml-3">
                 <button
                   type="button"

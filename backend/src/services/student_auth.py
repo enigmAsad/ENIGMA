@@ -338,26 +338,31 @@ class StudentAuthService:
 
         # --- Fetch Application Data ---
         application_data = None
-        # Find the most recent application for this student
-        application = self.db.query(Application).filter(
-            Application.student_id == student.student_id
-        ).order_by(Application.created_at.desc()).first()
+        # Only fetch application for the ACTIVE cycle to avoid showing stale data
+        active_cycle = self.admins.get_active_cycle()
 
-        if application:
-            results = self.db.query(FinalScore).filter(
-                FinalScore.anonymized_id == application.anonymized.anonymized_id
-            ).first() if application.anonymized else None
+        if active_cycle:
+            # Find the application for this student in the active cycle
+            application = self.db.query(Application).filter(
+                Application.student_id == student.student_id,
+                Application.admission_cycle_id == active_cycle.cycle_id
+            ).order_by(Application.created_at.desc()).first()
 
-            application_data = {
-                "status": {
-                    "application_id": application.application_id,
-                    "anonymized_id": application.anonymized.anonymized_id if application.anonymized else None,
-                    "status": application.status.value,
-                    "message": "Status retrieved",
-                    "timestamp": application.updated_at or application.timestamp,
-                },
-                "results": results
-            }
+            if application:
+                results = self.db.query(FinalScore).filter(
+                    FinalScore.anonymized_id == application.anonymized.anonymized_id
+                ).first() if application.anonymized else None
+
+                application_data = {
+                    "status": {
+                        "application_id": application.application_id,
+                        "anonymized_id": application.anonymized.anonymized_id if application.anonymized else None,
+                        "status": application.status.value,
+                        "message": "Status retrieved",
+                        "timestamp": application.updated_at or application.timestamp,
+                    },
+                    "results": results
+                }
         # --------------------------------
 
         # Update last_active timestamp for rolling activity

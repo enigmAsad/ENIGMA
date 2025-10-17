@@ -27,19 +27,17 @@ const formatInPKT = (dateString: string) => {
   };
 };
 
-// Utility function to convert datetime-local input (PKT) to UTC ISO string
-const convertPKTtoUTC = (datetimeLocal: string): string => {
+// Utility function to convert datetime-local input to UTC ISO string
+// Note: The browser automatically interprets datetime-local as LOCAL TIME
+// Since the user is in PKT (UTC+5), the browser handles the conversion automatically
+const convertLocalToUTC = (datetimeLocal: string): string => {
   if (!datetimeLocal) return '';
 
-  // datetime-local format: "2025-10-17T14:30"
-  // Parse as PKT (UTC+5) and convert to UTC
-  const pktDate = new Date(datetimeLocal);
-
-  // Subtract 5 hours to convert from PKT to UTC
-  const utcDate = new Date(pktDate.getTime() - (5 * 60 * 60 * 1000));
-
-  // Return ISO string format that backend expects
-  return utcDate.toISOString();
+  // datetime-local format: "2025-10-17T14:30" (no timezone info)
+  // new Date() treats this as LOCAL time (PKT in your case)
+  // toISOString() automatically converts to UTC
+  // Example: 14:00 PKT → 09:00 UTC ✅
+  return new Date(datetimeLocal).toISOString();
 };
 
 // Utility function to get current time in PKT formatted for datetime-local input
@@ -86,25 +84,26 @@ export default function AdminCyclesPage() {
 
   const loadCycles = async () => {
     try {
-      const data = await adminApiClient.getAllCycles();
+      // Fetch cycles WITH stats in a single request (optimized - no N+1 queries!)
+      const data = await adminApiClient.getAllCycles(true);
       setCycles(data);
 
-      // Load status for each cycle
-      const statusPromises = data.map(async (cycle) => {
-        try {
-          const status = await adminApiClient.getCycleStatus(cycle.cycle_id);
-          return { cycleId: cycle.cycle_id, status };
-        } catch (error) {
-          console.error(`Failed to load status for cycle ${cycle.cycle_id}:`, error);
-          return null;
-        }
-      });
-
-      const statuses = await Promise.all(statusPromises);
+      // Extract stats from the combined response
       const statusMap: Record<string, CycleStatus> = {};
-      statuses.forEach((item) => {
-        if (item) {
-          statusMap[item.cycleId] = item.status;
+      data.forEach((cycle: any) => {
+        if (cycle.stats) {
+          // When include_stats=true, the response includes stats directly
+          statusMap[cycle.cycle_id] = {
+            cycle_id: cycle.cycle_id,
+            cycle_name: cycle.cycle_name,
+            phase: cycle.phase,
+            is_open: cycle.is_open,
+            max_seats: cycle.max_seats,
+            current_seats: cycle.current_seats,
+            selected_count: cycle.selected_count,
+            stats: cycle.stats,
+            dates: cycle.dates
+          };
         }
       });
       setCycleStatuses(statusMap);
@@ -198,13 +197,14 @@ export default function AdminCyclesPage() {
     setProcessing('create');
 
     try {
-      // Convert PKT datetime-local values to UTC ISO strings
+      // Convert local datetime-local values to UTC ISO strings
+      // Browser automatically treats input as local time (PKT) and converts to UTC
       const cycleData: CreateCycleRequest = {
         cycle_name: formData.cycle_name,
         max_seats: formData.max_seats,
-        start_date: convertPKTtoUTC(formData.start_date),
-        end_date: convertPKTtoUTC(formData.end_date),
-        result_date: convertPKTtoUTC(formData.result_date),
+        start_date: convertLocalToUTC(formData.start_date),
+        end_date: convertLocalToUTC(formData.end_date),
+        result_date: convertLocalToUTC(formData.result_date),
       };
 
       await adminApiClient.createCycle(cycleData);
@@ -360,15 +360,15 @@ export default function AdminCyclesPage() {
 
               <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                 <p className="text-sm text-blue-800">
-                  <strong>Timezone:</strong> All dates and times are in <strong>Pakistan Standard Time (PKT, UTC+5)</strong>.
-                  They will be automatically converted to UTC for storage.
+                  <strong>Timezone:</strong> Enter dates in <strong>your local time (PKT, UTC+5)</strong>.
+                  The system will automatically convert and store them in UTC. Displayed times will show in PKT.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Start Date (PKT)
+                    Start Date & Time
                   </label>
                   <input
                     type="datetime-local"
@@ -377,12 +377,12 @@ export default function AdminCyclesPage() {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
-                  <p className="text-xs text-gray-500 mt-1">When admissions open</p>
+                  <p className="text-xs text-gray-500 mt-1">When admissions open (local time)</p>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    End Date (PKT)
+                    End Date & Time
                   </label>
                   <input
                     type="datetime-local"
@@ -391,12 +391,12 @@ export default function AdminCyclesPage() {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
-                  <p className="text-xs text-gray-500 mt-1">Application deadline</p>
+                  <p className="text-xs text-gray-500 mt-1">Application deadline (local time)</p>
                 </div>
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Result Date (PKT)
+                    Result Date & Time
                   </label>
                   <input
                     type="datetime-local"
@@ -405,7 +405,7 @@ export default function AdminCyclesPage() {
                     required
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
-                  <p className="text-xs text-gray-500 mt-1">When results are published</p>
+                  <p className="text-xs text-gray-500 mt-1">When results are published (local time)</p>
                 </div>
               </div>
 

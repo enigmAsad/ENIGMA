@@ -3004,3 +3004,415 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": "Task-25"
 }
+2025-10-17 18:12:21 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 18:16:05 | INFO     | api | Created and opened admission cycle: Test 6
+{
+    "taskName": "Task-94"
+}
+2025-10-17 18:20:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 18:21:35 | WARNING  | student_auth | PKCE code_challenge mismatch for state aZL6Yb_e42vKOl2Na2rbUQ
+{
+    "taskName": "Task-188"
+}
+2025-10-17 18:21:35 | WARNING  | api | Student login failed: Invalid code verifier
+{
+    "taskName": "Task-188"
+}
+2025-10-17 18:21:35 | ERROR    | database | Database session error: 400: Invalid code verifier
+{
+    "taskName": null
+}
+2025-10-17 18:21:44 | WARNING  | student_auth | Invalid or expired OAuth state
+{
+    "taskName": "Task-190"
+}
+2025-10-17 18:21:44 | WARNING  | api | Student login failed: Invalid or expired state
+{
+    "taskName": "Task-190"
+}
+2025-10-17 18:21:44 | ERROR    | database | Database session error: 400: Invalid or expired state
+{
+    "taskName": null
+}
+2025-10-17 18:21:59 | INFO     | student_auth | Issued session STS_81400D96C0 for student STU_602287F0
+{
+    "taskName": "Task-197"
+}
+2025-10-17 18:21:59 | INFO     | student_auth | Student STU_602287F0 logged in via Google
+{
+    "taskName": "Task-197"
+}
+2025-10-17 18:27:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-17 18:27:50 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-17 18:27:50 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-17 18:27:55 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-17 18:27:55 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-17 18:27:55 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-17 18:27:55 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-17 18:27:56 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-17 18:28:35 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 18:28:35 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-15"
+}
+2025-10-17 18:28:41 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-15"
+}
+2025-10-17 18:29:43 | INFO     | phase_manager | Freezing cycle CYC_20251017_131604 by admin ADM_ENIGMA
+{
+    "taskName": "Task-27"
+}
+2025-10-17 18:29:44 | INFO     | phase_manager | Finalized 0 applications
+{
+    "taskName": "Task-27"
+}
+2025-10-17 18:29:44 | INFO     | phase_manager | Cycle CYC_20251017_131604 frozen successfully
+{
+    "taskName": "Task-27"
+}
+2025-10-17 18:29:44 | INFO     | api | Cycle CYC_20251017_131604 frozen by admin enigma
+{
+    "taskName": "Task-27"
+}
+2025-10-17 18:30:37 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-17 18:30:41 | INFO     | student_auth | Issued session STS_A3D6FC1B62 for student STU_B17774BA
+{
+    "taskName": "Task-65"
+}
+2025-10-17 18:30:41 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-65"
+}
+2025-10-17 18:42:36 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-17 18:42:36 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-17 18:42:36 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-17 18:42:42 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-17 18:42:42 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-17 18:42:42 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-17 18:42:42 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-17 18:42:43 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-17 18:43:27 | INFO     | student_auth | Issued session STS_7D17947A06 for student STU_B17774BA
+{
+    "taskName": "Task-16"
+}
+2025-10-17 18:43:27 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-16"
+}
+2025-10-18 00:40:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 00:40:39 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-18 00:40:39 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-18 00:40:44 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-18 00:40:44 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-18 00:40:44 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-18 00:40:44 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-18 00:40:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 00:41:22 | INFO     | student_auth | Revoked session STS_7D17947A06
+{
+    "taskName": "Task-12"
+}
+2025-10-18 00:41:29 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-14"
+}
+2025-10-18 00:41:34 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-14"
+}
+2025-10-18 00:43:09 | INFO     | api | Created and opened admission cycle: SP22
+{
+    "taskName": "Task-54"
+}
+2025-10-18 00:43:09 | ERROR    | database | Database session error: 1 validation errors:
+  {'type': 'value_error', 'loc': ('response', 'end_date'), 'msg': 'Value error, end_date must be after start_date', 'input': datetime.datetime(2025, 10, 17, 19, 49, tzinfo=datetime.timezone.utc), 'ctx': {'error': ValueError('end_date must be after start_date')}}
+
+{
+    "taskName": null
+}
+2025-10-18 00:43:42 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 00:43:42 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-18 00:43:42 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-18 00:43:48 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-18 00:43:48 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-18 00:43:48 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-18 00:43:48 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-18 00:43:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 00:44:11 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-15"
+}
+2025-10-18 00:44:19 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-15"
+}
+2025-10-18 00:44:19 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 00:45:36 | INFO     | api | Created and opened admission cycle: SP22
+{
+    "taskName": "Task-53"
+}
+2025-10-18 00:45:36 | ERROR    | database | Database session error: 1 validation errors:
+  {'type': 'value_error', 'loc': ('response', 'end_date'), 'msg': 'Value error, end_date must be after start_date', 'input': datetime.datetime(2025, 10, 17, 19, 50, tzinfo=datetime.timezone.utc), 'ctx': {'error': ValueError('end_date must be after start_date')}}
+
+{
+    "taskName": null
+}
+2025-10-18 00:48:06 | INFO     | api | Created and opened admission cycle: SP22
+{
+    "taskName": "Task-57"
+}
+2025-10-18 00:51:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 01:04:00 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 01:04:00 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-18 01:04:00 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-18 01:04:05 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-18 01:04:05 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-18 01:04:05 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-18 01:04:05 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-18 01:04:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 01:04:42 | INFO     | student_auth | Revoked session STS_CC9D681DD3
+{
+    "taskName": "Task-10"
+}
+2025-10-18 01:04:51 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-13"
+}
+2025-10-18 01:04:54 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-13"
+}
+2025-10-18 01:05:46 | INFO     | api | Closed admission cycle: F25
+{
+    "taskName": "Task-32"
+}
+2025-10-18 01:06:29 | INFO     | api | Created and opened admission cycle: YC W25
+{
+    "taskName": "Task-36"
+}
+2025-10-18 01:07:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 01:07:16 | INFO     | student_auth | Issued session STS_D263460BBB for student STU_B17774BA
+{
+    "taskName": "Task-48"
+}
+2025-10-18 01:07:16 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-48"
+}
+2025-10-18 01:16:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 01:16:58 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:17:01 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:17:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 01:17:19 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-18 01:17:19 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-18 01:17:23 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-18 01:17:23 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-18 01:17:23 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-18 01:17:23 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-18 01:17:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 01:17:46 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:17:49 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:17:52 | INFO     | student_auth | Issued session STS_4C00D45898 for student STU_B17774BA
+{
+    "taskName": "Task-16"
+}
+2025-10-18 01:17:52 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-16"
+}
+2025-10-18 01:18:13 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:18:14 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:18:17 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:20:32 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

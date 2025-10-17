@@ -155,6 +155,33 @@ class StudentLogoutResponse(BaseModel):
     message: str
 
 
+class CycleInfo(BaseModel):
+    """Cycle information for student applications."""
+    cycle_id: str
+    cycle_name: str
+    start_date: datetime
+    end_date: datetime
+    result_date: datetime
+    phase: str
+
+
+class StudentApplicationHistory(BaseModel):
+    """Application history entry for a student."""
+    application_id: str
+    cycle: CycleInfo
+    status: str
+    submitted_at: datetime
+    anonymized_id: Optional[str] = None
+    results: Optional[ResultsResponse] = None
+
+
+class StudentApplicationsResponse(BaseModel):
+    """Response with all applications for a student."""
+    student_id: str
+    applications: List[StudentApplicationHistory]
+    total_count: int
+
+
 # Student session helpers
 
 
@@ -369,6 +396,98 @@ async def student_logout(
 
     response.delete_cookie("enigma_student_session")
     return StudentLogoutResponse(success=True, message="Logged out successfully")
+
+
+@app.get("/auth/student/applications", response_model=StudentApplicationsResponse)
+async def get_student_applications(
+    student_session: Optional[Dict[str, Any]] = Depends(get_student_session),
+    db: Session = Depends(get_db)
+):
+    """Get all applications for the authenticated student across all cycles."""
+    if not student_session:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    student_id = student_session["student_id"]
+    app_repo = ApplicationRepository(db)
+    admin_repo = AdminRepository(db)
+
+    # Get all applications for this student
+    applications = app_repo.get_by_student_id(student_id)
+
+    # Build response with cycle info and results
+    application_history = []
+
+    for app in applications:
+        # Get cycle info
+        cycle = admin_repo.get_cycle_by_id(app.admission_cycle_id)
+        if not cycle:
+            continue  # Skip if cycle not found
+
+        # Get anonymized ID if available
+        anonymized_id = None
+        try:
+            anonymized = app_repo.get_anonymized_by_application_id(app.application_id)
+            if anonymized:
+                anonymized_id = anonymized.anonymized_id
+        except Exception:
+            pass
+
+        # Get results if available and published
+        results = None
+        if anonymized_id:
+            try:
+                final_score = app_repo.get_final_score_by_anonymized_id(anonymized_id)
+                if final_score:
+                    status_value = final_score.status.value if hasattr(final_score.status, "value") else str(final_score.status)
+                    # Only include results if published, selected, or not_selected
+                    if status_value.lower() in ['published', 'selected', 'not_selected']:
+                        results = ResultsResponse(
+                            anonymized_id=anonymized_id,
+                            status=status_value,
+                            final_score=final_score.final_score,
+                            academic_score=final_score.academic_score,
+                            test_score=final_score.test_score,
+                            achievement_score=final_score.achievement_score,
+                            essay_score=final_score.essay_score,
+                            explanation=final_score.explanation,
+                            strengths=final_score.strengths,
+                            areas_for_improvement=final_score.areas_for_improvement,
+                            hash=final_score.hash or "",
+                            timestamp=final_score.timestamp,
+                            worker_attempts=final_score.worker_attempts
+                        )
+            except Exception as e:
+                logger.warning(f"Could not fetch results for {anonymized_id}: {e}")
+
+        # Get application status
+        status_value = app.status.value if hasattr(app.status, "value") else str(app.status)
+
+        # Get cycle phase
+        phase_value = cycle.phase.value if hasattr(cycle.phase, "value") else str(cycle.phase)
+
+        # Build history entry
+        history_entry = StudentApplicationHistory(
+            application_id=app.application_id,
+            cycle=CycleInfo(
+                cycle_id=cycle.cycle_id,
+                cycle_name=cycle.cycle_name,
+                start_date=cycle.start_date,
+                end_date=cycle.end_date,
+                result_date=cycle.result_date,
+                phase=phase_value
+            ),
+            status=status_value,
+            submitted_at=app.timestamp,
+            anonymized_id=anonymized_id,
+            results=results
+        )
+        application_history.append(history_entry)
+
+    return StudentApplicationsResponse(
+        student_id=student_id,
+        applications=application_history,
+        total_count=len(application_history)
+    )
 
 
 @app.post("/applications", response_model=ApplicationSubmitResponse)

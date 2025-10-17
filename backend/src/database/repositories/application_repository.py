@@ -78,6 +78,22 @@ class ApplicationRepository(BaseRepository[Application]):
         result = self.db.execute(stmt)
         return result.scalar_one_or_none()
 
+    def get_by_student_id(self, student_id: str) -> List[Application]:
+        """Get all applications for a student across all cycles.
+
+        Args:
+            student_id: Student ID
+
+        Returns:
+            List[Application]: List of applications ordered by timestamp desc
+        """
+        stmt = select(Application).where(
+            Application.student_id == student_id
+        ).order_by(Application.timestamp.desc())
+
+        result = self.db.execute(stmt)
+        return list(result.scalars().all())
+
     def get_by_cycle(
         self,
         cycle_id: str,

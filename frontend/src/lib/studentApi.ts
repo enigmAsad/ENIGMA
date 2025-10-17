@@ -18,6 +18,30 @@ export interface Student {
   } | null;
 }
 
+export interface CycleInfo {
+  cycle_id: string;
+  cycle_name: string;
+  start_date: string;
+  end_date: string;
+  result_date: string;
+  phase: string;
+}
+
+export interface StudentApplicationHistory {
+  application_id: string;
+  cycle: CycleInfo;
+  status: string;
+  submitted_at: string;
+  anonymized_id: string | null;
+  results: ResultsResponse | null;
+}
+
+export interface StudentApplicationsResponse {
+  student_id: string;
+  applications: StudentApplicationHistory[];
+  total_count: number;
+}
+
 export interface StudentSessionResponse {
   success: boolean;
   student: Student;
@@ -94,6 +118,10 @@ class StudentAPIClient {
       method: 'POST',
       body: JSON.stringify(data),
     });
+  }
+
+  async getApplications(): Promise<StudentApplicationsResponse> {
+    return this.request<StudentApplicationsResponse>('/auth/student/applications');
   }
 }
 

@@ -63,7 +63,8 @@ export default function Navigation() {
         return [
           { href: '/', label: 'Home' },
           { href: '/student/apply', label: 'Apply' },
-          { href: '/student/dashboard', label: 'My Dashboard' },
+          { href: '/student/applications', label: 'My Applications' },
+          { href: '/student/dashboard', label: 'Dashboard' },
         ];
       case 'admin':
         return [

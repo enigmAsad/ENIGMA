@@ -3276,3 +3276,139 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": null
 }
+2025-10-18 01:04:00 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 01:04:00 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-18 01:04:00 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-18 01:04:05 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-18 01:04:05 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-18 01:04:05 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-18 01:04:05 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-18 01:04:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 01:04:42 | INFO     | student_auth | Revoked session STS_CC9D681DD3
+{
+    "taskName": "Task-10"
+}
+2025-10-18 01:04:51 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-13"
+}
+2025-10-18 01:04:54 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-13"
+}
+2025-10-18 01:05:46 | INFO     | api | Closed admission cycle: F25
+{
+    "taskName": "Task-32"
+}
+2025-10-18 01:06:29 | INFO     | api | Created and opened admission cycle: YC W25
+{
+    "taskName": "Task-36"
+}
+2025-10-18 01:07:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 01:07:16 | INFO     | student_auth | Issued session STS_D263460BBB for student STU_B17774BA
+{
+    "taskName": "Task-48"
+}
+2025-10-18 01:07:16 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-48"
+}
+2025-10-18 01:16:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 01:16:58 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:17:01 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:17:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 01:17:19 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-18 01:17:19 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-18 01:17:23 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-18 01:17:23 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-18 01:17:23 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-18 01:17:23 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-18 01:17:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 01:17:46 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:17:49 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:17:52 | INFO     | student_auth | Issued session STS_4C00D45898 for student STU_B17774BA
+{
+    "taskName": "Task-16"
+}
+2025-10-18 01:17:52 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-16"
+}
+2025-10-18 01:18:13 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:18:14 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}
+2025-10-18 01:18:17 | ERROR    | database | Database session error: type object 'Application' has no attribute 'cycle_id'
+{
+    "taskName": null
+}

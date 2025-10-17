@@ -62,21 +62,19 @@ export default function Navigation() {
       case 'student':
         return [
           { href: '/', label: 'Home' },
+          { href: '/student/apply', label: 'Apply' },
           { href: '/student/dashboard', label: 'My Dashboard' },
-          { href: '/verify', label: 'Verify' },
         ];
       case 'admin':
         return [
           { href: '/', label: 'Home' },
           { href: '/admin/dashboard', label: 'Admin Dashboard' },
           { href: '/admin/cycles', label: 'Manage Cycles' },
-          { href: '/verify', label: 'Verify' },
         ];
       case 'anonymous':
       default:
         return [
           { href: '/', label: 'Home' },
-          { href: '/verify', label: 'Verify' },
           { href: '/dashboard', label: 'Public Dashboard' },
         ];
     }

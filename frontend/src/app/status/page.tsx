@@ -5,15 +5,18 @@
 'use client';
 
 import { useState, useEffect, Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Card from '@/components/Card';
 import Input from '@/components/Input';
 import Button from '@/components/Button';
 import { apiClient, ApplicationStatusResponse, ResultsResponse } from '@/lib/api';
+import { useAuth } from '@/hooks/useStudentAuth';
 
 function StatusContent() {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const { student, loading: authLoading } = useAuth();
   const urlId = searchParams.get('id');
 
   const [applicationId, setApplicationId] = useState(urlId || '');
@@ -21,6 +24,12 @@ function StatusContent() {
   const [results, setResults] = useState<ResultsResponse | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!authLoading && !student) {
+      router.push('/student/login');
+    }
+  }, [authLoading, student, router]);
 
   const checkStatus = async (id: string) => {
     if (!id.trim()) {
@@ -55,10 +64,10 @@ function StatusContent() {
   };
 
   useEffect(() => {
-    if (urlId) {
+    if (urlId && student) {
       checkStatus(urlId);
     }
-  }, [urlId]);
+  }, [urlId, student]);
 
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
@@ -126,6 +135,14 @@ function StatusContent() {
 
     return <p className="text-gray-700">{message}</p>;
   };
+
+  if (authLoading || (!student && !authLoading)) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">

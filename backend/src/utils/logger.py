@@ -2,6 +2,7 @@
 
 import logging
 import sys
+import json
 from datetime import datetime
 from pathlib import Path
 from typing import Optional, Dict, Any
@@ -11,6 +12,42 @@ from src.config.settings import get_settings
 from src.models.schemas import AuditLog
 # Local imports that can cause circular dependencies are deferred in methods
 # to avoid issues during module import time.
+
+
+class DetailedFormatter(logging.Formatter):
+    """A custom log formatter to include extra data in log messages."""
+
+    def format(self, record):
+        # Let the parent class do the basic formatting
+        log_message = super().format(record)
+
+        # Find keys that are not standard LogRecord attributes
+        extra_data = {}
+        standard_keys = [
+            'args', 'asctime', 'created', 'exc_info', 'exc_text', 'filename',
+            'funcName', 'levelname', 'levelno', 'lineno', 'module',
+            'msecs', 'message', 'msg', 'name', 'pathname', 'process',
+            'processName', 'relativeCreated', 'stack_info', 'thread', 'threadName'
+        ]
+        for key, value in record.__dict__.items():
+            if key not in standard_keys:
+                extra_data[key] = value
+
+        if extra_data:
+            # Pretty-print the extra data for readability
+            try:
+                # Try to parse body if it's a JSON string
+                if 'body' in extra_data and isinstance(extra_data['body'], str):
+                    try:
+                        extra_data['body'] = json.loads(extra_data['body'])
+                    except json.JSONDecodeError:
+                        # Keep as string if not valid JSON
+                        pass
+                log_message += "\n" + json.dumps(extra_data, indent=4)
+            except (TypeError):
+                log_message += "\n" + str(extra_data)  # Fallback to string
+
+        return log_message
 
 
 @lru_cache()
@@ -34,8 +71,8 @@ def get_logger(name: str = "enigma") -> logging.Logger:
     # Set log level
     logger.setLevel(getattr(logging, settings.log_level))
 
-    # Create formatter
-    formatter = logging.Formatter(
+    # Use the new detailed formatter
+    formatter = DetailedFormatter(
         fmt="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
         datefmt="%Y-%m-%d %H:%M:%S"
     )

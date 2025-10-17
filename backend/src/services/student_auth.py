@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import base64
 import hashlib
 import secrets
 import uuid
@@ -18,8 +19,10 @@ from src.database.repositories import (
     OAuthIdentityRepository,
     StudentSessionRepository,
     StudentAuthStateRepository,
+    ApplicationRepository,  # Import ApplicationRepository
+    AdminRepository,        # Import AdminRepository
 )
-from src.database.models import StudentStatusEnum
+from src.database.models import StudentStatusEnum, Application, FinalScore
 from src.utils.logger import get_logger
 
 
@@ -36,13 +39,17 @@ class StudentAuthService:
         self.identities = OAuthIdentityRepository(db)
         self.sessions = StudentSessionRepository(db)
         self.auth_states = StudentAuthStateRepository(db)
+        self.applications = ApplicationRepository(db) # Add application repo
+        self.admins = AdminRepository(db) # Add admin repo
 
     # ------------------------------------------------------------------
     # PKCE / OIDC helpers
     # ------------------------------------------------------------------
 
     def _hash_code_verifier(self, code_verifier: str) -> str:
-        return hashlib.sha256(code_verifier.encode("ascii")).hexdigest()
+        """Hashes the code verifier using SHA-256 and base64url encodes it for PKCE."""
+        digest = hashlib.sha256(code_verifier.encode("utf-8")).digest()
+        return base64.urlsafe_b64encode(digest).rstrip(b'=').decode('utf-8')
 
     def _hash_session_token(self, session_token: str) -> str:
         return hashlib.sha256(session_token.encode("ascii")).hexdigest()
@@ -76,17 +83,17 @@ class StudentAuthService:
     def create_auth_state(
         self,
         code_challenge: str,
-        code_verifier: str,
         redirect_uri: str,
     ) -> Dict[str, str]:
         state = self._generate_state()
         nonce = self._generate_nonce()
         expires_at = datetime.now(timezone.utc) + timedelta(minutes=10)
 
+        # The code_verifier is not stored, only its hash is used in the callback.
+        # Here, we store the challenge to associate it with the state.
         self.auth_states.create_state(
             state=state,
             code_challenge=code_challenge,
-            code_verifier_hash=self._hash_code_verifier(code_verifier),
             redirect_uri=redirect_uri,
             nonce=nonce,
             expires_at=expires_at,
@@ -100,6 +107,10 @@ class StudentAuthService:
         if not record:
             logger.warning("Invalid or expired OAuth state")
             return None
+
+        # Commit immediately to release the lock on the auth_states table
+        self.db.commit()
+
         return record
 
     # ------------------------------------------------------------------
@@ -272,9 +283,10 @@ class StudentAuthService:
         if not state_record:
             raise HTTPException(status_code=400, detail="Invalid or expired state")
 
-        expected_code_verifier_hash = state_record.code_verifier_hash
-        if expected_code_verifier_hash != self._hash_code_verifier(code_verifier):
-            logger.warning("Code verifier mismatch for state %s", state)
+        # Verify the PKCE code challenge
+        computed_challenge = self._hash_code_verifier(code_verifier)
+        if state_record.code_challenge != computed_challenge:
+            logger.warning("PKCE code_challenge mismatch for state %s", state)
             raise HTTPException(status_code=400, detail="Invalid code verifier")
 
         tokens = await self.exchange_code_for_tokens(code, code_verifier, redirect_uri)
@@ -324,6 +336,30 @@ class StudentAuthService:
         if not student or student.status != StudentStatusEnum.ACTIVE:
             return None
 
+        # --- Fetch Application Data ---
+        application_data = None
+        # Find the most recent application for this student
+        application = self.db.query(Application).filter(
+            Application.student_id == student.student_id
+        ).order_by(Application.created_at.desc()).first()
+
+        if application:
+            results = self.db.query(FinalScore).filter(
+                FinalScore.anonymized_id == application.anonymized.anonymized_id
+            ).first() if application.anonymized else None
+
+            application_data = {
+                "status": {
+                    "application_id": application.application_id,
+                    "anonymized_id": application.anonymized.anonymized_id if application.anonymized else None,
+                    "status": application.status.value,
+                    "message": "Status retrieved",
+                    "timestamp": application.updated_at or application.timestamp,
+                },
+                "results": results
+            }
+        # --------------------------------
+
         # Update last_active timestamp for rolling activity
         self.sessions.update(
             session.session_id,
@@ -336,6 +372,7 @@ class StudentAuthService:
             "primary_email": student.primary_email,
             "display_name": student.display_name,
             "status": student.status.value,
+            "application": application_data,  # Include application data
         }
 
     def cleanup(self) -> Dict[str, int]:

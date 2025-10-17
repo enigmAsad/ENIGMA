@@ -185,6 +185,10 @@ class Settings(BaseSettings):
     )
 
     # Application Settings
+    debug: bool = Field(
+        default=False,
+        description="Enable debug mode (e.g., for non-secure cookies)"
+    )
     max_applications_per_batch: int = Field(
         default=100,
         ge=1,

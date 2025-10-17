@@ -1150,3 +1150,1305 @@ DETAIL:  Failing row contains (null, ANON_1760355123657_3542D0, phase1_final, {"
 2025-10-13 23:34:19 | INFO     | phase_manager | Completing cycle CYC_20251013_180709
 2025-10-13 23:34:20 | INFO     | phase_manager | Cycle CYC_20251013_180709 completed
 2025-10-13 23:34:20 | INFO     | api | Cycle CYC_20251013_180709 completed by admin asad
+2025-10-14 23:15:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:16:01 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:20:46 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:25:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:26:25 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:29:46 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:30:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:42:59 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:42:59 | INFO     | main | Running prerequisite checks...
+2025-10-14 23:42:59 | INFO     | main | Verifying database connection...
+2025-10-14 23:43:04 | INFO     | database | Database connection verified successfully
+2025-10-14 23:43:04 | INFO     | main | ✅ Database connection successful
+2025-10-14 23:43:04 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-14 23:43:04 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-14 23:43:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:50:08 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:50:08 | INFO     | main | Running prerequisite checks...
+2025-10-14 23:50:08 | INFO     | main | Verifying database connection...
+2025-10-14 23:50:13 | INFO     | database | Database connection verified successfully
+2025-10-14 23:50:13 | INFO     | main | ✅ Database connection successful
+2025-10-14 23:50:13 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+2025-10-14 23:50:13 | INFO     | main | Development mode: Auto-reload enabled
+2025-10-14 23:50:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:52:08 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+2025-10-14 23:58:15 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-14 23:58:58 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:13:30 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('body',), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:15:44 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('body',), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:39:42 | WARNING  | student_auth | Invalid or expired OAuth state
+2025-10-15 00:39:42 | WARNING  | api | Student login failed: Invalid or expired state
+2025-10-15 00:39:42 | ERROR    | database | Database session error: 400: Invalid or expired state
+2025-10-15 00:42:00 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:42:12 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:42:47 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:43:25 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+2025-10-15 00:46:08 | ERROR    | student_auth | Failed to exchange Google authorization code
+2025-10-15 00:46:08 | WARNING  | api | Student login failed: Failed to exchange authorization code
+2025-10-15 00:46:08 | ERROR    | database | Database session error: 400: Failed to exchange authorization code
+2025-10-15 00:50:13 | ERROR    | student_auth | Failed to exchange Google authorization code
+2025-10-15 00:50:13 | WARNING  | api | Student login failed: Failed to exchange authorization code
+2025-10-15 00:50:13 | ERROR    | database | Database session error: 400: Failed to exchange authorization code
+2025-10-15 00:53:51 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 01:18:31 | ERROR    | student_auth | Failed to exchange Google authorization code
+{
+    "taskName": "Task-10",
+    "status": 400,
+    "body": {
+        "error": "invalid_grant",
+        "error_description": "Malformed auth code."
+    }
+}
+2025-10-15 01:18:31 | WARNING  | api | Student login failed: Failed to exchange authorization code
+{
+    "taskName": "Task-10"
+}
+2025-10-15 01:18:31 | ERROR    | database | Database session error: 400: Failed to exchange authorization code
+{
+    "taskName": null
+}
+2025-10-15 01:37:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 01:37:58 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 01:37:58 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 01:38:03 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 01:38:03 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 01:38:03 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 01:38:03 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 01:38:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 01:40:37 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 01:40:44 | ERROR    | database | Database session error: [{'type': 'missing', 'loc': ('query', 'redirect_uri'), 'msg': 'Field required', 'input': None}, {'type': 'missing', 'loc': ('query', 'code_challenge'), 'msg': 'Field required', 'input': None}]
+{
+    "taskName": null
+}
+2025-10-15 01:42:23 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 01:42:47 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 01:52:34 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 01:53:10 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 01:53:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:45:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 18:45:52 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 18:45:52 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 18:45:57 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 18:45:57 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 18:45:57 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 18:45:57 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 18:45:59 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 18:48:06 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:50:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:52:24 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:53:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:53:17 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:53:20 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:55:29 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:56:17 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:56:24 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:56:41 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:56:52 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:56:59 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_3BE77574', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 13, 56, 58, 653413), 'updated_at': datetime.datetime(2025, 10, 15, 13, 56, 58, 653413), 'verified_at': datetime.datetime(2025, 10, 15, 13, 56, 58, 650412, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-47"
+}
+2025-10-15 18:56:59 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 18:59:08 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 18:59:28 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 18:59:30 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_049260C0', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 13, 59, 30, 384336), 'updated_at': datetime.datetime(2025, 10, 15, 13, 59, 30, 384336), 'verified_at': datetime.datetime(2025, 10, 15, 13, 59, 30, 381334, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-5"
+}
+2025-10-15 18:59:30 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 18:59:54 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 18:59:55 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 18:59:55 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 18:59:59 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 18:59:59 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 18:59:59 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 18:59:59 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 19:00:02 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 19:00:05 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:00:31 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:00:34 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_A7968B46', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 14, 0, 33, 519989), 'updated_at': datetime.datetime(2025, 10, 15, 14, 0, 33, 519989), 'verified_at': datetime.datetime(2025, 10, 15, 14, 0, 33, 517953, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-10"
+}
+2025-10-15 19:00:34 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 19:03:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 19:04:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:04:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:04:52 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:04:55 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_C3C70CDB', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 14, 4, 54, 767598), 'updated_at': datetime.datetime(2025, 10, 15, 14, 4, 54, 767598), 'verified_at': datetime.datetime(2025, 10, 15, 14, 4, 54, 765598, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-12"
+}
+2025-10-15 19:04:55 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 19:05:49 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:05:49 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:07:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": "Task-1"
+}
+2025-10-15 19:07:54 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 19:07:54 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 19:07:54 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 19:07:59 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 19:07:59 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 19:07:59 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 19:07:59 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 19:08:01 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 19:08:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:08:22 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 19:08:26 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_C965BD71', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 14, 8, 25, 966898), 'updated_at': datetime.datetime(2025, 10, 15, 14, 8, 25, 966898), 'verified_at': datetime.datetime(2025, 10, 15, 14, 8, 25, 962897, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-12"
+}
+2025-10-15 19:08:26 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:03:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:05:54 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:09:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:09:45 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 20:09:45 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 20:09:50 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 20:09:50 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 20:09:50 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 20:09:50 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 20:09:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:10:01 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:10:13 | ERROR    | database | Database session error: (psycopg2.errors.UndefinedTable) relation "student_auth_states" does not exist
+LINE 1: INSERT INTO student_auth_states (state, code_challenge, code...
+                    ^
+
+[SQL: INSERT INTO student_auth_states (state, code_challenge, code_verifier_hash, nonce, redirect_uri, created_at, expires_at, consumed) VALUES (%(state)s, %(code_challenge)s, %(code_verifier_hash)s, %(nonce)s, %(redirect_uri)s, %(created_at)s, %(expires_at)s, %(consumed)s)]
+[parameters: {'state': '8ENF1cdeLA0RghBVPyhmmw', 'code_challenge': 'ZDyEGy_mrg5A0Ueyo2bFeI1QiGE6TzmPM-ug-sl11Lo', 'code_verifier_hash': '', 'nonce': 'FJllm7TD9ic-swekW1Qnog', 'redirect_uri': 'http://localhost:3000/auth/google/callback', 'created_at': datetime.datetime(2025, 10, 15, 15, 10, 12, 420110), 'expires_at': datetime.datetime(2025, 10, 15, 15, 20, 8, 419316, tzinfo=datetime.timezone.utc), 'consumed': False}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+{
+    "taskName": null
+}
+2025-10-15 20:10:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:12:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:12:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:13:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:13:20 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:13:28 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_B8EF7B7C', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 15, 15, 13, 27, 604621), 'updated_at': datetime.datetime(2025, 10, 15, 15, 13, 27, 604621), 'verified_at': datetime.datetime(2025, 10, 15, 15, 13, 27, 602619, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-13"
+}
+2025-10-15 20:13:28 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:15:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:17:37 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:17:37 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:17:50 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:17:53 | INFO     | student_auth | Created new student account STU_F5355E37 for arsalansikander0216@gmail.com
+{
+    "taskName": "Task-16"
+}
+2025-10-15 20:17:54 | INFO     | student_auth | Linked OAuth identity google:113590372563471847411 to student STU_F5355E37
+{
+    "taskName": "Task-16"
+}
+2025-10-15 20:17:54 | INFO     | student_auth | Issued session STS_CACB8DC40C for student STU_F5355E37
+{
+    "taskName": "Task-16"
+}
+2025-10-15 20:17:54 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-16"
+}
+2025-10-15 20:17:54 | ERROR    | api | An unexpected error occurred during student login: 'Settings' object has no attribute 'debug'
+{
+    "taskName": "Task-16"
+}
+2025-10-15 20:17:54 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:19:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:20:15 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:20:15 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:20:23 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:20:26 | INFO     | student_auth | Issued session STS_457F48DA55 for student STU_F5355E37
+{
+    "taskName": "Task-18"
+}
+2025-10-15 20:20:27 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-18"
+}
+2025-10-15 20:22:24 | INFO     | student_auth | Revoked session STS_457F48DA55
+{
+    "taskName": "Task-38"
+}
+2025-10-15 20:24:07 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:26:07 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.QueryCanceled) canceling statement due to statement timeout
+CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
+
+[SQL: UPDATE student_auth_states SET consumed=%(consumed)s WHERE student_auth_states.state = %(state_1)s AND student_auth_states.consumed = false AND student_auth_states.expires_at >= %(expires_at_1)s RETURNING student_auth_states.state, student_auth_states.code_challenge, student_auth_states.code_verifier_hash, student_auth_states.nonce, student_auth_states.redirect_uri, student_auth_states.created_at, student_auth_states.expires_at, student_auth_states.consumed]
+[parameters: {'consumed': True, 'state_1': 'iPIxtwNGSl5NyhvzJ7Bt0Q', 'expires_at_1': datetime.datetime(2025, 10, 15, 15, 24, 7, 14401, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-52"
+}
+2025-10-15 20:26:07 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:26:07 | ERROR    | api | An unexpected error occurred during student login: 
+{
+    "taskName": "Task-50"
+}
+2025-10-15 20:26:07 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:28:20 | ERROR    | api | An unexpected error occurred during student login: (psycopg2.errors.QueryCanceled) canceling statement due to statement timeout
+CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
+
+[SQL: UPDATE student_auth_states SET consumed=%(consumed)s WHERE student_auth_states.state = %(state_1)s AND student_auth_states.consumed = false AND student_auth_states.expires_at >= %(expires_at_1)s RETURNING student_auth_states.state, student_auth_states.code_challenge, student_auth_states.code_verifier_hash, student_auth_states.nonce, student_auth_states.redirect_uri, student_auth_states.created_at, student_auth_states.expires_at, student_auth_states.consumed]
+[parameters: {'consumed': True, 'state_1': 'iPIxtwNGSl5NyhvzJ7Bt0Q', 'expires_at_1': datetime.datetime(2025, 10, 15, 15, 26, 17, 647750, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-82"
+}
+2025-10-15 20:28:29 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:28:36 | INFO     | student_auth | Issued session STS_AABE8E0001 for student STU_F5355E37
+{
+    "taskName": "Task-76"
+}
+2025-10-15 20:28:36 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-76"
+}
+2025-10-15 20:29:12 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 20:29:56 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:30:00 | INFO     | student_auth | Issued session STS_7549DEE57F for student STU_F5355E37
+{
+    "taskName": "Task-12"
+}
+2025-10-15 20:30:00 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-12"
+}
+2025-10-15 20:33:36 | INFO     | student_auth | Revoked session STS_7549DEE57F
+{
+    "taskName": "Task-24"
+}
+2025-10-15 20:33:51 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:33:55 | INFO     | student_auth | Issued session STS_C66D7A0382 for student STU_F5355E37
+{
+    "taskName": "Task-30"
+}
+2025-10-15 20:33:55 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-30"
+}
+2025-10-15 20:34:00 | INFO     | student_auth | Revoked session STS_C66D7A0382
+{
+    "taskName": "Task-35"
+}
+2025-10-15 20:36:41 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 20:36:45 | INFO     | student_auth | Issued session STS_F34B2030AD for student STU_F5355E37
+{
+    "taskName": "Task-44"
+}
+2025-10-15 20:36:45 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-44"
+}
+2025-10-15 20:36:49 | INFO     | student_auth | Revoked session STS_F34B2030AD
+{
+    "taskName": "Task-49"
+}
+2025-10-15 20:37:04 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 22:55:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 22:55:35 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-15 22:55:35 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-15 22:55:40 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-15 22:55:40 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-15 22:55:40 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-15 22:55:40 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-15 22:55:42 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 22:56:38 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 22:56:44 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-15 22:57:17 | INFO     | create_admin | Admin user created successfully: enigma
+{
+    "taskName": null
+}
+2025-10-15 22:57:24 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-11"
+}
+2025-10-15 22:57:31 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-11"
+}
+2025-10-15 22:59:31 | INFO     | api | Created and opened admission cycle: Test Session
+{
+    "taskName": "Task-36"
+}
+2025-10-15 22:59:44 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 22:59:53 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 22:59:58 | INFO     | student_auth | Issued session STS_85EF4F68BF for student STU_F5355E37
+{
+    "taskName": "Task-51"
+}
+2025-10-15 22:59:59 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-51"
+}
+2025-10-15 23:01:12 | INFO     | application_collector | Collecting new application from tu@gmail.com
+{
+    "taskName": "Task-62"
+}
+2025-10-15 23:01:13 | INFO     | audit | AUDIT: create | Application:APP_F1D8AB93 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-15T18:01:13.374151
+{
+    "taskName": "Task-62"
+}
+2025-10-15 23:01:13 | INFO     | application_collector | Application collected successfully: APP_F1D8AB93
+{
+    "taskName": "Task-62"
+}
+2025-10-15 23:01:13 | INFO     | api | Application submitted: APP_F1D8AB93 (Cycle: Test Session)
+{
+    "taskName": "Task-62"
+}
+2025-10-15 23:01:36 | INFO     | api | Closed admission cycle: Test Session
+{
+    "taskName": "Task-74"
+}
+2025-10-15 23:01:50 | INFO     | phase_manager | Freezing cycle CYC_20251015_175930 by admin ADM_ENIGMA
+{
+    "taskName": "Task-82"
+}
+2025-10-15 23:01:51 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-82"
+}
+2025-10-15 23:01:52 | INFO     | phase_manager | Cycle CYC_20251015_175930 frozen successfully
+{
+    "taskName": "Task-82"
+}
+2025-10-15 23:01:52 | INFO     | api | Cycle CYC_20251015_175930 frozen by admin enigma
+{
+    "taskName": "Task-82"
+}
+2025-10-15 23:02:06 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251015_175930
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:07 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:08 | INFO     | identity_scrubber | Scrubbing application: APP_F1D8AB93
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:08 | INFO     | identity_scrubber | Applied 3 redactions to APP_F1D8AB93
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:11 | INFO     | identity_scrubber | Successfully scrubbed APP_F1D8AB93 → ANON_1760533328573_785765
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:13 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251015_175930: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:13 | INFO     | api | Preprocessing started for cycle CYC_20251015_175930 by admin enigma
+{
+    "taskName": "Task-91"
+}
+2025-10-15 23:02:25 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:27 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:27 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251015_175930
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:28 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251015_175930: 1 applications ready for export
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:28 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251015_175930 to JSONL
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:29 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251015_175930_20251015_180229.jsonl
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:30 | INFO     | api | Batch export completed for cycle CYC_20251015_175930 by admin enigma
+{
+    "taskName": "Task-101"
+}
+2025-10-15 23:02:48 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:02:49 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:02:49 | INFO     | phase_manager | Starting processing for cycle CYC_20251015_175930
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:02:50 | INFO     | phase_manager | Cycle CYC_20251015_175930 now in PROCESSING phase
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:02:53 | INFO     | worker_llm | Evaluating ANON_1760533328573_785765 (attempt 1)
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:16 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_E8569B7F | actor=worker_llm | details={'anonymized_id': 'ANON_1760533328573_785765', 'attempt_number': 1, 'total_score': 81.5} | timestamp=2025-10-15T18:03:16.846754
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:18 | INFO     | worker_llm | Worker evaluation complete: ANON_1760533328573_785765 → 81.50/100 (attempt 1)
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:18 | INFO     | judge_llm | Validating worker evaluation for ANON_1760533328573_785765 (attempt 1)
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:45 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_2C8B21CC | actor=judge_llm | details={'anonymized_id': 'ANON_1760533328573_785765', 'worker_result_id': 'WKR_E8569B7F', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-15T18:03:45.830141
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:47 | INFO     | judge_llm | Judge validation complete: ANON_1760533328573_785765 → APPROVED  (quality: 87/100)
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:49 | INFO     | audit | AUDIT: update | HashChain:ANON_1760533328573_785765 | actor=hash_chain_generator | details={'hash': '1e5f0e0ceea9e5a06f1071e3020f71c558f2ea9defc1522579463bcdc8aedbdc'} | timestamp=2025-10-15T18:03:49.941169
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:51 | INFO     | hash_chain | Created hash chain entry for ANON_1760533328573_785765: 1e5f0e0ceea9e5a0...
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:52 | INFO     | phase_manager | Marking cycle CYC_20251015_175930 as scored
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:53 | INFO     | phase_manager | Cycle CYC_20251015_175930 marked as SCORED
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:03:53 | INFO     | api | LLM processing completed for cycle CYC_20251015_175930 by admin enigma
+{
+    "taskName": "Task-110"
+}
+2025-10-15 23:04:08 | INFO     | phase_manager | Performing selection for cycle CYC_20251015_175930
+{
+    "taskName": "Task-121"
+}
+2025-10-15 23:04:10 | INFO     | phase_manager | Updated 1 applications to SELECTED status
+{
+    "taskName": "Task-121"
+}
+2025-10-15 23:04:10 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-121"
+}
+2025-10-15 23:04:12 | INFO     | phase_manager | Selection complete: 1 selected, 0 not selected
+{
+    "taskName": "Task-121"
+}
+2025-10-15 23:04:12 | INFO     | api | Selection performed for cycle CYC_20251015_175930 by admin enigma
+{
+    "taskName": "Task-121"
+}
+2025-10-15 23:04:59 | INFO     | phase_manager | Publishing results for cycle CYC_20251015_175930
+{
+    "taskName": "Task-132"
+}
+2025-10-15 23:05:01 | INFO     | hash_chain | Created hash chain entry for ANON_1760533328573_785765: b36bb4654378b4e3...
+{
+    "taskName": "Task-132"
+}
+2025-10-15 23:05:02 | INFO     | phase_manager | Results published for cycle CYC_20251015_175930
+{
+    "taskName": "Task-132"
+}
+2025-10-15 23:05:02 | INFO     | api | Results published for cycle CYC_20251015_175930 by admin enigma
+{
+    "taskName": "Task-132"
+}
+2025-10-15 23:05:17 | INFO     | phase_manager | Completing cycle CYC_20251015_175930
+{
+    "taskName": "Task-141"
+}
+2025-10-15 23:05:17 | INFO     | phase_manager | Cycle CYC_20251015_175930 completed
+{
+    "taskName": "Task-141"
+}
+2025-10-15 23:05:17 | INFO     | api | Cycle CYC_20251015_175930 completed by admin enigma
+{
+    "taskName": "Task-141"
+}
+2025-10-15 23:06:38 | INFO     | student_auth | Revoked session STS_85EF4F68BF
+{
+    "taskName": "Task-171"
+}
+2025-10-15 23:55:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-15 23:55:14 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:02:48 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:02:48 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:04:02 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:04:02 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:04:06 | INFO     | student_auth | Issued session STS_AA30CCD83A for student STU_F5355E37
+{
+    "taskName": "Task-195"
+}
+2025-10-16 00:04:06 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-195"
+}
+2025-10-16 00:04:06 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-202"
+}
+2025-10-16 00:04:10 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-202"
+}
+2025-10-16 00:07:23 | INFO     | api | Created and opened admission cycle: Test Cycle 2
+{
+    "taskName": "Task-231"
+}
+2025-10-16 00:10:50 | ERROR    | api | Application submission failed: type object 'ApplicationRepository' has no attribute 'model'
+{
+    "taskName": "Task-274"
+}
+2025-10-16 00:10:50 | ERROR    | database | Database session error: 400: type object 'ApplicationRepository' has no attribute 'model'
+{
+    "taskName": null
+}
+2025-10-16 00:13:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:14:03 | ERROR    | api | Application submission failed: Column expression, FROM clause, or other columns clause element expected, got <class 'src.models.schemas.Application'>.
+{
+    "taskName": "Task-4"
+}
+2025-10-16 00:14:03 | ERROR    | database | Database session error: 400: Column expression, FROM clause, or other columns clause element expected, got <class 'src.models.schemas.Application'>.
+{
+    "taskName": null
+}
+2025-10-16 00:17:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:17:52 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-4"
+}
+2025-10-16 00:17:53 | INFO     | audit | AUDIT: create | Application:APP_BD871B55 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-15T19:17:53.825079
+{
+    "taskName": "Task-4"
+}
+2025-10-16 00:17:53 | INFO     | application_collector | Application collected successfully: APP_BD871B55
+{
+    "taskName": "Task-4"
+}
+2025-10-16 00:17:54 | INFO     | api | Application submitted: APP_BD871B55 (Cycle: Test Cycle 2)
+{
+    "taskName": "Task-4"
+}
+2025-10-16 00:21:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:24:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:24:36 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:25:07 | INFO     | student_auth | Revoked session STS_AA30CCD83A
+{
+    "taskName": "Task-7"
+}
+2025-10-16 00:25:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:25:18 | INFO     | student_auth | Issued session STS_D0D946D7AF for student STU_F5355E37
+{
+    "taskName": "Task-15"
+}
+2025-10-16 00:25:19 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-15"
+}
+2025-10-16 00:25:45 | INFO     | api | Closed admission cycle: Test Cycle 2
+{
+    "taskName": "Task-25"
+}
+2025-10-16 00:26:00 | INFO     | student_auth | Revoked session STS_D0D946D7AF
+{
+    "taskName": "Task-36"
+}
+2025-10-16 00:26:07 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:26:11 | INFO     | student_auth | Issued session STS_0F5E1B2CDF for student STU_F5355E37
+{
+    "taskName": "Task-43"
+}
+2025-10-16 00:26:11 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-43"
+}
+2025-10-16 00:26:48 | ERROR    | database | Database session error: 400: Cannot delete cycle with submitted applications. Archive or remove applications first.
+{
+    "taskName": null
+}
+2025-10-16 00:27:29 | INFO     | api | Created and opened admission cycle: Test Cycle 3
+{
+    "taskName": "Task-73"
+}
+2025-10-16 00:29:04 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-104"
+}
+2025-10-16 00:29:05 | INFO     | audit | AUDIT: create | Application:APP_4804B49A | actor=system | details={'stage': 'intake'} | timestamp=2025-10-15T19:29:05.055821
+{
+    "taskName": "Task-104"
+}
+2025-10-16 00:29:05 | INFO     | application_collector | Application collected successfully: APP_4804B49A
+{
+    "taskName": "Task-104"
+}
+2025-10-16 00:29:05 | INFO     | api | Application submitted: APP_4804B49A (Cycle: Test Cycle 3)
+{
+    "taskName": "Task-104"
+}
+2025-10-16 00:29:07 | ERROR    | database | Database session error: 'Application' object has no attribute 'anonymized_application'
+{
+    "taskName": null
+}
+2025-10-16 00:29:16 | ERROR    | database | Database session error: 'Application' object has no attribute 'anonymized_application'
+{
+    "taskName": null
+}
+2025-10-16 00:29:25 | ERROR    | database | Database session error: 'Application' object has no attribute 'anonymized_application'
+{
+    "taskName": null
+}
+2025-10-16 00:29:27 | INFO     | student_auth | Issued session STS_A278C2F449 for student STU_F5355E37
+{
+    "taskName": "Task-114"
+}
+2025-10-16 00:29:27 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-114"
+}
+2025-10-16 00:32:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:33:33 | INFO     | api | Closed admission cycle: Test Cycle 3
+{
+    "taskName": "Task-5"
+}
+2025-10-16 00:35:21 | INFO     | api | Created and opened admission cycle: Test Cycle 4
+{
+    "taskName": "Task-24"
+}
+2025-10-16 00:36:20 | INFO     | student_auth | Revoked session STS_A278C2F449
+{
+    "taskName": "Task-46"
+}
+2025-10-16 00:36:25 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-16 00:36:30 | INFO     | student_auth | Issued session STS_44347EE305 for student STU_F5355E37
+{
+    "taskName": "Task-54"
+}
+2025-10-16 00:36:31 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-54"
+}
+2025-10-16 00:37:15 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-69"
+}
+2025-10-16 00:37:16 | INFO     | audit | AUDIT: create | Application:APP_98E8D17E | actor=system | details={'stage': 'intake'} | timestamp=2025-10-15T19:37:16.286188
+{
+    "taskName": "Task-69"
+}
+2025-10-16 00:37:16 | INFO     | application_collector | Application collected successfully: APP_98E8D17E
+{
+    "taskName": "Task-69"
+}
+2025-10-16 00:37:17 | INFO     | api | Application submitted: APP_98E8D17E (Cycle: Test Cycle 4)
+{
+    "taskName": "Task-69"
+}
+2025-10-16 00:37:27 | INFO     | api | Closed admission cycle: Test Cycle 4
+{
+    "taskName": "Task-74"
+}
+2025-10-16 00:37:49 | INFO     | phase_manager | Freezing cycle CYC_20251015_193520 by admin ADM_ENIGMA
+{
+    "taskName": "Task-89"
+}
+2025-10-16 00:37:50 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-89"
+}
+2025-10-16 00:37:51 | INFO     | phase_manager | Cycle CYC_20251015_193520 frozen successfully
+{
+    "taskName": "Task-89"
+}
+2025-10-16 00:37:51 | INFO     | api | Cycle CYC_20251015_193520 frozen by admin enigma
+{
+    "taskName": "Task-89"
+}
+2025-10-16 00:38:23 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251015_193520
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:24 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:24 | INFO     | identity_scrubber | Scrubbing application: APP_98E8D17E
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:25 | INFO     | identity_scrubber | Applied 3 redactions to APP_98E8D17E
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:28 | INFO     | identity_scrubber | Successfully scrubbed APP_98E8D17E → ANON_1760539105218_C5AF5E
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:29 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251015_193520: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:38:29 | INFO     | api | Preprocessing started for cycle CYC_20251015_193520 by admin enigma
+{
+    "taskName": "Task-105"
+}
+2025-10-16 00:39:11 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:12 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:12 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251015_193520
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:13 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251015_193520: 1 applications ready for export
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:13 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251015_193520 to JSONL
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:15 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251015_193520_20251015_193914.jsonl
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:39:15 | INFO     | api | Batch export completed for cycle CYC_20251015_193520 by admin enigma
+{
+    "taskName": "Task-122"
+}
+2025-10-16 00:43:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-16 00:44:27 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:28 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:28 | INFO     | phase_manager | Starting processing for cycle CYC_20251015_193520
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:29 | INFO     | phase_manager | Cycle CYC_20251015_193520 now in PROCESSING phase
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:32 | INFO     | worker_llm | Evaluating ANON_1760539105218_C5AF5E (attempt 1)
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:58 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_C98DB419 | actor=worker_llm | details={'anonymized_id': 'ANON_1760539105218_C5AF5E', 'attempt_number': 1, 'total_score': 86.25} | timestamp=2025-10-15T19:44:58.465977
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:44:59 | INFO     | worker_llm | Worker evaluation complete: ANON_1760539105218_C5AF5E → 86.25/100 (attempt 1)
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:00 | INFO     | judge_llm | Validating worker evaluation for ANON_1760539105218_C5AF5E (attempt 1)
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:19 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_DDF7C3B7 | actor=judge_llm | details={'anonymized_id': 'ANON_1760539105218_C5AF5E', 'worker_result_id': 'WKR_C98DB419', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-15T19:45:19.811103
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:21 | INFO     | judge_llm | Judge validation complete: ANON_1760539105218_C5AF5E → APPROVED  (quality: 88/100)
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:23 | INFO     | audit | AUDIT: update | HashChain:ANON_1760539105218_C5AF5E | actor=hash_chain_generator | details={'hash': 'd137b3e1dac1f4397e66c5659ca892779333402d74d5d861cd2fb53d5de78c0b'} | timestamp=2025-10-15T19:45:23.998795
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:25 | INFO     | hash_chain | Created hash chain entry for ANON_1760539105218_C5AF5E: d137b3e1dac1f439...
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:26 | INFO     | phase_manager | Marking cycle CYC_20251015_193520 as scored
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:27 | INFO     | phase_manager | Cycle CYC_20251015_193520 marked as SCORED
+{
+    "taskName": "Task-11"
+}
+2025-10-16 00:45:27 | INFO     | api | LLM processing completed for cycle CYC_20251015_193520 by admin enigma
+{
+    "taskName": "Task-11"
+}

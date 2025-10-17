@@ -18,6 +18,7 @@ export default function Navigation() {
     { href: '/status', label: 'Check Status' },
     { href: '/verify', label: 'Verify' },
     { href: '/dashboard', label: 'Dashboard' },
+    { href: '/student/login', label: 'Student Login' },
   ];
 
   return (

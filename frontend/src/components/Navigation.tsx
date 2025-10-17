@@ -1,26 +1,88 @@
 /**
- * Navigation bar component
+ * Role-based navigation bar component
+ * Supports three modes: Anonymous, Student, Admin
  */
 
 'use client';
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useStudentAuth';
+import { useEffect, useState } from 'react';
+import { adminApiClient } from '@/lib/adminApi';
+
+type UserRole = 'anonymous' | 'student' | 'admin';
 
 export default function Navigation() {
   const pathname = usePathname();
-  const { student, login, logout } = useAuth();
+  const router = useRouter();
+  const { student, login: studentLogin, logout: studentLogout } = useAuth();
+  const [userRole, setUserRole] = useState<UserRole>('anonymous');
+  const [adminData, setAdminData] = useState<any>(null);
 
   const isActive = (path: string) => pathname === path;
 
-  const navLinks = [
-    { href: '/', label: 'Home' },
-    { href: '/apply', label: 'Apply' },
-    { href: '/status', label: 'Check Status' },
-    { href: '/verify', label: 'Verify' },
-    { href: '/dashboard', label: 'Dashboard' },
-  ];
+  // Determine user role on mount and when student state changes
+  useEffect(() => {
+    const checkRole = async () => {
+      // Check admin auth first
+      if (adminApiClient.isAuthenticated()) {
+        try {
+          const admin = await adminApiClient.getCurrentAdmin();
+          setAdminData(admin);
+          setUserRole('admin');
+          return;
+        } catch (error) {
+          // Admin token is invalid, clear it
+          adminApiClient.logout();
+        }
+      }
+
+      // Check student auth
+      if (student) {
+        setUserRole('student');
+      } else {
+        setUserRole('anonymous');
+      }
+    };
+
+    checkRole();
+  }, [student]);
+
+  const handleAdminLogout = async () => {
+    await adminApiClient.logout();
+    setUserRole('anonymous');
+    setAdminData(null);
+    router.push('/admin/login');
+  };
+
+  // Define navigation links based on role
+  const getNavLinks = () => {
+    switch (userRole) {
+      case 'student':
+        return [
+          { href: '/', label: 'Home' },
+          { href: '/student/dashboard', label: 'My Dashboard' },
+          { href: '/verify', label: 'Verify' },
+        ];
+      case 'admin':
+        return [
+          { href: '/', label: 'Home' },
+          { href: '/admin/dashboard', label: 'Admin Dashboard' },
+          { href: '/admin/cycles', label: 'Manage Cycles' },
+          { href: '/verify', label: 'Verify' },
+        ];
+      case 'anonymous':
+      default:
+        return [
+          { href: '/', label: 'Home' },
+          { href: '/verify', label: 'Verify' },
+          { href: '/dashboard', label: 'Public Dashboard' },
+        ];
+    }
+  };
+
+  const navLinks = getNavLinks();
 
   return (
     <nav className="bg-white shadow-sm border-b border-gray-200">
@@ -47,38 +109,62 @@ export default function Navigation() {
                 {link.label}
               </Link>
             ))}
-            {student ? (
-              <div className="flex items-center space-x-3 ml-3">
+
+            {/* Student Auth UI */}
+            {userRole === 'student' && student && (
+              <div className="flex items-center space-x-3 ml-3 pl-3 border-l border-gray-300">
                 <div className="hidden sm:flex flex-col text-sm text-gray-600 text-right">
-                  <span className="font-medium text-gray-900">{student.name}</span>
-                  <span className="text-xs text-gray-500">{student.email}</span>
+                  <span className="font-medium text-gray-900">
+                    {student.display_name || 'Student'}
+                  </span>
+                  <span className="text-xs text-gray-500">{student.primary_email}</span>
                 </div>
-                <Link
-                  href="/student/dashboard"
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
-                    isActive('/student/dashboard')
-                      ? 'bg-blue-100 text-blue-700'
-                      : 'text-gray-700 hover:bg-gray-100'
-                  }`}
-                >
-                  Student Dashboard
-                </Link>
                 <button
                   type="button"
-                  onClick={logout}
+                  onClick={studentLogout}
                   className="px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors"
                 >
                   Logout
                 </button>
               </div>
-            ) : (
-              <button
-                type="button"
-                onClick={login}
-                className="ml-3 px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors"
-              >
-                Student Login
-              </button>
+            )}
+
+            {/* Admin Auth UI */}
+            {userRole === 'admin' && adminData && (
+              <div className="flex items-center space-x-3 ml-3 pl-3 border-l border-gray-300">
+                <div className="hidden sm:flex flex-col text-sm text-gray-600 text-right">
+                  <span className="font-medium text-gray-900">
+                    {adminData.username}
+                  </span>
+                  <span className="text-xs text-gray-500 uppercase">{adminData.role}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleAdminLogout}
+                  className="px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+                >
+                  Logout
+                </button>
+              </div>
+            )}
+
+            {/* Anonymous User UI */}
+            {userRole === 'anonymous' && (
+              <div className="flex items-center space-x-2 ml-3">
+                <button
+                  type="button"
+                  onClick={studentLogin}
+                  className="px-4 py-2 rounded-lg text-sm font-medium bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+                >
+                  Student Login
+                </button>
+                <Link
+                  href="/admin/login"
+                  className="px-4 py-2 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors"
+                >
+                  Admin
+                </Link>
+              </div>
             )}
           </div>
         </div>

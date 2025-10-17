@@ -9,9 +9,19 @@ import Link from 'next/link';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
 import { adminApiClient, type AdmissionInfo } from '@/lib/adminApi';
+import { useAuth } from '@/hooks/useStudentAuth';
 
 export default function Home() {
   const [admissionInfo, setAdmissionInfo] = useState<AdmissionInfo | null>(null);
+  const { student } = useAuth();
+
+  // Determine where to send users for application
+  const getApplicationLink = () => {
+    if (student) {
+      return '/student/dashboard';
+    }
+    return '/student/login';
+  };
 
   useEffect(() => {
     const fetchAdmissionInfo = async () => {
@@ -61,18 +71,18 @@ export default function Home() {
               Fair, transparent, and merit-based university admissions powered by AI
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
-              <Link href="/apply">
+              <Link href={getApplicationLink()}>
                 <Button
                   size="lg"
                   className="bg-white text-blue-600 hover:bg-gray-100"
                   disabled={!admissionInfo?.is_open}
                 >
-                  {admissionInfo?.is_open ? 'Apply Now' : 'Applications Closed'}
+                  {admissionInfo?.is_open ? (student ? 'Go to Dashboard' : 'Apply Now') : 'Applications Closed'}
                 </Button>
               </Link>
               <Link href="/dashboard">
                 <Button variant="outline" size="lg" className="border-white text-white hover:bg-blue-700">
-                  View Dashboard
+                  View Public Dashboard
                 </Button>
               </Link>
             </div>
@@ -231,11 +241,17 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Experience Fair Admissions?</h2>
           <p className="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
-            Submit your application and be evaluated purely on merit, with complete transparency and integrity.
+            {student
+              ? 'Access your dashboard to submit your application and track your progress.'
+              : 'Submit your application and be evaluated purely on merit, with complete transparency and integrity.'}
           </p>
-          <Link href="/apply">
-            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
-              Start Your Application
+          <Link href={getApplicationLink()}>
+            <Button
+              size="lg"
+              className="bg-white text-blue-600 hover:bg-gray-100"
+              disabled={!admissionInfo?.is_open}
+            >
+              {student ? 'Go to Dashboard' : 'Start Your Application'}
             </Button>
           </Link>
         </div>

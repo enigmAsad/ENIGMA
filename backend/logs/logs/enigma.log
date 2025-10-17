@@ -2884,3 +2884,35 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": "Task-345"
 }
+2025-10-17 17:15:26 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-17 17:15:26 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-17 17:15:26 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-17 17:15:31 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-17 17:15:31 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-17 17:15:31 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-17 17:15:31 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-17 17:15:32 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

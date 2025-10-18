@@ -3416,3 +3416,479 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": null
 }
+2025-10-18 19:05:46 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:05:46 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-18 19:05:46 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-18 19:05:51 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-18 19:05:51 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-18 19:05:51 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-18 19:05:51 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-18 19:05:53 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:14:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:16:33 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:18:04 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:20:12 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:21:32 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:22:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:23:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:24:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:25:11 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:28:37 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:30:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:31:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:38:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:46:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:46:25 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 19:59:27 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 20:02:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 20:02:18 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-18 20:02:18 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-18 20:02:23 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-18 20:02:23 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-18 20:02:23 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-18 20:02:23 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-18 20:02:25 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 20:13:49 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:13:49 | WARNING  | admin_auth | JWT token expired
+{
+    "taskName": "Task-17"
+}
+2025-10-18 20:13:49 | ERROR    | database | Database session error: 401: Invalid or expired token
+{
+    "taskName": null
+}
+2025-10-18 20:13:49 | WARNING  | admin_auth | JWT token expired
+{
+    "taskName": "Task-19"
+}
+2025-10-18 20:13:49 | ERROR    | database | Database session error: 401: Invalid or expired token
+{
+    "taskName": null
+}
+2025-10-18 20:14:06 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-30"
+}
+2025-10-18 20:14:10 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-30"
+}
+2025-10-18 20:14:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:18:36 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:21:09 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:21:24 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:22:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:22:26 | INFO     | student_auth | Issued session STS_2A4B7B81BD for student STU_F5355E37
+{
+    "taskName": "Task-89"
+}
+2025-10-18 20:22:26 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-89"
+}
+2025-10-18 20:23:59 | INFO     | api | Created and opened admission cycle: Test Interviews
+{
+    "taskName": "Task-114"
+}
+2025-10-18 20:28:47 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-158"
+}
+2025-10-18 20:28:48 | INFO     | audit | AUDIT: create | Application:APP_E5C9B3BC | actor=system | details={'stage': 'intake'} | timestamp=2025-10-18T15:28:48.826046
+{
+    "taskName": "Task-158"
+}
+2025-10-18 20:28:48 | INFO     | application_collector | Application collected successfully: APP_E5C9B3BC
+{
+    "taskName": "Task-158"
+}
+2025-10-18 20:28:49 | INFO     | api | Application submitted: APP_E5C9B3BC (Cycle: Test Interviews)
+{
+    "taskName": "Task-158"
+}
+2025-10-18 20:30:53 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:31:50 | INFO     | phase_manager | Freezing cycle CYC_20251018_152358 by admin ADM_ENIGMA
+{
+    "taskName": "Task-181"
+}
+2025-10-18 20:31:51 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-181"
+}
+2025-10-18 20:31:52 | INFO     | phase_manager | Cycle CYC_20251018_152358 frozen successfully
+{
+    "taskName": "Task-181"
+}
+2025-10-18 20:31:52 | INFO     | api | Cycle CYC_20251018_152358 frozen by admin enigma
+{
+    "taskName": "Task-181"
+}
+2025-10-18 20:33:16 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251018_152358
+{
+    "taskName": "Task-225"
+}
+2025-10-18 20:33:16 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-225"
+}
+2025-10-18 20:33:17 | INFO     | identity_scrubber | Scrubbing application: APP_E5C9B3BC
+{
+    "taskName": "Task-225"
+}
+2025-10-18 20:33:17 | INFO     | identity_scrubber | Applied 4 redactions to APP_E5C9B3BC
+{
+    "taskName": "Task-225"
+}
+2025-10-18 20:33:20 | INFO     | identity_scrubber | Successfully scrubbed APP_E5C9B3BC → ANON_1760783597656_891383
+{
+    "taskName": "Task-225"
+}
+2025-10-18 20:33:22 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251018_152358: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-225"
+}
+2025-10-18 20:33:22 | INFO     | api | Preprocessing started for cycle CYC_20251018_152358 by admin enigma
+{
+    "taskName": "Task-225"
+}
+2025-10-18 20:34:00 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-231"
+}
+2025-10-18 20:34:02 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-231"
+}
+2025-10-18 20:34:02 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251018_152358
+{
+    "taskName": "Task-231"
+}
+2025-10-18 20:34:03 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251018_152358: 1 applications ready for export
+{
+    "taskName": "Task-231"
+}
+2025-10-18 20:34:03 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251018_152358 to JSONL
+{
+    "taskName": "Task-231"
+}
+2025-10-18 20:34:04 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251018_152358_20251018_153404.jsonl
+{
+    "taskName": "Task-231"
+}
+2025-10-18 20:34:05 | INFO     | api | Batch export completed for cycle CYC_20251018_152358 by admin enigma
+{
+    "taskName": "Task-231"
+}
+2025-10-18 20:34:53 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:34:54 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:34:54 | INFO     | phase_manager | Starting processing for cycle CYC_20251018_152358
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:34:55 | INFO     | phase_manager | Cycle CYC_20251018_152358 now in PROCESSING phase
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:34:58 | INFO     | worker_llm | Evaluating ANON_1760783597656_891383 (attempt 1)
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:35:32 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_FB28EAEA | actor=worker_llm | details={'anonymized_id': 'ANON_1760783597656_891383', 'attempt_number': 1, 'total_score': 82.15} | timestamp=2025-10-18T15:35:32.518673
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:35:33 | INFO     | worker_llm | Worker evaluation complete: ANON_1760783597656_891383 → 82.15/100 (attempt 1)
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:35:34 | INFO     | judge_llm | Validating worker evaluation for ANON_1760783597656_891383 (attempt 1)
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:36:05 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_1D0E276A | actor=judge_llm | details={'anonymized_id': 'ANON_1760783597656_891383', 'worker_result_id': 'WKR_FB28EAEA', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-18T15:36:05.039709
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:36:06 | INFO     | judge_llm | Judge validation complete: ANON_1760783597656_891383 → APPROVED  (quality: 88/100)
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:36:09 | INFO     | audit | AUDIT: update | HashChain:ANON_1760783597656_891383 | actor=hash_chain_generator | details={'hash': '642d904d1f92c3b0e08da7f578884a087f9a4172af2a427261062e88d731b7f3'} | timestamp=2025-10-18T15:36:09.477409
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:36:10 | INFO     | hash_chain | Created hash chain entry for ANON_1760783597656_891383: 642d904d1f92c3b0...
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:36:11 | INFO     | phase_manager | Marking cycle CYC_20251018_152358 as scored
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:36:13 | INFO     | phase_manager | Cycle CYC_20251018_152358 marked as SCORED
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:36:13 | INFO     | api | LLM processing completed for cycle CYC_20251018_152358 by admin enigma
+{
+    "taskName": "Task-237"
+}
+2025-10-18 20:36:59 | INFO     | phase_manager | Performing selection for cycle CYC_20251018_152358
+{
+    "taskName": "Task-243"
+}
+2025-10-18 20:37:00 | INFO     | phase_manager | Updated 1 applications to SELECTED status
+{
+    "taskName": "Task-243"
+}
+2025-10-18 20:37:01 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-243"
+}
+2025-10-18 20:37:02 | INFO     | phase_manager | Selection complete: 1 selected, 0 not selected
+{
+    "taskName": "Task-243"
+}
+2025-10-18 20:37:02 | INFO     | api | Selection performed for cycle CYC_20251018_152358 by admin enigma
+{
+    "taskName": "Task-243"
+}
+2025-10-18 20:38:08 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:38:14 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:39:21 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:41:25 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 20:45:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 20:45:39 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-18 20:45:39 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-18 20:45:44 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-18 20:45:44 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-18 20:45:44 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-18 20:45:44 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-18 20:45:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 20:47:03 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 20:48:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 20:48:16 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-18 20:48:16 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-18 20:48:20 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-18 20:48:20 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-18 20:48:20 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-18 20:48:20 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-18 20:48:23 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 20:48:54 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:53:35 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'sqlalchemy.orm.state.InstanceState'>
+{
+    "taskName": null
+}
+2025-10-18 20:53:35 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:53:43 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'sqlalchemy.orm.state.InstanceState'>
+{
+    "taskName": null
+}
+2025-10-18 20:53:43 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-18 20:57:36 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-18 20:58:39 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'sqlalchemy.orm.state.InstanceState'>
+{
+    "taskName": null
+}
+2025-10-18 20:58:39 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}

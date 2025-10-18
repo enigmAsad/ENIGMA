@@ -122,6 +122,42 @@ export interface AdmissionInfo {
   message: string;
 }
 
+export interface InterviewDetails {
+  id: number;
+  application_id: string;
+  student_id: string;
+  admin_id: string;
+  admission_cycle_id: string;
+  interview_time: string;
+  interview_link: string;
+  status: 'SCHEDULED' | 'COMPLETED' | 'CANCELLED';
+  notes?: string;
+}
+
+export interface InterviewCreate {
+  application_id: string;
+  interview_time: string;
+  interview_link: string;
+}
+
+export interface InterviewUpdate {
+  interview_time?: string;
+  interview_link?: string;
+  status?: 'SCHEDULED' | 'COMPLETED' | 'CANCELLED';
+  notes?: string;
+}
+
+export interface ApplicationDetails {
+    application_id: string;
+    student_id: string | null;
+    admission_cycle_id: string;
+    name: string;
+    email: string;
+    status: string;
+    timestamp: string;
+    interview: InterviewDetails | null;
+}
+
 class AdminAPIClient {
   private getAuthHeader(): HeadersInit {
     const token = localStorage.getItem('admin_token');
@@ -221,6 +257,22 @@ class AdminAPIClient {
 
     if (!response.ok) {
       throw new Error('Failed to fetch cycle');
+    }
+
+    return response.json();
+  }
+
+  async getCycleApplications(cycleId: string, status?: string): Promise<ApplicationDetails[]> {
+    let url = `${API_BASE}/admin/cycles/${cycleId}/applications`;
+    if (status) {
+      url += `?status=${status}`;
+    }
+    const response = await fetch(url, {
+      headers: this.getAuthHeader(),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch cycle applications');
     }
 
     return response.json();
@@ -437,6 +489,55 @@ class AdminAPIClient {
     if (!response.ok) {
       const error = await response.json();
       throw new Error(error.detail || 'Failed to get batch status');
+    }
+
+    return response.json();
+  }
+
+  // Interview Management
+  async scheduleInterview(data: InterviewCreate): Promise<InterviewDetails> {
+    const response = await fetch(`${API_BASE}/admin/interviews/schedule`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...this.getAuthHeader(),
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to schedule interview');
+    }
+
+    return response.json();
+  }
+
+  async getInterviewsForCycle(cycleId: string): Promise<InterviewDetails[]> {
+    const response = await fetch(`${API_BASE}/admin/interviews/cycle/${cycleId}`, {
+      headers: this.getAuthHeader(),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch interviews for cycle');
+    }
+
+    return response.json();
+  }
+
+  async updateInterview(interviewId: number, data: InterviewUpdate): Promise<InterviewDetails> {
+    const response = await fetch(`${API_BASE}/admin/interviews/${interviewId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...this.getAuthHeader(),
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to update interview');
     }
 
     return response.json();

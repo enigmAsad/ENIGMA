@@ -10,6 +10,7 @@ from src.database.repositories.student_repository import (
     StudentSessionRepository,
     StudentAuthStateRepository,
 )
+from src.database.repositories.interview_repository import InterviewRepository
 
 __all__ = [
     "ApplicationRepository",
@@ -20,4 +21,5 @@ __all__ = [
     "OAuthIdentityRepository",
     "StudentSessionRepository",
     "StudentAuthStateRepository",
+    "InterviewRepository",
 ]

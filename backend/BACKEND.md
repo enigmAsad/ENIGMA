@@ -600,6 +600,15 @@ with get_db_context() as db:
 
 ## Changelog
 
+### v2.2.0 (2025-10-19) - Virtual Interviews & Admin UX
+- **Added**: Virtual interview feature with WebRTC for real-time video/audio, managed via a new `interviews` table, repository, and dedicated API endpoints (`/admin/interviews/...`).
+- **Added**: WebSocket signaling server (`/ws/interview/{interview_id}`) to facilitate peer-to-peer WebRTC connections.
+- **Improved**: Streamlined interview scheduling by removing the manual "Meeting Link" input. The backend now automatically generates the correct internal interview link upon creation.
+- **Improved**: The admin interviews page now displays a comprehensive list of all interviews from cycles in the `selection`, `published`, and `completed` phases.
+- **Fixed**: Resolved a bug where the admin "Join Interview" button was incorrectly disabled by aligning its join logic with the student dashboard (checking only status and time window).
+- **Added**: Admins can now delete scheduled interviews via the UI.
+- **Added**: A "Manage Interviews" link was added to the admin dashboard for quick access.
+
 ### v2.1.0 (2025-10-14) - Student Accounts & Google OAuth
 - **Added**: Student authentication tables (`student_accounts`, `oauth_identities`, `student_sessions`, `student_auth_states`) with new Alembic migration `20251014_0000_add_student_accounts`.
 - **Added**: Google OAuth (OIDC + PKCE) login flow issuing HttpOnly student sessions with `/auth/student/google/start`, `/auth/student/google/callback`, `/auth/student/logout`, and `/auth/student/me` endpoints.

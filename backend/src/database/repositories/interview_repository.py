@@ -121,3 +121,18 @@ class InterviewRepository(BaseRepository[Interview]):
         """
         update_data["updated_at"] = datetime.utcnow()
         return self.update(interview_id, update_data)
+
+    def delete_interview(self, interview_id: int) -> bool:
+        """Delete an interview by its ID.
+
+        Args:
+            interview_id: The ID of the interview to delete
+
+        Returns:
+            True if deletion was successful, False otherwise
+        """
+        interview = self.get_by_id(interview_id)
+        if interview:
+            self.db.delete(interview)
+            return True
+        return False

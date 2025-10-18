@@ -94,31 +94,50 @@ export default function StudentDashboardPage() {
           {interviews.length > 0 && (
             <div className="bg-purple-800/50 p-6 rounded-lg shadow-xl ring-1 ring-white/10">
               <h2 className="text-xl font-semibold mb-4 text-white">Upcoming Interview</h2>
-              {interviews.map(interview => (
-                <div key={interview.id} className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">📅</span>
-                    <div>
-                      <h3 className="font-semibold text-purple-400">
-                        Interview Scheduled
-                      </h3>
-                      <p className="text-sm text-purple-300">
-                        Time: {new Date(interview.interview_time).toLocaleString()}
-                      </p>
-                      <p className="text-xs text-purple-400 mt-1">
-                        Status: {interview.status}
-                      </p>
+              {interviews.map(interview => {
+                const now = new Date();
+                const interviewTime = new Date(interview.interview_time);
+                const oneDay = 24 * 60 * 60 * 1000;
+                const isScheduled = interview.status === 'scheduled';
+                const isWithinWindow = 
+                  now.getTime() >= (interviewTime.getTime() - oneDay) &&
+                  now.getTime() <= (interviewTime.getTime() + oneDay);
+                const isJoinable = isScheduled && isWithinWindow;
+                const showTimeWindowMessage = isScheduled && !isWithinWindow;
+
+                return (
+                  <div key={interview.id} className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">📅</span>
+                      <div>
+                        <h3 className="font-semibold text-purple-400">
+                          Interview Scheduled
+                        </h3>
+                        <p className="text-sm text-purple-300">
+                          Time: {interviewTime.toLocaleString()}
+                        </p>
+                        <p className="text-xs text-purple-400 mt-1">
+                          Status: {interview.status}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <button
+                        onClick={() => router.push(`/interview/${interview.id}`)}
+                        className="bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700 transition-colors disabled:bg-gray-500 disabled:cursor-not-allowed text-sm font-medium"
+                        disabled={!isJoinable}
+                      >
+                        Join Interview
+                      </button>
+                      {showTimeWindowMessage && (
+                        <p className="text-xs text-yellow-400 mt-1">
+                          Joinable 24 hours before/after scheduled time.
+                        </p>
+                      )}
                     </div>
                   </div>
-                  <button
-                    onClick={() => router.push(interview.interview_link)}
-                    className="bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700 transition-colors text-sm font-medium"
-                    disabled={interview.status !== 'SCHEDULED'}
-                  >
-                    Join Interview
-                  </button>
-                </div>
-              ))}
+                );
+              })}
             </div>
           )}
 

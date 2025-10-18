@@ -130,20 +130,19 @@ export interface InterviewDetails {
   admission_cycle_id: string;
   interview_time: string;
   interview_link: string;
-  status: 'SCHEDULED' | 'COMPLETED' | 'CANCELLED';
+  status: 'scheduled' | 'completed' | 'cancelled';
   notes?: string;
 }
 
 export interface InterviewCreate {
   application_id: string;
   interview_time: string;
-  interview_link: string;
 }
 
 export interface InterviewUpdate {
   interview_time?: string;
   interview_link?: string;
-  status?: 'SCHEDULED' | 'COMPLETED' | 'CANCELLED';
+  status?: 'scheduled' | 'completed' | 'cancelled';
   notes?: string;
 }
 
@@ -541,6 +540,18 @@ class AdminAPIClient {
     }
 
     return response.json();
+  }
+
+  async deleteInterview(interviewId: number): Promise<void> {
+    const response = await fetch(`${API_BASE}/admin/interviews/${interviewId}`, {
+      method: 'DELETE',
+      headers: this.getAuthHeader(),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to delete interview');
+    }
   }
 
   // Public admission info (no auth)

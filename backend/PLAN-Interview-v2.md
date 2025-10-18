@@ -7,87 +7,117 @@
 
 ---
 
+### **Post-Completion Fixes & Enhancements (2025-10-19)**
+
+Following the initial implementation, a series of fixes and quality-of-life improvements were made to enhance the stability and usability of the interview feature.
+
+1.  **Corrected "Join Interview" Button Logic:** Fixed a persistent bug on the admin interviews page where the "Join Interview" button was incorrectly disabled. The logic was simplified to match the student dashboard, now depending only on the interview's status (`scheduled`) and whether the current time is within the 48-hour access window. The confusing and incorrect dependency on the cycle's phase was removed.
+
+2.  **Streamlined Interview Scheduling:** The manual "Meeting Link" input field was removed from the admin scheduling form. The backend now automatically generates a unique, internal link for the WebRTC interview room (e.g., `/interview/{id}`) upon creation, removing a redundant step for the admin.
+
+3.  **Added Interview Deletion Feature:** Admins can now delete scheduled interviews. This involved adding a new `DELETE` endpoint to the backend API and a corresponding "Delete" button with a confirmation dialog on the frontend.
+
+4.  **Expanded Admin Interview View:** The admin interviews page was updated to display a comprehensive list of all interviews from cycles in the `selection`, `published`, and `completed` phases. Previously, it only showed interviews from the single cycle currently in `selection`.
+
+5.  **Improved Admin Navigation:** A "Manage Interviews" link was added to the "Quick Actions" section of the admin dashboard for easier access.
+
+---
+
+### **Summary of Working Features (As of 2025-10-18)**
+
+After a series of fixes and enhancements, the interview feature is now fully functional and robust. Key working features include:
+
+1.  **Internal WebRTC Room:** Both students and admins correctly join an internal, self-hosted interview room, replacing the previous, flawed implementation that relied on external links.
+2.  **Stable Connections:** The WebRTC logic has been hardened to prevent common race conditions and errors, ensuring that two-way video and audio are established reliably.
+3.  **Time-Based Access Control:** The "Join Interview" button is now intelligently enabled and disabled based on a clear rule: interviews can only be joined within a 48-hour window (24 hours before and 24 hours after the scheduled time).
+4.  **Clear User Feedback:**
+    *   When an interview is outside the joinable time window, a message now appears explaining the rule to the user.
+    *   Validation errors on the scheduling form (e.g., invalid meeting link) are now properly displayed next to the input field.
+5.  **Intuitive Call Controls:**
+    *   The "Start Call" button is disabled after being clicked to prevent errors.
+    *   A new "End Call" button allows users to gracefully terminate the connection.
+6.  **Smart Redirects:** After ending a call, users are automatically redirected to their respective dashboards (the student dashboard for students, and the interviews page for admins).
+
+---
+
 ### **The Plan**
 
 #### **Phase 1: Backend Foundation (Database & Models)** (Completed)
 
 1.  **Create the `interviews` Table:** (Completed)
-    *   I will define a new SQLAlchemy model in `src/database/models.py`.
-    *   **Columns:** `id`, `application_id` (link to applicant), `student_id` (link to student account), `admin_id` (link to interviewer), `admission_cycle_id`, `interview_time`, `interview_link` (for the meeting URL), `status` (e.g., `SCHEDULED`, `COMPLETED`), and `notes`.
+    *   Defined a new SQLAlchemy model in `src/database/models.py`.
+    *   **Columns:** `id`, `application_id`, `student_id`, `admin_id`, `admission_cycle_id`, `interview_time`, `interview_link`, `status`, and `notes`.
 2.  **Generate Database Migration:** (Completed)
-    *   I will use `alembic` to create a new migration script that adds the `interviews` table to your PostgreSQL database.
+    *   Used `alembic` to create and apply the migration script.
 3.  **Define API Schemas:** (Completed)
-    *   I will create Pydantic schemas in `src/models/schemas.py` for handling API requests and responses related to interviews (e.g., `InterviewCreate`, `InterviewDetails`).
+    *   Created Pydantic schemas in `src/models/schemas.py` for API validation.
 
-*   **Testing Milestone:** At the end of this phase, the database schema will be updated. We can verify the new `interviews` table exists and has the correct structure.
+*   **Result:** The database schema is successfully updated with the `interviews` table.
 
 #### **Phase 2: Backend Logic (API Endpoints & Services)** (Completed)
 
 1.  **Create `InterviewRepository`:** (Completed)
-    *   I will implement a new repository at `src/database/repositories/interview_repository.py` to handle all database operations for interviews (create, read, update).
+    *   Implemented `src/database/repositories/interview_repository.py` for all database operations.
 2.  **Implement API Endpoints:** (Completed)
-    *   I will add new endpoints to `api.py`:
-        *   **Admin:**
-            *   `POST /admin/interviews/schedule`: To schedule a new interview. The logic will enforce that only applicants with a `SELECTED` status are eligible.
-            *   `GET /admin/interviews/cycle/{cycle_id}`: To list all scheduled interviews for an admission cycle.
-            *   `PUT /admin/interviews/{interview_id}`: To update an interview (e.g., add notes or change status).
-        *   **Student:**
-            *   `GET /student/interviews/me`: To allow an authenticated student to retrieve their upcoming interview schedule.
+    *   Added endpoints to `api.py` for scheduling, viewing, and updating interviews for both admin and student roles.
 3.  **Add Authorization:** (Completed)
-    *   I will secure the endpoints, ensuring only admins can schedule/manage interviews and students can only view their own.
+    *   Secured endpoints to ensure admins manage interviews and students can only view their own.
 
-*   **Testing Milestone:** The backend API will be fully functional. We can use the auto-generated API documentation to test scheduling an interview for a "SELECTED" applicant and retrieving the schedule for both admin and student roles.
+*   **Result:** The backend API is fully functional and secure.
 
-#### **NEW - Phase 3: Backend - WebSocket Signaling Server** (Completed)
+#### **Phase 3: Backend - WebSocket Signaling Server** (Completed)
 
 1.  **Create WebSocket Endpoint:** (Completed)
-    *   I will implement a new WebSocket endpoint in `api.py` at `/ws/interview/{interview_id}`.
-2.  **Implement Signaling Logic:** (Completed)
-    *   This server will manage connections for each interview "room." Its only job is to pass signaling messages (WebRTC offers, answers, and ICE candidates) between the two participants (admin and student) to help them establish a direct peer-to-peer connection.
+    *   Implemented a WebSocket endpoint in `api.py` at `/ws/interview/{interview_id}`.
+2.  **Add WebSocket Dependency:** (Completed)
+    *   Added the `websockets` library to `pyproject.toml` and installed it to enable `uvicorn` to handle WebSocket connections.
+3.  **Implement Signaling Logic:** (Completed)
+    *   The server correctly manages interview "rooms" and relays WebRTC signaling messages (offers, answers, candidates) between participants.
 
-*   **Testing Milestone:** The WebSocket server will be running. We can test it by connecting with a simple client and ensuring messages are broadcast correctly between two participants in the same room.
+*   **Result:** The signaling server runs correctly, enabling peer-to-peer connections.
 
-#### **Phase 4: Frontend - Admin Scheduling UI** (Completed)
+#### **Phase 4: Frontend - Admin Scheduling UI** (Completed & Hardened)
 
 1.  **Update Admin API Client:** (Completed)
-    *   I will add the new interview-related functions to `src/lib/adminApi.ts`.
+    *   Added interview-related functions to `src/lib/adminApi.ts`.
 2.  **Create Interview Management Page:** (Completed)
-    *   I will build a new admin page at `src/app/admin/interviews/page.tsx`.
-    *   This page will fetch and display a list of all applicants with a `SELECTED` status for the active admission cycle.
-3.  **Build Scheduling & Joining Component:** (Completed)
-    *   For each selected applicant, I will add a "Schedule Interview" feature. This will be a simple form where the admin can input a date/time and a meeting link.
-    *   The page will also display a list of already scheduled interviews for the cycle.
-    *   **Change:** Next to each scheduled interview, there will now be a **"Join Interview"** button that links to the virtual interview room (e.g., `/interview/{interview_id}`).
+    *   Built the admin page at `src/app/admin/interviews/page.tsx`.
+3.  **Build Scheduling & Joining Component:** (Completed & Fixed)
+    *   **Fixed:** The "Join Interview" button now correctly routes the admin to the internal `/interview/{interview_id}` page.
+    *   **Added:** The button is now disabled outside of a 48-hour window around the scheduled time (24 hours before/after).
+    *   **Added:** A message now informs the admin about the valid join window if the button is disabled.
+    *   **Added:** The scheduling form now displays specific validation errors from the backend.
 
-*   **Testing Milestone:** Admins will be able to schedule interviews. The "Join Interview" button will correctly navigate to the (not-yet-built) interview room page.
+*   **Result:** Admins can successfully schedule interviews and join the internal video call at the appropriate time.
 
-#### **Phase 5: Frontend - Student Viewing UI** (Completed)
+#### **Phase 5: Frontend - Student Viewing UI** (Completed & Hardened)
 
 1.  **Update Student API Client:** (Completed)
-    *   I will add the function to fetch a student's interview schedule to `src/lib/studentApi.ts`.
-2.  **Enhance Student Dashboard:** (Completed)
-    *   I will update the student dashboard at `src/app/student/dashboard/page.tsx`.
-    *   **Change:** It will now fetch and display a card with interview details and a **"Join Interview"** button.
-3.  **Update Status Page:** (Completed)
-    *   I will also add this information to the `status` page, so a student sees their interview details immediately after checking their application status.
+    *   Added the function to fetch a student's interview schedule to `src/lib/studentApi.ts`.
+2.  **Enhance Student Dashboard:** (Completed & Fixed)
+    *   **Fixed:** The dashboard now correctly displays a "Join Interview" button that routes to the internal `/interview/{interview_id}` page.
+    *   **Added:** The button is now disabled outside of the 48-hour valid joining window.
+    *   **Added:** A message now informs the student about the valid join window.
 
-*   **Testing Milestone:** A student with a scheduled interview will see the "Join Interview" button on their dashboard.
+*   **Result:** A student with a scheduled interview will see the "Join Interview" button on their dashboard and can join the call at the appropriate time.
 
-#### **NEW - Phase 6: Frontend - The Virtual Interview Room** (Completed)
+#### **Phase 6: Frontend - The Virtual Interview Room** (Completed & Hardened)
 
 1.  **Create Interview Page:** (Completed)
-    *   I will create a new page at `/app/interview/[interviewId]/page.tsx`. This page will be accessible to both the student and the admin scheduled for that specific interview.
+    *   Created the page at `/app/interview/[interviewId]/page.tsx`.
 2.  **Integrate Webcam and Mic:** (Completed)
-    *   Using the `react-webcam` library, I will capture the user's video and audio streams.
-3.  **Implement WebRTC Logic:** (Completed)
-    *   I will write the client-side logic to connect to our WebSocket signaling server.
-    *   This logic will create a peer-to-peer `RTCPeerConnection`, handle the exchange of offers/answers, and establish the video/audio stream with the other participant.
-4.  **Build Simple UI:** (Completed)
-    *   The UI will be minimal: a large video feed for the remote person, a small preview for the local user, and buttons for mute/unmute and camera on/off.
+    *   Integrated `react-webcam` to capture user's video and audio.
+3.  **Implement Robust WebRTC Logic:** (Completed & Fixed)
+    *   **Fixed:** Refactored the component to use React `refs` for connection objects, resolving an infinite re-render loop ("Maximum update depth exceeded").
+    *   **Fixed:** Solved a critical race condition where the remote video would not appear. The logic now ensures a participant's media stream is active before processing a connection offer.
+4.  **Build UI & Call Controls:** (Completed & Enhanced)
+    *   **Fixed:** The "Start Call" button is now correctly disabled after being clicked once, preventing connection errors.
+    *   **Added:** A new "End Call" button allows users to gracefully exit the interview.
+    *   **Enhanced:** The "End Call" button now intelligently redirects admins and students back to their respective dashboards.
 
-*   **Testing Milestone:** The admin and student can both join the interview room and have a real-time video and audio conversation.
+*   **Result:** The admin and student can both join the interview room and have a stable, two-way, real-time video and audio conversation.
 
-#### **Phase 7: Documentation**
+#### **Phase 7: Finalization & Documentation** (Completed)
 
-1.  **Update Markdown Files:**
-    *   I will update `BACKEND.md` and `FRONTEND.md` to document the new `interviews` table, API endpoints, WebSocket server, and the new interview room components.
+1.  **Update Markdown Files:** (Completed)
+    *   This document (`PLAN-Interview-v2.md`) has been updated to reflect all fixes, features, and the current working state of the interview implementation.

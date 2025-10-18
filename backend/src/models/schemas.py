@@ -453,7 +453,7 @@ class SelectionLog(BaseModel):
 
 class AdmissionCycle(BaseModel):
     """Admission cycle configuration with phase tracking."""
-    model_config = ConfigDict(validate_assignment=True)
+    model_config = ConfigDict(from_attributes=True, validate_assignment=True)
 
     cycle_id: str = Field(default_factory=lambda: f"CYC_{uuid.uuid4().hex[:8].upper()}")
     cycle_name: str = Field(..., min_length=3, max_length=100, description="e.g., 'Fall 2025 Admissions'")
@@ -531,7 +531,6 @@ class InterviewCreate(BaseModel):
     """Request model for scheduling an interview."""
     application_id: str
     interview_time: datetime
-    interview_link: str = Field(..., min_length=10, max_length=500)
 
 
 class InterviewUpdate(BaseModel):

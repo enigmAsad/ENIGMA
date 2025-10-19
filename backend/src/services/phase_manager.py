@@ -639,24 +639,41 @@ class PhaseManager:
 
         # Mark all selected/not_selected applications as PUBLISHED
         from sqlalchemy import update
-        stmt = (
+        from src.database.models import FinalScore, AnonymizedApplication
+
+        # Update Application table
+        app_stmt = (
             update(Application)
             .where(
                 Application.admission_cycle_id == cycle_id,
-                Application.status.in_(
-                    [
-                        ApplicationStatusEnum.SELECTED,
-                        ApplicationStatusEnum.NOT_SELECTED
-                    ]
-                )
+                Application.status.in_([
+                    ApplicationStatusEnum.SELECTED,
+                    ApplicationStatusEnum.NOT_SELECTED
+                ])
             )
             .values(status=ApplicationStatusEnum.PUBLISHED)
         )
-        self.db.execute(stmt)
+        self.db.execute(app_stmt)
 
-        # ✅ FIX: Refresh hash without changing status (preserve SELECTED/NOT_SELECTED)
-        # Get final scores for hash refresh WITHOUT updating their status
-        from src.database.models import FinalScore, AnonymizedApplication
+        # Also update FinalScore table
+        final_score_stmt = (
+            update(FinalScore)
+            .where(
+                FinalScore.anonymized_id.in_(
+                    select(AnonymizedApplication.anonymized_id)
+                    .join(Application, AnonymizedApplication.application_id == Application.application_id)
+                    .where(Application.admission_cycle_id == cycle_id)
+                ),
+                FinalScore.status.in_([
+                    ApplicationStatusEnum.SELECTED,
+                    ApplicationStatusEnum.NOT_SELECTED
+                ])
+            )
+            .values(status=ApplicationStatusEnum.PUBLISHED)
+        )
+        self.db.execute(final_score_stmt)
+
+        # Refresh hash for all published scores
         select_stmt = (
             select(FinalScore)
             .where(

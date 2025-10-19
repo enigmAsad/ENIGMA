@@ -6468,3 +6468,247 @@ server closed the connection unexpectedly
 {
     "taskName": null
 }
+2025-10-19 20:55:33 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 20:56:48 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-35"
+}
+2025-10-19 20:56:48 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-41"
+}
+2025-10-19 20:56:48 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-47"
+}
+2025-10-19 20:56:49 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-53"
+}
+2025-10-19 20:56:50 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-53"
+}
+2025-10-19 20:56:50 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-53"
+}
+2025-10-19 20:56:50 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-53"
+}
+2025-10-19 20:56:50 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-59"
+}
+2025-10-19 20:56:50 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-65"
+}
+2025-10-19 20:56:52 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: admin
+{
+    "taskName": "Task-65"
+}
+2025-10-19 20:56:52 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-65"
+}
+2025-10-19 20:56:55 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-59"
+}
+2025-10-19 20:56:55 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-59"
+}
+2025-10-19 20:56:55 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-59"
+}
+2025-10-19 20:56:55 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-71"
+}
+2025-10-19 20:57:09 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-71"
+}
+2025-10-19 20:57:09 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-71"
+}
+2025-10-19 20:57:09 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-71"
+}
+2025-10-19 20:57:10 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-91"
+}
+2025-10-19 20:57:13 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-91"
+}
+2025-10-19 20:57:13 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-91"
+}
+2025-10-19 20:57:13 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-91"
+}
+2025-10-19 20:57:13 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-97"
+}
+2025-10-19 20:57:16 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-97"
+}
+2025-10-19 20:57:16 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-97"
+}
+2025-10-19 20:57:16 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-97"
+}
+2025-10-19 20:57:19 | INFO     | api | Score added to interview 3 by admin enigma
+{
+    "taskName": "Task-102"
+}
+2025-10-19 20:57:19 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-106"
+}
+2025-10-19 20:57:20 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-112"
+}
+2025-10-19 20:57:20 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-65"
+}
+2025-10-19 20:57:20 | INFO     | audio_stream | Audio stream disconnected for interview 3, speaker: admin
+{
+    "taskName": "Task-65"
+}
+2025-10-19 20:57:20 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-65"
+}
+2025-10-19 20:57:20 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-112"
+}
+2025-10-19 20:57:20 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-112"
+}
+2025-10-19 20:57:20 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-112"
+}
+2025-10-19 20:58:01 | INFO     | phase_manager | Performing final selection for cycle CYC_20251019_110649
+{
+    "taskName": "Task-149"
+}
+2025-10-19 20:58:02 | INFO     | phase_manager | Marked 1 applicants as SELECTED.
+{
+    "taskName": "Task-149"
+}
+2025-10-19 20:58:03 | INFO     | phase_manager | Final selection complete: 1 selected, 0 not selected
+{
+    "taskName": "Task-149"
+}
+2025-10-19 20:58:03 | INFO     | api | Final selection performed for cycle CYC_20251019_110649 by admin enigma
+{
+    "taskName": "Task-149"
+}
+2025-10-19 20:58:21 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-41"
+}
+2025-10-19 20:58:21 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-41"
+}
+2025-10-19 20:58:21 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-35"
+}
+2025-10-19 20:58:21 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-35"
+}
+2025-10-19 20:58:22 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-47"
+}
+2025-10-19 20:58:22 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-47"
+}
+2025-10-19 20:58:22 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-106"
+}
+2025-10-19 20:58:22 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-106"
+}
+2025-10-19 20:58:24 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 20:58:30 | INFO     | phase_manager | Publishing results for cycle CYC_20251019_110649
+{
+    "taskName": "Task-160"
+}
+2025-10-19 20:58:32 | INFO     | hash_chain | Created hash chain entry for ANON_1760860310477_CB74B7: 163aaa041de35f7a...
+{
+    "taskName": "Task-160"
+}
+2025-10-19 20:58:33 | INFO     | phase_manager | Results published for cycle CYC_20251019_110649
+{
+    "taskName": "Task-160"
+}
+2025-10-19 20:58:33 | INFO     | api | Results published for cycle CYC_20251019_110649 by admin enigma
+{
+    "taskName": "Task-160"
+}
+2025-10-19 20:59:35 | INFO     | phase_manager | Completing cycle CYC_20251019_110649
+{
+    "taskName": "Task-190"
+}
+2025-10-19 20:59:36 | INFO     | phase_manager | Cycle CYC_20251019_110649 completed
+{
+    "taskName": "Task-190"
+}
+2025-10-19 20:59:36 | INFO     | api | Cycle CYC_20251019_110649 completed by admin enigma
+{
+    "taskName": "Task-190"
+}
+2025-10-19 21:02:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 21:03:21 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 21:03:27 | INFO     | phase_manager | Completing cycle CYC_20251019_110649
+{
+    "taskName": "Task-25"
+}
+2025-10-19 21:03:28 | INFO     | phase_manager | Cycle CYC_20251019_110649 completed
+{
+    "taskName": "Task-25"
+}
+2025-10-19 21:03:28 | INFO     | api | Cycle CYC_20251019_110649 completed by admin enigma
+{
+    "taskName": "Task-25"
+}

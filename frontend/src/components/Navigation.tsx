@@ -10,6 +10,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useStudentAuth';
 import { useEffect, useState } from 'react';
 import { adminApiClient } from '@/lib/adminApi';
+import Image from 'next/image';
 
 type UserRole = 'anonymous' | 'student' | 'admin';
 
@@ -129,6 +130,14 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <Link href="/" className="flex items-center">
+            <Image
+              src="/images/eNigma-logo.png"
+              alt="ENIGMA logo"
+              width={32}
+              height={32}
+              className="h-8 w-8 mr-2"
+              priority
+            />
             <div className="text-2xl font-bold text-primary-600">ENIGMA</div>
             <div className="ml-2 text-sm text-gray-600 hidden sm:block">
               Bias-Free Admissions

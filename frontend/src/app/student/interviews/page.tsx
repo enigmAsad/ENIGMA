@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/hooks/useStudentAuth';
 import { studentApiClient } from '@/lib/studentApi';
 import type { InterviewDetails } from '@/lib/adminApi';
 import Card from '@/components/Card';
@@ -9,26 +10,42 @@ import Button from '@/components/Button';
 
 const StudentInterviewsPage = () => {
   const router = useRouter();
+  const { student, loading } = useAuth();
   const [interviews, setInterviews] = useState<InterviewDetails[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Redirect unauthenticated users to login
+  useEffect(() => {
+    if (!loading && !student) {
+      router.push('/student/login');
+    }
+  }, [loading, student, router]);
+
+  // Fetch interviews only when authenticated
   useEffect(() => {
     const load = async () => {
       try {
         setIsLoading(true);
         const data = await studentApiClient.getInterviews();
         setInterviews(data);
+        setError(null);
       } catch (e: any) {
         setError(e?.message || 'Failed to load interviews');
+        setInterviews([]);
       } finally {
         setIsLoading(false);
       }
     };
-    load();
-  }, []);
+    if (student) {
+      load();
+    } else {
+      setInterviews([]);
+      setIsLoading(false);
+    }
+  }, [student]);
 
-  if (isLoading) {
+  if (isLoading || loading) {
     return <div className="p-4">Loading interviews...</div>;
   }
 

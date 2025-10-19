@@ -4612,3 +4612,83 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": "Task-58"
 }
+2025-10-19 14:02:54 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 14:03:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 14:03:06 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 14:03:06 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 14:03:10 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 14:03:10 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 14:03:10 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 14:03:10 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 14:03:11 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 14:03:25 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 14:04:50 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 14:04:53 | INFO     | student_auth | Issued session STS_4C9B23E2C3 for student STU_B17774BA
+{
+    "taskName": "Task-101"
+}
+2025-10-19 14:04:54 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-101"
+}
+2025-10-19 14:05:05 | INFO     | student_auth | Revoked session STS_4C9B23E2C3
+{
+    "taskName": "Task-117"
+}
+2025-10-19 14:05:44 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 14:05:44 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 14:09:27 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 14:09:39 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 14:09:42 | INFO     | student_auth | Issued session STS_D0442A54FE for student STU_B17774BA
+{
+    "taskName": "Task-130"
+}
+2025-10-19 14:09:42 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-130"
+}

@@ -160,6 +160,12 @@ export default function AdminDashboard() {
                 Manage Cycles
               </button>
               <button
+                onClick={() => router.push('/admin/interviews')}
+                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                Interviews
+              </button>
+              <button
                 onClick={logout}
                 className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
               >
@@ -368,6 +374,16 @@ export default function AdminDashboard() {
               <h3 className="font-semibold text-gray-900">Manage Cycles</h3>
               <p className="text-sm text-gray-600 mt-1">
                 Create, edit, or close admission cycles
+              </p>
+            </button>
+
+            <button
+              onClick={() => router.push('/admin/interviews')}
+              className="bg-white rounded-lg shadow p-6 text-left hover:shadow-lg transition-shadow"
+            >
+              <h3 className="font-semibold text-gray-900">Manage Interviews</h3>
+              <p className="text-sm text-gray-600 mt-1">
+                Schedule and manage applicant interviews
               </p>
             </button>
 

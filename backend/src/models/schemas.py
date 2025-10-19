@@ -77,6 +77,13 @@ class JudgeDecision(str, Enum):
     REJECTED = "rejected"
 
 
+class InterviewStatus(str, Enum):
+    """Interview status enum."""
+    SCHEDULED = "scheduled"
+    COMPLETED = "completed"
+    CANCELLED = "cancelled"
+
+
 # Base Models
 
 
@@ -446,7 +453,7 @@ class SelectionLog(BaseModel):
 
 class AdmissionCycle(BaseModel):
     """Admission cycle configuration with phase tracking."""
-    model_config = ConfigDict(validate_assignment=True)
+    model_config = ConfigDict(from_attributes=True, validate_assignment=True)
 
     cycle_id: str = Field(default_factory=lambda: f"CYC_{uuid.uuid4().hex[:8].upper()}")
     cycle_name: str = Field(..., min_length=3, max_length=100, description="e.g., 'Fall 2025 Admissions'")
@@ -518,6 +525,37 @@ class AdminLoginResponse(BaseModel):
     email: str
     role: str
     expires_at: datetime
+
+
+class InterviewCreate(BaseModel):
+    """Request model for scheduling an interview."""
+    application_id: str
+    interview_time: datetime
+
+
+class InterviewUpdate(BaseModel):
+    """Request model for updating an interview."""
+    interview_time: Optional[datetime] = None
+    interview_link: Optional[str] = Field(None, min_length=10, max_length=500)
+    status: Optional[InterviewStatus] = None
+    notes: Optional[str] = None
+
+
+class InterviewDetails(BaseModel):
+    """Response model for interview details."""
+    id: int
+    application_id: str
+    student_id: str
+    admin_id: str
+    admission_cycle_id: str
+    interview_time: datetime
+    interview_link: str
+    status: InterviewStatus
+    notes: Optional[str] = None
+    created_at: datetime
+    updated_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class CreateCycleRequest(BaseModel):

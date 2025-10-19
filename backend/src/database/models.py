@@ -86,6 +86,13 @@ class JudgeDecisionEnum(str, enum.Enum):
     REJECTED = "rejected"
 
 
+class InterviewStatusEnum(str, enum.Enum):
+    """Interview status enum."""
+    SCHEDULED = "scheduled"
+    COMPLETED = "completed"
+    CANCELLED = "cancelled"
+
+
 # Database Models
 
 
@@ -114,6 +121,7 @@ class StudentAccount(Base):
     applications = relationship("Application", back_populates="student")
     oauth_identities = relationship("OAuthIdentity", back_populates="student", cascade="all, delete-orphan")
     sessions = relationship("StudentSession", back_populates="student", cascade="all, delete-orphan")
+    interviews = relationship("Interview", back_populates="student")
 
     __table_args__ = (
         Index("idx_student_status", "status"),
@@ -211,6 +219,7 @@ class AdmissionCycle(Base):
     selection_logs = relationship("SelectionLog", back_populates="cycle")
     creator = relationship("AdminUser", foreign_keys=[created_by])
     closer = relationship("AdminUser", foreign_keys=[closed_by])
+    interviews = relationship("Interview", back_populates="cycle")
 
     # Indexes
     __table_args__ = (
@@ -234,6 +243,7 @@ class AdminUser(Base):
 
     # Relationships
     sessions = relationship("AdminSession", back_populates="admin")
+    interviews = relationship("Interview", back_populates="admin")
 
     # Indexes
     __table_args__ = (
@@ -296,6 +306,7 @@ class Application(Base):
     anonymized = relationship("AnonymizedApplication", back_populates="application", uselist=False)
     deterministic_metrics = relationship("DeterministicMetrics", back_populates="application", uselist=False)
     student = relationship("StudentAccount", back_populates="applications")
+    interview = relationship("Interview", back_populates="application", uselist=False, cascade="all, delete-orphan")
 
     # Indexes
     __table_args__ = (
@@ -567,6 +578,37 @@ class HashChain(Base):
     __table_args__ = (
         Index("idx_hash_anon", "anonymized_id"),
         Index("idx_hash_timestamp", "timestamp"),
+    )
+
+
+class Interview(Base):
+    """Interview table for scheduling and tracking applicant interviews."""
+    __tablename__ = "interviews"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    application_id = Column(String(50), ForeignKey("applications.application_id"), nullable=False, unique=True)
+    student_id = Column(String(50), ForeignKey("student_accounts.student_id"), nullable=False)
+    admin_id = Column(String(50), ForeignKey("admin_users.admin_id"), nullable=False)
+    admission_cycle_id = Column(String(50), ForeignKey("admission_cycles.cycle_id"), nullable=False)
+
+    interview_time = Column(TIMESTAMP(timezone=True), nullable=False)
+    interview_link = Column(Text, nullable=False)
+    status = Column(SQLEnum(InterviewStatusEnum), nullable=False, default=InterviewStatusEnum.SCHEDULED)
+    notes = Column(Text, nullable=True)
+
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+    updated_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    application = relationship("Application", back_populates="interview")
+    student = relationship("StudentAccount", back_populates="interviews")
+    admin = relationship("AdminUser", back_populates="interviews")
+    cycle = relationship("AdmissionCycle", back_populates="interviews")
+
+    __table_args__ = (
+        Index("idx_interview_status_time", "status", "interview_time"),
+        Index("idx_interview_student_cycle", "student_id", "admission_cycle_id"),
+        Index("idx_interview_admin_cycle", "admin_id", "admission_cycle_id"),
     )
 
 

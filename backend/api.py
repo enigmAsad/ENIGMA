@@ -2,7 +2,7 @@
 
 from fastapi import FastAPI, HTTPException, Depends, Header, Response, Cookie
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, EmailStr, Field
+from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from typing import Dict, Any, List, Optional
 from datetime import datetime, timezone
 import logging
@@ -18,6 +18,9 @@ from src.models.schemas import (
     CreateCycleRequest,
     UpdateCycleRequest,
     AdmissionInfoResponse,
+    InterviewCreate,
+    InterviewUpdate,
+    InterviewDetails,
 )
 from src.services.application_collector import ApplicationCollector
 from src.services.hash_chain import HashChainGenerator
@@ -26,7 +29,7 @@ from src.services.student_auth import StudentAuthService
 from src.services.phase_manager import PhaseManager
 from src.services.batch_processor import BatchProcessingService
 from src.database.engine import get_db
-from src.database.repositories import AdminRepository, ApplicationRepository, BatchRepository
+from src.database.repositories import AdminRepository, ApplicationRepository, BatchRepository, InterviewRepository
 from src.database.models import Application, BatchTypeEnum, ApplicationStatusEnum
 from src.utils.logger import get_logger, AuditLogger
 from sqlalchemy.orm import Session
@@ -490,6 +493,24 @@ async def get_student_applications(
     )
 
 
+@app.get("/student/interviews/me", response_model=List[InterviewDetails])
+async def get_student_interviews(
+    student_session: Optional[Dict[str, Any]] = Depends(get_student_session),
+    db: Session = Depends(get_db),
+):
+    """Get upcoming and past interviews for the authenticated student."""
+    if not student_session:
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    try:
+        interview_repo = InterviewRepository(db)
+        interviews = interview_repo.get_by_student_id(student_session["student_id"])
+        return interviews
+    except Exception as e:
+        logger.error(f"Failed to get interviews for student {student_session['student_id']}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 @app.post("/applications", response_model=ApplicationSubmitResponse)
 async def submit_application(
     request: ApplicationSubmitRequest,
@@ -824,37 +845,16 @@ async def get_current_admin_info(admin: Dict[str, Any] = Depends(get_current_adm
 
 
 # Admission Cycles
-@app.get("/admin/cycles", response_model=List[Dict[str, Any]])
+@app.get("/admin/cycles", response_model=List[AdmissionCycle])
 async def get_all_cycles(
-    include_stats: bool = False,
     admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
-    """Get all admission cycles.
-
-    Args:
-        include_stats: If True, includes application stats for each cycle (optimizes N+1 queries)
-    """
+    """Get all admission cycles."""
     try:
         admin_repo = AdminRepository(db)
         cycles = admin_repo.get_all_cycles()
-
-        if not include_stats:
-            # Return cycles as-is for backward compatibility
-            return [cycle.__dict__ for cycle in cycles]
-
-        # Include stats to avoid N+1 queries on frontend
-        phase_mgr = PhaseManager(db)
-        result = []
-        for cycle in cycles:
-            status = phase_mgr.get_cycle_status(cycle.cycle_id)
-            if status:
-                result.append(status)
-            else:
-                # Fallback to basic cycle data if status unavailable
-                result.append(cycle.__dict__)
-
-        return result
+        return cycles
     except Exception as e:
         logger.error(f"Failed to get cycles: {e}")
         raise HTTPException(status_code=500, detail=str(e))
@@ -1195,6 +1195,172 @@ async def get_admission_status(db: Session = Depends(get_db)):
 
 
 # ============================================================================
+# INTERVIEW MANAGEMENT
+# ============================================================================
+
+@app.post("/admin/interviews/schedule", response_model=InterviewDetails)
+async def schedule_interview(
+    request: InterviewCreate,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """Schedule a new interview for a selected applicant."""
+    try:
+        interview_repo = InterviewRepository(db)
+        app_repo = ApplicationRepository(db)
+
+        # Validate that the application exists and is selected
+        application = app_repo.get_by_application_id(request.application_id)
+        if not application:
+            raise HTTPException(status_code=404, detail="Application not found")
+
+        # Ensure the application has an associated student
+        if not application.student_id:
+            raise HTTPException(
+                status_code=400,
+                detail="Cannot schedule interview for an application with no linked student account."
+            )
+
+        # Check if interview can be scheduled (e.g., must be in 'selected' status)
+        # This logic might need adjustment based on exact workflow requirements
+        is_schedulable = application.status == ApplicationStatusEnum.SELECTED
+        if not is_schedulable:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Interviews can only be scheduled for selected applicants, but status is '{application.status.value}'",
+            )
+
+        # 1. Create interview with a placeholder link
+        temp_link = "/interview/pending"
+        interview = interview_repo.create_interview(
+            application_id=request.application_id,
+            student_id=application.student_id,
+            admin_id=admin["admin_id"],
+            admission_cycle_id=application.admission_cycle_id,
+            interview_time=request.interview_time,
+            interview_link=temp_link, # Temporary link
+        )
+        db.flush() # Flush to get the ID
+
+        # 2. Generate the real link and update the record
+        final_link = f"/interview/{interview.id}"
+        updated_interview = interview_repo.update_interview(
+            interview.id, {"interview_link": final_link}
+        )
+        
+        if not updated_interview:
+            # This should not happen, but handle it defensively
+            raise HTTPException(status_code=500, detail="Failed to update interview link after creation.")
+
+        logger.info(f"Interview {updated_interview.id} scheduled for application {request.application_id} by {admin['username']}")
+        return updated_interview
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to schedule interview: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
+
+@app.get("/admin/interviews/cycle/{cycle_id}", response_model=List[InterviewDetails])
+async def get_interviews_for_cycle(
+    cycle_id: str,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """Get all interviews scheduled for a specific admission cycle."""
+    try:
+        interview_repo = InterviewRepository(db)
+        interviews = interview_repo.get_by_cycle_id(cycle_id)
+        return interviews
+    except Exception as e:
+        logger.error(f"Failed to get interviews for cycle {cycle_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.put("/admin/interviews/{interview_id}", response_model=InterviewDetails)
+async def update_interview(
+    interview_id: int,
+    request: InterviewUpdate,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """Update an existing interview (e.g., add notes, change status)."""
+    try:
+        interview_repo = InterviewRepository(db)
+        interview = interview_repo.update_interview(
+            interview_id, request.model_dump(exclude_unset=True)
+        )
+        if not interview:
+            raise HTTPException(status_code=404, detail="Interview not found")
+        logger.info(f"Interview {interview_id} updated by {admin['username']}")
+        return interview
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to update interview {interview_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.delete("/admin/interviews/{interview_id}", status_code=204)
+async def delete_interview(
+    interview_id: int,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """Delete an interview."""
+    try:
+        interview_repo = InterviewRepository(db)
+        interview = interview_repo.get_by_id(interview_id)
+
+        if not interview:
+            raise HTTPException(status_code=404, detail="Interview not found")
+
+        deleted = interview_repo.delete_interview(interview_id)
+        if not deleted:
+            raise HTTPException(status_code=404, detail="Interview not found during deletion")
+
+        logger.info(f"Interview {interview_id} deleted by {admin['username']}")
+        return Response(status_code=204)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to delete interview {interview_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+class ApplicationDetails(BaseModel):
+    """Detailed application model for admin view."""
+    model_config = ConfigDict(from_attributes=True)
+
+    application_id: str
+    student_id: Optional[str] = None
+    admission_cycle_id: str
+    name: str
+    email: EmailStr
+    status: str
+    timestamp: datetime
+    interview: Optional[InterviewDetails] = None
+
+@app.get("/admin/cycles/{cycle_id}/applications", response_model=List[ApplicationDetails])
+async def get_cycle_applications(
+    cycle_id: str,
+    status: Optional[ApplicationStatusEnum] = None,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """Get all applications for a cycle, with optional status filter."""
+    try:
+        app_repo = ApplicationRepository(db)
+        apps = app_repo.get_by_cycle(cycle_id, status=status, limit=1000)  # Increase limit for admin view
+        return apps
+    except Exception as e:
+        logger.error(f"Failed to get applications for cycle {cycle_id}: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+# ============================================================================
 # PHASE MANAGEMENT ENDPOINTS
 # ============================================================================
 
@@ -1441,6 +1607,41 @@ async def get_batch_status(
     except Exception as e:
         logger.error(f"Failed to get batch status for {batch_id}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+from fastapi import WebSocket, WebSocketDisconnect
+
+class ConnectionManager:
+    def __init__(self):
+        self.active_connections: Dict[str, List[WebSocket]] = {}
+
+    async def connect(self, websocket: WebSocket, room_id: str):
+        await websocket.accept()
+        if room_id not in self.active_connections:
+            self.active_connections[room_id] = []
+        self.active_connections[room_id].append(websocket)
+
+    def disconnect(self, websocket: WebSocket, room_id: str):
+        if room_id in self.active_connections:
+            self.active_connections[room_id].remove(websocket)
+
+    async def broadcast(self, message: str, room_id: str, sender: WebSocket):
+        if room_id in self.active_connections:
+            for connection in self.active_connections[room_id]:
+                if connection != sender:
+                    await connection.send_text(message)
+
+manager = ConnectionManager()
+
+@app.websocket("/ws/interview/{interview_id}")
+async def websocket_endpoint(websocket: WebSocket, interview_id: str):
+    await manager.connect(websocket, interview_id)
+    try:
+        while True:
+            data = await websocket.receive_text()
+            await manager.broadcast(data, interview_id, websocket)
+    except WebSocketDisconnect:
+        manager.disconnect(websocket, interview_id)
 
 
 if __name__ == "__main__":

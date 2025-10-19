@@ -3,13 +3,15 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useStudentAuth';
-import { adminApiClient } from '@/lib/adminApi';
+import { adminApiClient, InterviewDetails } from '@/lib/adminApi';
+import { studentApiClient } from '@/lib/studentApi';
 import { type AdmissionInfo } from '@/lib/adminApi';
 
 export default function StudentDashboardPage() {
   const { student, loading, error, logout } = useAuth();
   const router = useRouter();
   const [admissionInfo, setAdmissionInfo] = useState<AdmissionInfo | null>(null);
+  const [interviews, setInterviews] = useState<InterviewDetails[]>([]);
   const [admissionLoading, setAdmissionLoading] = useState(true);
 
   useEffect(() => {
@@ -30,8 +32,20 @@ export default function StudentDashboardPage() {
       }
     };
 
+    const fetchInterviews = async () => {
+      try {
+        const interviewData = await studentApiClient.getInterviews();
+        setInterviews(interviewData);
+      } catch (error) {
+        console.error('Failed to fetch interviews:', error);
+      }
+    };
+
     fetchAdmissionInfo();
-  }, []);
+    if (student) {
+      fetchInterviews();
+    }
+  }, [student]);
 
   if (loading || admissionLoading) {
     return <div className="flex justify-center items-center h-screen">Loading...</div>;
@@ -75,6 +89,57 @@ export default function StudentDashboardPage() {
               </div>
             </div>
           </div>
+
+          {/* Interview Section */}
+          {interviews.length > 0 && (
+            <div className="bg-purple-800/50 p-6 rounded-lg shadow-xl ring-1 ring-white/10">
+              <h2 className="text-xl font-semibold mb-4 text-white">Upcoming Interview</h2>
+              {interviews.map(interview => {
+                const now = new Date();
+                const interviewTime = new Date(interview.interview_time);
+                const oneDay = 24 * 60 * 60 * 1000;
+                const isScheduled = interview.status === 'scheduled';
+                const isWithinWindow = 
+                  now.getTime() >= (interviewTime.getTime() - oneDay) &&
+                  now.getTime() <= (interviewTime.getTime() + oneDay);
+                const isJoinable = isScheduled && isWithinWindow;
+                const showTimeWindowMessage = isScheduled && !isWithinWindow;
+
+                return (
+                  <div key={interview.id} className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">📅</span>
+                      <div>
+                        <h3 className="font-semibold text-purple-400">
+                          Interview Scheduled
+                        </h3>
+                        <p className="text-sm text-purple-300">
+                          Time: {interviewTime.toLocaleString()}
+                        </p>
+                        <p className="text-xs text-purple-400 mt-1">
+                          Status: {interview.status}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <button
+                        onClick={() => router.push(`/interview/${interview.id}`)}
+                        className="bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700 transition-colors disabled:bg-gray-500 disabled:cursor-not-allowed text-sm font-medium"
+                        disabled={!isJoinable}
+                      >
+                        Join Interview
+                      </button>
+                      {showTimeWindowMessage && (
+                        <p className="text-xs text-yellow-400 mt-1">
+                          Joinable 24 hours before/after scheduled time.
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
 
           {/* Notifications Section */}
           <div className="bg-gray-800/50 p-6 rounded-lg shadow-xl ring-1 ring-white/10">

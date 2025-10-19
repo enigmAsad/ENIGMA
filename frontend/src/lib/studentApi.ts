@@ -6,6 +6,7 @@
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 import { ApplicationStatusResponse, ResultsResponse, ApplicationSubmitRequest, ApplicationSubmitResponse } from './api';
+import { InterviewDetails } from './adminApi';
 
 export interface Student {
   student_id: string;
@@ -122,6 +123,10 @@ class StudentAPIClient {
 
   async getApplications(): Promise<StudentApplicationsResponse> {
     return this.request<StudentApplicationsResponse>('/auth/student/applications');
+  }
+
+  async getInterviews(): Promise<InterviewDetails[]> {
+    return this.request<InterviewDetails[]>('/student/interviews/me');
   }
 }
 

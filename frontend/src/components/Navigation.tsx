@@ -75,6 +75,7 @@ export default function Navigation() {
           { href: '/', label: 'Home' },
           { href: '/student/apply', label: 'Apply' },
           { href: '/student/applications', label: 'My Applications' },
+          { href: '/student/interviews', label: 'Interviews' },
           { href: '/student/dashboard', label: 'Dashboard' },
         ];
       case 'admin':
@@ -82,6 +83,7 @@ export default function Navigation() {
           { href: '/', label: 'Home' },
           { href: '/admin/dashboard', label: 'Admin Dashboard' },
           { href: '/admin/cycles', label: 'Manage Cycles' },
+          { href: '/admin/interviews', label: 'Interviews' },
         ];
       case 'anonymous':
       default:

@@ -7112,3 +7112,71 @@ server closed the connection unexpectedly
 {
     "taskName": null
 }
+2025-10-19 23:43:05 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:43:08 | INFO     | student_auth | Issued session STS_CD5FF2B1F0 for student STU_B17774BA
+{
+    "taskName": "Task-237"
+}
+2025-10-19 23:43:08 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-237"
+}
+2025-10-19 23:43:44 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:43:59 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:13:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 02:13:56 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-20 02:13:56 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-20 02:14:01 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-20 02:14:01 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-20 02:14:01 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-20 02:14:01 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-20 02:14:01 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 02:14:24 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:14:29 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:14:33 | INFO     | student_auth | Issued session STS_AB9E969C13 for student STU_B17774BA
+{
+    "taskName": "Task-15"
+}
+2025-10-20 02:14:34 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-15"
+}

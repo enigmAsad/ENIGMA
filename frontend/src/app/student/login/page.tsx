@@ -88,21 +88,24 @@ export default function StudentLoginPage() {
           <p className="mt-2 text-gray-600">Sign in to continue your application</p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-100">
+          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
             <div className="p-6 sm:p-8">
               {error && (
-                <div className="mb-6 rounded-lg bg-red-50 p-3">
-                  <p className="text-sm text-red-700">{error}</p>
+                <div className="mb-6 rounded-lg bg-red-50 border border-red-200 p-4 flex items-start gap-3">
+                  <div className="flex-shrink-0 h-5 w-5 rounded-full bg-red-100 flex items-center justify-center">
+                    <span className="text-red-600 text-xs font-bold">!</span>
+                  </div>
+                  <p className="text-sm text-red-700 flex-1">{error}</p>
                 </div>
               )}
 
               <div className="space-y-4">
                 <button
                   onClick={login}
-                  className="relative flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white py-3 px-4 text-sm font-medium text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-colors"
+                  className="group relative flex w-full items-center justify-center rounded-lg border-2 border-gray-300 bg-white py-3.5 px-4 text-sm font-semibold text-gray-900 shadow-md hover:shadow-lg hover:border-primary-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200 hover:scale-[1.02]"
                 >
-                  <span className="absolute inset-y-0 left-0 flex items-center pl-4">
-                    <svg className="h-5 w-5" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <span className="absolute inset-y-0 left-0 flex items-center pl-5">
+                    <svg className="h-5 w-5 group-hover:scale-110 transition-transform" viewBox="0 0 18 18" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                       <path fill="#EA4335" d="M9 3.48c1.69 0 2.83.73 3.48 1.34l2.37-2.37C13.7.64 11.53 0 9 0 5.48 0 2.44 2.01.96 4.95l2.89 2.24C4.52 5.14 6.59 3.48 9 3.48z"/>
                       <path fill="#4285F4" d="M17.64 9.2c0-.63-.06-1.25-.18-1.84H9v3.48h4.84c-.21 1.12-.84 2.07-1.79 2.71l2.73 2.12c1.6-1.47 2.86-3.64 2.86-6.47z"/>
                       <path fill="#FBBC05" d="M3.85 10.73a5.52 5.52 0 010-3.47L.96 5.02a9 9 0 000 7.96l2.89-2.25z"/>
@@ -111,6 +114,25 @@ export default function StudentLoginPage() {
                   </span>
                   <span className="flex items-center justify-center">Continue with Google</span>
                 </button>
+
+                <div className="relative">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-200"></div>
+                  </div>
+                  <div className="relative flex justify-center text-xs">
+                    <span className="px-3 bg-white text-gray-500 font-medium">SECURE AUTHENTICATION</span>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className="h-5 w-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-xs font-semibold text-blue-900 mb-1">Secure OAuth 2.0</p>
+                      <p className="text-xs text-blue-700">Your credentials are never stored on our servers. We use Google's secure authentication.</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

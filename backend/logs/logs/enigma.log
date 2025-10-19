@@ -4476,3 +4476,83 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": null
 }
+2025-10-19 13:43:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 13:43:35 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 13:43:35 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 13:43:40 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 13:43:40 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 13:43:40 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 13:43:40 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 13:43:40 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 13:49:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 13:50:22 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 13:51:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 13:53:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 13:54:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 13:54:10 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 13:54:10 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 13:54:14 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 13:54:14 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 13:54:14 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 13:54:14 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 13:54:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

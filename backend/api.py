@@ -1,6 +1,6 @@
 """FastAPI REST API wrapper for ENIGMA Phase 1 backend."""
 
-from fastapi import FastAPI, HTTPException, Depends, Header, Response, Cookie
+from fastapi import FastAPI, HTTPException, Depends, Header, Response, Cookie, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from typing import Dict, Any, List, Optional
@@ -28,7 +28,7 @@ from src.services.admin_auth import AdminAuthService
 from src.services.student_auth import StudentAuthService
 from src.services.phase_manager import PhaseManager
 from src.services.batch_processor import BatchProcessingService
-from src.database.engine import get_db
+from src.database.engine import get_db, get_db_context
 from src.database.repositories import AdminRepository, ApplicationRepository, BatchRepository, InterviewRepository
 from src.database.models import Application, BatchTypeEnum, ApplicationStatusEnum
 from src.utils.logger import get_logger, AuditLogger

@@ -5,7 +5,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 
-from src.database.models import Interview, InterviewStatusEnum
+from src.database.models import Interview, InterviewStatusEnum, InterviewScore
 from src.database.repositories.base_repository import BaseRepository
 from src.utils.logger import get_logger
 

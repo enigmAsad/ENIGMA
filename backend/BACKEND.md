@@ -1,9 +1,9 @@
 # ENIGMA Backend - Technical Documentation
 
-**Version:** 2.0.5
-**Last Updated:** 2025-10-13
+**Version:** 2.3.0
+**Last Updated:** 2025-10-19
 **Python Version:** 3.12+
-**Status:** Production Ready
+**Status:** Production Ready (Phase 1 + Phase 2 Bias Monitoring)
 
 ---
 
@@ -44,10 +44,34 @@ ENIGMA is an **AI-powered blind merit screening system** designed to eliminate b
 
 **Status:** Student authentication phase is fully implemented; no outstanding items remain for Update Phase 1.
 
+### Phase 2 Bias Monitoring System (NEW)
+
+**Completed (100%)**
+- Real-time STT (Speech-to-Text) integration using OpenAI Whisper API for live interview transcription
+- LangGraph workflow orchestration for bias detection pipeline (Audio → STT → Analysis → Nudge → Action)
+- LLM-based bias detection using GPT-5-mini with context-aware analysis
+- Graduated nudge system (Info → Warning → Block) with automatic escalation
+- Strike tracking and admin status management (Active → Warned → Suspended → Banned)
+- Six new database tables for comprehensive bias monitoring and audit
+- Real-time WebSocket support for audio streaming and nudge delivery
+- Bias flag system for critical incidents requiring review
+- Drift metrics for evaluator consistency tracking over time
+
+**Key Components:**
+- **BiasMonitoringWorkflow**: LangGraph state machine for orchestrating the complete detection pipeline
+- **STTService**: Real-time audio transcription with buffering and chunk management
+- **BiasDetectionService**: LLM analysis using GPT-5-mini with structured JSON output
+- **NudgeService**: Graduated response logic with strike thresholds and auto-blocking
+- **Comprehensive Repositories**: Transcript, BiasAnalysis, Nudge, BiasFlag, DriftMetrics, AdminBiasHistory
+
+**Status:** Phase 2 bias monitoring is fully implemented and ready for production deployment.
+
 ### Key Features
 
 - **Blind Evaluation**: Complete PII removal with Fernet encryption
 - **9-Phase Workflow**: Structured admission cycle management
+- **Real-Time Bias Monitoring**: Live STT + LLM analysis during interviews
+- **LangGraph Orchestration**: State machine workflow for bias detection pipeline
 - **Batch Processing**: JSONL export/import for LLM pipelines
 - **Worker-Judge Architecture**: Dual-tier LLM validation
 - **Cryptographic Audit Trail**: SHA-256 hash chain + audit logs
@@ -65,12 +89,14 @@ Database:        PostgreSQL (Supabase)
 ORM:             SQLAlchemy 2.0+
 Migrations:      Alembic 1.13+
 AI/ML:           OpenAI GPT-5, GPT-5-mini
-Orchestration:   LangGraph 0.0.20+
+STT:             OpenAI Whisper API (real-time transcription)
+Orchestration:   LangGraph 0.0.20+ (bias monitoring workflow)
 Validation:      Pydantic v2.5+
 Encryption:      Fernet (cryptography 41.0+)
 Authentication:  JWT (pyjwt 2.8+)
 Password Hash:   bcrypt 4.1+
 NLP:             spaCy 3.7+ (for PII detection)
+WebSockets:      FastAPI WebSocket (real-time audio/nudge streaming)
 ```
 
 ---
@@ -82,25 +108,29 @@ ENIGMA uses a layered architecture with FastAPI serving as the web framework, Po
 ### Architecture Overview
 
 ```
-FastAPI (REST API + JWT Auth)
+FastAPI (REST API + WebSocket + JWT Auth)
        ↓
 Repository Layer (Data Access)
-  ApplicationRepo | AdminRepo | BatchRepo | AuditRepo
+  ApplicationRepo | AdminRepo | BatchRepo | AuditRepo | InterviewRepo
+  TranscriptRepo | BiasAnalysisRepo | NudgeRepo | BiasFlagRepo | DriftMetricsRepo
        ↓
-PostgreSQL Database (14 Tables)
+PostgreSQL Database (20 Tables: 14 Core + 6 Bias Monitoring)
        ↓
 Services Layer (Business Logic)
-  IdentityScrubber | PhaseManager | BatchProcessor | AdminAuth
+  Phase 1: IdentityScrubber | PhaseManager | BatchProcessor | AdminAuth
+  Phase 2: STTService | BiasDetectionService | NudgeService | BiasMonitoringWorkflow
        ↓
-LangGraph Pipeline (Optional - Real-time LLM)
+LangGraph Pipeline (Bias Monitoring Workflow)
+  Audio → STT → Transcript → Analysis → Nudge Decision → Action
 ```
 
 ### Key Layers
 
-**Web Layer:** FastAPI with JWT authentication and Pydantic validation
-**Data Layer:** Repository pattern with SQLAlchemy ORM
-**Service Layer:** Core business logic for admissions workflow
-**Database:** PostgreSQL with 14 normalized tables and proper indexing
+**Web Layer:** FastAPI with JWT auth, Pydantic validation, and WebSocket support
+**Data Layer:** Repository pattern with SQLAlchemy ORM (20 tables)
+**Service Layer:** Phase 1 admissions workflow + Phase 2 bias monitoring
+**Workflow Layer:** LangGraph state machine for bias detection orchestration
+**Database:** PostgreSQL with 20 normalized tables and proper indexing
 
 ---
 
@@ -112,13 +142,35 @@ Manages PostgreSQL connection pooling and session lifecycle with SQLAlchemy 2.0,
 ### Repository Pattern (`src/database/repositories/`)
 Clean data access layer with CRUD operations:
 
+**Phase 1 Repositories:**
 - `ApplicationRepository`: Application lifecycle, anonymization, metrics
 - `AdminRepository`: Admin users, sessions, admission cycles, phase transitions
 - `BatchRepository`: Batch runs, LLM results, final scores
 - `AuditRepository`: Audit logs, hash chain management
+- `InterviewRepository`: Interview scheduling and management
+
+**Phase 2 Bias Monitoring Repositories:**
+- `TranscriptRepository`: Live interview transcripts with speaker attribution
+- `BiasAnalysisRepository`: LLM bias analysis results and confidence scores
+- `NudgeRepository`: Nudge delivery and acknowledgment tracking
+- `BiasFlagRepository`: Critical bias incidents requiring review
+- `DriftMetricsRepository`: Evaluator consistency metrics over time
+- `AdminBiasHistoryRepository`: Aggregate bias history and strike management
 
 ### Identity Scrubber (`src/services/identity_scrubber.py`)
 Removes PII and encrypts identity mappings using Fernet encryption. Process: fetch → scrub → anonymize → encrypt → audit.
+
+### STT Service (`src/services/stt_service.py`)
+Real-time speech-to-text transcription using OpenAI Whisper API. Features audio buffering, chunk management (10-15s windows), and automatic transcript storage with speaker attribution.
+
+### Bias Detection Service (`src/services/bias_detection_service.py`)
+LLM-based bias detection using LangGraph workflow orchestration. Analyzes admin transcripts using GPT-5-mini with context-aware prompts, structured JSON output, and confidence scoring.
+
+### Nudge Service (`src/services/nudge_service.py`)
+Graduated bias response system with automatic escalation logic. Manages strike tracking, admin status updates, and automated interview blocking based on configurable thresholds.
+
+### Bias Monitoring Workflow (`src/services/bias_monitoring_workflow.py`)
+LangGraph state machine orchestrating the complete bias monitoring pipeline: analyze_bias → store_analysis → check_strikes → take_action. Implements retry logic, error handling, and conditional routing.
 
 ### Admin Authentication (`src/services/admin_auth.py`)
 JWT-based authentication with PostgreSQL session management, bcrypt password hashing, and automatic session cleanup.
@@ -156,9 +208,9 @@ Fernet symmetric encryption for PII storage with key generation and secure encry
 
 ## Database Schema
 
-ENIGMA uses a normalized PostgreSQL schema with 14 tables, proper relationships, indexes, and constraints.
+ENIGMA uses a normalized PostgreSQL schema with **20 tables** (14 Phase 1 + 6 Phase 2), proper relationships, indexes, and constraints.
 
-### Core Tables (10)
+### Phase 1 Core Tables (10)
 
 1. **`applications`** - Raw student submissions with PII (name, email, phone, address, GPA, test scores, essay, achievements)
 2. **`anonymized_applications`** - PII-scrubbed data for LLM processing (GPA, test scores, scrubbed essay/achievements)
@@ -169,7 +221,7 @@ ENIGMA uses a normalized PostgreSQL schema with 14 tables, proper relationships,
 7. **`judge_results`** - Judge LLM validation results (decisions, confidence scores, bias detection)
 8. **`final_scores`** - Aggregated scores with selection status (final score, LLM score, selection status)
 
-### Admin & Audit Tables (4)
+### Phase 1 Admin & Audit Tables (4)
 
 9. **`admin_users`** - Admin authentication (username, email, password hash, role, activity status)
 10. **`admin_sessions`** - JWT session management (token, expiry, IP tracking, revocation status)
@@ -177,20 +229,51 @@ ENIGMA uses a normalized PostgreSQL schema with 14 tables, proper relationships,
    - **IMPORTANT:** `created_by` field references `admin_users.admin_id` (format: "ADM_XXXXXXXX"), NOT username
 12. **`audit_logs`** - Comprehensive audit trail (entity actions, actor, hash chain, timestamps)
 13. **`selection_logs`** - Selection process records (criteria, cutoff scores, execution details)
+14. **`interviews`** - Interview scheduling and tracking (application_id, student_id, admin_id, time, link, status)
+
+### Phase 2 Bias Monitoring Tables (6)
+
+15. **`live_transcripts`** - Real-time interview transcripts (interview_id, speaker, text, start/end times, confidence score)
+16. **`live_bias_analysis`** - LLM bias detection results (transcript_id, bias_detected, bias_types, severity, confidence, evidence, recommended_action, llm_response_raw)
+17. **`live_nudges`** - Real-time nudges delivered to admins (interview_id, analysis_id, nudge_type [info/warning/block], message, display_duration, acknowledged)
+18. **`bias_flags`** - Critical bias incidents requiring review (interview_id, admin_id, flag_type, severity, evidence, action_taken, reviewed, resolution)
+19. **`drift_metrics`** - Evaluator consistency tracking (admin_id, period, bias_incidents, nudges/warnings/blocks counts, avg_score, risk_score, risk_level)
+20. **`admin_bias_history`** - Aggregate admin bias tracking (admin_id, total_interviews, total_incidents, strikes, current_status [active/warned/suspended/banned], strike_reset_date)
 
 ### Key Relationships
 
+**Phase 1 Relationships:**
 ```
 admission_cycles (1:N) → applications (1:1) → anonymized_applications
 anonymized_applications (1:1) → identity_mapping
 anonymized_applications (1:N) → worker_results (1:N) → judge_results
 anonymized_applications (1:1) → final_scores
 applications (1:1) → deterministic_metrics
+applications (1:1) → interviews
 batch_runs (1:N) → worker_results, judge_results
 admin_users (1:N) → admin_sessions
 admin_users (1:N) → admission_cycles (via created_by → admin_id)
 admission_cycles (1:N) → selection_logs
 audit_logs (hash chain across all entities)
+```
+
+**Phase 2 Bias Monitoring Relationships:**
+```
+interviews (1:N) → live_transcripts
+interviews (1:N) → live_bias_analysis
+interviews (1:N) → live_nudges
+interviews (1:N) → bias_flags
+
+live_transcripts (1:N) → live_bias_analysis
+live_bias_analysis (1:N) → live_nudges
+
+admin_users (1:N) → live_bias_analysis (monitored admin)
+admin_users (1:N) → live_nudges (recipient)
+admin_users (1:N) → bias_flags (flagged admin)
+admin_users (1:1) → admin_bias_history
+admin_users (1:N) → drift_metrics
+
+admission_cycles (1:N) → drift_metrics
 ```
 
 ---
@@ -201,11 +284,19 @@ ENIGMA uses Pydantic for API validation and SQLAlchemy for ORM mapping.
 
 ### Key Enums
 
-**AdmissionPhaseEnum:** SUBMISSION | FROZEN | PREPROCESSING | BATCH_PREP | PROCESSING | SCORED | SELECTION | PUBLISHED | COMPLETED
+**Phase 1 Enums:**
+- **AdmissionPhaseEnum:** SUBMISSION | FROZEN | PREPROCESSING | BATCH_PREP | PROCESSING | SCORED | SELECTION | PUBLISHED | COMPLETED
+- **ApplicationStatusEnum:** SUBMITTED | FINALIZED | PREPROCESSING | BATCH_READY | PROCESSING | SCORED | SELECTED | NOT_SELECTED | PUBLISHED
+- **AdminRoleEnum:** admin | super_admin | auditor
+- **InterviewStatusEnum:** SCHEDULED | COMPLETED | CANCELLED
 
-**ApplicationStatusEnum:** SUBMITTED | FINALIZED | PREPROCESSING | BATCH_READY | PROCESSING | SCORED | SELECTED | NOT_SELECTED | PUBLISHED
-
-**AdminRoleEnum:** admin | super_admin | auditor
+**Phase 2 Bias Monitoring Enums:**
+- **SpeakerEnum:** ADMIN | STUDENT
+- **BiasTypeEnum:** APPEARANCE | GENDER | NAME | ACCENT | SOCIOECONOMIC | PERSONAL_CONNECTION | IRRELEVANT_FACTOR
+- **SeverityEnum:** NONE | LOW | MEDIUM | HIGH | CRITICAL
+- **NudgeTypeEnum:** INFO | WARNING | BLOCK
+- **RecommendedActionEnum:** NONE | NUDGE | WARN | BLOCK
+- **AdminBiasStatusEnum:** ACTIVE | WARNED | SUSPENDED | BANNED
 
 ### Core Models
 
@@ -335,6 +426,62 @@ LangGraph pipeline remains available for real-time evaluation:
 
 **Pipeline:** Retry loop with decision gates, max 3 attempts, stores results in PostgreSQL
 
+### Phase 2: Bias Monitoring Workflow (LangGraph)
+
+ENIGMA Phase 2 uses a **LangGraph state machine** to orchestrate real-time bias detection during live interviews.
+
+**Workflow Overview:**
+```
+Audio Stream (WebRTC)
+    ↓
+STT Service (OpenAI Whisper) - 10s chunks
+    ↓
+Transcript Storage (live_transcripts table)
+    ↓
+LangGraph Workflow: BiasMonitoringWorkflow
+    ├─ Node 1: analyze_bias (GPT-5-mini with context-aware prompt)
+    ├─ Node 2: store_analysis (persist to live_bias_analysis)
+    ├─ Node 3: check_strikes (count strikes, check admin status)
+    └─ Node 4: take_action (conditional - only if bias detected)
+        ├─ Info Nudge (blue banner, 5s)
+        ├─ Warning (yellow alert, 10s, +strike)
+        └─ Block (red alert, terminate interview, create flag)
+    ↓
+WebSocket → Frontend (real-time nudge delivery)
+```
+
+**Key Features:**
+- **GPT-5-mini LLM**: Fast, accurate bias detection with structured JSON output (no temperature/max_tokens params - not supported)
+- **Context-Aware**: Analyzes current statement with 5 previous transcript chunks for full context
+- **Graduated Response**: Info (confidence ≥0.3) → Warning (≥0.6) → Block (≥0.85)
+- **Strike Tracking**: 3 strikes in interview → auto-block, 5 strikes in cycle → suspension
+- **State Machine**: LangGraph nodes with conditional routing based on severity and strike count
+- **Error Handling**: Graceful degradation with retry logic and error state tracking
+
+**LLM Prompt Structure:**
+- System: Bias detection expert with rubric (7 bias types: appearance, gender, name, accent, socioeconomic, personal_connection, irrelevant_factor)
+- User: Conversation history + current evaluator statement
+- Response: Structured JSON with bias_detected, bias_types, severity, confidence, evidence, context_summary, recommended_action
+
+**Escalation Thresholds:**
+- **LOW severity**: Informational nudge, no strike
+- **MEDIUM severity**: Warning nudge, +1 strike
+- **HIGH severity**: Warning nudge, +2 strikes
+- **CRITICAL severity**: Immediate block, +3 strikes, flag for review
+
+**Admin Status Lifecycle:**
+```
+ACTIVE (0-2 strikes)
+    ↓ 3+ strikes in interview
+WARNED (3-4 strikes in cycle)
+    ↓ 5+ strikes in cycle
+SUSPENDED (manual review required)
+    ↓ 10+ lifetime strikes
+BANNED (permanent removal from evaluator pool)
+```
+
+**Strike Reset**: 90 days of clean record automatically resets strikes to 0.
+
 ---
 
 ## Security Architecture
@@ -387,14 +534,26 @@ Clean data access layer with generic CRUD operations and specialized repositorie
 - `DATABASE_URL` - PostgreSQL connection (Supabase transaction pooler)
 - `ENCRYPTION_KEY` - Fernet encryption key (from scripts/generate_keys.py)
 - `JWT_SECRET` - JWT signing secret (from scripts/generate_keys.py)
-- `OPENAI_API_KEY` - OpenAI API key for LLM integration
+- `OPENAI_API_KEY` - OpenAI API key for LLM integration (Whisper STT + GPT models)
 
-**Optional:**
+**Phase 1 Optional:**
 - `DATABASE_POOL_SIZE` - Connection pool size (default: 20)
 - `ADMIN_TOKEN_EXPIRY_HOURS` - JWT token expiry (default: 24)
 - `WORKER_MODEL` - Worker LLM model (default: gpt-5)
 - `JUDGE_MODEL` - Judge LLM model (default: gpt-5-mini)
 - `BATCH_EXPORT_DIR` - Directory for JSONL exports (default: ./batch_export)
+
+**Phase 2 Bias Monitoring:**
+- `ENABLE_BIAS_MONITORING` - Enable bias monitoring (default: true)
+- `BIAS_DETECTION_MODEL` - LLM for bias detection (default: gpt-5-mini)
+- `NUDGE_THRESHOLD_LOW` - Confidence for info nudges (default: 0.3)
+- `NUDGE_THRESHOLD_MEDIUM` - Confidence for warnings (default: 0.6)
+- `NUDGE_THRESHOLD_HIGH` - Confidence for blocking (default: 0.85)
+- `STRIKE_LIMIT_PER_INTERVIEW` - Strikes before interview block (default: 3)
+- `STRIKE_LIMIT_PER_CYCLE` - Strikes before suspension (default: 5)
+- `STRIKE_RESET_DAYS` - Days for strike reset (default: 90)
+- `STT_CHUNK_DURATION_SECONDS` - Audio chunk duration (default: 10)
+- `TRANSCRIPT_RETENTION_DAYS` - Transcript retention period (default: 365)
 
 **Settings:** Pydantic configuration with validation and .env file support
 
@@ -599,6 +758,44 @@ with get_db_context() as db:
 ---
 
 ## Changelog
+
+### v2.3.0 (2025-10-19) - Phase 2 Bias Monitoring System
+
+**MAJOR RELEASE: Real-Time Bias Monitoring for Live Interviews**
+
+- **Added**: Complete bias monitoring system with 6 new database tables (`live_transcripts`, `live_bias_analysis`, `live_nudges`, `bias_flags`, `drift_metrics`, `admin_bias_history`)
+- **Added**: LangGraph workflow orchestration for bias detection pipeline (Audio → STT → Analysis → Nudge → Action)
+- **Added**: STTService with OpenAI Whisper API integration for real-time speech-to-text transcription (10-15s audio chunks)
+- **Added**: BiasDetectionService using GPT-5-mini LLM with context-aware prompts and structured JSON output
+- **Added**: NudgeService with graduated response logic (Info → Warning → Block) and automatic escalation
+- **Added**: Strike tracking system with admin status management (Active → Warned → Suspended → Banned)
+- **Added**: Bias flag system for critical incidents requiring super_admin review
+- **Added**: Comprehensive repositories for bias monitoring (Transcript, BiasAnalysis, Nudge, BiasFlag, DriftMetrics, AdminBiasHistory)
+- **Added**: Real-time WebSocket support for audio streaming and nudge delivery (implementation pending frontend integration)
+- **Changed**: Updated BIAS_DETECTION_MODEL from gpt-4o-mini to **gpt-5-mini** for improved performance
+- **Removed**: Removed unsupported parameters (temperature, max_tokens/max_completion_tokens) for GPT-5 series compatibility
+- **Added**: New configuration variables for bias monitoring (thresholds, strike limits, STT settings)
+- **Added**: Alembic migration `add_bias_monitoring_tables` for database schema updates
+- **Impact**: Enables real-time monitoring of evaluator behavior during live interviews with automatic bias detection and graduated intervention
+
+**Configuration:**
+- `ENABLE_BIAS_MONITORING=true` - Enable/disable bias monitoring
+- `BIAS_DETECTION_MODEL=gpt-5-mini` - LLM model for bias detection
+- `NUDGE_THRESHOLD_LOW=0.3` - Confidence threshold for info nudges
+- `NUDGE_THRESHOLD_MEDIUM=0.6` - Confidence threshold for warnings
+- `NUDGE_THRESHOLD_HIGH=0.85` - Confidence threshold for blocking
+- `STRIKE_LIMIT_PER_INTERVIEW=3` - Auto-block after 3 strikes in single interview
+- `STRIKE_LIMIT_PER_CYCLE=5` - Suspension after 5 strikes in cycle
+- `STRIKE_RESET_DAYS=90` - Strike reset after 90 days clean record
+- `STT_CHUNK_DURATION_SECONDS=10` - Audio buffer duration
+- `TRANSCRIPT_RETENTION_DAYS=365` - Transcript storage retention
+
+**Location**:
+- Services: `src/services/bias_monitoring_workflow.py`, `src/services/bias_detection_service.py`, `src/services/nudge_service.py`, `src/services/stt_service.py`
+- Repositories: `src/database/repositories/transcript_repository.py`, `src/database/repositories/bias_repository.py`
+- Models: `src/database/models.py` (6 new tables + enums)
+- Schemas: `src/models/schemas.py` (bias monitoring Pydantic models)
+- Config: `src/config/settings.py` (bias monitoring settings)
 
 ### v2.2.0 (2025-10-19) - Virtual Interviews & Admin UX
 - **Added**: Virtual interview feature with WebRTC for real-time video/audio, managed via a new `interviews` table, repository, and dedicated API endpoints (`/admin/interviews/...`).

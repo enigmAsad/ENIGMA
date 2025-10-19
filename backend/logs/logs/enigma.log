@@ -4328,3 +4328,107 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": null
 }
+2025-10-19 11:35:41 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 11:35:41 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 11:35:41 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 11:35:47 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 11:35:47 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 11:35:47 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 11:35:47 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 11:35:47 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 11:36:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 11:36:13 | WARNING  | admin_auth | JWT token expired
+{
+    "taskName": "Task-12"
+}
+2025-10-19 11:36:13 | ERROR    | database | Database session error: 401: Invalid or expired token
+{
+    "taskName": null
+}
+2025-10-19 11:36:13 | WARNING  | admin_auth | JWT token expired
+{
+    "taskName": "Task-14"
+}
+2025-10-19 11:36:13 | ERROR    | database | Database session error: 401: Invalid or expired token
+{
+    "taskName": null
+}
+2025-10-19 11:37:31 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-23"
+}
+2025-10-19 11:37:35 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-23"
+}
+2025-10-19 11:49:37 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 11:50:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 11:51:00 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 11:51:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 11:51:37 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 11:51:53 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 11:52:11 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 11:53:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 11:59:30 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 12:02:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 12:03:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

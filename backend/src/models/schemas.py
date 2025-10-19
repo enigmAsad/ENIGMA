@@ -559,6 +559,28 @@ class InterviewDetails(BaseModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class InterviewScoreCreate(BaseModel):
+    """Schema for creating a new interview score."""
+    communication_score: float = Field(..., ge=0, le=10)
+    critical_thinking_score: float = Field(..., ge=0, le=10)
+    motivation_score: float = Field(..., ge=0, le=10)
+    notes: Optional[str] = Field(None, max_length=65535)
+
+
+class InterviewScoreRead(BaseModel):
+    """Schema for reading an interview score."""
+    id: int
+    interview_id: int
+    communication_score: float
+    critical_thinking_score: float
+    motivation_score: float
+    final_interview_score: float
+    notes: Optional[str]
+    scored_at: datetime
+    scored_by: str
+
+    model_config = ConfigDict(from_attributes=True)
+
 class CreateCycleRequest(BaseModel):
     """Request to create admission cycle."""
     cycle_name: str = Field(..., min_length=3, max_length=100)

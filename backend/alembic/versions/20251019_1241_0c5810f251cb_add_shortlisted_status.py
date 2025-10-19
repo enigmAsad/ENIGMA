@@ -19,7 +19,7 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
-    op.execute("ALTER TYPE applicationstatusenum ADD VALUE 'shortlisted'")
+    op.execute("ALTER TYPE applicationstatusenum ADD VALUE 'SHORTLISTED'")
 
 
 def downgrade() -> None:

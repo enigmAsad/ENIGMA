@@ -13,7 +13,9 @@ from langgraph.graph import StateGraph, END
 from openai import OpenAI
 from sqlalchemy.orm import Session
 
-from src.config.settings import settings
+from src.config.settings import get_settings
+
+settings = get_settings()
 from src.database.repositories.transcript_repository import TranscriptRepository
 from src.database.repositories.bias_repository import (
     BiasAnalysisRepository,
@@ -144,7 +146,7 @@ def analyze_bias_node(state: BiasMonitoringState) -> BiasMonitoringState:
         logger.info(f"Analyzing transcript {state['transcript_id']} for bias")
 
         # Initialize OpenAI client
-        client = OpenAI(api_key=settings.OPENAI_API_KEY)
+        client = OpenAI(api_key=settings.openai_api_key)
 
         # Build prompt
         user_prompt = BIAS_DETECTION_USER_PROMPT_TEMPLATE.format(

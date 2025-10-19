@@ -4,27 +4,28 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Webcam from 'react-webcam';
 import { useAuth as useStudentAuth } from '@/hooks/useStudentAuth';
-import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { useOptionalAdminAuth as useAdminAuth } from '@/hooks/useOptionalAdminAuth';
 import { useInterviewAudio } from '@/hooks/useInterviewAudio';
 import NudgeOverlay from '@/components/NudgeOverlay';
+import InterviewScoreModal from '@/components/InterviewScoreModal';
+import { adminApiClient } from '@/lib/adminApi';
 
 const InterviewRoomPage = () => {
   const { interviewId } = useParams();
   const router = useRouter();
 
-  // Auth hooks to determine role for redirection
-  const { student } = useStudentAuth();
-  const { admin } = useAdminAuth();
+  const { student, isLoading: isStudentLoading } = useStudentAuth();
+  const { admin, isLoading: isAdminLoading } = useAdminAuth();
 
-  // Determine speaker role
+  const [isScoreModalOpen, setScoreModalOpen] = useState(false);
+  const [isSavingScore, setIsSavingScore] = useState(false);
+
   const isAdmin = !!admin;
   const speaker = isAdmin ? 'admin' : 'student';
 
-  // Refs for mutable objects that don't trigger re-renders
   const socketRef = useRef<WebSocket | null>(null);
   const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
 
-  // State for UI and to trigger effects when streams are ready
   const [isCallStarted, setIsCallStarted] = useState(false);
   const [localStream, setLocalStream] = useState<MediaStream | null>(null);
   const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
@@ -33,14 +34,18 @@ const InterviewRoomPage = () => {
   const localVideoRef = useRef<Webcam>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
 
-  // Phase 2: Audio streaming for bias monitoring
   const audioStreaming = useInterviewAudio({
     interviewId: Number(interviewId),
     speaker,
-    enabled: isCallStarted && !interviewBlocked,
+    enabled: isCallStarted && !interviewBlocked && isAdmin,
   });
 
-  // Setup Peer Connection
+  useEffect(() => {
+    if (!isStudentLoading && !isAdminLoading && !student && !admin) {
+      router.push('/student/login');
+    }
+  }, [isStudentLoading, isAdminLoading, student, admin, router]);
+
   useEffect(() => {
     const pc = new RTCPeerConnection({
       iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
@@ -62,7 +67,6 @@ const InterviewRoomPage = () => {
     };
   }, []);
 
-  // Setup WebSocket
   useEffect(() => {
     const ws = new WebSocket(`ws://localhost:8000/ws/interview/${interviewId}`);
     socketRef.current = ws;
@@ -110,7 +114,6 @@ const InterviewRoomPage = () => {
     };
   }, [interviewId]);
 
-  // Attach remote stream to video element when it arrives
   useEffect(() => {
     if (remoteStream && remoteVideoRef.current) {
       remoteVideoRef.current.srcObject = remoteStream;
@@ -132,7 +135,6 @@ const InterviewRoomPage = () => {
         socketRef.current.send(JSON.stringify({ offer }));
       }
 
-      // Phase 2: Start audio capture for bias monitoring
       if (localStream) {
         audioStreaming.startCapture(localStream);
       }
@@ -140,46 +142,53 @@ const InterviewRoomPage = () => {
   };
 
   const endCall = () => {
-    // Phase 2: Stop audio capture
     audioStreaming.stopCapture();
 
-    if (peerConnectionRef.current) {
-      peerConnectionRef.current.close();
-    }
-    if (socketRef.current) {
-      socketRef.current.close();
-    }
-    if (localStream) {
-      localStream.getTracks().forEach(track => track.stop());
-    }
+    if (peerConnectionRef.current) peerConnectionRef.current.close();
+    if (socketRef.current) socketRef.current.close();
+    if (localStream) localStream.getTracks().forEach(track => track.stop());
 
-    // Redirect to the correct dashboard based on user role
-    if (admin) {
-      router.push('/admin/interviews');
-    } else if (student) {
-      router.push('/student/dashboard');
+    if (isAdmin) {
+      setScoreModalOpen(true);
     } else {
-      router.push('/'); // Fallback to home page
+      router.push('/student/dashboard');
     }
   };
 
-  // Handle interview block from bias detection
+  const handleCloseModal = () => {
+    setScoreModalOpen(false);
+    router.push('/admin/interviews');
+  };
+
+  const handleSaveScore = async (scoreData: any) => {
+    setIsSavingScore(true);
+    try {
+      await adminApiClient.addInterviewScore(Number(interviewId), scoreData);
+      // Optionally show a success toast/message here
+    } catch (error) {
+      console.error("Failed to save score:", error);
+      // Optionally show an error toast/message here
+    } finally {
+      setIsSavingScore(false);
+      handleCloseModal();
+    }
+  };
+
   const handleInterviewBlocked = useCallback(() => {
     setInterviewBlocked(true);
     setIsCallStarted(false);
+    setTimeout(() => endCall(), 10000);
+  }, [endCall]);
 
-    // Auto-redirect after 10 seconds
-    setTimeout(() => {
-      endCall();
-    }, 10000);
-  }, []);
+  if (isStudentLoading || isAdminLoading) {
+    return <div className="container mx-auto p-4">Loading session...</div>;
+  }
 
   return (
     <div className="container mx-auto p-4 relative">
       <h1 className="text-2xl font-bold mb-4">Interview Room: {interviewId}</h1>
 
-      {/* Phase 2: Connection Status Indicators */}
-      {isCallStarted && (
+      {isCallStarted && isAdmin && (
         <div className="mb-4 flex gap-3 text-sm">
           <div
             className={`px-3 py-1 rounded-full ${
@@ -200,7 +209,7 @@ const InterviewRoomPage = () => {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <h2 className="text-lg font-semibold">Your View</h2>
+          <h2 className="text-lg font-semibold">Your View ({speaker})</h2>
           <Webcam
             audio={true}
             onUserMedia={setLocalStream}
@@ -226,11 +235,7 @@ const InterviewRoomPage = () => {
           disabled={isCallStarted || !localStream || interviewBlocked}
           className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors disabled:bg-gray-400"
         >
-          {interviewBlocked
-            ? 'Interview Blocked'
-            : isCallStarted
-            ? 'Call Active'
-            : 'Start Call'}
+          {interviewBlocked ? 'Interview Blocked' : isCallStarted ? 'Call Active' : 'Start Call'}
         </button>
         {isCallStarted && !interviewBlocked && (
           <button
@@ -242,7 +247,6 @@ const InterviewRoomPage = () => {
         )}
       </div>
 
-      {/* Phase 2: Bias Monitoring - NudgeOverlay (only for admins) */}
       {isAdmin && admin && (
         <NudgeOverlay
           interviewId={Number(interviewId)}
@@ -250,6 +254,13 @@ const InterviewRoomPage = () => {
           onBlock={handleInterviewBlocked}
         />
       )}
+
+      <InterviewScoreModal
+        isOpen={isScoreModalOpen}
+        onClose={handleCloseModal}
+        onSave={handleSaveScore}
+        isSaving={isSavingScore}
+      />
     </div>
   );
 };

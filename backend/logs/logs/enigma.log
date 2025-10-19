@@ -4696,3 +4696,1775 @@ CONTEXT:  while updating tuple (0,7) in relation "student_auth_states"
 {
     "taskName": "Task-141"
 }
+2025-10-19 14:24:23 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 14:24:23 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 14:24:23 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 14:24:29 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 14:24:29 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 14:24:29 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 14:24:29 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 14:24:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 15:05:43 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:06:20 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:06:41 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-22"
+}
+2025-10-19 15:06:45 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-22"
+}
+2025-10-19 15:10:28 | INFO     | api | Created and opened admission cycle: Test Talking
+{
+    "taskName": "Task-41"
+}
+2025-10-19 15:10:59 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:11:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:11:16 | INFO     | student_auth | Issued session STS_C7D1B4C6A3 for student STU_F5355E37
+{
+    "taskName": "Task-62"
+}
+2025-10-19 15:11:17 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-62"
+}
+2025-10-19 15:12:01 | ERROR    | api | Failed to delete interview 2: (psycopg2.errors.UndefinedTable) relation "interview_scores" does not exist
+LINE 2: FROM interview_scores 
+             ^
+
+[SQL: SELECT interview_scores.id AS interview_scores_id, interview_scores.interview_id AS interview_scores_interview_id, interview_scores.communication_score AS interview_scores_communication_score, interview_scores.critical_thinking_score AS interview_scores_critical_thinking_score, interview_scores.motivation_score AS interview_scores_motivation_score, interview_scores.final_interview_score AS interview_scores_final_interview_score, interview_scores.notes AS interview_scores_notes, interview_scores.scored_at AS interview_scores_scored_at, interview_scores.scored_by AS interview_scores_scored_by 
+FROM interview_scores 
+WHERE %(param_1)s = interview_scores.interview_id]
+[parameters: {'param_1': 2}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+{
+    "taskName": "Task-104"
+}
+2025-10-19 15:12:01 | ERROR    | database | Database session error: 500: (psycopg2.errors.UndefinedTable) relation "interview_scores" does not exist
+LINE 2: FROM interview_scores 
+             ^
+
+[SQL: SELECT interview_scores.id AS interview_scores_id, interview_scores.interview_id AS interview_scores_interview_id, interview_scores.communication_score AS interview_scores_communication_score, interview_scores.critical_thinking_score AS interview_scores_critical_thinking_score, interview_scores.motivation_score AS interview_scores_motivation_score, interview_scores.final_interview_score AS interview_scores_final_interview_score, interview_scores.notes AS interview_scores_notes, interview_scores.scored_at AS interview_scores_scored_at, interview_scores.scored_by AS interview_scores_scored_by 
+FROM interview_scores 
+WHERE %(param_1)s = interview_scores.interview_id]
+[parameters: {'param_1': 2}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+{
+    "taskName": null
+}
+2025-10-19 15:18:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 15:18:45 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:19:09 | INFO     | api | Interview 2 deleted by enigma
+{
+    "taskName": "Task-125"
+}
+2025-10-19 15:21:50 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-151"
+}
+2025-10-19 15:21:51 | INFO     | audit | AUDIT: create | Application:APP_2BFCA0C3 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-19T10:21:51.662985
+{
+    "taskName": "Task-151"
+}
+2025-10-19 15:21:51 | INFO     | application_collector | Application collected successfully: APP_2BFCA0C3
+{
+    "taskName": "Task-151"
+}
+2025-10-19 15:21:52 | INFO     | api | Application submitted: APP_2BFCA0C3 (Cycle: Test Talking)
+{
+    "taskName": "Task-151"
+}
+2025-10-19 15:23:43 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:23:58 | INFO     | phase_manager | Freezing cycle CYC_20251019_101027 by admin ADM_ENIGMA
+{
+    "taskName": "Task-176"
+}
+2025-10-19 15:23:59 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-176"
+}
+2025-10-19 15:23:59 | INFO     | phase_manager | Cycle CYC_20251019_101027 frozen successfully
+{
+    "taskName": "Task-176"
+}
+2025-10-19 15:23:59 | INFO     | api | Cycle CYC_20251019_101027 frozen by admin enigma
+{
+    "taskName": "Task-176"
+}
+2025-10-19 15:24:46 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251019_101027
+{
+    "taskName": "Task-190"
+}
+2025-10-19 15:24:47 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-190"
+}
+2025-10-19 15:24:47 | INFO     | identity_scrubber | Scrubbing application: APP_2BFCA0C3
+{
+    "taskName": "Task-190"
+}
+2025-10-19 15:24:48 | INFO     | identity_scrubber | Applied 6 redactions to APP_2BFCA0C3
+{
+    "taskName": "Task-190"
+}
+2025-10-19 15:24:51 | INFO     | identity_scrubber | Successfully scrubbed APP_2BFCA0C3 → ANON_1760851488186_47CA00
+{
+    "taskName": "Task-190"
+}
+2025-10-19 15:24:53 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251019_101027: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-190"
+}
+2025-10-19 15:24:53 | INFO     | api | Preprocessing started for cycle CYC_20251019_101027 by admin enigma
+{
+    "taskName": "Task-190"
+}
+2025-10-19 15:25:14 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-196"
+}
+2025-10-19 15:25:14 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-196"
+}
+2025-10-19 15:25:14 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251019_101027
+{
+    "taskName": "Task-196"
+}
+2025-10-19 15:25:16 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251019_101027: 1 applications ready for export
+{
+    "taskName": "Task-196"
+}
+2025-10-19 15:25:16 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251019_101027 to JSONL
+{
+    "taskName": "Task-196"
+}
+2025-10-19 15:25:17 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251019_101027_20251019_102516.jsonl
+{
+    "taskName": "Task-196"
+}
+2025-10-19 15:25:17 | INFO     | api | Batch export completed for cycle CYC_20251019_101027 by admin enigma
+{
+    "taskName": "Task-196"
+}
+2025-10-19 15:26:04 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:26:05 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:26:05 | INFO     | phase_manager | Starting processing for cycle CYC_20251019_101027
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:26:06 | INFO     | phase_manager | Cycle CYC_20251019_101027 now in PROCESSING phase
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:26:08 | INFO     | worker_llm | Evaluating ANON_1760851488186_47CA00 (attempt 1)
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:26:40 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_A0B4BDC5 | actor=worker_llm | details={'anonymized_id': 'ANON_1760851488186_47CA00', 'attempt_number': 1, 'total_score': 76.05} | timestamp=2025-10-19T10:26:40.555910
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:26:41 | INFO     | worker_llm | Worker evaluation complete: ANON_1760851488186_47CA00 → 76.05/100 (attempt 1)
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:26:42 | INFO     | judge_llm | Validating worker evaluation for ANON_1760851488186_47CA00 (attempt 1)
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:27:05 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_145AB9C8 | actor=judge_llm | details={'anonymized_id': 'ANON_1760851488186_47CA00', 'worker_result_id': 'WKR_A0B4BDC5', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-19T10:27:05.337982
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:27:06 | INFO     | judge_llm | Judge validation complete: ANON_1760851488186_47CA00 → APPROVED  (quality: 88/100)
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:27:10 | INFO     | audit | AUDIT: update | HashChain:ANON_1760851488186_47CA00 | actor=hash_chain_generator | details={'hash': 'b65113d4074d34868ba1614ddbce891d5f1a2d8ea42abf689c91bdf8334d6689'} | timestamp=2025-10-19T10:27:10.370693
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:27:11 | INFO     | hash_chain | Created hash chain entry for ANON_1760851488186_47CA00: b65113d4074d3486...
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:27:12 | INFO     | phase_manager | Marking cycle CYC_20251019_101027 as scored
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:27:13 | INFO     | phase_manager | Cycle CYC_20251019_101027 marked as SCORED
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:27:13 | INFO     | api | LLM processing completed for cycle CYC_20251019_101027 by admin enigma
+{
+    "taskName": "Task-204"
+}
+2025-10-19 15:28:41 | INFO     | phase_manager | Performing shortlisting for cycle CYC_20251019_101027
+{
+    "taskName": "Task-210"
+}
+2025-10-19 15:28:42 | ERROR    | api | Failed to perform selection for cycle CYC_20251019_101027: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum applicationstatusenum: "SHORTLISTED"
+LINE 1: UPDATE final_scores SET status='SHORTLISTED' WHERE final_sco...
+                                       ^
+
+[SQL: UPDATE final_scores SET status=%(status)s WHERE final_scores.anonymized_id = %(anonymized_id_1)s RETURNING final_scores.score_id, final_scores.anonymized_id, final_scores.final_score, final_scores.academic_score, final_scores.test_score, final_scores.achievement_score, final_scores.essay_score, final_scores.llm_score, final_scores.llm_explanation, final_scores.explanation, final_scores.strengths, final_scores.areas_for_improvement, final_scores.timestamp, final_scores.hash, final_scores.worker_attempts, final_scores.status]
+[parameters: {'status': 'SHORTLISTED', 'anonymized_id_1': 'ANON_1760851488186_47CA00'}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-210"
+}
+2025-10-19 15:28:42 | ERROR    | database | Database session error: 400: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum applicationstatusenum: "SHORTLISTED"
+LINE 1: UPDATE final_scores SET status='SHORTLISTED' WHERE final_sco...
+                                       ^
+
+[SQL: UPDATE final_scores SET status=%(status)s WHERE final_scores.anonymized_id = %(anonymized_id_1)s RETURNING final_scores.score_id, final_scores.anonymized_id, final_scores.final_score, final_scores.academic_score, final_scores.test_score, final_scores.achievement_score, final_scores.essay_score, final_scores.llm_score, final_scores.llm_explanation, final_scores.explanation, final_scores.strengths, final_scores.areas_for_improvement, final_scores.timestamp, final_scores.hash, final_scores.worker_attempts, final_scores.status]
+[parameters: {'status': 'SHORTLISTED', 'anonymized_id_1': 'ANON_1760851488186_47CA00'}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": null
+}
+2025-10-19 15:32:32 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 15:32:51 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 15:33:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 15:33:58 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:34:06 | INFO     | phase_manager | Performing shortlisting for cycle CYC_20251019_101027
+{
+    "taskName": "Task-15"
+}
+2025-10-19 15:34:07 | INFO     | phase_manager | Updated 1 applications to SHORTLISTED status
+{
+    "taskName": "Task-15"
+}
+2025-10-19 15:34:07 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-15"
+}
+2025-10-19 15:34:09 | INFO     | phase_manager | Shortlisting complete: 1 shortlisted, 0 not selected
+{
+    "taskName": "Task-15"
+}
+2025-10-19 15:34:09 | INFO     | api | Shortlisting performed for cycle CYC_20251019_101027 by admin enigma
+{
+    "taskName": "Task-15"
+}
+2025-10-19 15:37:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:37:24 | INFO     | phase_manager | Performing final selection for cycle CYC_20251019_101027
+{
+    "taskName": "Task-27"
+}
+2025-10-19 15:37:25 | ERROR    | api | Failed to perform final selection for cycle CYC_20251019_101027: No scored interviews found for this cycle.
+{
+    "taskName": "Task-27"
+}
+2025-10-19 15:37:25 | ERROR    | database | Database session error: 400: No scored interviews found for this cycle.
+{
+    "taskName": null
+}
+2025-10-19 15:39:04 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:41:53 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:41:56 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:49:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 15:50:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 15:51:32 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 15:58:49 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:59:42 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 15:59:56 | INFO     | phase_manager | Performing final selection for cycle CYC_20251019_101027
+{
+    "taskName": "Task-78"
+}
+2025-10-19 15:59:56 | ERROR    | api | Failed to perform final selection for cycle CYC_20251019_101027: Can only perform final selection from SCORED phase, currently in selection
+{
+    "taskName": "Task-78"
+}
+2025-10-19 15:59:56 | ERROR    | database | Database session error: 400: Can only perform final selection from SCORED phase, currently in selection
+{
+    "taskName": null
+}
+2025-10-19 16:05:57 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 16:06:07 | INFO     | phase_manager | Performing shortlisting for cycle CYC_20251019_101027
+{
+    "taskName": "Task-89"
+}
+2025-10-19 16:06:08 | ERROR    | api | Failed to perform selection for cycle CYC_20251019_101027: No scored applications found
+{
+    "taskName": "Task-89"
+}
+2025-10-19 16:06:08 | ERROR    | database | Database session error: 400: No scored applications found
+{
+    "taskName": null
+}
+2025-10-19 16:06:23 | ERROR    | database | Database session error: 400: Cannot delete cycle with submitted applications. Archive or remove applications first.
+{
+    "taskName": null
+}
+2025-10-19 16:06:50 | INFO     | api | Created and opened admission cycle: Test Talking 2
+{
+    "taskName": "Task-99"
+}
+2025-10-19 16:07:06 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 16:07:56 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-130"
+}
+2025-10-19 16:07:57 | INFO     | audit | AUDIT: create | Application:APP_16D608A3 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-19T11:07:57.620441
+{
+    "taskName": "Task-130"
+}
+2025-10-19 16:07:57 | INFO     | application_collector | Application collected successfully: APP_16D608A3
+{
+    "taskName": "Task-130"
+}
+2025-10-19 16:07:58 | INFO     | api | Application submitted: APP_16D608A3 (Cycle: Test Talking 2)
+{
+    "taskName": "Task-130"
+}
+2025-10-19 16:08:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 16:08:39 | INFO     | phase_manager | Freezing cycle CYC_20251019_110649 by admin ADM_ENIGMA
+{
+    "taskName": "Task-146"
+}
+2025-10-19 16:08:40 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-146"
+}
+2025-10-19 16:08:40 | INFO     | phase_manager | Cycle CYC_20251019_110649 frozen successfully
+{
+    "taskName": "Task-146"
+}
+2025-10-19 16:08:40 | INFO     | api | Cycle CYC_20251019_110649 frozen by admin enigma
+{
+    "taskName": "Task-146"
+}
+2025-10-19 17:31:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 17:32:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 17:51:22 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 17:51:48 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251019_110649
+{
+    "taskName": "Task-29"
+}
+2025-10-19 17:51:49 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-29"
+}
+2025-10-19 17:51:49 | INFO     | identity_scrubber | Scrubbing application: APP_16D608A3
+{
+    "taskName": "Task-29"
+}
+2025-10-19 17:51:50 | INFO     | identity_scrubber | Applied 6 redactions to APP_16D608A3
+{
+    "taskName": "Task-29"
+}
+2025-10-19 17:51:53 | INFO     | identity_scrubber | Successfully scrubbed APP_16D608A3 → ANON_1760860310477_CB74B7
+{
+    "taskName": "Task-29"
+}
+2025-10-19 17:51:55 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251019_110649: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-29"
+}
+2025-10-19 17:51:55 | INFO     | api | Preprocessing started for cycle CYC_20251019_110649 by admin enigma
+{
+    "taskName": "Task-29"
+}
+2025-10-19 17:53:00 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-35"
+}
+2025-10-19 17:53:01 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-35"
+}
+2025-10-19 17:53:01 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251019_110649
+{
+    "taskName": "Task-35"
+}
+2025-10-19 17:53:02 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251019_110649: 1 applications ready for export
+{
+    "taskName": "Task-35"
+}
+2025-10-19 17:53:02 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251019_110649 to JSONL
+{
+    "taskName": "Task-35"
+}
+2025-10-19 17:53:03 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251019_110649_20251019_125303.jsonl
+{
+    "taskName": "Task-35"
+}
+2025-10-19 17:53:04 | INFO     | api | Batch export completed for cycle CYC_20251019_110649 by admin enigma
+{
+    "taskName": "Task-35"
+}
+2025-10-19 17:53:12 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:53:13 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:53:13 | INFO     | phase_manager | Starting processing for cycle CYC_20251019_110649
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:53:14 | INFO     | phase_manager | Cycle CYC_20251019_110649 now in PROCESSING phase
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:53:17 | INFO     | worker_llm | Evaluating ANON_1760860310477_CB74B7 (attempt 1)
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:53:40 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_7FB8F2E1 | actor=worker_llm | details={'anonymized_id': 'ANON_1760860310477_CB74B7', 'attempt_number': 1, 'total_score': 80.15} | timestamp=2025-10-19T12:53:40.374317
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:53:41 | INFO     | worker_llm | Worker evaluation complete: ANON_1760860310477_CB74B7 → 80.15/100 (attempt 1)
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:53:42 | INFO     | judge_llm | Validating worker evaluation for ANON_1760860310477_CB74B7 (attempt 1)
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:53:57 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_B87A7CE2 | actor=judge_llm | details={'anonymized_id': 'ANON_1760860310477_CB74B7', 'worker_result_id': 'WKR_7FB8F2E1', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-19T12:53:57.429680
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:53:58 | INFO     | judge_llm | Judge validation complete: ANON_1760860310477_CB74B7 → APPROVED  (quality: 88/100)
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:54:01 | INFO     | audit | AUDIT: update | HashChain:ANON_1760860310477_CB74B7 | actor=hash_chain_generator | details={'hash': '15c70905bb828f025d55b66e37313bb15d6be4b3be32fc760ac04b867d608c76'} | timestamp=2025-10-19T12:54:01.834556
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:54:03 | INFO     | hash_chain | Created hash chain entry for ANON_1760860310477_CB74B7: 15c70905bb828f02...
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:54:04 | INFO     | phase_manager | Marking cycle CYC_20251019_110649 as scored
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:54:06 | INFO     | phase_manager | Cycle CYC_20251019_110649 marked as SCORED
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:54:06 | INFO     | api | LLM processing completed for cycle CYC_20251019_110649 by admin enigma
+{
+    "taskName": "Task-42"
+}
+2025-10-19 17:55:01 | INFO     | phase_manager | Performing shortlisting for cycle CYC_20251019_110649
+{
+    "taskName": "Task-48"
+}
+2025-10-19 17:55:03 | INFO     | phase_manager | Updated 1 applications to SHORTLISTED status
+{
+    "taskName": "Task-48"
+}
+2025-10-19 17:55:03 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-48"
+}
+2025-10-19 17:55:04 | INFO     | phase_manager | Shortlisting complete: 1 shortlisted, 0 not selected. Cycle moved to SELECTION phase.
+{
+    "taskName": "Task-48"
+}
+2025-10-19 17:55:04 | INFO     | api | Shortlisting performed for cycle CYC_20251019_110649 by admin enigma
+{
+    "taskName": "Task-48"
+}
+2025-10-19 17:57:04 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 18:00:03 | ERROR    | api | Failed to schedule interview: name 'AdmissionPhaseEnum' is not defined
+Traceback (most recent call last):
+  File "E:\NewCursedFolder\Professional Stuff\projects\ENIGMA\backend\api.py", line 1224, in schedule_interview
+    if cycle.phase != AdmissionPhaseEnum.SELECTION:
+                      ^^^^^^^^^^^^^^^^^^
+NameError: name 'AdmissionPhaseEnum' is not defined
+{
+    "taskName": "Task-61"
+}
+2025-10-19 18:00:03 | ERROR    | database | Database session error: 500: An unexpected error occurred: name 'AdmissionPhaseEnum' is not defined
+{
+    "taskName": null
+}
+2025-10-19 18:01:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 18:04:58 | INFO     | api | Interview 3 scheduled for application APP_16D608A3 by enigma
+{
+    "taskName": "Task-4"
+}
+2025-10-19 18:05:29 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-36"
+}
+2025-10-19 18:05:30 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-42"
+}
+2025-10-19 18:07:45 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-42"
+}
+2025-10-19 18:07:45 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-42"
+}
+2025-10-19 18:07:45 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-42"
+}
+2025-10-19 18:07:45 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-36"
+}
+2025-10-19 18:07:45 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-36"
+}
+2025-10-19 18:07:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 18:08:51 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 18:11:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 18:12:25 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-19"
+}
+2025-10-19 18:12:30 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: student
+{
+    "taskName": "Task-19"
+}
+2025-10-19 18:12:30 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-19"
+}
+2025-10-19 18:12:30 | ERROR    | database | Database transaction error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-19"
+}
+2025-10-19 18:12:30 | ERROR    | audio_stream | Audio stream error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-19"
+}
+2025-10-19 18:12:30 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-19"
+}
+2025-10-19 18:12:30 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 18:12:30 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-25"
+}
+2025-10-19 18:12:30 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: admin
+{
+    "taskName": "Task-31"
+}
+2025-10-19 18:12:30 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-31"
+}
+2025-10-19 18:12:30 | ERROR    | database | Database transaction error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-31"
+}
+2025-10-19 18:12:30 | ERROR    | audio_stream | Audio stream error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-31"
+}
+2025-10-19 18:12:30 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-31"
+}
+2025-10-19 18:12:30 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-37"
+}
+2025-10-19 18:13:26 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-49"
+}
+2025-10-19 18:13:31 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-49"
+}
+2025-10-19 18:14:22 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-37"
+}
+2025-10-19 18:14:22 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-37"
+}
+2025-10-19 18:14:22 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-37"
+}
+2025-10-19 19:52:17 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-176"
+}
+2025-10-19 19:52:17 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-182"
+}
+2025-10-19 19:52:52 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-238"
+}
+2025-10-19 19:52:52 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-244"
+}
+2025-10-19 19:53:00 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-182"
+}
+2025-10-19 19:53:00 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-182"
+}
+2025-10-19 19:53:00 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-182"
+}
+2025-10-19 19:53:04 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-25"
+}
+2025-10-19 19:53:04 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-25"
+}
+2025-10-19 19:53:04 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-176"
+}
+2025-10-19 19:53:04 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-176"
+}
+2025-10-19 19:53:11 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 19:53:17 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-268"
+}
+2025-10-19 19:53:20 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-268"
+}
+2025-10-19 19:53:22 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-244"
+}
+2025-10-19 19:53:22 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-244"
+}
+2025-10-19 19:53:29 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-238"
+}
+2025-10-19 19:53:29 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-238"
+}
+2025-10-19 19:53:35 | INFO     | student_auth | Issued session STS_8F40D7A666 for student STU_F5355E37
+{
+    "taskName": "Task-289"
+}
+2025-10-19 19:53:36 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-289"
+}
+2025-10-19 19:54:48 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: student
+{
+    "taskName": "Task-370"
+}
+2025-10-19 19:54:48 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-370"
+}
+2025-10-19 19:54:48 | ERROR    | database | Database transaction error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-370"
+}
+2025-10-19 19:54:48 | ERROR    | audio_stream | Audio stream error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-370"
+}
+2025-10-19 19:54:48 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-370"
+}
+2025-10-19 19:54:48 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-376"
+}
+2025-10-19 19:54:48 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: admin
+{
+    "taskName": "Task-382"
+}
+2025-10-19 19:54:48 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-382"
+}
+2025-10-19 19:54:48 | ERROR    | database | Database transaction error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-382"
+}
+2025-10-19 19:54:48 | ERROR    | audio_stream | Audio stream error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-382"
+}
+2025-10-19 19:54:48 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-382"
+}
+2025-10-19 19:54:48 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-388"
+}
+2025-10-19 19:55:40 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: student
+{
+    "taskName": "Task-408"
+}
+2025-10-19 19:55:40 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-408"
+}
+2025-10-19 19:55:40 | ERROR    | database | Database transaction error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-408"
+}
+2025-10-19 19:55:40 | ERROR    | audio_stream | Audio stream error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-408"
+}
+2025-10-19 19:55:40 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-408"
+}
+2025-10-19 19:58:22 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-376"
+}
+2025-10-19 19:58:22 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-376"
+}
+2025-10-19 19:58:22 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-376"
+}
+2025-10-19 19:58:22 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-388"
+}
+2025-10-19 19:58:22 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-388"
+}
+2025-10-19 19:58:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:00:17 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-54"
+}
+2025-10-19 20:00:17 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-60"
+}
+2025-10-19 20:00:34 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:00:38 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:00:38 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:00:41 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: student
+{
+    "taskName": "Task-86"
+}
+2025-10-19 20:00:41 | WARNING  | stt_service | Stream already exists for interview 3
+{
+    "taskName": "Task-86"
+}
+2025-10-19 20:01:03 | INFO     | audio_stream | Processing 20408 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:01:03 | INFO     | stt_service | Sending 20408 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:01:08 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:01:08 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:01:25 | INFO     | audio_stream | Processing 20558 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:01:25 | INFO     | stt_service | Sending 20558 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:01:28 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:01:28 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:01:48 | INFO     | audio_stream | Processing 20425 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:01:48 | INFO     | stt_service | Sending 20425 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:01:51 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:01:51 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:10 | INFO     | audio_stream | Processing 20444 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:10 | INFO     | stt_service | Sending 20444 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:12 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:12 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:33 | INFO     | audio_stream | Processing 20531 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:33 | INFO     | stt_service | Sending 20531 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:35 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:35 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:55 | INFO     | audio_stream | Processing 20429 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:55 | INFO     | stt_service | Sending 20429 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:57 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:02:57 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:03:18 | INFO     | audio_stream | Processing 20532 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:03:18 | INFO     | stt_service | Sending 20532 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:03:19 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:03:19 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:03:40 | INFO     | audio_stream | Processing 20398 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:03:40 | INFO     | stt_service | Sending 20398 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:03:41 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:03:41 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:03 | INFO     | audio_stream | Processing 20533 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:03 | INFO     | stt_service | Sending 20533 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:03 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:03 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:16 | INFO     | audio_stream | Processing 22009 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:16 | INFO     | stt_service | Sending 22009 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:17 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:17 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:26 | INFO     | audio_stream | Processing 21420 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:26 | INFO     | stt_service | Sending 21420 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:28 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:28 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:36 | INFO     | audio_stream | Processing 21420 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:36 | INFO     | stt_service | Sending 21420 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:37 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:37 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:46 | INFO     | audio_stream | Processing 21420 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:46 | INFO     | stt_service | Sending 21420 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:49 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:49 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:57 | INFO     | audio_stream | Processing 21420 bytes for admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:57 | INFO     | stt_service | Sending 21420 bytes to Whisper API
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:58 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:04:58 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:05:05 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:05:05 | INFO     | audio_stream | Audio stream disconnected for interview 3, speaker: admin
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:05:05 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-80"
+}
+2025-10-19 20:05:06 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-60"
+}
+2025-10-19 20:05:06 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-60"
+}
+2025-10-19 20:05:06 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-60"
+}
+2025-10-19 20:17:23 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-86"
+}
+2025-10-19 20:17:23 | ERROR    | audio_stream | Audio stream error: (psycopg2.OperationalError) server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+server closed the connection unexpectedly
+	This probably means the server terminated abnormally
+	before or while processing the request.
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-86"
+}
+2025-10-19 20:17:24 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-54"
+}
+2025-10-19 20:17:24 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-54"
+}
+2025-10-19 20:17:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:17:45 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 20:17:45 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 20:17:50 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 20:17:50 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 20:17:50 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 20:17:50 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 20:17:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:18:44 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:18:46 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: student
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:18:46 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:18:48 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-28"
+}
+2025-10-19 20:18:48 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-37"
+}
+2025-10-19 20:18:48 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: admin
+{
+    "taskName": "Task-43"
+}
+2025-10-19 20:18:48 | WARNING  | stt_service | Stream already exists for interview 3
+{
+    "taskName": "Task-43"
+}
+2025-10-19 20:19:10 | INFO     | audio_stream | Processing 20296 bytes for student
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:19:10 | INFO     | stt_service | Sending 20296 bytes to Whisper API
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:19:16 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:19:16 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:19:33 | INFO     | audio_stream | Processing 20347 bytes for student
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:19:33 | INFO     | stt_service | Sending 20347 bytes to Whisper API
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:19:34 | ERROR    | stt_service | STT transcription failed: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:19:34 | ERROR    | stt_service | Failed to process audio chunk: Error code: 400 - {'error': {'message': "Invalid file format. Supported formats: ['flac', 'm4a', 'mp3', 'mp4', 'mpeg', 'mpga', 'oga', 'ogg', 'wav', 'webm']", 'type': 'invalid_request_error', 'param': None, 'code': None}, 'usage': {'type': 'duration', 'seconds': 0}}
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:19:42 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:19:42 | INFO     | audio_stream | Audio stream disconnected for interview 3, speaker: student
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:19:42 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-27"
+}
+2025-10-19 20:19:46 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-43"
+}
+2025-10-19 20:19:46 | INFO     | audio_stream | Audio stream disconnected for interview 3, speaker: admin
+{
+    "taskName": "Task-43"
+}
+2025-10-19 20:19:46 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-37"
+}
+2025-10-19 20:19:46 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-37"
+}
+2025-10-19 20:19:46 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-37"
+}
+2025-10-19 20:22:54 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-28"
+}
+2025-10-19 20:22:54 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-28"
+}
+2025-10-19 20:22:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:23:13 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-22"
+}
+2025-10-19 20:23:13 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-28"
+}
+2025-10-19 20:23:13 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:15 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: admin
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:15 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:39 | INFO     | audio_stream | Processing 20305 bytes for admin
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:39 | INFO     | stt_service | Sending 20349 bytes to Whisper API as WAV
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:45 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:46 | INFO     | stt_service | Stored transcript 1 for interview 3
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:46 | INFO     | audio_stream | Running bias analysis for transcript 1
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:47 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 1
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:47 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 1
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:47 | INFO     | bias_monitoring_workflow | Analyzing transcript 1 for bias
+{
+    "taskName": null
+}
+2025-10-19 20:23:47 | ERROR    | bias_monitoring_workflow | Bias analysis failed: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": null
+}
+2025-10-19 20:23:47 | ERROR    | bias_detection_service | Workflow error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:47 | ERROR    | bias_detection_service | Bias detection failed: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:47 | ERROR    | database | Database transaction error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:47 | ERROR    | audio_stream | Audio stream error: 'Settings' object has no attribute 'OPENAI_API_KEY'
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:23:47 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-34"
+}
+2025-10-19 20:25:02 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-28"
+}
+2025-10-19 20:25:02 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-28"
+}
+2025-10-19 20:25:02 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-28"
+}
+2025-10-19 20:25:02 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-22"
+}
+2025-10-19 20:25:02 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-22"
+}
+2025-10-19 20:25:08 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:29:51 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:34:39 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:45:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:45:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:47:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:47:10 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 20:47:10 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 20:47:16 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 20:47:16 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 20:47:16 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 20:47:16 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 20:47:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:50:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:51:00 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 20:51:24 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-63"
+}
+2025-10-19 20:51:25 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-69"
+}
+2025-10-19 20:51:25 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-75"
+}
+2025-10-19 20:51:25 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-81"
+}
+2025-10-19 20:51:25 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-81"
+}
+2025-10-19 20:51:25 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-81"
+}
+2025-10-19 20:51:25 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-81"
+}
+2025-10-19 20:51:26 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-87"
+}
+2025-10-19 20:51:26 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-93"
+}
+2025-10-19 20:51:32 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: admin
+{
+    "taskName": "Task-93"
+}
+2025-10-19 20:51:32 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-93"
+}
+2025-10-19 20:51:36 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-87"
+}
+2025-10-19 20:51:36 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-87"
+}
+2025-10-19 20:51:36 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-87"
+}
+2025-10-19 20:51:36 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-99"
+}
+2025-10-19 20:51:36 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-105"
+}
+2025-10-19 20:51:45 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-69"
+}
+2025-10-19 20:51:45 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-69"
+}
+2025-10-19 20:51:45 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-69"
+}
+2025-10-19 20:51:45 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-63"
+}
+2025-10-19 20:51:45 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-63"
+}
+2025-10-19 20:51:45 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-75"
+}
+2025-10-19 20:51:45 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-75"
+}
+2025-10-19 20:51:46 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-93"
+}
+2025-10-19 20:51:46 | INFO     | audio_stream | Audio stream disconnected for interview 3, speaker: admin
+{
+    "taskName": "Task-93"
+}
+2025-10-19 20:51:46 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-93"
+}
+2025-10-19 20:51:46 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-99"
+}
+2025-10-19 20:51:46 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-99"
+}
+2025-10-19 20:51:46 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-105"
+}
+2025-10-19 20:51:46 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-105"
+}
+2025-10-19 20:51:47 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 20:51:49 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-123"
+}
+2025-10-19 20:51:49 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-129"
+}
+2025-10-19 20:51:49 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-135"
+}
+2025-10-19 20:51:51 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-135"
+}
+2025-10-19 20:51:51 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-135"
+}
+2025-10-19 20:51:51 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-135"
+}
+2025-10-19 20:51:51 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-141"
+}
+2025-10-19 20:51:51 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: admin
+{
+    "taskName": "Task-147"
+}
+2025-10-19 20:51:51 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-147"
+}
+2025-10-19 20:51:54 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-141"
+}
+2025-10-19 20:51:54 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-141"
+}
+2025-10-19 20:51:54 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-141"
+}
+2025-10-19 20:51:54 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-153"
+}
+2025-10-19 20:51:55 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-159"
+}
+2025-10-19 20:51:59 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-159"
+}
+2025-10-19 20:51:59 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-159"
+}
+2025-10-19 20:51:59 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-159"
+}
+2025-10-19 20:52:00 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-165"
+}
+2025-10-19 20:52:08 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-165"
+}
+2025-10-19 20:52:08 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-165"
+}
+2025-10-19 20:52:08 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-165"
+}
+2025-10-19 20:52:08 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-174"
+}
+2025-10-19 20:52:09 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-182"
+}
+2025-10-19 20:52:10 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-147"
+}
+2025-10-19 20:52:11 | INFO     | audio_stream | Audio stream disconnected for interview 3, speaker: admin
+{
+    "taskName": "Task-147"
+}
+2025-10-19 20:52:11 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-147"
+}
+2025-10-19 20:52:12 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-182"
+}
+2025-10-19 20:52:12 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-182"
+}
+2025-10-19 20:52:12 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-182"
+}
+2025-10-19 20:54:04 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-123"
+}
+2025-10-19 20:54:04 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-123"
+}
+2025-10-19 20:54:04 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-153"
+}
+2025-10-19 20:54:04 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-153"
+}
+2025-10-19 20:54:04 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-174"
+}
+2025-10-19 20:54:04 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-174"
+}
+2025-10-19 20:54:04 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-129"
+}
+2025-10-19 20:54:04 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-129"
+}
+2025-10-19 20:54:11 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 20:55:22 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

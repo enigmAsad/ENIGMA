@@ -385,6 +385,7 @@ class PhaseManager:
         - Select top 2k applicants based on final_score for interviews.
         - Update application status to SHORTLISTED.
         - Create selection log.
+        - **Update cycle phase to SELECTION.**
 
         Args:
             cycle_id: Cycle ID
@@ -502,13 +503,13 @@ class PhaseManager:
             executed_by=executed_by
         )
 
-        # Update phase
+        # **FIX**: Transition cycle to SELECTION phase
         cycle = self.admin_repo.update_cycle_phase(cycle_id, AdmissionPhaseEnum.SELECTION)
 
         self.db.commit()
 
         logger.info(
-            f"Shortlisting complete: {shortlisted_actual_count} shortlisted, {not_selected_count} not selected"
+            f"Shortlisting complete: {shortlisted_actual_count} shortlisted, {not_selected_count} not selected. Cycle moved to SELECTION phase."
         )
 
         return {
@@ -544,71 +545,72 @@ class PhaseManager:
         if not cycle:
             raise PhaseTransitionError(f"Cycle {cycle_id} not found")
 
+        # **FIX**: This action should run from the SELECTION phase, after interviews are done.
         if cycle.phase != AdmissionPhaseEnum.SELECTION:
             raise PhaseTransitionError(
                 f"Can only perform final selection from SELECTION phase, currently in {cycle.phase.value}"
             )
 
         # Get the final 'k' number of seats
-        max_seats = cycle.max_seats 
+        max_seats = cycle.max_seats
 
-        # Get top 'k' interview performers for the cycle
+        # **FIX**: Use the correct repository method to get top performers
         top_performers = self.interview_repo.get_top_interview_performers(cycle_id, limit=max_seats)
 
         if not top_performers:
             raise PhaseTransitionError("No scored interviews found for this cycle.")
 
-        selected_interview_ids = {perf.interview_id for perf in top_performers}
-        
-        # Get all shortlisted applications for this cycle
-        shortlisted_apps = self.app_repo.get_by_cycle(cycle_id, status=ApplicationStatusEnum.SHORTLISTED)
-        
-        selected_app_ids = []
-        not_selected_app_ids = []
+        # Extract the application_ids of the winners
+        selected_app_ids = set()
+        for score in top_performers:
+            # The relationship is InterviewScore -> Interview -> Application
+            if score.interview and score.interview.application_id:
+                selected_app_ids.add(score.interview.application_id)
 
-        for app in shortlisted_apps:
-            # Check if the application has an associated interview and if that interview is in the top performers
-            if hasattr(app, 'interview') and app.interview and app.interview.id in selected_interview_ids:
-                selected_app_ids.append(app.application_id)
-            else:
-                not_selected_app_ids.append(app.application_id)
+        # Get all applications that were shortlisted for this cycle
+        shortlisted_apps = self.app_repo.get_by_cycle(cycle_id, status=ApplicationStatusEnum.SHORTLISTED)
+        shortlisted_app_ids = {app.application_id for app in shortlisted_apps}
+
+        # Determine who was not selected from the shortlisted group
+        not_selected_app_ids = list(shortlisted_app_ids - selected_app_ids)
+        final_selected_app_ids = list(selected_app_ids)
 
         # Update statuses in FinalScore and Application tables
-        if selected_app_ids:
-            self.app_repo.update_application_status_by_ids(selected_app_ids, ApplicationStatusEnum.SELECTED)
-            self.app_repo.update_final_score_status_by_app_ids(selected_app_ids, ApplicationStatusEnum.SELECTED)
-            logger.info(f"Marked {len(selected_app_ids)} applicants as SELECTED.")
+        if final_selected_app_ids:
+            self.app_repo.update_application_status_by_ids(final_selected_app_ids, ApplicationStatusEnum.SELECTED)
+            self.app_repo.update_final_score_status_by_app_ids(final_selected_app_ids, ApplicationStatusEnum.SELECTED)
+            logger.info(f"Marked {len(final_selected_app_ids)} applicants as SELECTED.")
 
         if not_selected_app_ids:
             self.app_repo.update_application_status_by_ids(not_selected_app_ids, ApplicationStatusEnum.NOT_SELECTED)
             self.app_repo.update_final_score_status_by_app_ids(not_selected_app_ids, ApplicationStatusEnum.NOT_SELECTED)
-            logger.info(f"Marked {len(not_selected_app_ids)} applicants as NOT_SELECTED.")
+            logger.info(f"Marked {len(not_selected_app_ids)} shortlisted applicants as NOT_SELECTED.")
 
         # Create a new selection log for this phase
         final_selection_criteria = {
             "strategy": selection_strategy,
             "final_seats_target": max_seats,
-            "final_seats_actual": len(selected_app_ids),
+            "final_seats_actual": len(final_selected_app_ids),
             "not_selected_count": len(not_selected_app_ids),
         }
 
         self.admin_repo.create_selection_log(
             admission_cycle_id=cycle_id,
-            selected_count=len(selected_app_ids),
+            selected_count=len(final_selected_app_ids),
             selection_criteria=final_selection_criteria,
-            cutoff_score=0, # Cutoff score is not as clear here, maybe based on interview score
+            cutoff_score=0,  # Cutoff score is based on interview scores, harder to represent as a single number
             executed_by=executed_by
         )
-        
+
         # The phase remains SELECTION. The next step is for the admin to PUBLISH.
         self.db.commit()
 
         logger.info(
-            f"Final selection complete: {len(selected_app_ids)} selected, {len(not_selected_app_ids)} not selected"
+            f"Final selection complete: {len(final_selected_app_ids)} selected, {len(not_selected_app_ids)} not selected"
         )
 
         return {
-            "selected_count": len(selected_app_ids),
+            "selected_count": len(final_selected_app_ids),
             "not_selected_count": len(not_selected_app_ids),
             "selection_criteria": final_selection_criteria
         }

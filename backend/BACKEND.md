@@ -230,7 +230,7 @@ Fernet symmetric encryption for PII storage with key generation and secure encry
 
 ## Database Schema
 
-ENIGMA uses a normalized PostgreSQL schema with **20 tables** (14 Phase 1 + 6 Phase 2), proper relationships, indexes, and constraints.
+ENIGMA uses a normalized PostgreSQL schema with **21 tables** (14 Phase 1 + 6 Bias Monitoring + 1 Interview Scoring), proper relationships, indexes, and constraints.
 
 ### Phase 1 Core Tables (10)
 
@@ -356,7 +356,8 @@ ENIGMA uses Pydantic for API validation and SQLAlchemy for ORM mapping.
 - `POST /admin/cycles/{id}/freeze` - Phase 2: Freeze cycle
 - `POST /admin/cycles/{id}/preprocess` - Phase 3: Compute metrics
 - `POST /admin/cycles/{id}/export` - Phase 4: Export JSONL for LLM
-- `POST /admin/cycles/{id}/select` - Phase 7: Top-K selection
+- `POST /admin/cycles/{id}/select` - Phase 7a: Top-K shortlisting for interviews
+- `POST /admin/cycles/{id}/final-select` - Phase 7b: Final selection after interviews
 - `POST /admin/cycles/{id}/publish` - Phase 8: Publish results
 - `POST /admin/cycles/{id}/complete` - Phase 9: Complete cycle
 
@@ -399,7 +400,7 @@ ENIGMA implements a structured 9-phase admission cycle workflow with validation 
 
 **Phase 6: SCORED** - Imports LLM results, updates final_scores table, marks applications as SCORED
 
-**Phase 7: SELECTION** - Performs top-K selection, marks applications as SELECTED/NOT_SELECTED
+**Phase 7: SELECTION** - A two-step process. First, top candidates are **shortlisted** for interviews based on Phase 1 scores. After interviews, a final selection marks applicants as **SELECTED** or **NOT_SELECTED**.
 
 **Phase 8: PUBLISHED** - Publishes results, makes them available to students via API
 
@@ -791,6 +792,14 @@ with get_db_context() as db:
 ---
 
 ## Changelog
+
+### v2.4.1 (2025-10-19) - Two-Step Selection Process
+- **Updated**: The selection process is now a two-step workflow to accommodate Phase 1 (scoring) and Phase 2 (interviews).
+- **Phase 7a (Shortlisting)**: The `POST /admin/cycles/{cycle_id}/select` endpoint now shortlists the top `2k` candidates for interviews based on their initial scores, marking them as `SHORTLISTED`.
+- **Phase 7b (Final Selection)**: A new `POST /admin/cycles/{cycle_id}/final-select` endpoint has been added. This performs the final selection of `k` candidates from the shortlisted pool based on their interview scores.
+- **Added**: New `ApplicationStatusEnum` value: `SHORTLISTED`.
+- **Added**: New `interview_scores` table to store structured scores and notes from Phase 2 interviews.
+- **Impact**: Aligns the system with a multi-stage evaluation process, where Phase 1 acts as a filter for the interview-based Phase 2.
 
 ### v2.3.0 (2025-10-19) - Phase 2 Bias Monitoring System
 

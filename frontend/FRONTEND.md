@@ -374,6 +374,12 @@ Full CRUD interface for managing admission cycles.
 
 ---
 
+### v1.4.0 (2025-10-19) - Two-Step Selection Workflow UI
+- **Updated**: The Admin Cycles page (`/admin/cycles`) now supports the new two-step selection process.
+- **Updated**: In the `scored` phase, the action button is now **"Perform Shortlisting"** to trigger the initial selection for interviews.
+- **Added**: In the `selection` phase, a new **"Perform Final Selection"** button is now available to trigger the final choice based on interview scores.
+- **Updated**: The `adminApi.ts` client was updated with a new `performFinalSelection` method to communicate with the new backend endpoint.
+
 ### v1.3.0 (2025-10-14) - Student Accounts & Authenticated Submissions
 - **Added**: Google OAuth student login flow with PKCE, HttpOnly session cookies, and context-aware navigation.
 - **Added**: `studentApi.ts`, `useStudentAuth.tsx`, dedicated student login/dashboard pages, and OAuth callback handler.

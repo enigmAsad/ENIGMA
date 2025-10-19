@@ -7040,3 +7040,75 @@ server closed the connection unexpectedly
 {
     "taskName": null
 }
+2025-10-19 23:11:06 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:11:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:11:49 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:12:01 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:37:42 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:37:45 | INFO     | student_auth | Issued session STS_CAF2A5D60F for student STU_B17774BA
+{
+    "taskName": "Task-167"
+}
+2025-10-19 23:37:45 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-167"
+}
+2025-10-19 23:37:51 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:04 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:07 | INFO     | student_auth | Issued session STS_D3457E34DA for student STU_B17774BA
+{
+    "taskName": "Task-191"
+}
+2025-10-19 23:39:07 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-191"
+}
+2025-10-19 23:39:10 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:11 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:15 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:18 | INFO     | student_auth | Issued session STS_D8D68582AF for student STU_B17774BA
+{
+    "taskName": "Task-211"
+}
+2025-10-19 23:39:18 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-211"
+}
+2025-10-19 23:41:01 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}

@@ -7020,3 +7020,23 @@ server closed the connection unexpectedly
 {
     "taskName": null
 }
+2025-10-19 22:55:44 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:58:21 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:00:11 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:04:23 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:04:29 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}

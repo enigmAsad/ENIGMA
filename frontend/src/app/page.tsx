@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Button from '@/components/Button';
 import Card from '@/components/Card';
+import { CheckCircle, Ban, GraduationCap, Users, Lock, ShieldCheck, Search, BarChart3, Target, Zap, TrendingUp, Globe } from 'lucide-react';
 import { adminApiClient, type AdmissionInfo } from '@/lib/adminApi';
 import { useAuth } from '@/hooks/useStudentAuth';
 
@@ -42,8 +43,12 @@ export default function Home() {
         <div className={`${admissionInfo.is_open ? 'bg-green-600' : 'bg-red-600'} text-white py-2.5`}> 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-center gap-3 text-center">
-              <span className="text-xl" aria-hidden>
-                {admissionInfo.is_open ? '✅' : '⛔️'}
+              <span aria-hidden className="shrink-0">
+                {admissionInfo.is_open ? (
+                  <CheckCircle className="h-5 w-5" />
+                ) : (
+                  <Ban className="h-5 w-5" />
+                )}
               </span>
               <p className="font-semibold">
                 {admissionInfo.is_open ? (
@@ -151,7 +156,9 @@ export default function Home() {
           <div className="grid md:grid-cols-3 gap-8">
             {/* Phase 1 */}
             <Card className="border-t-4 border-transparent hover:border-primary-600 transition-all hover:shadow-lg hover:-translate-y-0.5" title="Phase 1: AI Screening">
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 text-2xl">🎓</div>
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+                <GraduationCap className="h-6 w-6" />
+              </div>
               <ul className="space-y-3 text-gray-700 leading-relaxed">
                 <li className="flex items-start">
                   <span className="text-primary-600 mr-2">•</span>
@@ -174,7 +181,9 @@ export default function Home() {
 
             {/* Phase 2 */}
             <Card className="border-t-4 border-transparent hover:border-primary-600 transition-all hover:shadow-lg hover:-translate-y-0.5" title="Phase 2: Monitored Interviews">
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 text-2xl">👥</div>
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+                <Users className="h-6 w-6" />
+              </div>
               <ul className="space-y-3 text-gray-700 leading-relaxed">
                 <li className="flex items-start">
                   <span className="text-primary-600 mr-2">•</span>
@@ -197,7 +206,9 @@ export default function Home() {
 
             {/* Transparency */}
             <Card className="border-t-4 border-transparent hover:border-primary-600 transition-all hover:shadow-lg hover:-translate-y-0.5" title="Cryptographic Audit">
-              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600 text-2xl">🔒</div>
+              <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-primary-50 text-primary-600">
+                <Lock className="h-6 w-6" />
+              </div>
               <ul className="space-y-3 text-gray-700 leading-relaxed">
                 <li className="flex items-start">
                   <span className="text-primary-600 mr-2">•</span>
@@ -228,7 +239,9 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-6 md:gap-8">
             <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition hover:shadow-md">
               <div className="flex items-start">
-                <div className="mr-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-600 text-xl">✅</div>
+                <div className="mr-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-600">
+                  <CheckCircle className="h-5 w-5" />
+                </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-1.5">Blind Evaluation</h3>
                   <p className="text-gray-700 leading-relaxed">
@@ -241,7 +254,9 @@ export default function Home() {
 
             <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition hover:shadow-md">
               <div className="flex items-start">
-                <div className="mr-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-600 text-xl">📊</div>
+                <div className="mr-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-600">
+                  <BarChart3 className="h-5 w-5" />
+                </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-1.5">Statistical Validation</h3>
                   <p className="text-gray-700 leading-relaxed">
@@ -254,7 +269,9 @@ export default function Home() {
 
             <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition hover:shadow-md">
               <div className="flex items-start">
-                <div className="mr-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-600 text-xl">🔍</div>
+                <div className="mr-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-600">
+                  <Search className="h-5 w-5" />
+                </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-1.5">Complete Transparency</h3>
                   <p className="text-gray-700 leading-relaxed">
@@ -267,7 +284,9 @@ export default function Home() {
 
             <div className="rounded-xl bg-white p-6 shadow-sm ring-1 ring-gray-200 transition hover:shadow-md">
               <div className="flex items-start">
-                <div className="mr-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-600 text-xl">🛡️</div>
+                <div className="mr-4 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary-50 text-primary-600">
+                  <ShieldCheck className="h-5 w-5" />
+                </div>
                 <div>
                   <h3 className="text-lg font-semibold mb-1.5">Cryptographic Proof</h3>
                   <p className="text-gray-700 leading-relaxed">
@@ -313,25 +332,25 @@ export default function Home() {
           <h2 className="text-3xl font-bold text-center mb-12">Platform Features</h2>
           <div className="grid md:grid-cols-4 gap-6">
             <div className="bg-white p-6 rounded-xl shadow-sm ring-1 ring-gray-200 text-center transition hover:shadow-md">
-              <div className="text-3xl mb-3">🎯</div>
+              <div className="mb-3 flex justify-center"><Target className="h-6 w-6 text-primary-600" /></div>
               <h3 className="font-semibold mb-2">Merit-Based</h3>
               <p className="text-sm text-gray-600">Pure merit evaluation with no demographic factors</p>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-sm ring-1 ring-gray-200 text-center transition hover:shadow-md">
-              <div className="text-3xl mb-3">⚡</div>
+              <div className="mb-3 flex justify-center"><Zap className="h-6 w-6 text-primary-600" /></div>
               <h3 className="font-semibold mb-2">Fast Results</h3>
               <p className="text-sm text-gray-600">AI-powered processing delivers results quickly</p>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-sm ring-1 ring-gray-200 text-center transition hover:shadow-md">
-              <div className="text-3xl mb-3">📈</div>
+              <div className="mb-3 flex justify-center"><TrendingUp className="h-6 w-6 text-primary-600" /></div>
               <h3 className="font-semibold mb-2">Detailed Feedback</h3>
               <p className="text-sm text-gray-600">Comprehensive explanations and improvement areas</p>
             </div>
 
             <div className="bg-white p-6 rounded-xl shadow-sm ring-1 ring-gray-200 text-center transition hover:shadow-md">
-              <div className="text-3xl mb-3">🌐</div>
+              <div className="mb-3 flex justify-center"><Globe className="h-6 w-6 text-primary-600" /></div>
               <h3 className="font-semibold mb-2">Public Dashboard</h3>
               <p className="text-sm text-gray-600">Aggregate fairness metrics available to everyone</p>
             </div>

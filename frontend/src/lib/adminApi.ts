@@ -157,6 +157,83 @@ export interface ApplicationDetails {
     interview: InterviewDetails | null;
 }
 
+// Phase 2: Bias Monitoring Interfaces
+export interface BiasFlag {
+  id: number;
+  interview_id: number;
+  admin_id: string;
+  application_id: string | null;
+  flag_type: string;
+  severity: 'high' | 'critical';
+  description: string;
+  evidence: any;
+  action_taken: string;
+  automatic: boolean;
+  reviewed: boolean;
+  reviewed_by: string | null;
+  reviewed_at: string | null;
+  resolution: string | null;
+  created_at: string;
+}
+
+export interface AdminBiasHistory {
+  admin_id: string;
+  total_interviews_conducted: number;
+  total_bias_incidents: number;
+  total_blocks_received: number;
+  current_status: 'active' | 'warned' | 'suspended' | 'banned';
+  strikes: number;
+  suspension_count: number;
+  last_incident_date: string | null;
+  strike_reset_date: string | null;
+  nudge_counts: {
+    info?: number;
+    warning?: number;
+    block?: number;
+  };
+  recent_incidents: Array<{
+    id: number;
+    interview_id: number;
+    bias_detected: boolean;
+    bias_types: string[];
+    severity: string;
+    confidence_score: number;
+    recommended_action: string;
+    analyzed_at: string;
+  }>;
+}
+
+export interface BiasMetrics {
+  summary: {
+    total_admins: number;
+    active_admins: number;
+    warned_admins: number;
+    suspended_admins: number;
+    banned_admins: number;
+    total_incidents: number;
+    total_interviews: number;
+    incident_rate: number;
+  };
+  admin_risks: Array<{
+    admin_id: string;
+    current_status: string;
+    strikes: number;
+    total_interviews: number;
+    total_incidents: number;
+    incident_rate: number;
+  }>;
+  drift_metrics: Array<{
+    id: number;
+    admin_id: string;
+    period_start: string;
+    period_end: string;
+    total_interviews: number;
+    bias_incidents: number;
+    risk_score: number;
+    risk_level: string;
+  }>;
+}
+
 class AdminAPIClient {
   private getAuthHeader(): HeadersInit {
     const token = localStorage.getItem('admin_token');
@@ -560,6 +637,79 @@ class AdminAPIClient {
 
     if (!response.ok) {
       throw new Error('Failed to fetch admission info');
+    }
+
+    return response.json();
+  }
+
+  // ============================================================================
+  // Phase 2: Bias Monitoring Methods
+  // ============================================================================
+
+  async getBiasFlags(filters?: {
+    reviewed?: boolean;
+    severity?: string;
+    admin_id?: string;
+  }): Promise<BiasFlag[]> {
+    const params = new URLSearchParams();
+    if (filters?.reviewed !== undefined) params.append('reviewed', String(filters.reviewed));
+    if (filters?.severity) params.append('severity', filters.severity);
+    if (filters?.admin_id) params.append('admin_id', filters.admin_id);
+
+    const url = `${API_BASE}/admin/bias/flags${params.toString() ? '?' + params.toString() : ''}`;
+
+    const response = await fetch(url, {
+      headers: this.getAuthHeader(),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch bias flags');
+    }
+
+    return response.json();
+  }
+
+  async resolveBiasFlag(flagId: number, resolution: string): Promise<any> {
+    const response = await fetch(`${API_BASE}/admin/bias/flags/${flagId}/resolve`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        ...this.getAuthHeader(),
+      },
+      body: JSON.stringify({ resolution }),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to resolve bias flag');
+    }
+
+    return response.json();
+  }
+
+  async getAdminBiasHistory(adminId: string): Promise<AdminBiasHistory> {
+    const response = await fetch(`${API_BASE}/admin/bias/history/${adminId}`, {
+      headers: this.getAuthHeader(),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch admin bias history');
+    }
+
+    return response.json();
+  }
+
+  async getBiasMetrics(cycleId?: number): Promise<BiasMetrics> {
+    const url = cycleId
+      ? `${API_BASE}/admin/bias/metrics?cycle_id=${cycleId}`
+      : `${API_BASE}/admin/bias/metrics`;
+
+    const response = await fetch(url, {
+      headers: this.getAuthHeader(),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch bias metrics');
     }
 
     return response.json();

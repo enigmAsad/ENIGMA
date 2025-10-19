@@ -1,10 +1,12 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import Webcam from 'react-webcam';
 import { useAuth as useStudentAuth } from '@/hooks/useStudentAuth';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { useInterviewAudio } from '@/hooks/useInterviewAudio';
+import NudgeOverlay from '@/components/NudgeOverlay';
 
 const InterviewRoomPage = () => {
   const { interviewId } = useParams();
@@ -14,6 +16,10 @@ const InterviewRoomPage = () => {
   const { student } = useStudentAuth();
   const { admin } = useAdminAuth();
 
+  // Determine speaker role
+  const isAdmin = !!admin;
+  const speaker = isAdmin ? 'admin' : 'student';
+
   // Refs for mutable objects that don't trigger re-renders
   const socketRef = useRef<WebSocket | null>(null);
   const peerConnectionRef = useRef<RTCPeerConnection | null>(null);
@@ -22,9 +28,17 @@ const InterviewRoomPage = () => {
   const [isCallStarted, setIsCallStarted] = useState(false);
   const [localStream, setLocalStream] = useState<MediaStream | null>(null);
   const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
+  const [interviewBlocked, setInterviewBlocked] = useState(false);
 
   const localVideoRef = useRef<Webcam>(null);
   const remoteVideoRef = useRef<HTMLVideoElement>(null);
+
+  // Phase 2: Audio streaming for bias monitoring
+  const audioStreaming = useInterviewAudio({
+    interviewId: Number(interviewId),
+    speaker,
+    enabled: isCallStarted && !interviewBlocked,
+  });
 
   // Setup Peer Connection
   useEffect(() => {
@@ -117,10 +131,18 @@ const InterviewRoomPage = () => {
       if (socketRef.current?.readyState === WebSocket.OPEN) {
         socketRef.current.send(JSON.stringify({ offer }));
       }
+
+      // Phase 2: Start audio capture for bias monitoring
+      if (localStream) {
+        audioStreaming.startCapture(localStream);
+      }
     }
   };
 
   const endCall = () => {
+    // Phase 2: Stop audio capture
+    audioStreaming.stopCapture();
+
     if (peerConnectionRef.current) {
       peerConnectionRef.current.close();
     }
@@ -141,9 +163,41 @@ const InterviewRoomPage = () => {
     }
   };
 
+  // Handle interview block from bias detection
+  const handleInterviewBlocked = useCallback(() => {
+    setInterviewBlocked(true);
+    setIsCallStarted(false);
+
+    // Auto-redirect after 10 seconds
+    setTimeout(() => {
+      endCall();
+    }, 10000);
+  }, []);
+
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-4 relative">
       <h1 className="text-2xl font-bold mb-4">Interview Room: {interviewId}</h1>
+
+      {/* Phase 2: Connection Status Indicators */}
+      {isCallStarted && (
+        <div className="mb-4 flex gap-3 text-sm">
+          <div
+            className={`px-3 py-1 rounded-full ${
+              audioStreaming.isConnected
+                ? 'bg-green-100 text-green-800'
+                : 'bg-red-100 text-red-800'
+            }`}
+          >
+            {audioStreaming.isConnected ? '✓' : '✗'} Audio Monitoring
+          </div>
+          {audioStreaming.lastTranscriptId && (
+            <div className="px-3 py-1 rounded-full bg-blue-100 text-blue-800">
+              📝 Transcribed: #{audioStreaming.lastTranscriptId}
+            </div>
+          )}
+        </div>
+      )}
+
       <div className="grid grid-cols-2 gap-4">
         <div>
           <h2 className="text-lg font-semibold">Your View</h2>
@@ -152,31 +206,50 @@ const InterviewRoomPage = () => {
             onUserMedia={setLocalStream}
             ref={localVideoRef}
             mirrored={true}
-            className="w-full h-auto bg-black"
+            className="w-full h-auto bg-black rounded-lg"
           />
         </div>
         <div>
           <h2 className="text-lg font-semibold">Remote View</h2>
-          <video ref={remoteVideoRef} autoPlay playsInline className="w-full h-auto bg-black" />
+          <video
+            ref={remoteVideoRef}
+            autoPlay
+            playsInline
+            className="w-full h-auto bg-black rounded-lg"
+          />
         </div>
       </div>
+
       <div className="mt-4 flex space-x-4">
-        <button 
-          onClick={startCall} 
-          disabled={isCallStarted || !localStream}
+        <button
+          onClick={startCall}
+          disabled={isCallStarted || !localStream || interviewBlocked}
           className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors disabled:bg-gray-400"
         >
-          {isCallStarted ? 'Call Active' : 'Start Call'}
+          {interviewBlocked
+            ? 'Interview Blocked'
+            : isCallStarted
+            ? 'Call Active'
+            : 'Start Call'}
         </button>
-        {isCallStarted && (
-          <button 
-            onClick={endCall} 
+        {isCallStarted && !interviewBlocked && (
+          <button
+            onClick={endCall}
             className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
           >
             End Call
           </button>
         )}
       </div>
+
+      {/* Phase 2: Bias Monitoring - NudgeOverlay (only for admins) */}
+      {isAdmin && admin && (
+        <NudgeOverlay
+          interviewId={Number(interviewId)}
+          adminId={admin.admin_id}
+          onBlock={handleInterviewBlocked}
+        />
+      )}
     </div>
   );
 };

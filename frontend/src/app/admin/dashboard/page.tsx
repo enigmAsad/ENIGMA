@@ -152,26 +152,6 @@ export default function AdminDashboard() {
                 Welcome back, {admin?.username}
               </p>
             </div>
-            <div className="flex gap-3">
-              <button
-                onClick={() => router.push('/admin/cycles')}
-                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-              >
-                Manage Cycles
-              </button>
-              <button
-                onClick={() => router.push('/admin/interviews')}
-                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-              >
-                Interviews
-              </button>
-              <button
-                onClick={logout}
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-              >
-                Logout
-              </button>
-            </div>
           </div>
         </div>
       </header>

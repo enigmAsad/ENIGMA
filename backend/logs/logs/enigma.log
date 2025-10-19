@@ -6852,3 +6852,75 @@ server closed the connection unexpectedly
 {
     "taskName": null
 }
+2025-10-19 22:12:08 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:16:58 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-17"
+}
+2025-10-19 22:17:02 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-17"
+}
+2025-10-19 22:25:58 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-61"
+}
+2025-10-19 22:26:01 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-61"
+}
+2025-10-19 22:26:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:30:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:30:18 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 22:30:18 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 22:30:23 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 22:30:23 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 22:30:23 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 22:30:23 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 22:30:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:30:54 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:31:01 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-14"
+}
+2025-10-19 22:31:04 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-14"
+}
+2025-10-19 22:31:14 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}

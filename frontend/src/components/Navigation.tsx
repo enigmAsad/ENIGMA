@@ -20,45 +20,67 @@ export default function Navigation() {
   const [userRole, setUserRole] = useState<UserRole>('anonymous');
   const [adminData, setAdminData] = useState<any>(null);
   const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const [authPing, setAuthPing] = useState(0);
 
   const isActive = (path: string) => pathname === path;
 
-  // Determine user role on mount and when student state changes
+  // Determine user role: prioritize admin auth immediately; fall back to student/public
   useEffect(() => {
+    let cancelled = false;
+
     const checkRole = async () => {
-      // Wait for student auth to finish loading before making decisions
-      if (studentLoading) {
+      setIsCheckingAuth(true);
+
+      // 1) Admin auth has priority and should not wait on student auth
+      if (adminApiClient.isAuthenticated()) {
+        // Optimistically use stored admin user to avoid flicker
+        const stored = adminApiClient.getStoredUser();
+        if (stored) {
+          setAdminData(stored);
+        }
+        setUserRole('admin');
+        setIsCheckingAuth(false);
+
+        // Validate token in background; if invalid, logout and fallback
+        try {
+          const admin = await adminApiClient.getCurrentAdmin();
+          if (!cancelled) {
+            setAdminData(admin);
+          }
+        } catch (error) {
+          adminApiClient.logout();
+          if (!cancelled) {
+            if (student) {
+              setUserRole('student');
+            } else {
+              setUserRole('anonymous');
+            }
+          }
+        }
         return;
       }
 
-      setIsCheckingAuth(true);
-
-      // Check admin auth first
-      if (adminApiClient.isAuthenticated()) {
-        try {
-          const admin = await adminApiClient.getCurrentAdmin();
-          setAdminData(admin);
-          setUserRole('admin');
-          setIsCheckingAuth(false);
-          return;
-        } catch (error) {
-          // Admin token is invalid, clear it
-          adminApiClient.logout();
-        }
-      }
-
-      // Check student auth
+      // 2) No admin token; check student auth
       if (student) {
         setUserRole('student');
       } else {
         setUserRole('anonymous');
       }
-
       setIsCheckingAuth(false);
     };
 
     checkRole();
-  }, [student, studentLoading]);
+    return () => {
+      cancelled = true;
+    };
+  }, [student, studentLoading, pathname, authPing]);
+
+  // Listen for explicit admin auth changes (login/logout) to re-evaluate immediately
+  useEffect(() => {
+    const onAuthChanged = () => setAuthPing((v) => v + 1);
+    window.addEventListener('admin-auth-changed', onAuthChanged);
+    return () => window.removeEventListener('admin-auth-changed', onAuthChanged);
+  }, []);
 
   const handleAdminLogout = async () => {
     await adminApiClient.logout();

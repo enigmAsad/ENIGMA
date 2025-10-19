@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(tree -L 3 -I '__pycache__|*.pyc|.pytest_cache|.venv|node_modules' --dirsfirst)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

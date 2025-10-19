@@ -6,9 +6,11 @@ import { adminApiClient, AdmissionCycle, InterviewDetails, InterviewCreate, Appl
 import  Button  from '@/components/Button';
 import  Card  from '@/components/Card';
 import  Input  from '@/components/Input';
+import { useAdminAuth } from '@/hooks/useAdminAuth';
 
 const AdminInterviewsPage = () => {
   const router = useRouter();
+  const { isAuthenticated, isLoading } = useAdminAuth();
   const [activeCycle, setActiveCycle] = useState<AdmissionCycle | null>(null);
   const [selectedApplicants, setSelectedApplicants] = useState<ApplicationDetails[]>([]);
   const [scheduledInterviews, setScheduledInterviews] = useState<InterviewDetails[]>([]);
@@ -51,8 +53,10 @@ const AdminInterviewsPage = () => {
       }
     };
 
-    fetchData();
-  }, []);
+    if (isAuthenticated) {
+      fetchData();
+    }
+  }, [isAuthenticated]);
 
   const handleSchedule = async (applicationId: string, interviewTime: string): Promise<boolean> => {
     if (!activeCycle) return false;
@@ -95,8 +99,12 @@ const AdminInterviewsPage = () => {
     }
   };
 
-  if (isLoading) {
+  if (isLoading || isLoading /* admin auth loading */) {
     return <div>Loading...</div>;
+  }
+
+  if (!isAuthenticated) {
+    return null;
   }
 
   if (error) {

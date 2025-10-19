@@ -1,9 +1,9 @@
 # ENIGMA Backend - Technical Documentation
 
-**Version:** 2.3.0
+**Version:** 2.4.0
 **Last Updated:** 2025-10-19
 **Python Version:** 3.12+
-**Status:** Production Ready (Phase 1 + Phase 2 Bias Monitoring)
+**Status:** Production Ready (Phase 1 + Phase 2 Complete with Full WebSocket Integration)
 
 ---
 
@@ -44,27 +44,49 @@ ENIGMA is an **AI-powered blind merit screening system** designed to eliminate b
 
 **Status:** Student authentication phase is fully implemented; no outstanding items remain for Update Phase 1.
 
-### Phase 2 Bias Monitoring System (NEW)
+### Phase 2 Bias Monitoring System (COMPLETE)
 
-**Completed (100%)**
-- Real-time STT (Speech-to-Text) integration using OpenAI Whisper API for live interview transcription
-- LangGraph workflow orchestration for bias detection pipeline (Audio → STT → Analysis → Nudge → Action)
-- LLM-based bias detection using GPT-5-mini with context-aware analysis
-- Graduated nudge system (Info → Warning → Block) with automatic escalation
-- Strike tracking and admin status management (Active → Warned → Suspended → Banned)
-- Six new database tables for comprehensive bias monitoring and audit
-- Real-time WebSocket support for audio streaming and nudge delivery
-- Bias flag system for critical incidents requiring review
-- Drift metrics for evaluator consistency tracking over time
+**Implementation Status: 100% ✅**
+
+All Phase 2 components have been fully implemented and integrated:
+
+**Backend Services (Complete):**
+- ✅ Real-time STT (Speech-to-Text) using OpenAI Whisper API with 10-15s audio buffering
+- ✅ LangGraph workflow orchestration for bias detection pipeline
+- ✅ LLM-based bias detection using GPT-5-mini (Native OpenAI client, no LangChain)
+- ✅ Graduated nudge system (Info → Warning → Block) with automatic escalation
+- ✅ Strike tracking and admin status management (Active → Warned → Suspended → Banned)
+- ✅ Six database tables with full CRUD repositories
+- ✅ Bias flag system for critical incidents requiring super_admin review
+- ✅ Drift metrics for evaluator consistency tracking over time
+
+**WebSocket Infrastructure (Complete):**
+- ✅ `/ws/interview/{id}/audio` - Binary audio streaming from client to server
+- ✅ `/ws/interview/{id}/nudges` - JSON nudge delivery from server to admin
+- ✅ Audio buffer management with `AudioStreamManager` (10s chunks)
+- ✅ Real-time pipeline: Audio → STT → Transcript → Bias Analysis → Nudge → WebSocket
+
+**API Endpoints (Complete):**
+- ✅ `GET /admin/bias/flags` - List and filter bias flags
+- ✅ `PUT /admin/bias/flags/{id}/resolve` - Mark flags as reviewed
+- ✅ `GET /admin/bias/history/{admin_id}` - Admin bias history with strikes
+- ✅ `GET /admin/bias/metrics` - System-wide metrics and drift analysis
 
 **Key Components:**
-- **BiasMonitoringWorkflow**: LangGraph state machine for orchestrating the complete detection pipeline
-- **STTService**: Real-time audio transcription with buffering and chunk management
-- **BiasDetectionService**: LLM analysis using GPT-5-mini with structured JSON output
-- **NudgeService**: Graduated response logic with strike thresholds and auto-blocking
-- **Comprehensive Repositories**: Transcript, BiasAnalysis, Nudge, BiasFlag, DriftMetrics, AdminBiasHistory
+- **BiasMonitoringWorkflow** (`bias_monitoring_workflow.py`): LangGraph state machine with 4 nodes (analyze → store → check_strikes → take_action)
+- **STTService** (`stt_service.py`): OpenAI Whisper integration with AsyncOpenAI client
+- **BiasDetectionService** (`bias_detection_service.py`): LangGraph workflow executor wrapper
+- **NudgeService** (`nudge_service.py`): Graduated response logic, strike management, interview blocking
+- **AudioStreamManager** (`stt_service.py`): Buffer management for real-time audio chunks
+- **Comprehensive Repositories**: TranscriptRepository, BiasAnalysisRepository, NudgeRepository, BiasFlagRepository, DriftMetricsRepository, AdminBiasHistoryRepository
 
-**Status:** Phase 2 bias monitoring is fully implemented and ready for production deployment.
+**Integration Status:**
+- ✅ Fully integrated with interview system (interviews table links to all bias tables)
+- ✅ WebSocket endpoints co-exist with WebRTC signaling endpoint
+- ✅ Admin authentication required for all bias monitoring endpoints
+- ✅ Database migrations applied (`20251019_1154_96eed8915a45_add_bias_monitoring_tables`)
+
+**Status:** Phase 2 bias monitoring is **production-ready** with complete backend implementation.
 
 ### Key Features
 
@@ -345,6 +367,17 @@ ENIGMA uses Pydantic for API validation and SQLAlchemy for ORM mapping.
 ### Admin Audit
 - `GET /admin/audit/logs` - Retrieve audit logs
 - `GET /admin/audit/verify-chain` - Verify hash chain integrity
+
+### Phase 2: Bias Monitoring API Endpoints
+- `GET /admin/bias/flags` - Get bias flags (filterable by reviewed status, severity, admin)
+- `PUT /admin/bias/flags/{flag_id}/resolve` - Mark bias flag as reviewed and resolved
+- `GET /admin/bias/history/{admin_id}` - Get bias history for specific admin
+- `GET /admin/bias/metrics` - Get aggregate bias metrics and drift analysis
+
+### Phase 2: WebSocket Endpoints
+- `WS /ws/interview/{interview_id}/audio?speaker={admin|student}` - Real-time audio streaming for STT processing
+- `WS /ws/interview/{interview_id}/nudges?admin_id={admin_id}` - Real-time nudge delivery to admin
+- `WS /ws/interview/{interview_id}` - WebRTC signaling for video/audio P2P connection
 
 ---
 
@@ -771,7 +804,9 @@ with get_db_context() as db:
 - **Added**: Strike tracking system with admin status management (Active → Warned → Suspended → Banned)
 - **Added**: Bias flag system for critical incidents requiring super_admin review
 - **Added**: Comprehensive repositories for bias monitoring (Transcript, BiasAnalysis, Nudge, BiasFlag, DriftMetrics, AdminBiasHistory)
-- **Added**: Real-time WebSocket support for audio streaming and nudge delivery (implementation pending frontend integration)
+- **Added**: Real-time WebSocket endpoints (`/ws/interview/{id}/audio`, `/ws/interview/{id}/nudges`) fully implemented with NudgeConnectionManager and audio streaming logic
+- **Added**: Complete WebSocket infrastructure for real-time audio streaming (binary) and nudge delivery (JSON)
+- **Added**: API endpoints for bias dashboard (`GET /admin/bias/flags`, `PUT /admin/bias/flags/{id}/resolve`, `GET /admin/bias/history/{admin_id}`, `GET /admin/bias/metrics`)
 - **Changed**: Updated BIAS_DETECTION_MODEL from gpt-4o-mini to **gpt-5-mini** for improved performance
 - **Removed**: Removed unsupported parameters (temperature, max_tokens/max_completion_tokens) for GPT-5 series compatibility
 - **Added**: New configuration variables for bias monitoring (thresholds, strike limits, STT settings)

@@ -6760,3 +6760,95 @@ server closed the connection unexpectedly
 {
     "taskName": null
 }
+2025-10-19 22:02:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:03:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:03:26 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:03:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:03:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:07:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:07:21 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 22:07:21 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 22:07:27 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 22:07:27 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 22:07:27 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 22:07:27 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 22:07:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:07:47 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:08:03 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:08:09 | INFO     | student_auth | Issued session STS_6E5404FC63 for student STU_B17774BA
+{
+    "taskName": "Task-20"
+}
+2025-10-19 22:08:10 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-20"
+}
+2025-10-19 22:10:02 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-56"
+}
+2025-10-19 22:10:06 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-56"
+}
+2025-10-19 22:10:20 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:10:29 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:10:51 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:10:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

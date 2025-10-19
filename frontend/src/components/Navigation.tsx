@@ -101,7 +101,6 @@ export default function Navigation() {
     switch (userRole) {
       case 'student':
         return [
-          { href: '/', label: 'Home' },
           { href: '/student/apply', label: 'Apply' },
           { href: '/student/applications', label: 'My Applications' },
           { href: '/student/interviews', label: 'Interviews' },
@@ -109,7 +108,6 @@ export default function Navigation() {
         ];
       case 'admin':
         return [
-          { href: '/', label: 'Home' },
           { href: '/admin/dashboard', label: 'Admin Dashboard' },
           { href: '/admin/cycles', label: 'Manage Cycles' },
           { href: '/admin/interviews', label: 'Interviews' },

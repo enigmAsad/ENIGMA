@@ -1773,16 +1773,35 @@ async def perform_selection(
     admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
-    """Phase 6 → Phase 7: Perform Top-K selection based on final scores."""
+    """Phase 6 → Phase 7: Perform Top-K shortlisting based on final scores."""
     try:
         phase_mgr = PhaseManager(db)
         result = phase_mgr.perform_selection(cycle_id, admin["admin_id"])
 
-        logger.info(f"Selection performed for cycle {cycle_id} by admin {admin["username"]}")
+        logger.info(f"Shortlisting performed for cycle {cycle_id} by admin {admin['username']}")
         return result
 
     except Exception as e:
         logger.error(f"Failed to perform selection for cycle {cycle_id}: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.post("/admin/cycles/{cycle_id}/final-select", response_model=Dict[str, Any])
+async def perform_final_selection(
+    cycle_id: str,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db)
+):
+    """Phase 7: Perform final selection based on interview scores."""
+    try:
+        phase_mgr = PhaseManager(db)
+        result = phase_mgr.perform_final_selection(cycle_id, admin["admin_id"])
+
+        logger.info(f"Final selection performed for cycle {cycle_id} by admin {admin['username']}")
+        return result
+
+    except Exception as e:
+        logger.error(f"Failed to perform final selection for cycle {cycle_id}: {e}")
         raise HTTPException(status_code=400, detail=str(e))
 
 

@@ -17,7 +17,8 @@ class ApplicationStatus(str, Enum):
     BATCH_READY = "batch_ready"          # Phase 4: Ready for LLM batch
     PROCESSING = "processing"            # Phase 5: LLM batch in progress
     SCORED = "scored"                    # Phase 6: LLM scores integrated
-    SELECTED = "selected"                # Phase 7: Top-K selection complete
+    SHORTLISTED = "shortlisted"          # Phase 7a: Shortlisted for interview
+    SELECTED = "selected"                # Phase 7b: Top-K selection complete
     NOT_SELECTED = "not_selected"        # Phase 7: Not selected
     PUBLISHED = "published"              # Phase 8: Results published to student
     FAILED = "failed"                    # Error state

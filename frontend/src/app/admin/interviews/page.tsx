@@ -10,18 +10,18 @@ import { useAdminAuth } from '@/hooks/useAdminAuth';
 
 const AdminInterviewsPage = () => {
   const router = useRouter();
-  const { isAuthenticated, isLoading } = useAdminAuth();
+  const { isAuthenticated, isLoading: authLoading } = useAdminAuth();
   const [activeCycle, setActiveCycle] = useState<AdmissionCycle | null>(null);
   const [selectedApplicants, setSelectedApplicants] = useState<ApplicationDetails[]>([]);
   const [scheduledInterviews, setScheduledInterviews] = useState<InterviewDetails[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [scheduleErrors, setScheduleErrors] = useState<Record<string, string>>({});
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setIsLoading(true);
+        setDataLoading(true);
         const allCycles = await adminApiClient.getAllCycles();
 
         // For scheduling, find the single cycle in the 'selection' phase
@@ -49,7 +49,7 @@ const AdminInterviewsPage = () => {
         setError('Failed to fetch data. Please try again.');
         console.error(err);
       } finally {
-        setIsLoading(false);
+        setDataLoading(false);
       }
     };
 
@@ -99,7 +99,7 @@ const AdminInterviewsPage = () => {
     }
   };
 
-  if (isLoading || isLoading /* admin auth loading */) {
+  if (dataLoading || authLoading) {
     return <div>Loading...</div>;
   }
 

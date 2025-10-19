@@ -87,9 +87,9 @@ const StudentInterviewsPage = () => {
 
   if (isLoading || loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-purple-600 mx-auto mb-4" />
+          <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
           <p className="text-gray-600 font-medium">Loading your interviews...</p>
         </div>
       </div>
@@ -98,7 +98,7 @@ const StudentInterviewsPage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-indigo-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-lg border border-red-200 p-8 max-w-md">
           <div className="flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mx-auto mb-4">
             <AlertCircle className="h-8 w-8 text-red-600" />
@@ -128,9 +128,9 @@ const StudentInterviewsPage = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-indigo-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 via-purple-700 to-pink-700 text-white">
+      <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-14 w-14 rounded-2xl bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center">
@@ -138,7 +138,7 @@ const StudentInterviewsPage = () => {
             </div>
             <div>
               <h1 className="text-4xl font-bold">My Interviews</h1>
-              <p className="text-purple-100 mt-1">Manage your scheduled interview sessions</p>
+              <p className="text-primary-100 mt-1">Manage your scheduled interview sessions</p>
             </div>
           </div>
 
@@ -187,8 +187,8 @@ const StudentInterviewsPage = () => {
           // Empty State
           <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
             <div className="p-12 text-center">
-              <div className="inline-flex items-center justify-center h-20 w-20 rounded-full bg-purple-100 mb-6">
-                <Video className="h-10 w-10 text-purple-600" />
+              <div className="inline-flex items-center justify-center h-20 w-20 rounded-full bg-primary-100 mb-6">
+                <Video className="h-10 w-10 text-primary-600" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-3">No Interviews Scheduled</h2>
               <p className="text-gray-600 mb-8 max-w-md mx-auto">
@@ -197,7 +197,7 @@ const StudentInterviewsPage = () => {
               </p>
               <button
                 onClick={() => router.push('/student/dashboard')}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-all font-medium shadow-md hover:shadow-lg"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg"
               >
                 Go to Dashboard
                 <ArrowRight className="h-4 w-4" />
@@ -210,7 +210,7 @@ const StudentInterviewsPage = () => {
             {upcomingInterviews.length > 0 && (
               <div>
                 <h2 className="text-2xl font-bold text-gray-900 mb-4 flex items-center gap-2">
-                  <Clock className="h-6 w-6 text-purple-600" />
+                  <Clock className="h-6 w-6 text-primary-600" />
                   Upcoming Interviews
                 </h2>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -222,10 +222,10 @@ const StudentInterviewsPage = () => {
                     return (
                       <div
                         key={interview.id}
-                        className="bg-white rounded-2xl shadow-lg border-2 border-purple-200 overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
+                        className="bg-white rounded-2xl shadow-lg border-2 border-primary-200 overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-[1.02]"
                       >
                         {/* Card Header */}
-                        <div className="bg-gradient-to-r from-purple-500 to-pink-600 px-6 py-4">
+                        <div className="bg-gradient-to-r from-primary-500 to-indigo-600 px-6 py-4">
                           <div className="flex items-center justify-between">
                             <h3 className="text-xl font-bold text-white">Phase 2 Interview</h3>
                             <div className={`px-3 py-1 rounded-full text-xs font-semibold ${statusBadge.bg} ${statusBadge.color} flex items-center gap-1`}>
@@ -238,8 +238,8 @@ const StudentInterviewsPage = () => {
                         {/* Card Body */}
                         <div className="p-6 space-y-4">
                           {/* Date & Time */}
-                          <div className="flex items-start gap-3 p-4 bg-purple-50 rounded-lg">
-                            <Calendar className="h-5 w-5 text-purple-600 mt-0.5 flex-shrink-0" />
+                          <div className="flex items-start gap-3 p-4 bg-primary-50 rounded-lg">
+                            <Calendar className="h-5 w-5 text-primary-600 mt-0.5 flex-shrink-0" />
                             <div className="flex-1">
                               <p className="text-sm font-medium text-gray-700 mb-1">Scheduled Time</p>
                               <p className="text-lg font-bold text-gray-900">
@@ -282,7 +282,7 @@ const StudentInterviewsPage = () => {
                               disabled={!availability.canJoin}
                               className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all ${
                                 availability.canJoin
-                                  ? 'bg-gradient-to-r from-purple-600 to-pink-600 text-white hover:from-purple-700 hover:to-pink-700 shadow-md hover:shadow-lg'
+                                  ? 'bg-gradient-to-r from-primary-600 to-indigo-600 text-white hover:from-primary-700 hover:to-indigo-700 shadow-md hover:shadow-lg'
                                   : 'bg-gray-200 text-gray-500 cursor-not-allowed'
                               }`}
                             >
@@ -354,7 +354,7 @@ const StudentInterviewsPage = () => {
         )}
 
         {/* Info Card */}
-        <div className="mt-8 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl shadow-lg p-6 text-white">
+        <div className="mt-8 bg-gradient-to-r from-primary-600 to-indigo-700 rounded-2xl shadow-lg p-6 text-white">
           <h3 className="text-lg font-bold mb-3 flex items-center gap-2">
             <Info className="h-5 w-5" />
             Interview Guidelines

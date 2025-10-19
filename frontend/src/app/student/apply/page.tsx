@@ -54,7 +54,7 @@ export default function StudentApplyPage() {
 
   if (authLoading || loadingCycles) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
           <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
           <p className="text-gray-600 font-medium">Loading application portal...</p>
@@ -68,9 +68,9 @@ export default function StudentApplyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-green-50 to-emerald-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-indigo-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white">
+      <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="flex items-center gap-3 mb-4">
             <div className="h-14 w-14 rounded-2xl bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center">
@@ -81,7 +81,7 @@ export default function StudentApplyPage() {
                 Apply Now
                 <Sparkles className="h-8 w-8 text-yellow-300" />
               </h1>
-              <p className="text-green-100 mt-1">Submit your application to join ENIGMA</p>
+              <p className="text-primary-100 mt-1">Submit your application to join ENIGMA</p>
             </div>
           </div>
         </div>
@@ -92,7 +92,7 @@ export default function StudentApplyPage() {
         {admissionInfo && (
           <div className={`mb-8 rounded-2xl shadow-lg overflow-hidden ${
             admissionInfo.is_open
-              ? 'bg-gradient-to-r from-green-500 to-emerald-600'
+              ? 'bg-gradient-to-r from-primary-500 to-indigo-600'
               : 'bg-gradient-to-r from-gray-500 to-slate-600'
           }`}>
             <div className="p-6 text-white">

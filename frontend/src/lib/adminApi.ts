@@ -102,6 +102,12 @@ export interface SelectionResponse {
   selection_criteria: any;
 }
 
+export interface FinalSelectionResponse {
+  selected_count: number;
+  not_selected_count: number;
+  selection_criteria: any;
+}
+
 export interface CreateCycleRequest {
   cycle_name: string;
   max_seats: number;
@@ -509,7 +515,21 @@ class AdminAPIClient {
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.detail || 'Failed to perform selection');
+      throw new Error(error.detail || 'Failed to perform shortlisting');
+    }
+
+    return response.json();
+  }
+
+  async performFinalSelection(cycleId: string): Promise<FinalSelectionResponse> {
+    const response = await fetch(`${API_BASE}/admin/cycles/${cycleId}/final-select`, {
+      method: 'POST',
+      headers: this.getAuthHeader(),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to perform final selection');
     }
 
     return response.json();

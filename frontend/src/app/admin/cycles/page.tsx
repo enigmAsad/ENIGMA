@@ -134,7 +134,12 @@ export default function AdminCyclesPage() {
           break;
         case 'select':
           result = await adminApiClient.performSelection(cycleId);
-          alert(`Selected ${result.selected_count} applicants with cutoff score ${result.cutoff_score.toFixed(2)}`);
+          alert(`Shortlisted ${result.selected_count} applicants with cutoff score ${result.cutoff_score.toFixed(2)}`);
+          break;
+        case 'final-select':
+          // Type assertion because the response is different
+          const finalResult = await adminApiClient.performFinalSelection(cycleId);
+          alert(`Final Selection Complete: ${finalResult.selected_count} applicants selected.`);
           break;
         case 'publish':
           result = await adminApiClient.publishResults(cycleId);
@@ -178,10 +183,11 @@ export default function AdminCyclesPage() {
         actions.push({ key: 'processing', label: 'Re-run LLM Evaluation', variant: 'secondary' });
         break;
       case 'scored':
-        actions.push({ key: 'select', label: 'Perform Selection', variant: 'primary' });
+        actions.push({ key: 'select', label: 'Perform Shortlisting', variant: 'primary' });
         break;
       case 'selection':
-        actions.push({ key: 'publish', label: 'Publish Results', variant: 'primary' });
+        actions.push({ key: 'final-select', label: 'Perform Final Selection', variant: 'primary' });
+        actions.push({ key: 'publish', label: 'Publish Results', variant: 'secondary' });
         break;
       case 'published':
         actions.push({ key: 'complete', label: 'Complete Cycle', variant: 'secondary' });

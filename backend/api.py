@@ -1,6 +1,6 @@
 """FastAPI REST API wrapper for ENIGMA Phase 1 backend."""
 
-from fastapi import FastAPI, HTTPException, Depends, Header, Response, Cookie
+from fastapi import FastAPI, HTTPException, Depends, Header, Response, Cookie, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from typing import Dict, Any, List, Optional
@@ -28,7 +28,7 @@ from src.services.admin_auth import AdminAuthService
 from src.services.student_auth import StudentAuthService
 from src.services.phase_manager import PhaseManager
 from src.services.batch_processor import BatchProcessingService
-from src.database.engine import get_db
+from src.database.engine import get_db, get_db_context
 from src.database.repositories import AdminRepository, ApplicationRepository, BatchRepository, InterviewRepository
 from src.database.models import Application, BatchTypeEnum, ApplicationStatusEnum
 from src.utils.logger import get_logger, AuditLogger
@@ -1330,6 +1330,267 @@ async def delete_interview(
         raise HTTPException(status_code=500, detail=str(e))
 
 
+# ==============================================================================
+# Phase 2: Bias Monitoring Dashboard Endpoints
+# ==============================================================================
+
+@app.get("/admin/bias/flags", response_model=List[Dict[str, Any]])
+async def get_bias_flags(
+    reviewed: Optional[bool] = None,
+    severity: Optional[str] = None,
+    admin_id: Optional[str] = None,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """Get bias flags for review.
+
+    Args:
+        reviewed: Filter by reviewed status (None = all, True = reviewed, False = pending)
+        severity: Filter by severity (high, critical)
+        admin_id: Filter by specific admin
+        admin: Current authenticated admin
+        db: Database session
+
+    Returns:
+        List of bias flags with details
+    """
+    try:
+        from src.database.repositories.bias_repository import BiasFlagRepository
+        flag_repo = BiasFlagRepository(db)
+
+        flags = flag_repo.get_all_flags(
+            reviewed=reviewed,
+            severity=severity,
+            admin_id=admin_id,
+        )
+
+        return [
+            {
+                "id": flag.id,
+                "interview_id": flag.interview_id,
+                "admin_id": flag.admin_id,
+                "application_id": flag.application_id,
+                "flag_type": flag.flag_type,
+                "severity": flag.severity.value,
+                "description": flag.description,
+                "evidence": flag.evidence,
+                "action_taken": flag.action_taken,
+                "automatic": flag.automatic,
+                "reviewed": flag.reviewed,
+                "reviewed_by": flag.reviewed_by,
+                "reviewed_at": flag.reviewed_at.isoformat() if flag.reviewed_at else None,
+                "resolution": flag.resolution,
+                "created_at": flag.created_at.isoformat(),
+            }
+            for flag in flags
+        ]
+
+    except Exception as e:
+        logger.error(f"Failed to get bias flags: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.put("/admin/bias/flags/{flag_id}/resolve")
+async def resolve_bias_flag(
+    flag_id: int,
+    resolution: str,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """Mark a bias flag as reviewed and resolved.
+
+    Args:
+        flag_id: The flag ID
+        resolution: Resolution notes
+        admin: Current authenticated admin
+        db: Database session
+
+    Returns:
+        Updated flag
+    """
+    try:
+        from src.database.repositories.bias_repository import BiasFlagRepository
+        flag_repo = BiasFlagRepository(db)
+
+        flag = flag_repo.resolve_flag(
+            flag_id=flag_id,
+            reviewed_by=admin["admin_id"],
+            resolution=resolution,
+        )
+
+        if not flag:
+            raise HTTPException(status_code=404, detail="Bias flag not found")
+
+        db.commit()
+
+        logger.info(f"Bias flag {flag_id} resolved by {admin['username']}")
+
+        return {
+            "id": flag.id,
+            "reviewed": flag.reviewed,
+            "reviewed_by": flag.reviewed_by,
+            "reviewed_at": flag.reviewed_at.isoformat() if flag.reviewed_at else None,
+            "resolution": flag.resolution,
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to resolve bias flag {flag_id}: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/admin/bias/history/{admin_id}")
+async def get_admin_bias_history(
+    admin_id: str,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """Get bias history for a specific admin.
+
+    Args:
+        admin_id: The admin ID to get history for
+        admin: Current authenticated admin
+        db: Database session
+
+    Returns:
+        Bias history and metrics
+    """
+    try:
+        from src.database.repositories.bias_repository import (
+            AdminBiasHistoryRepository,
+            BiasAnalysisRepository,
+            NudgeRepository,
+        )
+
+        history_repo = AdminBiasHistoryRepository(db)
+        analysis_repo = BiasAnalysisRepository(db)
+        nudge_repo = NudgeRepository(db)
+
+        # Get admin history
+        history = history_repo.get_or_create(admin_id)
+
+        # Get recent incidents
+        recent_analyses = analysis_repo.get_by_admin(admin_id, limit=10)
+
+        # Get nudge counts by type
+        nudge_counts = nudge_repo.count_by_type(admin_id=admin_id)
+
+        return {
+            "admin_id": admin_id,
+            "total_interviews_conducted": history.total_interviews_conducted,
+            "total_bias_incidents": history.total_bias_incidents,
+            "total_blocks_received": history.total_blocks_received,
+            "current_status": history.current_status.value,
+            "strikes": history.strikes,
+            "suspension_count": history.suspension_count,
+            "last_incident_date": history.last_incident_date.isoformat() if history.last_incident_date else None,
+            "strike_reset_date": history.strike_reset_date.isoformat() if history.strike_reset_date else None,
+            "nudge_counts": nudge_counts,
+            "recent_incidents": [
+                {
+                    "id": analysis.id,
+                    "interview_id": analysis.interview_id,
+                    "bias_detected": analysis.bias_detected,
+                    "bias_types": analysis.bias_types,
+                    "severity": analysis.severity.value,
+                    "confidence_score": analysis.confidence_score,
+                    "recommended_action": analysis.recommended_action.value,
+                    "analyzed_at": analysis.analyzed_at.isoformat(),
+                }
+                for analysis in recent_analyses
+            ],
+        }
+
+    except Exception as e:
+        logger.error(f"Failed to get admin bias history: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/admin/bias/metrics")
+async def get_bias_metrics(
+    cycle_id: Optional[int] = None,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """Get evaluator bias metrics and drift analysis.
+
+    Args:
+        cycle_id: Optional cycle ID to filter by
+        admin: Current authenticated admin
+        db: Database session
+
+    Returns:
+        Aggregate bias metrics
+    """
+    try:
+        from src.database.repositories.bias_repository import (
+            AdminBiasHistoryRepository,
+            DriftMetricsRepository,
+        )
+
+        history_repo = AdminBiasHistoryRepository(db)
+        drift_repo = DriftMetricsRepository(db)
+
+        # Get all admin bias histories
+        all_histories = history_repo.get_all_admins()
+
+        # Get drift metrics
+        drift_metrics = drift_repo.get_by_cycle(cycle_id) if cycle_id else drift_repo.get_recent(limit=100)
+
+        # Calculate aggregate stats
+        total_admins = len(all_histories)
+        active_admins = len([h for h in all_histories if h.current_status.value == "active"])
+        warned_admins = len([h for h in all_histories if h.current_status.value == "warned"])
+        suspended_admins = len([h for h in all_histories if h.current_status.value == "suspended"])
+        banned_admins = len([h for h in all_histories if h.current_status.value == "banned"])
+
+        total_incidents = sum(h.total_bias_incidents for h in all_histories)
+        total_interviews = sum(h.total_interviews_conducted for h in all_histories)
+        incident_rate = (total_incidents / total_interviews * 100) if total_interviews > 0 else 0.0
+
+        return {
+            "summary": {
+                "total_admins": total_admins,
+                "active_admins": active_admins,
+                "warned_admins": warned_admins,
+                "suspended_admins": suspended_admins,
+                "banned_admins": banned_admins,
+                "total_incidents": total_incidents,
+                "total_interviews": total_interviews,
+                "incident_rate": round(incident_rate, 2),
+            },
+            "admin_risks": [
+                {
+                    "admin_id": h.admin_id,
+                    "current_status": h.current_status.value,
+                    "strikes": h.strikes,
+                    "total_interviews": h.total_interviews_conducted,
+                    "total_incidents": h.total_bias_incidents,
+                    "incident_rate": round((h.total_bias_incidents / h.total_interviews_conducted * 100) if h.total_interviews_conducted > 0 else 0.0, 2),
+                }
+                for h in all_histories
+            ],
+            "drift_metrics": [
+                {
+                    "id": metric.id,
+                    "admin_id": metric.admin_id,
+                    "period_start": metric.period_start.isoformat(),
+                    "period_end": metric.period_end.isoformat(),
+                    "total_interviews": metric.total_interviews,
+                    "bias_incidents": metric.bias_incidents,
+                    "risk_score": metric.risk_score,
+                    "risk_level": metric.risk_level,
+                }
+                for metric in drift_metrics
+            ],
+        }
+
+    except Exception as e:
+        logger.error(f"Failed to get bias metrics: {str(e)}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 class ApplicationDetails(BaseModel):
     """Detailed application model for admin view."""
     model_config = ConfigDict(from_attributes=True)
@@ -1512,16 +1773,35 @@ async def perform_selection(
     admin: Dict[str, Any] = Depends(get_current_admin),
     db: Session = Depends(get_db)
 ):
-    """Phase 6 → Phase 7: Perform Top-K selection based on final scores."""
+    """Phase 6 → Phase 7: Perform Top-K shortlisting based on final scores."""
     try:
         phase_mgr = PhaseManager(db)
         result = phase_mgr.perform_selection(cycle_id, admin["admin_id"])
 
-        logger.info(f"Selection performed for cycle {cycle_id} by admin {admin["username"]}")
+        logger.info(f"Shortlisting performed for cycle {cycle_id} by admin {admin['username']}")
         return result
 
     except Exception as e:
         logger.error(f"Failed to perform selection for cycle {cycle_id}: {e}")
+        raise HTTPException(status_code=400, detail=str(e))
+
+
+@app.post("/admin/cycles/{cycle_id}/final-select", response_model=Dict[str, Any])
+async def perform_final_selection(
+    cycle_id: str,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db)
+):
+    """Phase 7: Perform final selection based on interview scores."""
+    try:
+        phase_mgr = PhaseManager(db)
+        result = phase_mgr.perform_final_selection(cycle_id, admin["admin_id"])
+
+        logger.info(f"Final selection performed for cycle {cycle_id} by admin {admin['username']}")
+        return result
+
+    except Exception as e:
+        logger.error(f"Failed to perform final selection for cycle {cycle_id}: {e}")
         raise HTTPException(status_code=400, detail=str(e))
 
 
@@ -1633,6 +1913,229 @@ class ConnectionManager:
 
 manager = ConnectionManager()
 
+
+# ==============================================================================
+# Phase 2: Bias Monitoring WebSocket Endpoints
+# ==============================================================================
+
+# Global nudge connection manager (separate from WebRTC signaling)
+class NudgeConnectionManager:
+    """Manages WebSocket connections for nudge delivery to admins."""
+
+    def __init__(self):
+        self.active_connections: Dict[int, Dict[str, WebSocket]] = {}  # {interview_id: {admin_id: websocket}}
+        self.logger = get_logger("nudge_connection_manager")
+
+    async def connect(self, websocket: WebSocket, interview_id: int, admin_id: str):
+        await websocket.accept()
+        if interview_id not in self.active_connections:
+            self.active_connections[interview_id] = {}
+        self.active_connections[interview_id][admin_id] = websocket
+        self.logger.info(f"Admin {admin_id} connected to nudge stream for interview {interview_id}")
+
+    def disconnect(self, interview_id: int, admin_id: str):
+        if interview_id in self.active_connections:
+            if admin_id in self.active_connections[interview_id]:
+                del self.active_connections[interview_id][admin_id]
+                self.logger.info(f"Admin {admin_id} disconnected from nudge stream for interview {interview_id}")
+            if not self.active_connections[interview_id]:
+                del self.active_connections[interview_id]
+
+    async def send_nudge(self, interview_id: int, admin_id: str, nudge_data: dict):
+        """Send a nudge to a specific admin."""
+        if interview_id in self.active_connections:
+            if admin_id in self.active_connections[interview_id]:
+                websocket = self.active_connections[interview_id][admin_id]
+                try:
+                    await websocket.send_json(nudge_data)
+                    self.logger.info(f"Sent nudge to admin {admin_id} in interview {interview_id}")
+                except Exception as e:
+                    self.logger.error(f"Failed to send nudge: {str(e)}")
+
+nudge_manager = NudgeConnectionManager()
+
+
+@app.websocket("/ws/interview/{interview_id}/audio")
+async def audio_stream_endpoint(
+    websocket: WebSocket,
+    interview_id: int,
+    speaker: str = Query(...),  # 'admin' or 'student'
+):
+    """WebSocket endpoint for streaming audio chunks for STT processing.
+
+    Flow:
+    1. Client sends audio chunks (binary data)
+    2. Server buffers chunks using AudioStreamManager
+    3. When buffer full (10-15s), trigger STT transcription
+    4. Store transcript and trigger bias analysis for admin speech
+    5. Send acknowledgment back to client
+
+    Args:
+        interview_id: The interview ID
+        speaker: 'admin' or 'student'
+    """
+    from src.services.stt_service import audio_stream_manager, STTService
+    from src.services.bias_detection_service import BiasDetectionService
+    from src.database.models import SpeakerEnum
+    from datetime import datetime, timezone
+
+    logger = get_logger("audio_stream")
+
+    await websocket.accept()
+    logger.info(f"Audio stream connected for interview {interview_id}, speaker: {speaker}")
+
+    # Start audio stream
+    audio_stream_manager.start_stream(interview_id)
+
+    try:
+        # Get database session
+        with get_db_context() as db:
+            stt_service = STTService(db)
+            bias_service = BiasDetectionService(db)
+
+            # Get interview and admin details
+            from src.database.repositories.interview_repository import InterviewRepository
+            interview_repo = InterviewRepository(db)
+            interview = interview_repo.get_by_id(interview_id)
+
+            if not interview:
+                await websocket.send_json({"error": "Interview not found"})
+                await websocket.close()
+                return
+
+            speaker_enum = SpeakerEnum.ADMIN if speaker == "admin" else SpeakerEnum.STUDENT
+
+            while True:
+                # Receive audio chunk
+                audio_chunk = await websocket.receive_bytes()
+
+                # Add to buffer
+                complete_chunk = audio_stream_manager.add_audio_chunk(
+                    interview_id=interview_id,
+                    speaker=speaker_enum,
+                    audio_chunk=audio_chunk,
+                )
+
+                # If buffer is full, process it
+                if complete_chunk:
+                    logger.info(f"Processing {len(complete_chunk)} bytes for {speaker}")
+                    start_time = datetime.now(timezone.utc)
+
+                    # Transcribe and store
+                    transcript_id = await stt_service.process_and_store_chunk(
+                        interview_id=interview_id,
+                        speaker=speaker_enum,
+                        audio_data=complete_chunk,
+                        start_time=start_time,
+                    )
+
+                    if transcript_id:
+                        # Send acknowledgment
+                        await websocket.send_json({
+                            "status": "transcribed",
+                            "transcript_id": transcript_id,
+                        })
+
+                        # If speaker is admin, run bias detection
+                        if speaker_enum == SpeakerEnum.ADMIN:
+                            logger.info(f"Running bias analysis for transcript {transcript_id}")
+
+                            # Get the transcript text
+                            transcript = stt_service.transcript_repo.get_by_id(transcript_id)
+
+                            # Get recent context
+                            context_str = stt_service.get_recent_context(
+                                interview_id=interview_id,
+                                before_time=start_time,
+                                context_count=5,
+                            )
+
+                            # Run bias analysis
+                            analysis_result = await bias_service.analyze_transcript(
+                                transcript_id=transcript_id,
+                                interview_id=interview_id,
+                                admin_id=interview.admin_id,
+                                transcript_text=transcript.transcript_text,
+                                conversation_context=[context_str] if context_str else None,
+                            )
+
+                            # If nudge was created, send it via WebSocket
+                            if analysis_result.get("nudge_id"):
+                                await nudge_manager.send_nudge(
+                                    interview_id=interview_id,
+                                    admin_id=interview.admin_id,
+                                    nudge_data={
+                                        "nudge_id": analysis_result["nudge_id"],
+                                        "nudge_type": analysis_result["nudge_type"],
+                                        "message": analysis_result["nudge_message"],
+                                        "severity": analysis_result["severity"],
+                                        "display_duration": 5 if analysis_result["nudge_type"] == "info" else 10,
+                                    },
+                                )
+
+    except WebSocketDisconnect:
+        logger.info(f"Audio stream disconnected for interview {interview_id}, speaker: {speaker}")
+        audio_stream_manager.stop_stream(interview_id)
+    except Exception as e:
+        logger.error(f"Audio stream error: {str(e)}")
+        audio_stream_manager.stop_stream(interview_id)
+        await websocket.close()
+
+
+@app.websocket("/ws/interview/{interview_id}/nudges")
+async def nudge_stream_endpoint(
+    websocket: WebSocket,
+    interview_id: int,
+    admin_id: str = Query(...),
+):
+    """WebSocket endpoint for delivering real-time bias nudges to admin.
+
+    Flow:
+    1. Admin connects with their admin_id
+    2. Server subscribes to nudge events for this interview
+    3. When nudge created (by audio stream endpoint), send via WebSocket
+    4. Wait for acknowledgment from client
+    5. Update nudge.acknowledged in database
+
+    Args:
+        interview_id: The interview ID
+        admin_id: The admin's ID
+    """
+    logger = get_logger("nudge_stream")
+
+    await nudge_manager.connect(websocket, interview_id, admin_id)
+
+    try:
+        with get_db_context() as db:
+            from src.database.repositories.bias_repository import NudgeRepository
+            nudge_repo = NudgeRepository(db)
+
+            while True:
+                # Wait for acknowledgment from client
+                data = await websocket.receive_json()
+
+                if data.get("type") == "acknowledge":
+                    nudge_id = data.get("nudge_id")
+                    if nudge_id:
+                        logger.info(f"Admin {admin_id} acknowledged nudge {nudge_id}")
+                        nudge_repo.acknowledge_nudge(nudge_id)
+                        db.commit()
+
+                        # Send confirmation
+                        await websocket.send_json({
+                            "status": "acknowledged",
+                            "nudge_id": nudge_id,
+                        })
+
+    except WebSocketDisconnect:
+        logger.info(f"Nudge stream disconnected for admin {admin_id} in interview {interview_id}")
+        nudge_manager.disconnect(interview_id, admin_id)
+    except Exception as e:
+        logger.error(f"Nudge stream error: {str(e)}")
+        nudge_manager.disconnect(interview_id, admin_id)
+
+
+# WebRTC signaling endpoint (existing)
 @app.websocket("/ws/interview/{interview_id}")
 async def websocket_endpoint(websocket: WebSocket, interview_id: str):
     await manager.connect(websocket, interview_id)

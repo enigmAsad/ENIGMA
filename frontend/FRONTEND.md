@@ -1,8 +1,8 @@
-# ENIGMA Frontend Implementation (Phase 1 + Admin Portal + Student Accounts)
+# ENIGMA Frontend Implementation (Phase 1 + Admin Portal + Student Accounts + Phase 2 Bias Monitoring)
 
-**Implementation Date:** 2025-10-11 (Phase 1), 2025-10-12 (Admin Portal & Bug Fixes), 2025-10-13 (Internal LLM Integration & Results Display), 2025-10-14 (Student Accounts & OAuth)
+**Implementation Date:** 2025-10-11 (Phase 1), 2025-10-12 (Admin Portal & Bug Fixes), 2025-10-13 (Internal LLM Integration & Results Display), 2025-10-14 (Student Accounts & OAuth), 2025-10-19 (Phase 2 Bias Monitoring - Complete)
 **Framework:** Next.js 15 + React 19 + TypeScript + Tailwind CSS
-**Status:** ✅ Phase 1 + Admin Portal + Student Accounts (Google OAuth, Authenticated Submissions)
+**Status:** ✅ Phase 1 + Admin Portal + Student Accounts + **Phase 2 Bias Monitoring (Complete)**
 
 ---
 
@@ -37,13 +37,25 @@ frontend/
 │   │   ├── student/            # ⭐ Student portal
 │   │   │   ├── login/page.tsx
 │   │   │   └── dashboard/page.tsx
-│   │   └── admin/              # ⭐ Admin portal
-│   │       ├── login/page.tsx
-│   │       ├── dashboard/page.tsx
-│   │       └── cycles/page.tsx
+│   │   ├── admin/              # ⭐ Admin portal
+│   │   │   ├── login/page.tsx
+│   │   │   ├── dashboard/page.tsx
+│   │   │   ├── cycles/page.tsx
+│   │   │   ├── interviews/page.tsx
+│   │   │   └── bias/page.tsx         # ⭐ NEW: Phase 2 bias dashboard
+│   │   └── interview/          # ⭐ Interview room
+│   │       └── [interviewId]/page.tsx  # WebRTC + bias monitoring
 │   ├── components/             # Reusable UI components
-│   ├── hooks/                  # ⭐ Custom React hooks (useAdminAuth.ts, useStudentAuth.ts)
-│   └── lib/                    # API clients (api.ts, adminApi.ts, studentApi.ts)
+│   │   ├── NudgeOverlay.tsx    # ⭐ NEW: Phase 2 real-time nudges
+│   │   └── ... (Button, Card, Input, etc.)
+│   ├── hooks/                  # ⭐ Custom React hooks
+│   │   ├── useAdminAuth.ts
+│   │   ├── useStudentAuth.ts
+│   │   └── useInterviewAudio.ts      # ⭐ NEW: Phase 2 audio streaming
+│   └── lib/                    # API clients
+│       ├── api.ts              # Public API
+│       ├── adminApi.ts         # Admin API (includes bias endpoints)
+│       └── studentApi.ts       # Student API
 ├── public/
 ├── .env.local.example
 └── ... (config files)
@@ -100,6 +112,12 @@ Type-safe API client for admin operations with automatic JWT injection.
 - createCycle(data)
 - openCycle(id) / closeCycle(id)
 - getActiveCycle()
+
+// Phase 2: Bias Monitoring (NEW)
+- getBiasFlags(filters)
+- resolveBiasFlag(flagId, resolution)
+- getAdminBiasHistory(adminId)
+- getBiasMetrics(cycleId)
 
 // Public Admission Info (No Auth)
 - getAdmissionInfo()
@@ -158,6 +176,31 @@ Top navigation bar with active route highlighting.
 - **Adaptive Links**: Home, Apply, Check Status, Verify, Dashboard remain always visible.
 - **Student Session Awareness**: Displays authenticated student name/email, adds quick link to Student Dashboard, and exposes Logout action.
 - **Login Shortcut**: Renders a primary "Student Login" button that triggers the Google OAuth flow when no session exists.
+
+### 6. NudgeOverlay (`NudgeOverlay.tsx`) - **Phase 2 NEW**
+Real-time bias alert overlay for admin evaluators during live interviews.
+
+**Props:**
+- `interviewId`: `number` - The interview ID
+- `adminId`: `string` - The admin conducting the interview
+- `onBlock?`: `() => void` - Callback when interview is blocked
+
+**Features:**
+- Connects to WebSocket `/ws/interview/{id}/nudges?admin_id={adminId}`
+- Displays three types of nudges with distinct UI:
+  - **INFO**: Blue gradient banner at bottom, auto-dismiss after 5s
+  - **WARNING**: Yellow/orange banner at top, requires acknowledgment, adds strike
+  - **BLOCK**: Red full-screen modal, interview terminated, creates flag
+- Sends acknowledgments back to server via WebSocket
+- Handles multiple concurrent nudges with priority queuing
+- Includes connection status indicator
+
+**UI States:**
+```typescript
+- info: "bg-gradient-to-r from-blue-500 to-blue-600"
+- warning: "bg-gradient-to-r from-yellow-400 to-orange-500"
+- block: "bg-gradient-to-r from-red-600 to-red-700"
+```
 
 ---
 
@@ -330,6 +373,12 @@ Full CRUD interface for managing admission cycles.
 - **Developer Experience**: Storybook, Jest/RTL unit tests, Playwright E2E tests.
 
 ---
+
+### v1.4.0 (2025-10-19) - Two-Step Selection Workflow UI
+- **Updated**: The Admin Cycles page (`/admin/cycles`) now supports the new two-step selection process.
+- **Updated**: In the `scored` phase, the action button is now **"Perform Shortlisting"** to trigger the initial selection for interviews.
+- **Added**: In the `selection` phase, a new **"Perform Final Selection"** button is now available to trigger the final choice based on interview scores.
+- **Updated**: The `adminApi.ts` client was updated with a new `performFinalSelection` method to communicate with the new backend endpoint.
 
 ### v1.3.0 (2025-10-14) - Student Accounts & Authenticated Submissions
 - **Added**: Google OAuth student login flow with PKCE, HttpOnly session cookies, and context-aware navigation.

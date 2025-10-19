@@ -17,7 +17,8 @@ class ApplicationStatus(str, Enum):
     BATCH_READY = "batch_ready"          # Phase 4: Ready for LLM batch
     PROCESSING = "processing"            # Phase 5: LLM batch in progress
     SCORED = "scored"                    # Phase 6: LLM scores integrated
-    SELECTED = "selected"                # Phase 7: Top-K selection complete
+    SHORTLISTED = "shortlisted"          # Phase 7a: Shortlisted for interview
+    SELECTED = "selected"                # Phase 7b: Top-K selection complete
     NOT_SELECTED = "not_selected"        # Phase 7: Not selected
     PUBLISHED = "published"              # Phase 8: Results published to student
     FAILED = "failed"                    # Error state
@@ -587,3 +588,344 @@ class AdmissionInfoResponse(BaseModel):
     end_date: Optional[datetime] = None
     result_date: Optional[datetime] = None
     message: str
+
+
+# ============================================================================
+# Bias Monitoring Schemas (Phase 2: Live Interview Monitoring)
+# ============================================================================
+
+
+class SpeakerEnum(str, Enum):
+    """Speaker identification in interview transcripts."""
+    ADMIN = "admin"
+    STUDENT = "student"
+
+
+class BiasTypeEnum(str, Enum):
+    """Types of bias that can be detected in evaluator behavior."""
+    APPEARANCE = "appearance"
+    GENDER = "gender"
+    ACCENT = "accent"
+    SOCIOECONOMIC = "socioeconomic"
+    NAME = "name"
+    PERSONAL_CONNECTION = "personal_connection"
+    IRRELEVANT_FACTOR = "irrelevant_factor"
+
+
+class SeverityEnum(str, Enum):
+    """Severity levels for bias detection."""
+    NONE = "none"
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+    CRITICAL = "critical"
+
+
+class NudgeTypeEnum(str, Enum):
+    """Types of nudges delivered to admins."""
+    INFO = "info"       # Informational banner (blue)
+    WARNING = "warning" # Warning alert (yellow)
+    BLOCK = "block"     # Interview blocked (red)
+
+
+class RecommendedActionEnum(str, Enum):
+    """Recommended actions based on bias analysis."""
+    NONE = "none"
+    NUDGE = "nudge"
+    WARN = "warn"
+    BLOCK = "block"
+
+
+class AdminStatusEnum(str, Enum):
+    """Admin status for bias management."""
+    ACTIVE = "active"
+    WARNED = "warned"
+    SUSPENDED = "suspended"
+    BANNED = "banned"
+
+
+# Request Models
+
+class TranscriptChunkRequest(BaseModel):
+    """Request to store a transcript chunk."""
+    interview_id: int
+    speaker: SpeakerEnum
+    transcript_text: str = Field(..., min_length=1, max_length=10000)
+    start_time: datetime
+    end_time: datetime
+    confidence_score: Optional[float] = Field(None, ge=0.0, le=1.0)
+
+
+class BiasAnalysisRequest(BaseModel):
+    """Request to analyze a transcript for bias."""
+    transcript_id: int
+    interview_id: int
+    admin_id: str
+    transcript_text: str
+    conversation_context: Optional[List[str]] = Field(
+        default=None,
+        description="Previous transcript chunks for context"
+    )
+
+
+# Response Models
+
+class TranscriptChunkResponse(BaseModel):
+    """Response containing transcript chunk data."""
+    id: int
+    interview_id: int
+    speaker: str
+    transcript_text: str
+    start_time: datetime
+    end_time: datetime
+    confidence_score: Optional[float]
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class BiasAnalysisResponse(BaseModel):
+    """Response containing bias analysis results."""
+    id: int
+    transcript_id: int
+    interview_id: int
+    admin_id: str
+    bias_detected: bool
+    bias_types: Optional[List[str]] = None
+    severity: str
+    confidence_score: float
+    evidence_quotes: Optional[List[str]] = None
+    context_summary: Optional[str] = None
+    recommended_action: str
+    llm_model: str
+    analyzed_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class LiveNudgeResponse(BaseModel):
+    """Response containing nudge data."""
+    id: int
+    interview_id: int
+    nudge_type: str
+    message: str
+    display_duration: Optional[int] = None
+    acknowledged: bool
+    dismissed: bool
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class BiasFlagResponse(BaseModel):
+    """Response containing bias flag data."""
+    id: int
+    interview_id: int
+    admin_id: str
+    application_id: Optional[str] = None
+    flag_type: str
+    severity: str
+    description: str
+    action_taken: str
+    automatic: bool
+    reviewed: bool
+    reviewed_by: Optional[str] = None
+    reviewed_at: Optional[datetime] = None
+    resolution: Optional[str] = None
+    created_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class DriftMetricsResponse(BaseModel):
+    """Response containing evaluator drift metrics."""
+    id: int
+    admin_id: str
+    admission_cycle_id: Optional[int] = None
+    period_start: datetime
+    period_end: datetime
+    total_interviews: int
+    bias_incidents: int
+    nudges_delivered: int
+    warnings_delivered: int
+    blocks_triggered: int
+    avg_score_given: Optional[float] = None
+    score_variance: Optional[float] = None
+    harsh_outlier_count: int
+    lenient_outlier_count: int
+    irr_correlation: Optional[float] = None
+    risk_score: Optional[float] = None
+    risk_level: Optional[str] = None
+    calculated_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class AdminBiasHistoryResponse(BaseModel):
+    """Response containing admin bias history."""
+    id: int
+    admin_id: str
+    total_interviews_conducted: int
+    total_bias_incidents: int
+    total_blocks_received: int
+    current_status: str
+    suspension_count: int
+    last_incident_date: Optional[datetime] = None
+    strikes: int
+    strike_reset_date: Optional[datetime] = None
+    notes: Optional[str] = None
+    updated_at: datetime
+
+    model_config = ConfigDict(from_attributes=True)
+
+class ApplicationSubmitRequest(BaseModel):
+    """Request model for submitting an application."""
+    name: str = Field(..., min_length=2, max_length=200)
+    email: EmailStr
+    phone: Optional[str] = Field(None, max_length=20)
+    address: Optional[str] = Field(None, max_length=500)
+    gpa: float = Field(..., ge=0.0, le=4.0, description="GPA on 4.0 scale")
+    test_scores: Dict[str, float] = Field(..., description="Test scores dict")
+    essay: str = Field(..., min_length=100, max_length=5000)
+    achievements: str = Field(..., min_length=10, max_length=3000)
+
+
+class ApplicationSubmitResponse(BaseModel):
+    """Response after application submission."""
+    success: bool
+    application_id: str
+    message: str
+    status: str
+    timestamp: datetime
+
+
+class ApplicationStatusResponse(BaseModel):
+    """Response for application status query."""
+    application_id: str
+    anonymized_id: Optional[str]
+    status: str
+    message: str
+    timestamp: datetime
+
+
+class ResultsResponse(BaseModel):
+    """Response with final results."""
+    anonymized_id: str
+    status: str  # SELECTED, NOT_SELECTED, or PUBLISHED
+    final_score: float
+    academic_score: float
+    test_score: float
+    achievement_score: float
+    essay_score: float
+    explanation: str
+    strengths: List[str]
+    areas_for_improvement: List[str]
+    hash: str
+    timestamp: datetime
+    worker_attempts: int
+
+
+class VerifyRequest(BaseModel):
+    """Request to verify a hash."""
+    anonymized_id: str
+    expected_hash: str
+
+
+class VerifyResponse(BaseModel):
+    """Response for hash verification."""
+    anonymized_id: str
+    is_valid: bool
+    stored_hash: str
+    expected_hash: str
+    message: str
+
+
+class DashboardStatsResponse(BaseModel):
+    """Response with dashboard statistics."""
+    total_applications: int
+    completed_evaluations: int
+    average_score: Optional[float]
+    score_distribution: Dict[str, int]
+    processing_stats: Dict[str, int]
+    timestamp: datetime
+
+
+class StudentAuthStartResponse(BaseModel):
+    """Response payload for initiating student OAuth."""
+
+    authorization_url: str
+    state: str
+
+
+class StudentApplicationData(BaseModel):
+    status: ApplicationStatusResponse
+    results: Optional[ResultsResponse]
+
+class StudentProfileResponse(BaseModel):
+    """Student profile returned when authenticated."""
+
+    student_id: str
+    primary_email: EmailStr
+    display_name: Optional[str]
+    status: str
+    application: Optional[StudentApplicationData] = None
+
+
+class StudentSessionResponse(BaseModel):
+    """Response after successful student login."""
+
+    success: bool
+    student: StudentProfileResponse
+
+
+class StudentLogoutResponse(BaseModel):
+    success: bool
+    message: str
+
+
+class CycleInfo(BaseModel):
+    """Cycle information for student applications."""
+    cycle_id: str
+    cycle_name: str
+    start_date: datetime
+    end_date: datetime
+    result_date: datetime
+    phase: str
+
+
+class StudentApplicationHistory(BaseModel):
+    """Application history entry for a student."""
+    application_id: str
+    cycle: CycleInfo
+    status: str
+    submitted_at: datetime
+    anonymized_id: Optional[str] = None
+    results: Optional[ResultsResponse] = None
+
+
+class StudentApplicationsResponse(BaseModel):
+    """Response with all applications for a student."""
+    student_id: str
+    applications: List[StudentApplicationHistory]
+    total_count: int
+
+class StudentAuthCallbackRequest(BaseModel):
+    """Request body for the OAuth callback."""
+
+    code: str
+    state: str
+    code_verifier: str
+    redirect_uri: str
+
+class ApplicationDetails(BaseModel):
+    """Detailed application model for admin view."""
+    model_config = ConfigDict(from_attributes=True)
+
+    application_id: str
+    student_id: Optional[str] = None
+    admission_cycle_id: str
+    name: str
+    email: EmailStr
+    status: str
+    timestamp: datetime
+    interview: Optional[InterviewDetails] = None

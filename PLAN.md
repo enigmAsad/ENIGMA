@@ -1,6 +1,6 @@
 # ENIGMA System Plan (Production-Ready)
 
-**Status:** Phase 1 ✅ Complete (PostgreSQL + Student Accounts) | Phase 2 🔄 Planned (Next Focus)
+**Status:** Phase 1 ✅ Complete (PostgreSQL + Student Accounts) | Phase 2 ✅ Complete (Live Interviews + Bias Monitoring)
 
 ## Scope
 - Standalone admissions portal with two-phase selection
@@ -10,7 +10,7 @@
   - Admin portal for cycle management
   - 9-phase workflow with batch LLM processing
   - Cryptographic audit trail (SHA-256 hash chain)
-- **Phase 2: AI-monitored live interviews** 🔄 **PLANNED**
+- **Phase 2: AI-monitored live interviews** ✅ **IMPLEMENTED**
   - Bias monitoring focuses on evaluators, not applicants
   - Real-time transcription and LLM analysis
   - Evaluator dashboard with nudge system
@@ -42,11 +42,10 @@
   - 9-phase workflow controls
   - Application statistics and monitoring
 
-**🔄 Phase 2 - Planned:**
-- Interview scheduler and live room: standardized questions, RTC-based live session
-- COI declaration form: simple consent/declaration prior to interview
-- Evaluator nudge UI: soft alerts for biased language; hard flags for policy violations
-- Evaluator dashboard: live interview console, digital rubric, justification fields
+**✅ Phase 2 - Implemented:**
+- Interview scheduler and live room (WebRTC)
+- Real-time bias monitoring with nudges (info/warning/block)
+- Admin interviews page for scheduling/listing and joining sessions
 
 **✅ Accounts & SSO - Implemented (Frontend):**
 - Student sign-in with Google (OIDC + PKCE) and HttpOnly session cookies
@@ -80,18 +79,12 @@
 - **Public APIs**: Application submission, status checking, results viewing, verification
 - **Admin APIs**: Cycle CRUD, phase transitions, batch management, audit logs
 
-**🔄 Phase 2 - Planned:**
-- Scheduling service: slot management, reminders, session links
-- COI declaration intake: persist evaluator/applicant declarations
-- Evaluator management system: assignments, intake of scores and justifications
-- Bias monitoring engine:
-  - Streaming STT for live sessions
-  - Real-time LLM analysis of evaluator utterances
-  - Nudge/flag pipeline for bias detection
-  - Statistical checks: inter-rater agreement, outliers
-  - Drift monitoring and re-assignment workflow
-- Email notification system: confirmation, shortlist, final results
-- Appeal handler: inbox intake, review queue
+**✅ Phase 2 - Implemented:**
+- WebSocket signaling + audio streaming for STT
+- Real-time LLM bias analysis and graduated nudge/flag pipeline
+- Drift metrics and admin bias history
+
+Remaining (Future): COI declarations, evaluator management/assignments, email notifications, appeals
 
 **✅ Accounts & SSO - Implemented (Backend):**
 - Student OIDC (Google) login endpoint verifies `email_verified`
@@ -147,18 +140,14 @@
 - **oauth_identities**: `student_id`, `provider`, `provider_sub`, `email`, `email_verified`
 - Added `student_id` FK to **applications** with unique index on `(student_id, admission_cycle_id)`
 
-**🔄 Phase 2 - Additional Tables (Planned):**
-- **live_sessions**: Session metadata and scheduling
-- **live_transcripts**: Streaming STT transcripts with timestamps
-- **rtc_events**: Join/leave, network, and moderation events
-- **evaluator_assignments**: Session-to-evaluator mapping
-- **evaluator_scores**: Rubric scores + written justifications
-- **live_bias_analysis**: Real-time bias detection outputs
-- **coi_declarations**: Evaluator/applicant COI declarations
-- **live_nudges**: Soft alerts and hard flags during sessions
-- **drift_metrics**: Inter-rater and evaluator drift tracking
-- **bias_flags**: Incidents with explanations and actions
-- **phase2_final_scores**: Validated interview scores
+**✅ Phase 2 - Tables (Implemented):**
+- **live_transcripts**
+- **live_bias_analysis**
+- **live_nudges**
+- **bias_flags**
+- **drift_metrics**
+- **admin_bias_history**
+- **interview_scores**
 
 ### AI/ML Components
 
@@ -171,10 +160,9 @@
 - **Hash generation**: SHA-256 cryptographic proof for all decisions
 - **Deterministic metrics**: Pre-computed academic scores, test averages, percentile ranks
 
-**🔄 Phase 2 - Planned:**
-- **Streaming STT**: Real-time transcription for live sessions (Urdu/English, regional accents)
-- **Bias detection LLM**: Real-time analysis of evaluator utterances (localized prompts)
-- **Statistical validation**: Inter-rater agreement, outliers, demographic parity checks
+**✅ Phase 2 - Implemented:**
+- **Streaming STT**: Real-time transcription for live sessions
+- **Bias detection LLM**: Real-time analysis of evaluator utterances
 - **Drift monitoring**: Longitudinal evaluator consistency tracking
 
 ### Integrations
@@ -186,12 +174,11 @@
 - **LLM APIs** (ready for integration): OpenAI Batch API for Worker/Judge LLMs
 - **Security**: JWT authentication, bcrypt password hashing, Fernet encryption
 
-**🔄 Phase 2 - Planned:**
-- **Email service**: Transactional messages (confirmation, shortlist, results)
-- **Streaming STT API**: OpenAI Realtime/Whisper, Deepgram (Urdu/English tuned)
-- **RTC provider**: WebRTC (self-hosted) or Daily/Agora/Twilio
-- **Storage**: Transcripts and session metadata (no video storage)
-- **Localization**: Prompt bundles for Urdu/English; bias lexicon for local context
+**✅ Phase 2 - Delivered:**
+- WebRTC signaling + WebSocket endpoints
+- OpenAI Whisper-based STT and GPT-5-mini bias detection
+- Transcript storage; no raw audio/video retention
+Future: Email service, additional localization
 
 ## Functional Requirements
 
@@ -202,10 +189,9 @@
 - **Admin**: Manage admission cycles, control 9-phase workflow, monitor applications, review audit logs
 - **Public Auditor**: View fairness dashboard, verify decision hashes via hash chain
 
-**🔄 Phase 2 - Planned:**
-- **Applicant** (additional): Attend live interviews, complete COI declarations, file appeals
-- **Human Evaluator**: Conduct live interviews, score via digital rubric, write justifications
-- **Admin** (additional): Manage evaluators, review bias flags, handle appeals, oversee re-assignments
+**✅ Phase 2 - Implemented:**
+- **Applicant**: Attend live interviews; receive decisions post-interview
+- **Human Evaluator/Admin**: Conduct/manage interviews; monitored with real-time bias nudges and flags
 
 **⏳ Accounts & SSO - In Progress:**
 - **Student**: Authenticates via Google. Submits and manages their application(s) through a dedicated dashboard. All actions are linked to their account while preserving the anonymity of the evaluation process.
@@ -225,17 +211,12 @@
 8. **PUBLISHED**: Publish results to applicants; make available via public API
 9. **COMPLETED**: Archive cycle for historical reference
 
-**🔄 Phase 2: Human Interviews with AI Monitoring - Planned:**
-- Schedule and conduct live interviews via RTC
-- Capture COI declarations prior to sessions (manual review)
-- Assign evaluators; enforce written justifications
-- Stream real-time transcription (Urdu/English localized)
-- Real-time LLM monitoring of evaluator utterances and justifications
-- Deliver nudges for biased language; escalate to hard flags on violations
-- Statistical checks for consistency and inter-rater drift
-- Flag biased evaluations; reassign for blind re-review
-- Combine validated interview scores with Phase 1
-- Update hash chain and audit logs
+**✅ Phase 2: Human Interviews with AI Monitoring - Implemented:**
+- Schedule and conduct live interviews (WebRTC)
+- Stream real-time transcription and run live bias analysis
+- Deliver nudges (info/warning/block) and create bias flags
+- Track drift metrics and admin bias history
+- Use interview scores for final selection
 
 **✅ Accounts & SSO - Lifecycle Changes Implemented:**
 - **Authenticated Submissions**: Application submission now requires an authenticated student session (via Google). The system enforces a one-application-per-cycle limit per student account.
@@ -369,9 +350,9 @@
 | **Database** | ✅ Complete | 14 tables, normalized schema, proper indexes |
 | **Audit Trail** | ✅ Complete | SHA-256 hash chain, comprehensive audit logs |
 | **Phase 1 Pipeline** | 🔧 Integration Ready | JSONL export/import ready for OpenAI Batch API |
-| **Phase 2 Interviews** | 🔄 Planned | RTC, STT, bias monitoring, evaluator management |
+| **Phase 2 Interviews** | ✅ Complete | Live interviews, STT, bias monitoring, final selection |
 | **Email Notifications** | 🔄 Planned | Confirmation, shortlist, results |
 | **Appeals System** | 🔄 Planned | Intake, review, resolution tracking |
 
-**Version:** Backend v2.1.0 | Frontend v1.3.0
-**Last Updated:** 2025-10-14
+**Version:** Backend v2.4.1 | Frontend v1.4.0
+**Last Updated:** 2025-10-19

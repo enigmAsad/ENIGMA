@@ -26,6 +26,7 @@ class ApplicationStatusEnum(str, enum.Enum):
     BATCH_READY = "batch_ready"
     PROCESSING = "processing"
     SCORED = "scored"
+    SHORTLISTED = "shortlisted"
     SELECTED = "selected"
     NOT_SELECTED = "not_selected"
     PUBLISHED = "published"
@@ -91,6 +92,55 @@ class InterviewStatusEnum(str, enum.Enum):
     SCHEDULED = "scheduled"
     COMPLETED = "completed"
     CANCELLED = "cancelled"
+
+
+class SpeakerEnum(str, enum.Enum):
+    """Speaker identification in transcripts."""
+    ADMIN = "admin"
+    STUDENT = "student"
+
+
+class BiasTypeEnum(str, enum.Enum):
+    """Types of bias detected."""
+    APPEARANCE = "appearance"
+    GENDER = "gender"
+    ACCENT = "accent"
+    SOCIOECONOMIC = "socioeconomic"
+    NAME = "name"
+    PERSONAL_CONNECTION = "personal_connection"
+    IRRELEVANT_FACTOR = "irrelevant_factor"
+
+
+class SeverityEnum(str, enum.Enum):
+    """Bias severity levels."""
+    NONE = "none"
+    LOW = "low"
+    MEDIUM = "medium"
+    HIGH = "high"
+    CRITICAL = "critical"
+
+
+class NudgeTypeEnum(str, enum.Enum):
+    """Nudge delivery types."""
+    INFO = "info"
+    WARNING = "warning"
+    BLOCK = "block"
+
+
+class RecommendedActionEnum(str, enum.Enum):
+    """Recommended actions for bias incidents."""
+    NONE = "none"
+    NUDGE = "nudge"
+    WARN = "warn"
+    BLOCK = "block"
+
+
+class AdminBiasStatusEnum(str, enum.Enum):
+    """Admin status for bias management."""
+    ACTIVE = "active"
+    WARNED = "warned"
+    SUSPENDED = "suspended"
+    BANNED = "banned"
 
 
 # Database Models
@@ -220,6 +270,7 @@ class AdmissionCycle(Base):
     creator = relationship("AdminUser", foreign_keys=[created_by])
     closer = relationship("AdminUser", foreign_keys=[closed_by])
     interviews = relationship("Interview", back_populates="cycle")
+    drift_metrics = relationship("DriftMetric", back_populates="cycle")
 
     # Indexes
     __table_args__ = (
@@ -244,6 +295,14 @@ class AdminUser(Base):
     # Relationships
     sessions = relationship("AdminSession", back_populates="admin")
     interviews = relationship("Interview", back_populates="admin")
+
+    # Bias Monitoring Relationships
+    bias_analyses = relationship("LiveBiasAnalysis", back_populates="admin")
+    nudges = relationship("LiveNudge", back_populates="admin")
+    bias_flags = relationship("BiasFlag", foreign_keys="BiasFlag.admin_id", back_populates="admin")
+    reviewed_flags = relationship("BiasFlag", foreign_keys="BiasFlag.reviewed_by", back_populates="reviewer")
+    drift_metrics = relationship("DriftMetric", back_populates="admin")
+    bias_history = relationship("AdminBiasHistory", back_populates="admin", uselist=False)
 
     # Indexes
     __table_args__ = (
@@ -307,6 +366,7 @@ class Application(Base):
     deterministic_metrics = relationship("DeterministicMetrics", back_populates="application", uselist=False)
     student = relationship("StudentAccount", back_populates="applications")
     interview = relationship("Interview", back_populates="application", uselist=False, cascade="all, delete-orphan")
+    bias_flags = relationship("BiasFlag", back_populates="application")
 
     # Indexes
     __table_args__ = (
@@ -605,10 +665,45 @@ class Interview(Base):
     admin = relationship("AdminUser", back_populates="interviews")
     cycle = relationship("AdmissionCycle", back_populates="interviews")
 
+    # Bias Monitoring Relationships
+    transcripts = relationship("LiveTranscript", back_populates="interview", cascade="all, delete-orphan")
+    bias_analyses = relationship("LiveBiasAnalysis", back_populates="interview", cascade="all, delete-orphan")
+    nudges = relationship("LiveNudge", back_populates="interview", cascade="all, delete-orphan")
+    bias_flags = relationship("BiasFlag", back_populates="interview", cascade="all, delete-orphan")
+    score = relationship("InterviewScore", back_populates="interview", uselist=False, cascade="all, delete-orphan")
+
     __table_args__ = (
         Index("idx_interview_status_time", "status", "interview_time"),
         Index("idx_interview_student_cycle", "student_id", "admission_cycle_id"),
         Index("idx_interview_admin_cycle", "admin_id", "admission_cycle_id"),
+    )
+
+
+class InterviewScore(Base):
+    """Stores the scores and evaluation from a human-led interview."""
+    __tablename__ = "interview_scores"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    interview_id = Column(Integer, ForeignKey("interviews.id"), nullable=False, unique=True)
+    
+    # Example scoring criteria
+    communication_score = Column(Float, nullable=False)
+    critical_thinking_score = Column(Float, nullable=False)
+    motivation_score = Column(Float, nullable=False)
+    
+    final_interview_score = Column(Float, nullable=False)
+    
+    notes = Column(Text, nullable=True)
+    
+    scored_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+    scored_by = Column(String(50), ForeignKey("admin_users.admin_id"), nullable=False)
+
+    # Relationships
+    interview = relationship("Interview", back_populates="score")
+    scorer = relationship("AdminUser")
+
+    __table_args__ = (
+        Index("idx_interview_score_final", "final_interview_score"),
     )
 
 
@@ -636,4 +731,221 @@ class AuditLog(Base):
         Index("idx_audit_entity", "entity_type", "entity_id"),
         Index("idx_audit_timestamp", "timestamp"),
         Index("idx_audit_actor", "actor"),
+    )
+
+
+# ============================================================================
+# Bias Monitoring Tables (Phase 2: Live Interview Monitoring)
+# ============================================================================
+
+
+class LiveTranscript(Base):
+    """Live transcript table - real-time interview transcriptions."""
+    __tablename__ = "live_transcripts"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    interview_id = Column(Integer, ForeignKey("interviews.id"), nullable=False)
+    speaker = Column(SQLEnum(SpeakerEnum), nullable=False)
+    transcript_text = Column(Text, nullable=False)
+    start_time = Column(TIMESTAMP(timezone=True), nullable=False)
+    end_time = Column(TIMESTAMP(timezone=True), nullable=False)
+    confidence_score = Column(Float, nullable=True)
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+
+    # Relationships
+    interview = relationship("Interview", back_populates="transcripts")
+    bias_analyses = relationship("LiveBiasAnalysis", back_populates="transcript", cascade="all, delete-orphan")
+
+    # Indexes
+    __table_args__ = (
+        Index("idx_transcripts_interview", "interview_id", "start_time"),
+    )
+
+
+class LiveBiasAnalysis(Base):
+    """Live bias analysis table - LLM analysis of transcript chunks."""
+    __tablename__ = "live_bias_analysis"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    transcript_id = Column(Integer, ForeignKey("live_transcripts.id"), nullable=False)
+    interview_id = Column(Integer, ForeignKey("interviews.id"), nullable=False)
+    admin_id = Column(String(50), ForeignKey("admin_users.admin_id"), nullable=False)
+
+    # Detection Results
+    bias_detected = Column(Boolean, nullable=False)
+    bias_types = Column(JSON, nullable=True)  # Array of BiasTypeEnum values
+    severity = Column(SQLEnum(SeverityEnum), nullable=False)
+    confidence_score = Column(Float, nullable=False)
+
+    # Evidence
+    evidence_quotes = Column(JSON, nullable=True)  # Array of strings
+    context_summary = Column(Text, nullable=True)
+    recommended_action = Column(SQLEnum(RecommendedActionEnum), nullable=False)
+
+    # Metadata
+    llm_model = Column(String(50), nullable=False)
+    llm_response_raw = Column(JSONB, nullable=True)
+    analyzed_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+
+    # Relationships
+    transcript = relationship("LiveTranscript", back_populates="bias_analyses")
+    interview = relationship("Interview", back_populates="bias_analyses")
+    admin = relationship("AdminUser", back_populates="bias_analyses")
+    nudges = relationship("LiveNudge", back_populates="analysis", cascade="all, delete-orphan")
+
+    # Indexes
+    __table_args__ = (
+        Index("idx_analysis_interview", "interview_id", "analyzed_at"),
+        Index("idx_analysis_admin", "admin_id", "analyzed_at"),
+    )
+
+
+class LiveNudge(Base):
+    """Live nudges table - real-time alerts to admins during interviews."""
+    __tablename__ = "live_nudges"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    interview_id = Column(Integer, ForeignKey("interviews.id"), nullable=False)
+    analysis_id = Column(Integer, ForeignKey("live_bias_analysis.id"), nullable=False)
+    admin_id = Column(String(50), ForeignKey("admin_users.admin_id"), nullable=False)
+
+    # Nudge Details
+    nudge_type = Column(SQLEnum(NudgeTypeEnum), nullable=False)
+    message = Column(Text, nullable=False)
+    display_duration = Column(Integer, nullable=True)  # Seconds (NULL for blocks)
+
+    # Response Tracking
+    acknowledged = Column(Boolean, nullable=False, default=False)
+    acknowledged_at = Column(TIMESTAMP(timezone=True), nullable=True)
+    dismissed = Column(Boolean, nullable=False, default=False)
+
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+
+    # Relationships
+    interview = relationship("Interview", back_populates="nudges")
+    analysis = relationship("LiveBiasAnalysis", back_populates="nudges")
+    admin = relationship("AdminUser", back_populates="nudges")
+
+    # Indexes
+    __table_args__ = (
+        Index("idx_nudges_interview", "interview_id", "created_at"),
+    )
+
+
+class BiasFlag(Base):
+    """Bias flags table - critical incidents requiring admin review."""
+    __tablename__ = "bias_flags"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    interview_id = Column(Integer, ForeignKey("interviews.id"), nullable=False)
+    admin_id = Column(String(50), ForeignKey("admin_users.admin_id"), nullable=False)
+    application_id = Column(String(50), ForeignKey("applications.application_id"), nullable=True)
+
+    # Flag Details
+    flag_type = Column(String(50), nullable=False)  # 'severe_bias', 'repeated_violation', 'policy_breach'
+    severity = Column(SQLEnum(SeverityEnum), nullable=False)
+    description = Column(Text, nullable=False)
+    evidence = Column(JSONB, nullable=False)  # {quotes, analysis_ids, transcript_ids}
+
+    # Actions Taken
+    action_taken = Column(String(50), nullable=False)  # 'interview_blocked', 'admin_suspended', 'under_review'
+    automatic = Column(Boolean, nullable=False, default=True)
+
+    # Review Workflow
+    reviewed = Column(Boolean, nullable=False, default=False)
+    reviewed_by = Column(String(50), ForeignKey("admin_users.admin_id"), nullable=True)
+    reviewed_at = Column(TIMESTAMP(timezone=True), nullable=True)
+    resolution = Column(Text, nullable=True)
+
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+
+    # Relationships
+    interview = relationship("Interview", back_populates="bias_flags")
+    admin = relationship("AdminUser", foreign_keys=[admin_id], back_populates="bias_flags")
+    reviewer = relationship("AdminUser", foreign_keys=[reviewed_by], back_populates="reviewed_flags")
+    application = relationship("Application", back_populates="bias_flags")
+
+    # Indexes
+    __table_args__ = (
+        Index("idx_flags_admin", "admin_id", "created_at"),
+        Index("idx_flags_review", "reviewed", "severity"),
+    )
+
+
+class DriftMetric(Base):
+    """Drift metrics table - evaluator consistency tracking."""
+    __tablename__ = "drift_metrics"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    admin_id = Column(String(50), ForeignKey("admin_users.admin_id"), nullable=False)
+    admission_cycle_id = Column(String(50), ForeignKey("admission_cycles.cycle_id"), nullable=True)
+
+    # Metrics Window
+    period_start = Column(TIMESTAMP(timezone=True), nullable=False)
+    period_end = Column(TIMESTAMP(timezone=True), nullable=False)
+
+    # Bias Metrics
+    total_interviews = Column(Integer, nullable=False, default=0)
+    bias_incidents = Column(Integer, nullable=False, default=0)
+    nudges_delivered = Column(Integer, nullable=False, default=0)
+    warnings_delivered = Column(Integer, nullable=False, default=0)
+    blocks_triggered = Column(Integer, nullable=False, default=0)
+
+    # Scoring Metrics
+    avg_score_given = Column(Float, nullable=True)
+    score_variance = Column(Float, nullable=True)
+    harsh_outlier_count = Column(Integer, nullable=False, default=0)
+    lenient_outlier_count = Column(Integer, nullable=False, default=0)
+
+    # Inter-Rater Reliability
+    irr_correlation = Column(Float, nullable=True)
+
+    # Risk Assessment
+    risk_score = Column(Float, nullable=True)  # 0.0-1.0
+    risk_level = Column(String(20), nullable=True)  # 'low', 'medium', 'high', 'critical'
+
+    calculated_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+
+    # Relationships
+    admin = relationship("AdminUser", back_populates="drift_metrics")
+    cycle = relationship("AdmissionCycle", back_populates="drift_metrics")
+
+    # Indexes
+    __table_args__ = (
+        Index("idx_drift_admin", "admin_id", "period_end"),
+    )
+
+
+class AdminBiasHistory(Base):
+    """Admin bias history table - aggregate bias tracking per admin."""
+    __tablename__ = "admin_bias_history"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    admin_id = Column(String(50), ForeignKey("admin_users.admin_id"), nullable=False, unique=True)
+
+    # Lifetime Metrics
+    total_interviews_conducted = Column(Integer, nullable=False, default=0)
+    total_bias_incidents = Column(Integer, nullable=False, default=0)
+    total_blocks_received = Column(Integer, nullable=False, default=0)
+
+    # Current Status
+    current_status = Column(SQLEnum(AdminBiasStatusEnum), nullable=False, default=AdminBiasStatusEnum.ACTIVE)
+    suspension_count = Column(Integer, nullable=False, default=0)
+    last_incident_date = Column(TIMESTAMP(timezone=True), nullable=True)
+
+    # Thresholds for Escalation
+    strikes = Column(Integer, nullable=False, default=0)
+    strike_reset_date = Column(TIMESTAMP(timezone=True), nullable=True)
+
+    # Notes
+    notes = Column(Text, nullable=True)
+
+    updated_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
+
+    # Relationships
+    admin = relationship("AdminUser", back_populates="bias_history", uselist=False)
+
+    # Indexes
+    __table_args__ = (
+        Index("idx_bias_history_status", "current_status"),
     )

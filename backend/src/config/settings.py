@@ -174,6 +174,70 @@ class Settings(BaseSettings):
         description="Student session lifetime in hours"
     )
 
+    # Bias Monitoring Configuration
+    enable_bias_monitoring: bool = Field(
+        default=True,
+        description="Enable real-time bias monitoring during interviews"
+    )
+    bias_detection_model: str = Field(
+        default="gpt-5-mini",
+        description="LLM model for bias detection (gpt-5-mini for fast, accurate analysis)"
+    )
+
+    # Nudge Thresholds (confidence scores)
+    nudge_threshold_low: float = Field(
+        default=0.3,
+        ge=0.0,
+        le=1.0,
+        description="Confidence threshold for info nudges"
+    )
+    nudge_threshold_medium: float = Field(
+        default=0.6,
+        ge=0.0,
+        le=1.0,
+        description="Confidence threshold for warning nudges"
+    )
+    nudge_threshold_high: float = Field(
+        default=0.85,
+        ge=0.0,
+        le=1.0,
+        description="Confidence threshold for blocking interview"
+    )
+
+    # Strike Configuration
+    strike_limit_per_interview: int = Field(
+        default=3,
+        ge=1,
+        le=10,
+        description="Strike limit before blocking interview"
+    )
+    strike_limit_per_cycle: int = Field(
+        default=5,
+        ge=1,
+        le=20,
+        description="Strike limit before admin suspension"
+    )
+    strike_reset_days: int = Field(
+        default=90,
+        ge=30,
+        le=365,
+        description="Days of clean record before strike reset"
+    )
+
+    # STT Configuration
+    stt_chunk_duration_seconds: int = Field(
+        default=10,
+        ge=5,
+        le=30,
+        description="Audio chunk duration for STT processing (seconds)"
+    )
+    transcript_retention_days: int = Field(
+        default=365,
+        ge=30,
+        le=3650,
+        description="How long to retain interview transcripts (days)"
+    )
+
     # Logging
     log_level: str = Field(
         default="INFO",

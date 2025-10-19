@@ -67,6 +67,12 @@ export default function Navigation() {
     router.push('/admin/login');
   };
 
+  const handleStudentLogout = async () => {
+    await studentLogout();
+    setUserRole('anonymous');
+    router.push('/student/login');
+  };
+
   // Define navigation links based on role
   const getNavLinks = () => {
     switch (userRole) {
@@ -75,6 +81,7 @@ export default function Navigation() {
           { href: '/', label: 'Home' },
           { href: '/student/apply', label: 'Apply' },
           { href: '/student/applications', label: 'My Applications' },
+          { href: '/student/interviews', label: 'Interviews' },
           { href: '/student/dashboard', label: 'Dashboard' },
         ];
       case 'admin':
@@ -82,6 +89,7 @@ export default function Navigation() {
           { href: '/', label: 'Home' },
           { href: '/admin/dashboard', label: 'Admin Dashboard' },
           { href: '/admin/cycles', label: 'Manage Cycles' },
+          { href: '/admin/interviews', label: 'Interviews' },
         ];
       case 'anonymous':
       default:
@@ -139,7 +147,7 @@ export default function Navigation() {
                 </div>
                 <button
                   type="button"
-                  onClick={studentLogout}
+                  onClick={handleStudentLogout}
                   className="px-3 py-2 rounded-lg text-sm font-medium text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors"
                 >
                   Logout

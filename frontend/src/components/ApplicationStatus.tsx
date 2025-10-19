@@ -15,12 +15,12 @@ export default function ApplicationStatus({ status, results }: ApplicationStatus
 
   const getStatusColor = (status: string) => {
     const colors: Record<string, string> = {
-      submitted: 'bg-blue-100 text-blue-800',
-      finalized: 'bg-indigo-100 text-indigo-800',
+      submitted: 'bg-primary-100 text-primary-800',
+      finalized: 'bg-primary-100 text-primary-800',
       preprocessing: 'bg-purple-100 text-purple-800',
       batch_ready: 'bg-yellow-100 text-yellow-800',
       processing: 'bg-orange-100 text-orange-800',
-      scored: 'bg-sky-100 text-sky-800',
+      scored: 'bg-primary-100 text-primary-800',
       selected: 'bg-green-100 text-green-800',
       not_selected: 'bg-gray-100 text-gray-800',
       published: 'bg-emerald-100 text-emerald-800',
@@ -160,9 +160,9 @@ export default function ApplicationStatus({ status, results }: ApplicationStatus
           <Card title="Evaluation Results" className="mb-8">
             <div className="space-y-6">
               {/* Final Score */}
-              <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl">
+              <div className="text-center p-6 bg-gradient-to-br from-primary-50 to-primary-100 rounded-xl">
                 <p className="text-sm text-gray-600 mb-2">Final Score</p>
-                <p className="text-6xl font-bold text-blue-600 mb-2">
+                <p className="text-6xl font-bold text-primary-600 mb-2">
                   {results.final_score.toFixed(1)}
                 </p>
                 <p className="text-lg text-gray-700">out of 100</p>
@@ -175,11 +175,11 @@ export default function ApplicationStatus({ status, results }: ApplicationStatus
                   <div className="flex items-center justify-between">
                     <div className="flex-1 bg-gray-200 rounded-full h-3 mr-3">
                       <div
-                        className="bg-blue-600 h-3 rounded-full"
+                        className="bg-primary-600 h-3 rounded-full"
                         style={{ width: `${results.academic_score}%` }}
                       />
                     </div>
-                    <p className="text-lg font-bold text-blue-600">
+                    <p className="text-lg font-bold text-primary-600">
                       {results.academic_score.toFixed(1)}
                     </p>
                   </div>
@@ -257,7 +257,7 @@ export default function ApplicationStatus({ status, results }: ApplicationStatus
             <ul className="space-y-3">
               {results.areas_for_improvement.map((area, index) => (
                 <li key={index} className="flex items-start">
-                  <span className="text-blue-600 mr-3 text-xl">→</span>
+                  <span className="text-primary-600 mr-3 text-xl">→</span>
                   <span className="text-gray-700">{area}</span>
                 </li>
               ))}
@@ -274,11 +274,11 @@ export default function ApplicationStatus({ status, results }: ApplicationStatus
                 </p>
               </div>
 
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                <p className="text-sm text-blue-900 mb-2">
+              <div className="bg-primary-50 border border-primary-200 rounded-lg p-4">
+                <p className="text-sm text-primary-900 mb-2">
                   <strong>What is this hash?</strong>
                 </p>
-                <p className="text-sm text-blue-800">
+                <p className="text-sm text-primary-800">
                   This cryptographic hash proves the integrity of your evaluation.
                   Any tampering with the decision data will change the hash, making
                   modifications immediately detectable.

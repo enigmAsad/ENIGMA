@@ -132,8 +132,8 @@ const AdminInterviewsPage = () => {
                     </Card>
                   </div>
                 ) : (
-                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-6">
-                      <p className="text-blue-800">
+                  <div className="bg-primary-50 border border-primary-200 rounded-lg p-6 mb-6">
+                      <p className="text-primary-800">
                         There is no active cycle in the 'selection' phase. Scheduling new interviews is disabled.
                       </p>
                   </div>

@@ -58,36 +58,36 @@ export default function Home() {
       )}
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-20">
+      <section className="bg-gradient-to-br from-primary-600 to-primary-700 text-white py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">
               ENIGMA
             </h1>
-            <p className="text-2xl md:text-3xl mb-4 text-blue-100">
+            <p className="text-2xl md:text-3xl mb-4 text-primary-100">
               Bias-Free AI Admissions
             </p>
-            <p className="text-xl md:text-2xl mb-8 text-blue-200 max-w-3xl mx-auto">
+            <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto">
               Fair, transparent, and merit-based university admissions powered by AI
             </p>
             <div className="flex gap-4 justify-center flex-wrap">
               <Link href={getApplicationLink()}>
                 <Button
                   size="lg"
-                  className="bg-white text-blue-600 hover:bg-gray-100"
+                  className="bg-white text-primary-600 hover:bg-gray-100"
                   disabled={!admissionInfo?.is_open}
                 >
                   {admissionInfo?.is_open ? (student ? 'Go to Dashboard' : 'Apply Now') : 'Applications Closed'}
                 </Button>
               </Link>
               <Link href="/dashboard">
-                <Button variant="outline" size="lg" className="border-white text-white hover:bg-blue-700">
+                <Button variant="outline" size="lg" className="border-white text-white hover:bg-primary-700/80">
                   View Public Dashboard
                 </Button>
               </Link>
             </div>
             {admissionInfo?.is_open && admissionInfo.end_date && (
-              <p className="mt-4 text-blue-200">
+              <p className="mt-4 text-white/90">
                 Application deadline: {new Date(admissionInfo.end_date).toLocaleDateString()}
               </p>
             )}
@@ -117,19 +117,19 @@ export default function Home() {
               <div className="text-4xl mb-4">🎓</div>
               <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>Identity scrubbing removes all personal information</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>AI Worker evaluates merit: GPA, tests, achievements, essay</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>AI Judge validates for bias and quality</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>Retry loop ensures fair evaluation</span>
                 </li>
               </ul>
@@ -140,19 +140,19 @@ export default function Home() {
               <div className="text-4xl mb-4">👥</div>
               <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>Live interviews with human evaluators</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>Real-time AI monitors evaluator language for bias</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>Instant nudges for inappropriate questions</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>Statistical validation ensures consistency</span>
                 </li>
               </ul>
@@ -163,19 +163,19 @@ export default function Home() {
               <div className="text-4xl mb-4">🔒</div>
               <ul className="space-y-3 text-gray-700">
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>Every decision is hashed with SHA-256</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>Public verification portal for integrity checks</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>Tamper-evident audit trail</span>
                 </li>
                 <li className="flex items-start">
-                  <span className="text-blue-600 mr-2">•</span>
+                  <span className="text-primary-600 mr-2">•</span>
                   <span>Complete transparency and accountability</span>
                 </li>
               </ul>
@@ -237,10 +237,10 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-blue-600 text-white">
+      <section className="py-16 bg-primary-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold mb-6">Ready to Experience Fair Admissions?</h2>
-          <p className="text-xl mb-8 text-blue-100 max-w-2xl mx-auto">
+          <p className="text-xl mb-8 text-primary-100 max-w-2xl mx-auto">
             {student
               ? 'Access your dashboard to submit your application and track your progress.'
               : 'Submit your application and be evaluated purely on merit, with complete transparency and integrity.'}
@@ -248,7 +248,7 @@ export default function Home() {
           <Link href={getApplicationLink()}>
             <Button
               size="lg"
-              className="bg-white text-blue-600 hover:bg-gray-100"
+              className="bg-white text-primary-600 hover:bg-gray-100"
               disabled={!admissionInfo?.is_open}
             >
               {student ? 'Go to Dashboard' : 'Start Your Application'}

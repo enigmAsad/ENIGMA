@@ -26,7 +26,7 @@ export default function StudentLoginPage() {
         {error && <p className="text-red-500 mb-4">{error}</p>}
         <button
           onClick={login}
-          className="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600"
+          className="w-full bg-primary-500 text-white py-2 rounded-md hover:bg-primary-600"
         >
           Login with Google
         </button>

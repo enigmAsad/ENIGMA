@@ -175,7 +175,7 @@ export default function StudentDashboardPage() {
                     </div>
                     <button
                       onClick={() => router.push('/student/applications')}
-                      className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
+                      className="bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors text-sm font-medium"
                     >
                       View Details
                     </button>
@@ -247,7 +247,7 @@ export default function StudentDashboardPage() {
                     </div>
                     <button
                       onClick={() => router.push('/apply')}
-                      className="bg-blue-600 text-white py-2 px-6 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
+                      className="bg-primary-600 text-white py-2 px-6 rounded-md hover:bg-primary-700 transition-colors text-sm font-medium"
                     >
                       Apply Now
                     </button>
@@ -257,23 +257,23 @@ export default function StudentDashboardPage() {
 
               {/* Application In Progress (not yet published) */}
               {student.application && !isResultPublished && (
-                <div className="bg-blue-900/30 border border-blue-700 rounded-lg p-4">
+                <div className="bg-primary-900/30 border border-primary-700 rounded-lg p-4">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <span className="text-2xl">⏳</span>
                       <div>
-                        <h3 className="font-semibold text-blue-400">Application In Progress</h3>
-                        <p className="text-sm text-blue-300">
+                        <h3 className="font-semibold text-primary-400">Application In Progress</h3>
+                        <p className="text-sm text-primary-300">
                           Your application is being evaluated. Check back for updates.
                         </p>
-                        <p className="text-xs text-blue-400 mt-1">
+                        <p className="text-xs text-primary-400 mt-1">
                           Status: {applicationStatus?.replace(/_/g, ' ').toUpperCase()}
                         </p>
                       </div>
                     </div>
                     <button
                       onClick={() => router.push('/student/applications')}
-                      className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors text-sm font-medium"
+                      className="bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors text-sm font-medium"
                       >
                       Track Status
                     </button>
@@ -289,13 +289,13 @@ export default function StudentDashboardPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <button
                 onClick={() => router.push('/student/applications')}
-                className="bg-blue-600 text-white p-4 rounded-lg hover:bg-blue-700 transition-colors text-left"
+                className="bg-primary-600 text-white p-4 rounded-lg hover:bg-primary-700 transition-colors text-left"
               >
                 <div className="flex items-center gap-3">
                   <span className="text-2xl">📋</span>
                   <div>
                     <h3 className="font-semibold">My Applications</h3>
-                    <p className="text-sm text-blue-200">View all submissions and results</p>
+                    <p className="text-sm text-primary-200">View all submissions and results</p>
                   </div>
                 </div>
               </button>

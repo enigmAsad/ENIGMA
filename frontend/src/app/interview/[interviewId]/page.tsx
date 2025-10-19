@@ -200,7 +200,7 @@ const InterviewRoomPage = () => {
             {audioStreaming.isConnected ? '✓' : '✗'} Audio Monitoring
           </div>
           {audioStreaming.lastTranscriptId && (
-            <div className="px-3 py-1 rounded-full bg-blue-100 text-blue-800">
+            <div className="px-3 py-1 rounded-full bg-primary-100 text-primary-800">
               📝 Transcribed: #{audioStreaming.lastTranscriptId}
             </div>
           )}
@@ -233,7 +233,7 @@ const InterviewRoomPage = () => {
         <button
           onClick={startCall}
           disabled={isCallStarted || !localStream || interviewBlocked}
-          className="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition-colors disabled:bg-gray-400"
+          className="bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors disabled:bg-gray-400"
         >
           {interviewBlocked ? 'Interview Blocked' : isCallStarted ? 'Call Active' : 'Start Call'}
         </button>

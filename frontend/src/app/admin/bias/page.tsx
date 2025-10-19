@@ -311,7 +311,7 @@ export default function AdminBiasDashboard() {
                           {!flag.reviewed && (
                             <button
                               onClick={() => setSelectedFlag(flag)}
-                              className="text-blue-600 hover:text-blue-800 font-medium"
+                              className="text-primary-600 hover:text-primary-800 font-medium"
                             >
                               Review
                             </button>
@@ -467,7 +467,7 @@ export default function AdminBiasDashboard() {
                   value={resolution}
                   onChange={(e) => setResolution(e.target.value)}
                   rows={4}
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="Enter your resolution notes..."
                 />
               </div>

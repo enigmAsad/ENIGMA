@@ -88,7 +88,7 @@ export default function DashboardPage() {
               <div className="text-center">
                 <div className="text-4xl mb-2">📝</div>
                 <p className="text-sm text-gray-600 mb-1">Total Applications</p>
-                <p className="text-4xl font-bold text-blue-600">{stats.total_applications}</p>
+                <p className="text-4xl font-bold text-primary-600">{stats.total_applications}</p>
               </div>
             </Card>
 
@@ -132,7 +132,7 @@ export default function DashboardPage() {
                 };
 
                 const statusColors: Record<string, string> = {
-                  submitted: 'bg-blue-600',
+                  submitted: 'bg-primary-600',
                   identity_scrubbing: 'bg-purple-600',
                   worker_evaluation: 'bg-yellow-600',
                   judge_review: 'bg-orange-600',
@@ -172,7 +172,7 @@ export default function DashboardPage() {
 
                 const rangeColors: Record<string, string> = {
                   '90-100': 'bg-green-600',
-                  '80-89': 'bg-blue-600',
+                  '80-89': 'bg-primary-600',
                   '70-79': 'bg-yellow-600',
                   '60-69': 'bg-orange-600',
                   'below-60': 'bg-red-600',
@@ -231,12 +231,12 @@ export default function DashboardPage() {
                 </div>
               </div>
 
-              <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="p-4 bg-primary-50 border border-primary-200 rounded-lg">
                 <div className="flex items-start">
                   <span className="text-3xl mr-3">🤖</span>
                   <div>
-                    <h3 className="font-semibold text-blue-900 mb-1">Worker-Judge Validation</h3>
-                    <p className="text-sm text-blue-800">
+                    <h3 className="font-semibold text-primary-900 mb-1">Worker-Judge Validation</h3>
+                    <p className="text-sm text-primary-800">
                       Two-tier AI system with bias detection. Judge AI validates Worker AI
                       evaluations for quality and fairness before approval.
                     </p>
@@ -291,7 +291,7 @@ export default function DashboardPage() {
               <div className="text-center">
                 <div className="text-3xl mb-2">🔄</div>
                 <p className="text-sm text-gray-600 mb-1">In Progress</p>
-                <p className="text-2xl font-bold text-blue-600">
+                <p className="text-2xl font-bold text-primary-600">
                   {stats.total_applications - stats.completed_evaluations}
                 </p>
                 <p className="text-xs text-gray-500">

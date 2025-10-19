@@ -123,7 +123,7 @@ export default function NudgeOverlay({
     switch (type) {
       case "info":
         return {
-          bg: "bg-gradient-to-r from-blue-500 to-blue-600",
+          bg: "bg-gradient-to-r from-primary-500 to-primary-600",
           text: "text-white",
           icon: "💡",
           position: "bottom-4",

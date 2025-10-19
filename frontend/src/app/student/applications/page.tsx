@@ -58,7 +58,7 @@ export default function StudentApplicationsPage() {
     const statusLower = status.toLowerCase();
     if (statusLower === 'selected') return 'bg-green-100 text-green-800';
     if (statusLower === 'not_selected') return 'bg-gray-100 text-gray-800';
-    if (statusLower === 'published') return 'bg-blue-100 text-blue-800';
+    if (statusLower === 'published') return 'bg-primary-100 text-primary-800';
     if (statusLower === 'submitted') return 'bg-yellow-100 text-yellow-800';
     if (statusLower === 'processing' || statusLower === 'preprocessing') return 'bg-purple-100 text-purple-800';
     if (statusLower === 'scored') return 'bg-indigo-100 text-indigo-800';
@@ -68,7 +68,7 @@ export default function StudentApplicationsPage() {
   const getPhaseBadgeColor = (phase: string) => {
     const phaseLower = phase.toLowerCase();
     if (phaseLower === 'completed') return 'bg-gray-500 text-white';
-    if (phaseLower === 'published') return 'bg-blue-600 text-white';
+    if (phaseLower === 'published') return 'bg-primary-600 text-white';
     if (phaseLower === 'selection' || phaseLower === 'scored') return 'bg-indigo-600 text-white';
     if (phaseLower === 'processing') return 'bg-purple-600 text-white';
     if (phaseLower === 'submission') return 'bg-green-600 text-white';
@@ -87,7 +87,7 @@ export default function StudentApplicationsPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading...</p>
         </div>
       </div>
@@ -297,7 +297,7 @@ export default function StudentApplicationsPage() {
                             <div className="bg-white rounded-lg p-6 border border-gray-200">
                               <div className="text-center mb-6">
                                 <p className="text-sm text-gray-600 mb-2">Final Score</p>
-                                <p className="text-5xl font-bold text-blue-600">
+                                <p className="text-5xl font-bold text-primary-600">
                                   {app.results.final_score.toFixed(1)}
                                 </p>
                                 <p className="text-sm text-gray-500 mt-1">out of 100</p>
@@ -318,7 +318,7 @@ export default function StudentApplicationsPage() {
                                     </div>
                                     <div className="w-full bg-gray-200 rounded-full h-2">
                                       <div
-                                        className="bg-blue-600 h-2 rounded-full transition-all"
+                                        className="bg-primary-600 h-2 rounded-full transition-all"
                                         style={{ width: `${item.score}%` }}
                                       ></div>
                                     </div>

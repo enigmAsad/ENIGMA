@@ -55,7 +55,7 @@ export default function StudentApplyPage() {
   if (authLoading || loadingCycles) {
     return (
       <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     );
   }
@@ -156,9 +156,9 @@ export default function StudentApplyPage() {
         )}
 
         {/* Help Section */}
-        <Card className="mt-8 bg-blue-50 border-blue-200">
-          <h3 className="font-semibold text-blue-900 mb-2">Need Help?</h3>
-          <ul className="text-sm text-blue-800 space-y-1">
+        <Card className="mt-8 bg-primary-50 border-primary-200">
+          <h3 className="font-semibold text-primary-900 mb-2">Need Help?</h3>
+          <ul className="text-sm text-primary-800 space-y-1">
             <li>• You can only apply to one admission cycle at a time</li>
             <li>• Once submitted, your application cannot be edited</li>
             <li>• Check your dashboard for application status and results</li>

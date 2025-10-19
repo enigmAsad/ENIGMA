@@ -280,7 +280,7 @@ export default function AdminCyclesPage() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading cycles...</p>
         </div>
       </div>
@@ -322,7 +322,7 @@ export default function AdminCyclesPage() {
         <div className="mb-6">
           <button
             onClick={() => setShowCreateForm(!showCreateForm)}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+            className="px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
           >
             {showCreateForm ? 'Cancel' : '+ Create New Cycle'}
           </button>
@@ -349,7 +349,7 @@ export default function AdminCyclesPage() {
                   value={formData.cycle_name}
                   onChange={(e) => setFormData({ ...formData, cycle_name: e.target.value })}
                   required
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="e.g., Fall 2025 Admissions"
                 />
               </div>
@@ -364,13 +364,13 @@ export default function AdminCyclesPage() {
                   onChange={(e) => setFormData({ ...formData, max_seats: parseInt(e.target.value) || 1 })}
                   required
                   min="1"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   placeholder="e.g., 100"
                 />
               </div>
 
-              <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                <p className="text-sm text-blue-800">
+              <div className="mb-4 p-3 bg-primary-50 border border-primary-200 rounded-lg">
+                <p className="text-sm text-primary-800">
                   <strong>Timezone:</strong> Enter dates in <strong>your local time (PKT, UTC+5)</strong>.
                   The system will automatically convert and store them in UTC. Displayed times will show in PKT.
                 </p>
@@ -386,7 +386,7 @@ export default function AdminCyclesPage() {
                     value={formData.start_date}
                     onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
                   <p className="text-xs text-gray-500 mt-1">When admissions open (local time)</p>
                 </div>
@@ -400,7 +400,7 @@ export default function AdminCyclesPage() {
                     value={formData.end_date}
                     onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
                   <p className="text-xs text-gray-500 mt-1">Application deadline (local time)</p>
                 </div>
@@ -414,7 +414,7 @@ export default function AdminCyclesPage() {
                     value={formData.result_date}
                     onChange={(e) => setFormData({ ...formData, result_date: e.target.value })}
                     required
-                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
                   />
                   <p className="text-xs text-gray-500 mt-1">When results are published (local time)</p>
                 </div>
@@ -424,7 +424,7 @@ export default function AdminCyclesPage() {
                 <button
                   type="submit"
                   disabled={processing === 'create'}
-                  className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+                  className="px-6 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
                 >
                   {processing === 'create' ? 'Creating...' : 'Create Cycle'}
                 </button>
@@ -469,7 +469,7 @@ export default function AdminCyclesPage() {
                             <span className={`px-3 py-1 rounded-full text-sm font-medium ${cycle.phase === 'completed'
                               ? 'bg-green-100 text-green-700'
                               : cycle.is_open
-                                ? 'bg-blue-100 text-blue-700'
+                                ? 'bg-primary-100 text-primary-700'
                                 : 'bg-red-100 text-red-700'
                               }`}>
                               {cycle.phase.replace('_', ' ').toLowerCase()}
@@ -606,7 +606,7 @@ export default function AdminCyclesPage() {
                               <h4 className="text-lg font-semibold text-gray-900 mb-4">Application Status</h4>
                               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                                 <div className="text-center">
-                                  <p className="text-2xl font-bold text-blue-600">{status.stats.total_applications}</p>
+                                  <p className="text-2xl font-bold text-primary-600">{status.stats.total_applications}</p>
                                   <p className="text-sm text-gray-600">Total Applications</p>
                                 </div>
                                 <div className="text-center">
@@ -640,7 +640,7 @@ export default function AdminCyclesPage() {
                                       onClick={() => handlePhaseTransition(cycle.cycle_id, action.key)}
                                       disabled={processing !== null}
                                       className={`px-4 py-2 rounded-lg font-medium transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed ${action.variant === 'primary'
-                                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                        ? 'bg-primary-600 text-white hover:bg-primary-700'
                                         : 'bg-gray-600 text-white hover:bg-gray-700'
                                         }`}
                                     >

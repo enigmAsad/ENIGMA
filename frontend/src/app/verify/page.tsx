@@ -96,7 +96,7 @@ function VerifyContent() {
               Expected Hash (SHA-256)
             </label>
             <textarea
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all font-mono text-xs"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all font-mono text-xs"
               rows={3}
               value={expectedHash}
               onChange={(e) => setExpectedHash(e.target.value)}
@@ -302,11 +302,11 @@ function VerifyContent() {
             </p>
           </div>
 
-          <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
-            <p className="text-sm text-blue-900">
+          <div className="bg-primary-50 border border-primary-200 p-4 rounded-lg">
+            <p className="text-sm text-primary-900">
               <strong>Why is this important?</strong>
             </p>
-            <p className="text-sm text-blue-800 mt-1">
+            <p className="text-sm text-primary-800 mt-1">
               Cryptographic verification ensures that once a decision is made, it cannot be
               secretly altered. This protects applicants from arbitrary changes and provides
               mathematical proof of fairness and integrity.

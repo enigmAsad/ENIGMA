@@ -63,7 +63,7 @@ export default function BatchManagement({ cycleId, onImportSuccess, className = 
             value={batchId}
             onChange={(e) => setBatchId(e.target.value)}
             placeholder="Batch ID"
-            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+            className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
           />
           <button
             onClick={handleCheckBatchStatus}
@@ -121,7 +121,7 @@ export default function BatchManagement({ cycleId, onImportSuccess, className = 
               onChange={(e) => setBatchId(e.target.value)}
               placeholder="Enter batch ID"
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
 
@@ -135,14 +135,14 @@ export default function BatchManagement({ cycleId, onImportSuccess, className = 
               onChange={(e) => setResultsFile(e.target.value)}
               placeholder="e.g., /path/to/results.jsonl"
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
             />
           </div>
 
           <button
             type="submit"
             disabled={!batchId || !resultsFile || processing}
-            className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
+            className="w-full px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed font-medium"
           >
             {processing ? 'Importing...' : 'Import LLM Results'}
           </button>

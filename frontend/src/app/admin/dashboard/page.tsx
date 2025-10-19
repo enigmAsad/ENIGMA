@@ -133,7 +133,7 @@ export default function AdminDashboard() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">Loading dashboard...</p>
         </div>
       </div>
@@ -155,13 +155,13 @@ export default function AdminDashboard() {
             <div className="flex gap-3">
               <button
                 onClick={() => router.push('/admin/cycles')}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 Manage Cycles
               </button>
               <button
                 onClick={() => router.push('/admin/interviews')}
-                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
               >
                 Interviews
               </button>
@@ -250,7 +250,7 @@ export default function AdminDashboard() {
                       onClick={() => handlePhaseTransition(action.key)}
                       disabled={processingAction !== null}
                       className={`px-4 py-2 rounded-lg font-medium transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed ${action.variant === 'primary'
-                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                        ? 'bg-primary-600 text-white hover:bg-primary-700'
                         : 'bg-gray-600 text-white hover:bg-gray-700'
                         }`}
                     >
@@ -269,7 +269,7 @@ export default function AdminDashboard() {
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">Application Status</h3>
                   <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                     <div className="text-center">
-                      <p className="text-2xl font-bold text-blue-600">{cycleStatus.stats.total_applications}</p>
+                      <p className="text-2xl font-bold text-primary-600">{cycleStatus.stats.total_applications}</p>
                       <p className="text-sm text-gray-600">Total Applications</p>
                     </div>
                     <div className="text-center">
@@ -320,7 +320,7 @@ export default function AdminDashboard() {
                       {stats.total_applications}
                     </p>
                   </div>
-                  <div className="text-blue-600">
+                  <div className="text-primary-600">
                     <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                     </svg>

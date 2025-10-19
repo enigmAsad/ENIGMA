@@ -42,7 +42,7 @@ export default function PhaseProgress({ currentPhase, className = '' }: PhasePro
       <div className="mb-6">
         <div className="w-full bg-gray-200 rounded-full h-3">
           <div
-            className="bg-blue-600 h-3 rounded-full transition-all duration-500 ease-out"
+            className="bg-primary-600 h-3 rounded-full transition-all duration-500 ease-out"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
@@ -60,7 +60,7 @@ export default function PhaseProgress({ currentPhase, className = '' }: PhasePro
               key={phase.id}
               className={`flex items-center p-3 rounded-lg transition-all ${
                 isActive
-                  ? 'bg-blue-50 border border-blue-200'
+                  ? 'bg-primary-50 border border-primary-200'
                   : isCompleted
                   ? 'bg-green-50 border border-green-200'
                   : 'bg-gray-50 border border-gray-200'
@@ -68,7 +68,7 @@ export default function PhaseProgress({ currentPhase, className = '' }: PhasePro
             >
               <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
                 isActive
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-primary-600 text-white'
                   : isCompleted
                   ? 'bg-green-600 text-white'
                   : 'bg-gray-300 text-gray-600'
@@ -78,12 +78,12 @@ export default function PhaseProgress({ currentPhase, className = '' }: PhasePro
 
               <div className="ml-4 flex-1">
                 <div className={`font-medium ${
-                  isActive ? 'text-blue-900' : isCompleted ? 'text-green-900' : 'text-gray-700'
+                  isActive ? 'text-primary-900' : isCompleted ? 'text-green-900' : 'text-gray-700'
                 }`}>
                   {phase.name}
                 </div>
                 <div className={`text-sm ${
-                  isActive ? 'text-blue-700' : isCompleted ? 'text-green-700' : 'text-gray-500'
+                  isActive ? 'text-primary-700' : isCompleted ? 'text-green-700' : 'text-gray-500'
                 }`}>
                   {phase.description}
                 </div>
@@ -91,7 +91,7 @@ export default function PhaseProgress({ currentPhase, className = '' }: PhasePro
 
               {isCurrent && (
                 <div className="ml-4">
-                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                  <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary-100 text-primary-800">
                     Current
                   </span>
                 </div>

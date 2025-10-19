@@ -299,9 +299,9 @@ export default function ApplicationForm({ student, admissionInfo, onApplicationS
         </Card>
 
         {/* Privacy Notice */}
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-          <h3 className="font-semibold text-blue-900 mb-2">Privacy & Fairness Guarantee</h3>
-          <ul className="text-sm text-blue-800 space-y-2">
+        <div className="bg-primary-50 border border-primary-200 rounded-lg p-6">
+          <h3 className="font-semibold text-primary-900 mb-2">Privacy & Fairness Guarantee</h3>
+          <ul className="text-sm text-primary-800 space-y-2">
             <li>✓ Your name, contact information, and identifiable details will be removed before AI evaluation</li>
             <li>✓ Evaluation is based purely on academic merit: GPA, test scores, essay quality, and achievements</li>
             <li>✓ No demographic factors (gender, ethnicity, location) are considered</li>

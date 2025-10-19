@@ -10,8 +10,7 @@ from datetime import datetime, timezone
 import operator
 
 from langgraph.graph import StateGraph, END
-from langchain_openai import ChatOpenAI
-from langchain_core.messages import SystemMessage, HumanMessage
+from openai import OpenAI
 from sqlalchemy.orm import Session
 
 from src.config.settings import settings
@@ -144,11 +143,8 @@ def analyze_bias_node(state: BiasMonitoringState) -> BiasMonitoringState:
     try:
         logger.info(f"Analyzing transcript {state['transcript_id']} for bias")
 
-        # Initialize LLM (GPT-5-mini doesn't support temperature/max_tokens)
-        llm = ChatOpenAI(
-            model=settings.BIAS_DETECTION_MODEL,
-            api_key=settings.OPENAI_API_KEY,
-        )
+        # Initialize OpenAI client
+        client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
         # Build prompt
         user_prompt = BIAS_DETECTION_USER_PROMPT_TEMPLATE.format(
@@ -156,19 +152,20 @@ def analyze_bias_node(state: BiasMonitoringState) -> BiasMonitoringState:
             transcript=state["transcript_text"],
         )
 
-        # Call LLM with JSON mode
+        # Call OpenAI API with JSON mode
         messages = [
-            SystemMessage(content=BIAS_DETECTION_SYSTEM_PROMPT),
-            HumanMessage(content=user_prompt),
+            {"role": "system", "content": BIAS_DETECTION_SYSTEM_PROMPT},
+            {"role": "user", "content": user_prompt},
         ]
 
-        response = llm.invoke(
-            messages,
+        response = client.chat.completions.create(
+            model=settings.BIAS_DETECTION_MODEL,
+            messages=messages,
             response_format={"type": "json_object"},
         )
 
         # Parse response
-        analysis_result = json.loads(response.content)
+        analysis_result = json.loads(response.choices[0].message.content)
 
         logger.info(f"Bias analysis result: bias_detected={analysis_result.get('bias_detected')}, "
                    f"severity={analysis_result.get('severity')}")
@@ -324,7 +321,7 @@ def should_take_action(state: BiasMonitoringState) -> str:
     return "take_action"
 
 
-def take_action_node(state: BiasMonitoringState, db: Session) -> BiasMonitoringState:
+async def take_action_node(state: BiasMonitoringState, db: Session) -> BiasMonitoringState:
     """Node: Execute the determined action (nudge/warn/block).
 
     Args:
@@ -394,7 +391,12 @@ def create_bias_monitoring_workflow(db: Session) -> StateGraph:
     workflow.add_node("analyze_bias", analyze_bias_node)
     workflow.add_node("store_analysis", lambda state: store_analysis_node(state, db))
     workflow.add_node("check_strikes", lambda state: check_strikes_node(state, db))
-    workflow.add_node("take_action", lambda state: take_action_node(state, db))
+
+    # Async wrapper for take_action_node
+    async def take_action_wrapper(state):
+        return await take_action_node(state, db)
+
+    workflow.add_node("take_action", take_action_wrapper)
 
     # Define edges
     workflow.set_entry_point("analyze_bias")

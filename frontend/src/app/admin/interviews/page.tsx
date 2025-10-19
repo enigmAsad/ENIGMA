@@ -149,22 +149,33 @@ const AdminInterviewsPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-50">
       {/* Header */}
       <div className="bg-gradient-to-r from-teal-600 via-teal-700 to-cyan-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="h-14 w-14 rounded-2xl bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center">
-              <Video className="h-7 w-7 text-white" />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-6">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <div className="h-20 w-20 rounded-2xl bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center ring-4 ring-white/10">
+                  <Video className="h-10 w-10 text-white" />
+                </div>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-2">
+                  <h1 className="text-3xl font-bold">Interview Management</h1>
+                  <Sparkles className="h-6 w-6 text-yellow-300 flex-shrink-0" />
+                </div>
+                <p className="text-teal-100">Schedule and manage applicant interviews</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-4xl font-bold flex items-center gap-2">
-                Interview Management
-                <Sparkles className="h-7 w-7 text-yellow-300" />
-              </h1>
-              <p className="text-teal-100 mt-1">Schedule and manage applicant interviews</p>
-            </div>
+            <button
+              onClick={() => router.push('/admin/dashboard')}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 transition-all duration-200 font-medium text-sm hover:scale-105 self-start md:self-auto"
+            >
+              <ChevronRight className="h-4 w-4 rotate-180" />
+              Back to Dashboard
+            </button>
           </div>
 
           {/* Stats Bar */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 p-4">
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-lg bg-white/20 flex items-center justify-center">

@@ -7196,3 +7196,15 @@ server closed the connection unexpectedly
 {
     "taskName": "Task-101"
 }
+2025-10-20 02:36:09 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:36:15 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-141"
+}
+2025-10-20 02:36:19 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-141"
+}

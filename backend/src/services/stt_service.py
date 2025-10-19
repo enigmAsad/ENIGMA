@@ -4,12 +4,14 @@ import asyncio
 from typing import Optional, Dict, Any
 from datetime import datetime, timezone
 import io
-import base64
+import wave  # Import wave module
 
 from openai import AsyncOpenAI
 from sqlalchemy.orm import Session
 
-from src.config.settings import settings
+from src.config.settings import get_settings
+
+settings = get_settings()
 from src.database.repositories.transcript_repository import TranscriptRepository
 from src.database.models import SpeakerEnum
 from src.utils.logger import get_logger
@@ -28,7 +30,7 @@ class STTService:
         """
         self.db = db
         self.transcript_repo = TranscriptRepository(db)
-        self.client = AsyncOpenAI(api_key=settings.OPENAI_API_KEY)
+        self.client = AsyncOpenAI(api_key=settings.openai_api_key)
 
     async def transcribe_audio_chunk(
         self,
@@ -38,7 +40,7 @@ class STTService:
         """Transcribe an audio chunk using OpenAI Whisper API.
 
         Args:
-            audio_data: Raw audio bytes (WebM/Opus format)
+            audio_data: Raw audio bytes (PCM format)
             language: Language code (default: "en")
 
         Returns:
@@ -48,12 +50,23 @@ class STTService:
                 - duration: Audio duration in seconds
         """
         try:
-            # Create a file-like object from the audio bytes
-            audio_file = io.BytesIO(audio_data)
-            audio_file.name = "audio.webm"  # Set filename for proper content type
+            # Convert raw PCM data to WAV format in memory
+            # Assuming 48kHz, 16-bit mono audio from the browser
+            wav_buffer = io.BytesIO()
+            with wave.open(wav_buffer, "wb") as wf:
+                wf.setnchannels(1)  # Mono
+                wf.setsampwidth(2)  # 16-bit
+                wf.setframerate(48000)  # 48kHz sample rate
+                wf.writeframes(audio_data)
+            
+            wav_data = wav_buffer.getvalue()
+
+            # Create a file-like object from the WAV bytes
+            audio_file = io.BytesIO(wav_data)
+            audio_file.name = "audio.wav"  # Set filename to .wav
 
             # Call Whisper API
-            logger.info(f"Sending {len(audio_data)} bytes to Whisper API")
+            logger.info(f"Sending {len(wav_data)} bytes to Whisper API as WAV")
             response = await self.client.audio.transcriptions.create(
                 model="whisper-1",
                 file=audio_file,
@@ -171,7 +184,7 @@ class AudioStreamManager:
     def __init__(self):
         """Initialize audio stream manager."""
         self.active_streams: Dict[int, Dict[str, Any]] = {}
-        self.buffer_duration = settings.STT_CHUNK_DURATION_SECONDS  # From config
+        self.buffer_duration = settings.stt_chunk_duration_seconds  # From config
         logger.info(f"AudioStreamManager initialized with {self.buffer_duration}s buffer duration")
 
     def start_stream(self, interview_id: int) -> None:
@@ -218,6 +231,10 @@ class AudioStreamManager:
         Returns:
             Complete audio chunk if buffer is full, None otherwise
         """
+        # Backend Guard: Do not process audio from students.
+        if speaker == SpeakerEnum.STUDENT:
+            return None
+
         if interview_id not in self.active_streams:
             logger.warning(f"No active stream for interview {interview_id}")
             return None

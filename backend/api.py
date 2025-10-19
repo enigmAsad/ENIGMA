@@ -21,6 +21,8 @@ from src.models.schemas import (
     InterviewCreate,
     InterviewUpdate,
     InterviewDetails,
+    InterviewScoreCreate,
+    InterviewScoreRead,
 )
 from src.services.application_collector import ApplicationCollector
 from src.services.hash_chain import HashChainGenerator
@@ -29,8 +31,8 @@ from src.services.student_auth import StudentAuthService
 from src.services.phase_manager import PhaseManager
 from src.services.batch_processor import BatchProcessingService
 from src.database.engine import get_db, get_db_context
-from src.database.repositories import AdminRepository, ApplicationRepository, BatchRepository, InterviewRepository
-from src.database.models import Application, BatchTypeEnum, ApplicationStatusEnum
+from src.database.repositories import AdminRepository, ApplicationRepository, BatchRepository, InterviewRepository, InterviewScoreRepository
+from src.database.models import Application, BatchTypeEnum, ApplicationStatusEnum, AdmissionPhaseEnum
 from src.utils.logger import get_logger, AuditLogger
 from sqlalchemy.orm import Session
 
@@ -1208,26 +1210,29 @@ async def schedule_interview(
     try:
         interview_repo = InterviewRepository(db)
         app_repo = ApplicationRepository(db)
+        admin_repo = AdminRepository(db)
 
-        # Validate that the application exists and is selected
+        # 1. Validate application exists
         application = app_repo.get_by_application_id(request.application_id)
         if not application:
             raise HTTPException(status_code=404, detail="Application not found")
 
-        # Ensure the application has an associated student
+        # 2. Get the admission cycle
+        cycle = admin_repo.get_cycle_by_id(application.admission_cycle_id)
+        if not cycle:
+            raise HTTPException(status_code=404, detail="Admission cycle not found for this application")
+
+        # 3. Check if cycle is in the correct phase
+        if cycle.phase != AdmissionPhaseEnum.SELECTION:
+            raise HTTPException(
+                status_code=400,
+                detail=f"Interviews can only be scheduled when the cycle is in the SELECTION phase, but it is in '{cycle.phase.value}'",
+            )
+
         if not application.student_id:
             raise HTTPException(
                 status_code=400,
                 detail="Cannot schedule interview for an application with no linked student account."
-            )
-
-        # Check if interview can be scheduled (e.g., must be in 'selected' status)
-        # This logic might need adjustment based on exact workflow requirements
-        is_schedulable = application.status == ApplicationStatusEnum.SELECTED
-        if not is_schedulable:
-            raise HTTPException(
-                status_code=400,
-                detail=f"Interviews can only be scheduled for selected applicants, but status is '{application.status.value}'",
             )
 
         # 1. Create interview with a placeholder link
@@ -1328,6 +1333,46 @@ async def delete_interview(
     except Exception as e:
         logger.error(f"Failed to delete interview {interview_id}: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.post("/admin/interviews/{interview_id}/scores", response_model=InterviewScoreRead)
+async def add_interview_score(
+    interview_id: int,
+    score_data: InterviewScoreCreate,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """Add a score to a completed interview."""
+    try:
+        # Use a single repository instance
+        score_repo = InterviewScoreRepository(db)
+
+        # Create the score
+        new_score = score_repo.create_score(
+            interview_id=interview_id,
+            scored_by=admin["admin_id"],
+            score_data=score_data,
+        )
+
+        # The repository's create_score method already flushes,
+        # so the new_score object has an ID. We need to commit to save.
+        db.commit()
+        db.refresh(new_score)
+
+        logger.info(
+            f"Score added to interview {interview_id} by admin {admin['username']}"
+        )
+
+        # The 'new_score' object is an ORM model. Pydantic will convert it
+        # to the 'InterviewScoreRead' response model automatically.
+        return new_score
+
+    except Exception as e:
+        db.rollback()
+        logger.error(
+            f"Failed to add score to interview {interview_id}: {e}", exc_info=True
+        )
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
 
 
 # ==============================================================================
@@ -1995,6 +2040,7 @@ async def audio_stream_endpoint(
 
             # Get interview and admin details
             from src.database.repositories.interview_repository import InterviewRepository
+            from src.database.repositories.interview_score_repository import InterviewScoreRepository
             interview_repo = InterviewRepository(db)
             interview = interview_repo.get_by_id(interview_id)
 

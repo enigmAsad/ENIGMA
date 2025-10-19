@@ -651,6 +651,22 @@ class AdminAPIClient {
     }
   }
 
+  async addInterviewScore(interviewId: number, scoreData: any): Promise<any> {
+    const response = await fetch(`${API_BASE}/admin/interviews/${interviewId}/scores`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            ...this.getAuthHeader(),
+        },
+        body: JSON.stringify(scoreData),
+    });
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.detail || 'Failed to save score');
+    }
+    return response.json();
+  }
+
   // Public admission info (no auth)
   async getAdmissionInfo(): Promise<AdmissionInfo> {
     const response = await fetch(`${API_BASE}/admission/info`);

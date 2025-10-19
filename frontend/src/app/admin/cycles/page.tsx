@@ -183,7 +183,12 @@ export default function AdminCyclesPage() {
         actions.push({ key: 'processing', label: 'Re-run LLM Evaluation', variant: 'secondary' });
         break;
       case 'scored':
-        actions.push({ key: 'select', label: 'Perform Shortlisting', variant: 'primary' });
+        actions.push({
+          key: 'select',
+          label: 'Perform Shortlisting',
+          variant: 'primary',
+          description: `This will select the top ${cycle.max_seats * 2} applicants for interviews.`
+        });
         break;
       case 'selection':
         actions.push({ key: 'final-select', label: 'Perform Final Selection', variant: 'primary' });
@@ -461,7 +466,7 @@ export default function AdminCyclesPage() {
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
                             <h3 className="text-xl font-bold text-gray-900">{cycle.cycle_name}</h3>
-                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${cycle.phase === 'COMPLETED'
+                            <span className={`px-3 py-1 rounded-full text-sm font-medium ${cycle.phase === 'completed'
                               ? 'bg-green-100 text-green-700'
                               : cycle.is_open
                                 ? 'bg-blue-100 text-blue-700'
@@ -630,24 +635,28 @@ export default function AdminCyclesPage() {
                               <h4 className="text-lg font-semibold text-gray-900 mb-4">Phase Actions</h4>
                               <div className="flex flex-wrap gap-3">
                                 {availableActions.map((action) => (
-                                  <button
-                                    key={action.key}
-                                    onClick={() => handlePhaseTransition(cycle.cycle_id, action.key)}
-                                    disabled={processing !== null}
-                                    className={`px-4 py-2 rounded-lg font-medium transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed ${action.variant === 'primary'
-                                      ? 'bg-blue-600 text-white hover:bg-blue-700'
-                                      : 'bg-gray-600 text-white hover:bg-gray-700'
-                                      }`}
-                                  >
-                                    {processing === cycle.cycle_id ? 'Processing...' : action.label}
-                                  </button>
+                                  <div key={action.key}>
+                                    <button
+                                      onClick={() => handlePhaseTransition(cycle.cycle_id, action.key)}
+                                      disabled={processing !== null}
+                                      className={`px-4 py-2 rounded-lg font-medium transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed ${action.variant === 'primary'
+                                        ? 'bg-blue-600 text-white hover:bg-blue-700'
+                                        : 'bg-gray-600 text-white hover:bg-gray-700'
+                                        }`}
+                                    >
+                                      {processing === cycle.cycle_id ? 'Processing...' : action.label}
+                                    </button>
+                                    {action.description && (
+                                      <p className="text-xs text-gray-500 mt-1 max-w-xs">{action.description}</p>
+                                    )}
+                                  </div>
                                 ))}
                               </div>
                             </div>
                           )}
 
                           {/* Batch Management - Show for PROCESSING and SCORED phases */}
-                          {(cycle.phase === 'PROCESSING' || cycle.phase === 'SCORED') && (
+                          {(cycle.phase === 'processing' || cycle.phase === 'scored') && (
                             <div className="mb-6">
                               <BatchManagement
                                 cycleId={cycle.cycle_id}

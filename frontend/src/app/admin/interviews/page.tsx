@@ -26,7 +26,7 @@ const AdminInterviewsPage = () => {
         const selectionCycle = allCycles.find(c => c.phase === 'selection');
         if (selectionCycle) {
           setActiveCycle(selectionCycle);
-          const applicants = await adminApiClient.getCycleApplications(selectionCycle.cycle_id, 'selected');
+          const applicants = await adminApiClient.getCycleApplications(selectionCycle.cycle_id, 'shortlisted');
           setSelectedApplicants(applicants);
         }
 
@@ -127,7 +127,7 @@ const AdminInterviewsPage = () => {
                           ))}
                         </ul>
                       ) : (
-                        <p>No applicants are currently in the 'SELECTED' status for this cycle.</p>
+                        <p>No applicants have been shortlisted for this cycle yet.</p>
                       )}
                     </Card>
                   </div>

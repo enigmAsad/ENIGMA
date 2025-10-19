@@ -7180,3 +7180,19 @@ server closed the connection unexpectedly
 {
     "taskName": "Task-15"
 }
+2025-10-20 02:17:29 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:19:23 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:19:28 | INFO     | student_auth | Issued session STS_3DB23FD284 for student STU_B17774BA
+{
+    "taskName": "Task-101"
+}
+2025-10-20 02:19:28 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-101"
+}

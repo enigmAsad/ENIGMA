@@ -28,10 +28,10 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-primary-50 to-primary-100">
+    <div className="min-h-screen flex bg-gradient-to-br from-teal-50 to-cyan-100">
       {/* Left decorative panel (desktop) */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary-600 to-primary-700" />
+        <div className="absolute inset-0 bg-gradient-to-br from-teal-600 to-cyan-700" />
 
         {/* Light accents */}
         <div className="absolute top-8 right-16 w-56 h-56 bg-white/10 rounded-full blur-3xl" />
@@ -81,18 +81,21 @@ export default function AdminLoginPage() {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <div className="h-16 w-16 rounded-full bg-gradient-to-r from-primary-600 to-primary-700 flex items-center justify-center mx-auto shadow-lg">
+            <div className="h-16 w-16 rounded-full bg-gradient-to-r from-teal-600 to-cyan-700 flex items-center justify-center mx-auto shadow-lg">
               <img src="/images/eNigma-logo.png" alt="eNigma Logo" className="w-10 h-10 object-contain" />
             </div>
             <h2 className="mt-4 text-3xl font-bold text-gray-900">Admin Login</h2>
             <p className="mt-2 text-gray-600">Secure access to the admin control panel</p>
           </div>
 
-          <div className="bg-white rounded-xl shadow-xl overflow-hidden border border-gray-100">
+          <div className="bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-200">
             <div className="p-6 sm:p-8">
               {error && (
-                <div className="mb-6 rounded-lg bg-red-50 p-3">
-                  <p className="text-sm text-red-700">{error}</p>
+                <div className="mb-6 rounded-lg bg-red-50 border border-red-200 p-4 flex items-start gap-3">
+                  <div className="flex-shrink-0 h-5 w-5 rounded-full bg-red-100 flex items-center justify-center">
+                    <span className="text-red-600 text-xs font-bold">!</span>
+                  </div>
+                  <p className="text-sm text-red-700 flex-1">{error}</p>
                 </div>
               )}
 
@@ -111,7 +114,7 @@ export default function AdminLoginPage() {
                       value={username}
                       onChange={(e) => setUsername(e.target.value)}
                       required
-                      className="block w-full rounded-lg border border-gray-300 focus:border-primary-500 focus:ring-primary-500 pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-white text-gray-900"
+                      className="block w-full rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-teal-500 pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-white text-gray-900"
                       placeholder="Enter your username"
                     />
                   </div>
@@ -131,17 +134,26 @@ export default function AdminLoginPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="block w-full rounded-lg border border-gray-300 focus:border-primary-500 focus:ring-primary-500 pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-white text-gray-900"
+                      className="block w-full rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-teal-500 pl-10 pr-3 py-2.5 placeholder-gray-400 shadow-sm focus:outline-none sm:text-sm bg-white text-gray-900"
                       placeholder="••••••••"
                     />
                   </div>
                 </div>
 
-                <div className="pt-2">
+                <div className="relative pt-2">
+                  <div className="absolute inset-0 flex items-center">
+                    <div className="w-full border-t border-gray-200"></div>
+                  </div>
+                  <div className="relative flex justify-center text-xs">
+                    <span className="px-3 bg-white text-gray-500 font-medium">SECURE ACCESS</span>
+                  </div>
+                </div>
+
+                <div>
                   <button
                     type="submit"
                     disabled={loading}
-                    className="relative flex w-full justify-center rounded-lg border border-transparent bg-primary-600 py-3 px-4 text-sm font-medium text-white shadow-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="relative flex w-full justify-center rounded-lg border-2 border-transparent bg-gradient-to-r from-teal-600 to-cyan-700 py-3 px-4 text-sm font-semibold text-white shadow-lg hover:from-teal-700 hover:to-cyan-800 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all hover:scale-[1.02]"
                   >
                     {loading && (
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3">
@@ -158,7 +170,7 @@ export default function AdminLoginPage() {
           </div>
 
           <div className="mt-6 text-center">
-            <a href="/" className="text-sm font-medium text-primary-600 hover:text-primary-700">← Back to Home</a>
+            <a href="/" className="text-sm font-medium text-teal-600 hover:text-teal-700">← Back to Home</a>
           </div>
 
           <p className="mt-6 text-center text-xs text-gray-600">

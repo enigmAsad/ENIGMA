@@ -135,6 +135,39 @@ class ApplicationRepository(BaseRepository[Application]):
             "application_id"
         )
 
+    def update_application_status_by_ids(self, application_ids: List[str], status: ApplicationStatusEnum) -> int:
+        """Bulk update the status of applications by their IDs."""
+        if not application_ids:
+            return 0
+        
+        stmt = (
+            update(Application)
+            .where(Application.application_id.in_(application_ids))
+            .values(status=status)
+        )
+        result = self.db.execute(stmt)
+        return result.rowcount
+
+    def update_final_score_status_by_app_ids(self, application_ids: List[str], status: ApplicationStatusEnum) -> int:
+        """Bulk update the status of final scores by application IDs."""
+        if not application_ids:
+            return 0
+
+        # Subquery to get the anonymized_ids from application_ids
+        subquery = (
+            select(AnonymizedApplication.anonymized_id)
+            .where(AnonymizedApplication.application_id.in_(application_ids))
+            .scalar_subquery()
+        )
+
+        stmt = (
+            update(FinalScore)
+            .where(FinalScore.anonymized_id.in_(subquery))
+            .values(status=status)
+        )
+        result = self.db.execute(stmt)
+        return result.rowcount
+
     def count_by_cycle(
         self,
         cycle_id: str,

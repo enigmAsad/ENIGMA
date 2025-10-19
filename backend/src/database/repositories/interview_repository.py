@@ -136,3 +136,55 @@ class InterviewRepository(BaseRepository[Interview]):
             self.db.delete(interview)
             return True
         return False
+
+    def add_interview_score(
+        self, 
+        interview_id: int, 
+        scorer_admin_id: str,
+        scores: Dict[str, float],
+        notes: Optional[str] = None
+    ) -> InterviewScore:
+        """Add a score to an interview.
+
+        Args:
+            interview_id: The ID of the interview
+            scorer_admin_id: The ID of the admin who scored the interview
+            scores: A dictionary of scores (e.g., communication, critical_thinking)
+            notes: Optional notes from the scorer
+
+        Returns:
+            The created InterviewScore object
+        """
+        from src.database.models import InterviewScore
+
+        # For now, final score is a simple average.
+        # This can be replaced with a weighted average later.
+        final_score = sum(scores.values()) / len(scores) if scores else 0.0
+
+        interview_score = InterviewScore(
+            interview_id=interview_id,
+            scored_by=scorer_admin_id,
+            communication_score=scores.get("communication", 0.0),
+            critical_thinking_score=scores.get("critical_thinking", 0.0),
+            motivation_score=scores.get("motivation", 0.0),
+            final_interview_score=final_score,
+            notes=notes
+        )
+        self.db.add(interview_score)
+        self.db.flush()
+        return interview_score
+
+    def get_top_interview_performers(self, cycle_id: str, limit: int) -> List[InterviewScore]:
+        """Get the top performing interviews for a cycle based on score."""
+        from src.database.models import InterviewScore, Application
+
+        stmt = (
+            select(InterviewScore)
+            .join(Interview, InterviewScore.interview_id == Interview.id)
+            .join(Application, Interview.application_id == Application.application_id)
+            .where(Application.admission_cycle_id == cycle_id)
+            .order_by(InterviewScore.final_interview_score.desc())
+            .limit(limit)
+        )
+        result = self.db.execute(stmt)
+        return list(result.scalars().all())

@@ -26,6 +26,7 @@ class ApplicationStatusEnum(str, enum.Enum):
     BATCH_READY = "batch_ready"
     PROCESSING = "processing"
     SCORED = "scored"
+    SHORTLISTED = "shortlisted"
     SELECTED = "selected"
     NOT_SELECTED = "not_selected"
     PUBLISHED = "published"
@@ -669,11 +670,40 @@ class Interview(Base):
     bias_analyses = relationship("LiveBiasAnalysis", back_populates="interview", cascade="all, delete-orphan")
     nudges = relationship("LiveNudge", back_populates="interview", cascade="all, delete-orphan")
     bias_flags = relationship("BiasFlag", back_populates="interview", cascade="all, delete-orphan")
+    score = relationship("InterviewScore", back_populates="interview", uselist=False, cascade="all, delete-orphan")
 
     __table_args__ = (
         Index("idx_interview_status_time", "status", "interview_time"),
         Index("idx_interview_student_cycle", "student_id", "admission_cycle_id"),
         Index("idx_interview_admin_cycle", "admin_id", "admission_cycle_id"),
+    )
+
+
+class InterviewScore(Base):
+    """Stores the scores and evaluation from a human-led interview."""
+    __tablename__ = "interview_scores"
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    interview_id = Column(Integer, ForeignKey("interviews.id"), nullable=False, unique=True)
+    
+    # Example scoring criteria
+    communication_score = Column(Float, nullable=False)
+    critical_thinking_score = Column(Float, nullable=False)
+    motivation_score = Column(Float, nullable=False)
+    
+    final_interview_score = Column(Float, nullable=False)
+    
+    notes = Column(Text, nullable=True)
+    
+    scored_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
+    scored_by = Column(String(50), ForeignKey("admin_users.admin_id"), nullable=False)
+
+    # Relationships
+    interview = relationship("Interview", back_populates="score")
+    scorer = relationship("AdminUser")
+
+    __table_args__ = (
+        Index("idx_interview_score_final", "final_interview_score"),
     )
 
 

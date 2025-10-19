@@ -18,7 +18,7 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 from sqlalchemy import select, func
 
-from src.database.repositories import AdminRepository, ApplicationRepository
+from src.database.repositories import AdminRepository, ApplicationRepository, InterviewRepository
 from src.database.models import (
     AdmissionCycle, AdmissionPhaseEnum, ApplicationStatusEnum, Application
 )
@@ -44,6 +44,7 @@ class PhaseManager:
         self.db = db
         self.admin_repo = AdminRepository(db)
         self.app_repo = ApplicationRepository(db)
+        self.interview_repo = InterviewRepository(db)
 
     def freeze_cycle(self, cycle_id: str, closed_by: str) -> AdmissionCycle:
         """Transition from SUBMISSION to FROZEN phase.
@@ -378,12 +379,12 @@ class PhaseManager:
     ) -> Dict[str, Any]:
         """Transition from SCORED to SELECTION phase.
 
-        Phase 6 → Phase 7: Top-K Selection
+        Phase 6 → Phase 7: Top-K Shortlisting for Interviews
 
         Actions:
-        - Select top applicants based on final_score
-        - Update final_scores table with selection status
-        - Create selection log
+        - Select top 2k applicants based on final_score for interviews.
+        - Update application status to SHORTLISTED.
+        - Create selection log.
 
         Args:
             cycle_id: Cycle ID
@@ -393,7 +394,7 @@ class PhaseManager:
         Returns:
             Dict[str, Any]: Selection results
         """
-        logger.info(f"Performing selection for cycle {cycle_id}")
+        logger.info(f"Performing shortlisting for cycle {cycle_id}")
 
         cycle = self.admin_repo.get_cycle_by_id(cycle_id)
         if not cycle:
@@ -404,32 +405,33 @@ class PhaseManager:
                 f"Can only perform selection from SCORED phase"
             )
 
-        # Get top N final scores
+        # Get top 2k final scores for shortlisting
         max_seats = cycle.max_seats
-        top_scores = self.app_repo.get_top_scores(cycle_id, limit=max_seats)
+        shortlist_count = max_seats * 2
+        top_scores = self.app_repo.get_top_scores(cycle_id, limit=shortlist_count)
 
         if not top_scores:
             raise PhaseTransitionError("No scored applications found")
 
-        # Mark top applicants as SELECTED
-        selected_count = 0
+        # Mark top applicants as SHORTLISTED
+        shortlisted_actual_count = 0
         cutoff_score = None
-        selected_anonymized_ids = []
+        shortlisted_anonymized_ids = []
 
         for score in top_scores:
             self.app_repo.update_final_score_status(
                 score.anonymized_id,
-                ApplicationStatusEnum.SELECTED
+                ApplicationStatusEnum.SHORTLISTED
             )
-            selected_anonymized_ids.append(score.anonymized_id)
-            selected_count += 1
+            shortlisted_anonymized_ids.append(score.anonymized_id)
+            shortlisted_actual_count += 1
             cutoff_score = score.final_score
 
         # Mark remaining as NOT_SELECTED
         from sqlalchemy import update
         from src.database.models import FinalScore, AnonymizedApplication
 
-        # Get all scored but not selected
+        # Get all scored but not shortlisted
         not_selected_stmt = (
             update(FinalScore)
             .where(
@@ -445,22 +447,22 @@ class PhaseManager:
         result = self.db.execute(not_selected_stmt)
         not_selected_count = result.rowcount
 
-        # ✅ FIX: Also update applications table to sync status
-        # Update SELECTED applications
-        if selected_anonymized_ids:
-            selected_apps_stmt = (
+        # Update application statuses to match FinalScore statuses
+        # Update SHORTLISTED applications
+        if shortlisted_anonymized_ids:
+            shortlisted_apps_stmt = (
                 update(Application)
                 .where(
                     Application.admission_cycle_id == cycle_id,
                     Application.application_id.in_(
                         select(AnonymizedApplication.application_id)
-                        .where(AnonymizedApplication.anonymized_id.in_(selected_anonymized_ids))
+                        .where(AnonymizedApplication.anonymized_id.in_(shortlisted_anonymized_ids))
                     )
                 )
-                .values(status=ApplicationStatusEnum.SELECTED)
+                .values(status=ApplicationStatusEnum.SHORTLISTED)
             )
-            self.db.execute(selected_apps_stmt)
-            logger.info(f"Updated {len(selected_anonymized_ids)} applications to SELECTED status")
+            self.db.execute(shortlisted_apps_stmt)
+            logger.info(f"Updated {len(shortlisted_anonymized_ids)} applications to SHORTLISTED status")
 
         # Update NOT_SELECTED applications
         not_selected_apps_stmt = (
@@ -479,21 +481,22 @@ class PhaseManager:
         not_selected_apps_result = self.db.execute(not_selected_apps_stmt)
         logger.info(f"Updated {not_selected_apps_result.rowcount} applications to NOT_SELECTED status")
 
-        # Update cycle selected_count
-        self.admin_repo.update_selected_count(cycle_id, selected_count)
+        # Update cycle selected_count with the number of shortlisted applicants
+        self.admin_repo.update_selected_count(cycle_id, shortlisted_actual_count)
 
         # Create selection log
         selection_criteria = {
             "strategy": selection_strategy,
-            "max_seats": max_seats,
-            "selected": selected_count,
-            "not_selected": not_selected_count,
+            "final_selection_seats": max_seats,
+            "interview_shortlist_target": shortlist_count,
+            "interview_shortlist_actual": shortlisted_actual_count,
+            "not_selected_count": not_selected_count,
             "cutoff_score": cutoff_score
         }
 
         self.admin_repo.create_selection_log(
             admission_cycle_id=cycle_id,
-            selected_count=selected_count,
+            selected_count=shortlisted_actual_count,
             selection_criteria=selection_criteria,
             cutoff_score=cutoff_score or 0.0,
             executed_by=executed_by
@@ -505,14 +508,109 @@ class PhaseManager:
         self.db.commit()
 
         logger.info(
-            f"Selection complete: {selected_count} selected, {not_selected_count} not selected"
+            f"Shortlisting complete: {shortlisted_actual_count} shortlisted, {not_selected_count} not selected"
         )
 
         return {
-            "selected_count": selected_count,
+            "shortlisted_count": shortlisted_actual_count,
             "not_selected_count": not_selected_count,
             "cutoff_score": cutoff_score,
             "selection_criteria": selection_criteria
+        }
+
+    def perform_final_selection(
+        self,
+        cycle_id: str,
+        executed_by: str,
+        selection_strategy: str = "top_k_interview"
+    ) -> Dict[str, Any]:
+        """
+        Perform final selection after interviews.
+
+        Takes SHORTLISTED applicants and moves them to SELECTED or NOT_SELECTED
+        based on interview performance.
+
+        Args:
+            cycle_id: Cycle ID
+            executed_by: Admin ID
+            selection_strategy: Selection strategy
+
+        Returns:
+            Dict[str, Any]: Final selection results
+        """
+        logger.info(f"Performing final selection for cycle {cycle_id}")
+
+        cycle = self.admin_repo.get_cycle_by_id(cycle_id)
+        if not cycle:
+            raise PhaseTransitionError(f"Cycle {cycle_id} not found")
+
+        if cycle.phase != AdmissionPhaseEnum.SELECTION:
+            raise PhaseTransitionError(
+                f"Can only perform final selection from SELECTION phase, currently in {cycle.phase.value}"
+            )
+
+        # Get the final 'k' number of seats
+        max_seats = cycle.max_seats 
+
+        # Get top 'k' interview performers for the cycle
+        top_performers = self.interview_repo.get_top_interview_performers(cycle_id, limit=max_seats)
+
+        if not top_performers:
+            raise PhaseTransitionError("No scored interviews found for this cycle.")
+
+        selected_interview_ids = {perf.interview_id for perf in top_performers}
+        
+        # Get all shortlisted applications for this cycle
+        shortlisted_apps = self.app_repo.get_by_cycle(cycle_id, status=ApplicationStatusEnum.SHORTLISTED)
+        
+        selected_app_ids = []
+        not_selected_app_ids = []
+
+        for app in shortlisted_apps:
+            # Check if the application has an associated interview and if that interview is in the top performers
+            if hasattr(app, 'interview') and app.interview and app.interview.id in selected_interview_ids:
+                selected_app_ids.append(app.application_id)
+            else:
+                not_selected_app_ids.append(app.application_id)
+
+        # Update statuses in FinalScore and Application tables
+        if selected_app_ids:
+            self.app_repo.update_application_status_by_ids(selected_app_ids, ApplicationStatusEnum.SELECTED)
+            self.app_repo.update_final_score_status_by_app_ids(selected_app_ids, ApplicationStatusEnum.SELECTED)
+            logger.info(f"Marked {len(selected_app_ids)} applicants as SELECTED.")
+
+        if not_selected_app_ids:
+            self.app_repo.update_application_status_by_ids(not_selected_app_ids, ApplicationStatusEnum.NOT_SELECTED)
+            self.app_repo.update_final_score_status_by_app_ids(not_selected_app_ids, ApplicationStatusEnum.NOT_SELECTED)
+            logger.info(f"Marked {len(not_selected_app_ids)} applicants as NOT_SELECTED.")
+
+        # Create a new selection log for this phase
+        final_selection_criteria = {
+            "strategy": selection_strategy,
+            "final_seats_target": max_seats,
+            "final_seats_actual": len(selected_app_ids),
+            "not_selected_count": len(not_selected_app_ids),
+        }
+
+        self.admin_repo.create_selection_log(
+            admission_cycle_id=cycle_id,
+            selected_count=len(selected_app_ids),
+            selection_criteria=final_selection_criteria,
+            cutoff_score=0, # Cutoff score is not as clear here, maybe based on interview score
+            executed_by=executed_by
+        )
+        
+        # The phase remains SELECTION. The next step is for the admin to PUBLISH.
+        self.db.commit()
+
+        logger.info(
+            f"Final selection complete: {len(selected_app_ids)} selected, {len(not_selected_app_ids)} not selected"
+        )
+
+        return {
+            "selected_count": len(selected_app_ids),
+            "not_selected_count": len(not_selected_app_ids),
+            "selection_criteria": final_selection_criteria
         }
 
     def publish_results(self, cycle_id: str) -> AdmissionCycle:

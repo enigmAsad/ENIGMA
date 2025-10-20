@@ -8,16 +8,17 @@ interface PhaseProgressProps {
 }
 
 // Phase definitions matching backend enum values (lowercase with underscores)
+// Backend has 9 phases - interviews happen DURING the "scored" phase
 const PHASES = [
-  { id: 'submission', name: 'Submission', description: 'Applications Open' },
-  { id: 'frozen', name: 'Frozen', description: 'Data Locked' },
-  { id: 'preprocessing', name: 'Preprocessing', description: 'Scrubbing PII + Metrics' },
-  { id: 'batch_prep', name: 'Batch Prep', description: 'Export Ready' },
-  { id: 'processing', name: 'Processing', description: 'LLM Running' },
-  { id: 'scored', name: 'Scored', description: 'Results Ready' },
-  { id: 'selection', name: 'Selection', description: 'Top-K Selection' },
-  { id: 'published', name: 'Published', description: 'Results Live' },
-  { id: 'completed', name: 'Completed', description: 'Cycle Closed' },
+  { id: 'submission', name: 'Submission', description: 'Applications Open', icon: '📝' },
+  { id: 'frozen', name: 'Frozen', description: 'Data Locked', icon: '🔒' },
+  { id: 'preprocessing', name: 'Preprocessing', description: 'Scrubbing PII + Metrics', icon: '🧹' },
+  { id: 'batch_prep', name: 'Batch Prep', description: 'Export Ready', icon: '📦' },
+  { id: 'processing', name: 'Processing', description: 'Phase 1 LLM Evaluation', icon: '🤖' },
+  { id: 'scored', name: 'Interviews', description: 'Phase 2 Interviews (2k shortlisted)', icon: '🎥' },
+  { id: 'selection', name: 'Selection', description: 'Final Selection (k selected)', icon: '🎯' },
+  { id: 'published', name: 'Published', description: 'Results Live', icon: '📤' },
+  { id: 'completed', name: 'Completed', description: 'Cycle Closed', icon: '✅' },
 ];
 
 export default function PhaseProgress({ currentPhase, className = '' }: PhaseProgressProps) {
@@ -66,18 +67,18 @@ export default function PhaseProgress({ currentPhase, className = '' }: PhasePro
                   : 'bg-gray-50 border border-gray-200'
               }`}
             >
-              <div className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-semibold ${
+              <div className={`flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg font-semibold ${
                 isActive
-                  ? 'bg-primary-600 text-white'
+                  ? 'bg-primary-600 text-white shadow-lg'
                   : isCompleted
-                  ? 'bg-green-600 text-white'
+                  ? 'bg-green-600 text-white shadow-md'
                   : 'bg-gray-300 text-gray-600'
               }`}>
-                {isCompleted ? '✓' : index + 1}
+                {isCompleted ? '✓' : phase.icon}
               </div>
 
               <div className="ml-4 flex-1">
-                <div className={`font-medium ${
+                <div className={`font-semibold ${
                   isActive ? 'text-primary-900' : isCompleted ? 'text-green-900' : 'text-gray-700'
                 }`}>
                   {phase.name}

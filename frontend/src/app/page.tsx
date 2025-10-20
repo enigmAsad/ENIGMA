@@ -13,7 +13,7 @@ import {
   CheckCircle, Ban, GraduationCap, Users, Lock, ShieldCheck, Search,
   BarChart3, Target, Zap, TrendingUp, Globe, Award, FileText, Video,
   Sparkles, ArrowRight, Shield, Eye, Clock, ChevronRight, Star,
-  Verify, Database, RefreshCw, CheckCircle2
+  Database, RefreshCw, CheckCircle2
 } from 'lucide-react';
 import { adminApiClient, type AdmissionInfo } from '@/lib/adminApi';
 import { useAuth } from '@/hooks/useStudentAuth';
@@ -72,7 +72,7 @@ export default function Home() {
                 {admissionInfo.is_open && admissionInfo.seats_available !== undefined && (
                   <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-0.5 rounded-full bg-white/20 text-xs">
                     <Users className="h-3 w-3" />
-                    {admissionInfo.seats_available} of {admissionInfo.max_seats} seats
+                    {admissionInfo.max_seats} seats
                   </span>
                 )}
               </div>

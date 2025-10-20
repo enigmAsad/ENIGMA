@@ -195,7 +195,7 @@ export default function StudentDashboardPage() {
                     <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 px-4">You haven't submitted an application for the current cycle.</p>
                     {admissionInfo?.is_open ? (
                       <button
-                        onClick={() => router.push('/apply')}
+                        onClick={() => router.push('/student/apply')}
                         className="w-full sm:w-auto inline-flex items-center justify-center gap-2 min-h-[48px] px-5 sm:px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg text-sm sm:text-base touch-manipulation"
                       >
                         <Sparkles className="h-4 w-4 sm:h-5 sm:w-5" />
@@ -347,7 +347,7 @@ export default function StudentDashboardPage() {
                           <div className="flex justify-between">
                             <span className="text-gray-600">Seats Available:</span>
                             <span className="font-semibold text-gray-900">
-                              {admissionInfo.seats_available} / {admissionInfo.max_seats}
+                              {admissionInfo.max_seats}
                             </span>
                           </div>
                           {admissionInfo.end_date && (

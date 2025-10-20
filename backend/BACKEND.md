@@ -1,7 +1,7 @@
 # ENIGMA Backend - Technical Documentation
 
-**Version:** 2.4.0
-**Last Updated:** 2025-10-19
+**Version:** 2.4.2
+**Last Updated:** 2025-10-20
 **Python Version:** 3.12+
 **Status:** Production Ready (Phase 1 + Phase 2 Complete with Full WebSocket Integration)
 
@@ -441,9 +441,13 @@ ENIGMA implements a structured 9-phase admission cycle workflow with validation 
 
 **Phase 5: PROCESSING** - Backend runs internal Worker/Judge LLM services, produces evaluation scores, and writes `final_scores`
 
-**Phase 6: SCORED** - Imports LLM results, updates final_scores table, marks applications as SCORED
+**Phase 6: SCORED (Interview Phase)** - LLM results imported, applications marked as SCORED. **This is when Phase 2 interviews happen:**
+  - Step 6a: Admin performs shortlisting via `POST /admin/cycles/{id}/select` → Selects top **2k** candidates (where k = max_seats)
+  - Step 6b: **[Manual]** Admin schedules and conducts bias-monitored interviews with shortlisted candidates
+  - Step 6c: Admins submit interview scores via InterviewScoreModal (stored in `interview_scores` table)
+  - **Note**: Cycle remains in "SCORED" phase throughout the entire interview process
 
-**Phase 7: SELECTION** - A two-step process. First, top candidates are **shortlisted** for interviews based on Phase 1 scores. After interviews, a final selection marks applicants as **SELECTED** or **NOT_SELECTED**.
+**Phase 7: SELECTION** - Final selection after interviews complete. Admin performs final selection via `POST /admin/cycles/{id}/final-select` → Selects final **k** students from interview pool based on combined Phase 1 (LLM) + Phase 2 (Interview) scores. Marks applicants as **SELECTED** or **NOT_SELECTED**.
 
 **Phase 8: PUBLISHED** - Publishes results, makes them available to students via API
 
@@ -464,15 +468,41 @@ ENIGMA implements a structured 9-phase admission cycle workflow with validation 
 
 ### Key APIs by Phase
 
-- **Phase 1:** `POST /applications` (student submissions)
-- **Phase 2:** `POST /admin/cycles/{id}/freeze`
-- **Phase 3:** `POST /admin/cycles/{id}/preprocess`
-- **Phase 4:** `POST /admin/cycles/{id}/export` (creates JSONL snapshot)
-- **Phase 5:** `POST /admin/cycles/{id}/processing` (runs internal LLM pipeline and persists results)
-- **Phase 6:** `POST /admin/batch/{id}/import` (optional external import path)
-- **Phase 7:** `POST /admin/cycles/{id}/select` (top-K selection)
-- **Phase 8:** `POST /admin/cycles/{id}/publish`
-- **Phase 9:** `POST /admin/cycles/{id}/complete`
+- **Phase 1 (SUBMISSION):** `POST /applications` (student submissions)
+- **Phase 2 (FROZEN):** `POST /admin/cycles/{id}/freeze`
+- **Phase 3 (PREPROCESSING):** `POST /admin/cycles/{id}/preprocess`
+- **Phase 4 (BATCH_PREP):** `POST /admin/cycles/{id}/export` (creates JSONL snapshot)
+- **Phase 5 (PROCESSING):** `POST /admin/cycles/{id}/processing` (runs internal LLM pipeline and persists results)
+- **Phase 6 (SCORED - Interview Phase):**
+  - Step 6a: `POST /admin/cycles/{id}/select` (shortlist 2k candidates for interviews)
+  - Step 6b: `POST /admin/interviews` (schedule interviews)
+  - Step 6c: Interview room (`WS /ws/interview/{id}/audio`, `WS /ws/interview/{id}/nudges` for bias monitoring)
+- **Phase 7 (SELECTION):** `POST /admin/cycles/{id}/final-select` (final k selection after interviews)
+- **Phase 8 (PUBLISHED):** `POST /admin/cycles/{id}/publish`
+- **Phase 9 (COMPLETED):** `POST /admin/cycles/{id}/complete`
+
+### Frontend Automated Pipeline (v1.5.0)
+
+The frontend admin portal includes an **automated pipeline** that simplifies the workflow:
+
+**Single-Click Pipeline** (`/admin/cycles` → "Start Phase 1 Pipeline" button):
+1. Preprocessing (Phase 3)
+2. Export (Phase 4)
+3. LLM Evaluation (Phase 5)
+4. Shortlisting (Phase 6a) → **Stops here for interviews**
+
+**After Pipeline Completes:**
+- Admin manually schedules and conducts interviews (Phase 6b-6c)
+- Admin clicks "Perform Final Selection" → Selects k students (Phase 7)
+- Admin clicks "Publish Results" → Makes results public (Phase 8)
+- Admin clicks "Complete Cycle" → Archives cycle (Phase 9)
+
+**Workflow Summary:**
+```
+Freeze → [Automated Pipeline] → Interviews → Final Selection → Publish → Complete
+  ↓              ↓                    ↓              ↓            ↓          ↓
+Phase 2      Phases 3-5           Phase 6       Phase 7      Phase 8    Phase 9
+```
 
 ---
 
@@ -835,6 +865,33 @@ with get_db_context() as db:
 ---
 
 ## Changelog
+
+### v2.4.2 (2025-10-20) - Frontend Integration & Workflow Clarification
+
+**Documentation Update: Interview Integration & Automated Pipeline**
+
+- **Updated**: BACKEND.md documentation to clarify interview integration in Phase 6 (SCORED)
+- **Clarified**: Phase 6 is the "Interview Phase" where 2k candidates are shortlisted, interviews are conducted, and scores are collected
+- **Documented**: Frontend automated pipeline (v1.5.0) that runs Phases 3-5 automatically and stops at Phase 6a for interviews
+- **Added**: Clear workflow summary showing:
+  - Phase 1 Pipeline: Automated (Preprocessing → Export → LLM → Shortlisting)
+  - Phase 2 Interviews: Manual (Schedule → Conduct → Score)
+  - Final Selection: Admin-triggered (k students selected from interview pool)
+- **Updated**: "Key APIs by Phase" section to include interview endpoints
+- **Impact**: No backend code changes - purely documentation improvements to align with frontend workflow
+
+**Workflow Clarification:**
+```
+Phase 6 (SCORED):
+  6a. POST /admin/cycles/{id}/select → Shortlist 2k candidates
+  6b. POST /admin/interviews → Schedule interviews (manual)
+  6c. WS /ws/interview/{id}/* → Conduct bias-monitored interviews (manual)
+
+Phase 7 (SELECTION):
+  POST /admin/cycles/{id}/final-select → Select final k students
+```
+
+---
 
 ### v2.4.1 (2025-10-19) - Two-Step Selection Process
 - **Updated**: The selection process is now a two-step workflow to accommodate Phase 1 (scoring) and Phase 2 (interviews).

@@ -28,17 +28,47 @@ export default function NudgeOverlay({
   const [nudges, setNudges] = useState<Nudge[]>([]);
   const [ws, setWs] = useState<WebSocket | null>(null);
   const [isConnected, setIsConnected] = useState(false);
+  const [connectionError, setConnectionError] = useState<string | null>(null);
+  const [hasAttemptedConnection, setHasAttemptedConnection] = useState(false);
 
   // Connect to nudge WebSocket
   useEffect(() => {
-    const wsUrl = `${process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8000"}/ws/interview/${interviewId}/nudges?admin_id=${adminId}`;
+    // Derive WebSocket URL from API URL
+    const getWebSocketUrl = () => {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+
+      // Convert HTTP(S) to WS(S)
+      let wsUrl = apiUrl.replace(/^http/, "ws");
+
+      // Remove trailing slash if present
+      wsUrl = wsUrl.replace(/\/$/, "");
+
+      return wsUrl;
+    };
+
+    const wsBaseUrl = getWebSocketUrl();
+    const wsUrl = `${wsBaseUrl}/ws/interview/${interviewId}/nudges?admin_id=${adminId}`;
 
     console.log(`Connecting to nudge stream: ${wsUrl}`);
-    const websocket = new WebSocket(wsUrl);
+
+    let websocket: WebSocket;
+
+    try {
+      websocket = new WebSocket(wsUrl);
+      setHasAttemptedConnection(true);
+      setConnectionError(null);
+    } catch (error) {
+      console.error("Failed to create WebSocket:", error);
+      setIsConnected(false);
+      setConnectionError("Failed to initialize bias monitoring connection");
+      setHasAttemptedConnection(true);
+      return;
+    }
 
     websocket.onopen = () => {
-      console.log("Nudge WebSocket connected");
+      console.log("✅ Nudge WebSocket connected");
       setIsConnected(true);
+      setConnectionError(null);
     };
 
     websocket.onmessage = (event) => {
@@ -52,7 +82,7 @@ export default function NudgeOverlay({
             timestamp: Date.now(),
           };
 
-          console.log("Received nudge:", newNudge);
+          console.log("📨 Received nudge:", newNudge);
           setNudges((prev) => [...prev, newNudge]);
 
           // Auto-dismiss info nudges after duration
@@ -70,7 +100,7 @@ export default function NudgeOverlay({
 
         // Handle acknowledgment confirmation
         if (data.status === "acknowledged") {
-          console.log(`Nudge ${data.nudge_id} acknowledged by server`);
+          console.log(`✓ Nudge ${data.nudge_id} acknowledged by server`);
         }
       } catch (error) {
         console.error("Error parsing nudge message:", error);
@@ -78,20 +108,36 @@ export default function NudgeOverlay({
     };
 
     websocket.onerror = (error) => {
-      console.error("Nudge WebSocket error:", error);
+      console.error("❌ Nudge WebSocket error:", {
+        error,
+        readyState: websocket?.readyState,
+        url: wsUrl,
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
       setIsConnected(false);
+      setConnectionError("Bias monitoring connection failed - interviews will continue without real-time monitoring");
     };
 
-    websocket.onclose = () => {
-      console.log("Nudge WebSocket disconnected");
+    websocket.onclose = (event) => {
+      console.log("🔌 Nudge WebSocket disconnected", {
+        code: event.code,
+        reason: event.reason || 'No reason provided',
+        wasClean: event.wasClean
+      });
       setIsConnected(false);
+
+      // Only set error if it wasn't a clean close
+      if (!event.wasClean && !connectionError) {
+        setConnectionError("Bias monitoring disconnected - check your network connection");
+      }
     };
 
     setWs(websocket);
 
     // Cleanup
     return () => {
-      if (websocket.readyState === WebSocket.OPEN) {
+      if (websocket && websocket.readyState === WebSocket.OPEN) {
+        console.log("🧹 Closing nudge WebSocket");
         websocket.close();
       }
     };
@@ -214,20 +260,37 @@ export default function NudgeOverlay({
     );
   };
 
-  // Don't render anything if no nudges
-  if (nudges.length === 0) {
-    return null;
-  }
-
   return (
     <>
+      {/* Render active nudges */}
       {nudges.map((nudge) => renderNudge(nudge))}
 
-      {/* Connection status indicator (only show if disconnected) */}
-      {!isConnected && (
-        <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-auto bg-red-500 text-white px-3 sm:px-4 py-2 sm:py-2 rounded-lg shadow-lg text-xs sm:text-sm z-30 flex items-center justify-center gap-2">
-          <span className="text-base sm:text-lg">⚠️</span>
-          <span>Bias monitoring disconnected</span>
+      {/* Connection warning - show if attempted but failed/disconnected */}
+      {hasAttemptedConnection && !isConnected && connectionError && (
+        <div className="fixed top-20 left-4 right-4 sm:left-1/2 sm:transform sm:-translate-x-1/2 sm:max-w-2xl bg-yellow-500 text-gray-900 px-4 py-3 rounded-lg shadow-xl text-sm z-40 flex items-start gap-3">
+          <span className="text-xl flex-shrink-0 mt-0.5">⚠️</span>
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold mb-1">Bias Monitoring Unavailable</p>
+            <p className="text-xs opacity-90">{connectionError}</p>
+            <p className="text-xs opacity-75 mt-1">
+              The interview can proceed, but automated fairness checks are temporarily offline.
+            </p>
+          </div>
+          <button
+            onClick={() => setConnectionError(null)}
+            className="text-gray-900 hover:text-gray-700 flex-shrink-0 text-lg font-bold"
+            aria-label="Dismiss"
+          >
+            ×
+          </button>
+        </div>
+      )}
+
+      {/* Success indicator when connected */}
+      {isConnected && (
+        <div className="fixed bottom-4 right-4 bg-green-600 text-white px-3 py-2 rounded-lg shadow-lg text-xs flex items-center gap-2 z-30">
+          <span className="w-2 h-2 bg-white rounded-full animate-pulse"></span>
+          <span>Bias monitoring active</span>
         </div>
       )}
 

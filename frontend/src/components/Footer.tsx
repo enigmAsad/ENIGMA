@@ -228,11 +228,8 @@ export default function Footer() {
           <div className="border-t border-white/10 py-6">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-sm">
               <div className="flex items-center gap-2 text-gray-400">
-                <span>&copy; {currentYear} ENIGMA Project.</span>
+                <span>&copy; {currentYear} ENIGMA (Equitable National Intelligence for Governance, Merit & Accountability)</span>
                 <span className="hidden sm:inline">All rights reserved.</span>
-                <span className="inline-flex items-center gap-1">
-                  Made with <Heart className="h-3.5 w-3.5 text-red-500 fill-red-500" /> for fairness
-                </span>
               </div>
               <div className="flex items-center gap-6">
                 <Link

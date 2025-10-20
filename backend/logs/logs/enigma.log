@@ -7368,3 +7368,147 @@ server closed the connection unexpectedly
 {
     "taskName": "Task-507"
 }
+2025-10-20 12:52:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 12:52:10 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-20 12:52:10 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-20 12:52:14 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-20 12:52:14 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-20 12:52:14 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-20 12:52:14 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-20 12:52:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 12:52:38 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 12:53:08 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 12:53:14 | INFO     | student_auth | Issued session STS_FAAFDFEF0F for student STU_B17774BA
+{
+    "taskName": "Task-22"
+}
+2025-10-20 12:53:14 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-22"
+}
+2025-10-20 12:53:56 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 12:54:03 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-63"
+}
+2025-10-20 12:54:07 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-63"
+}
+2025-10-20 13:14:22 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:17:50 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:20:23 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:20:26 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:21:54 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:30:14 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:36:00 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:40:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:41:10 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:42:59 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:43:17 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:50:16 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 13:52:20 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 14:04:16 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 14:05:07 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 14:05:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 14:05:54 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 14:05:56 | INFO     | student_auth | Issued session STS_678E6E023B for student STU_B17774BA
+{
+    "taskName": "Task-207"
+}
+2025-10-20 14:05:56 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-207"
+}
+2025-10-20 14:05:59 | INFO     | student_auth | Issued session STS_9EF40E308D for student STU_B17774BA
+{
+    "taskName": "Task-211"
+}
+2025-10-20 14:05:59 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-211"
+}

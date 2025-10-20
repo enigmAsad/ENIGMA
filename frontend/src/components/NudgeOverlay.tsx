@@ -165,19 +165,19 @@ export default function NudgeOverlay({
       return (
         <div
           key={nudge.nudge_id}
-          className={`fixed inset-0 ${styles.bg} ${styles.text} ${styles.zIndex} flex items-center justify-center`}
+          className={`fixed inset-0 ${styles.bg} ${styles.text} ${styles.zIndex} flex items-center justify-center p-4`}
         >
-          <div className="max-w-2xl mx-auto p-8 text-center">
-            <div className="text-6xl mb-6">{styles.icon}</div>
-            <h1 className="text-4xl font-bold mb-4">Interview Terminated</h1>
-            <p className="text-xl mb-8 leading-relaxed">{nudge.message}</p>
-            <div className="bg-white/10 rounded-lg p-6 mb-6">
-              <p className="text-sm">
+          <div className="max-w-2xl mx-auto p-6 sm:p-8 text-center">
+            <div className="text-4xl sm:text-5xl md:text-6xl mb-4 sm:mb-6">{styles.icon}</div>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Interview Terminated</h1>
+            <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 leading-relaxed">{nudge.message}</p>
+            <div className="bg-white/10 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6">
+              <p className="text-xs sm:text-sm">
                 This incident has been logged and flagged for review by
                 administrators. You will be redirected to the dashboard.
               </p>
             </div>
-            <div className="text-sm opacity-80">
+            <div className="text-xs sm:text-sm opacity-80">
               If you believe this is an error, please contact your
               administrator.
             </div>
@@ -190,22 +190,22 @@ export default function NudgeOverlay({
     return (
       <div
         key={nudge.nudge_id}
-        className={`fixed left-1/2 transform -translate-x-1/2 ${styles.position} ${styles.zIndex}
-                   max-w-3xl w-full mx-4 animate-slide-in-up`}
+        className={`fixed left-4 right-4 sm:left-1/2 sm:transform sm:-translate-x-1/2 ${styles.position} ${styles.zIndex}
+                   sm:max-w-3xl sm:w-full animate-slide-in-up`}
       >
         <div
-          className={`${styles.bg} ${styles.text} rounded-lg shadow-2xl p-4 flex items-start gap-4`}
+          className={`${styles.bg} ${styles.text} rounded-lg shadow-2xl p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4`}
         >
-          <div className="text-3xl flex-shrink-0">{styles.icon}</div>
+          <div className="text-2xl sm:text-3xl flex-shrink-0">{styles.icon}</div>
           <div className="flex-1 min-w-0">
-            <p className="text-base font-medium leading-relaxed">
+            <p className="text-sm sm:text-base font-medium leading-relaxed">
               {nudge.message}
             </p>
           </div>
           <button
             onClick={() => acknowledgeNudge(nudge.nudge_id)}
-            className="flex-shrink-0 px-4 py-2 bg-white/20 hover:bg-white/30 rounded-md
-                     font-medium transition-colors duration-200"
+            className="w-full sm:w-auto flex-shrink-0 px-4 py-2.5 sm:py-2 bg-white/20 hover:bg-white/30 rounded-md
+                     font-medium transition-colors duration-200 text-sm sm:text-base min-h-[44px] sm:min-h-[36px] touch-manipulation"
           >
             {nudge.nudge_type === "warning" ? "Acknowledge" : "Dismiss"}
           </button>
@@ -225,8 +225,9 @@ export default function NudgeOverlay({
 
       {/* Connection status indicator (only show if disconnected) */}
       {!isConnected && (
-        <div className="fixed bottom-4 right-4 bg-red-500 text-white px-4 py-2 rounded-lg shadow-lg text-sm z-30">
-          ⚠️ Bias monitoring disconnected
+        <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-auto bg-red-500 text-white px-3 sm:px-4 py-2 sm:py-2 rounded-lg shadow-lg text-xs sm:text-sm z-30 flex items-center justify-center gap-2">
+          <span className="text-base sm:text-lg">⚠️</span>
+          <span>Bias monitoring disconnected</span>
         </div>
       )}
 

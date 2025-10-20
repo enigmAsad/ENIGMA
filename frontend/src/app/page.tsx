@@ -52,30 +52,30 @@ export default function Home() {
             : 'bg-gradient-to-r from-gray-600 via-slate-600 to-gray-600'
         } text-white`}>
           <div className="absolute inset-0 bg-black/10"></div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
-            <div className="flex items-center justify-center gap-3 text-center">
-              <span aria-hidden className="shrink-0 h-8 w-8 rounded-full bg-white/20 flex items-center justify-center">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3 text-center">
+              <span aria-hidden className="shrink-0 h-7 w-7 sm:h-8 sm:w-8 rounded-full bg-white/20 flex items-center justify-center">
                 {admissionInfo.is_open ? (
-                  <CheckCircle className="h-5 w-5" />
+                  <CheckCircle className="h-4 w-4 sm:h-5 sm:w-5" />
                 ) : (
-                  <Lock className="h-5 w-5" />
+                  <Lock className="h-4 w-4 sm:h-5 sm:w-5" />
                 )}
               </span>
-              <p className="font-semibold text-sm sm:text-base">
-                {admissionInfo.is_open ? (
-                  <>
-                    Admissions are OPEN for {admissionInfo.cycle_name}!
-                    {admissionInfo.seats_available !== undefined && (
-                      <span className="ml-2 inline-flex items-center gap-1 px-3 py-0.5 rounded-full bg-white/20 text-xs">
-                        <Users className="h-3 w-3" />
-                        {admissionInfo.seats_available} of {admissionInfo.max_seats} seats available
-                      </span>
-                    )}
-                  </>
-                ) : (
-                  <>Admissions are currently CLOSED. {admissionInfo.message}</>
+              <div className="flex flex-col sm:flex-row items-center gap-2">
+                <p className="font-semibold text-sm sm:text-base">
+                  {admissionInfo.is_open ? (
+                    <>Admissions are OPEN for {admissionInfo.cycle_name}!</>
+                  ) : (
+                    <>Admissions are currently CLOSED. {admissionInfo.message}</>
+                  )}
+                </p>
+                {admissionInfo.is_open && admissionInfo.seats_available !== undefined && (
+                  <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-0.5 rounded-full bg-white/20 text-xs">
+                    <Users className="h-3 w-3" />
+                    {admissionInfo.seats_available} of {admissionInfo.max_seats} seats
+                  </span>
                 )}
-              </p>
+              </div>
             </div>
           </div>
         </div>
@@ -107,44 +107,44 @@ export default function Home() {
 
             {/* Main heading */}
             <div className="mb-6">
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tight text-white mb-2">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight text-white mb-2">
                 ENIGMA
               </h1>
-              <div className="flex items-center justify-center gap-3 flex-wrap">
-                <div className="h-1 w-12 bg-gradient-to-r from-transparent via-white/60 to-transparent rounded-full"></div>
-                <Sparkles className="h-5 w-5 text-yellow-300" />
-                <div className="h-1 w-12 bg-gradient-to-r from-transparent via-white/60 to-transparent rounded-full"></div>
+              <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
+                <div className="h-1 w-8 sm:w-12 bg-gradient-to-r from-transparent via-white/60 to-transparent rounded-full"></div>
+                <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-300" />
+                <div className="h-1 w-8 sm:w-12 bg-gradient-to-r from-transparent via-white/60 to-transparent rounded-full"></div>
               </div>
             </div>
 
-            <p className="text-xl sm:text-2xl md:text-3xl text-white/95 max-w-4xl mx-auto leading-relaxed mb-4 font-light">
+            <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/95 max-w-4xl mx-auto leading-relaxed mb-3 sm:mb-4 font-light px-4">
               Fair, transparent, and merit-based university admissions powered by AI
             </p>
 
-            <p className="text-base sm:text-lg text-white/80 max-w-2xl mx-auto mb-10 leading-relaxed">
+            <p className="text-sm sm:text-base md:text-lg text-white/80 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-4">
               Eliminate bias, ensure fairness, and provide complete transparency in every admission decision
               with cryptographically verifiable proof.
             </p>
 
             {/* CTA Buttons */}
-            <div className="flex gap-4 justify-center flex-wrap mb-8">
-              <Link href={getApplicationLink()}>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center px-4 mb-6 sm:mb-8 max-w-lg sm:max-w-none mx-auto">
+              <Link href={getApplicationLink()} className="w-full sm:w-auto">
                 <button
                   disabled={!admissionInfo?.is_open}
-                  className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-700 font-semibold text-lg shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 overflow-hidden"
+                  className="w-full group relative inline-flex items-center justify-center gap-2 min-h-[48px] sm:min-h-[52px] px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-white text-primary-700 font-semibold text-base sm:text-lg shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 overflow-hidden touch-manipulation"
                 >
                   <span className="absolute inset-0 bg-gradient-to-r from-white to-gray-50 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                   <span className="relative flex items-center gap-2">
                     {admissionInfo?.is_open ? (student ? 'Go to Dashboard' : 'Apply Now') : 'Applications Closed'}
-                    {admissionInfo?.is_open && <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />}
+                    {admissionInfo?.is_open && <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />}
                   </span>
                 </button>
               </Link>
-              <Link href="/dashboard">
-                <button className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-semibold text-lg hover:bg-white/20 hover:scale-105 transition-all shadow-lg">
-                  <BarChart3 className="h-5 w-5" />
+              <Link href="/dashboard" className="w-full sm:w-auto">
+                <button className="w-full group inline-flex items-center justify-center gap-2 min-h-[48px] sm:min-h-[52px] px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-semibold text-base sm:text-lg hover:bg-white/20 hover:scale-105 transition-all shadow-lg touch-manipulation">
+                  <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5" />
                   Public Dashboard
-                  <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
             </div>
@@ -158,19 +158,19 @@ export default function Home() {
             )}
 
             {/* Trust indicators */}
-            <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-white/80 text-sm">
+            <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 text-white/80 text-xs sm:text-sm px-4">
               <div className="flex items-center gap-2">
-                <Shield className="h-4 w-4" />
+                <Shield className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 <span>100% Bias-Free</span>
               </div>
-              <div className="h-4 w-px bg-white/30"></div>
+              <div className="hidden sm:block h-4 w-px bg-white/30"></div>
               <div className="flex items-center gap-2">
-                <Lock className="h-4 w-4" />
+                <Lock className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 <span>Cryptographically Secure</span>
               </div>
-              <div className="h-4 w-px bg-white/30"></div>
+              <div className="hidden sm:block h-4 w-px bg-white/30"></div>
               <div className="flex items-center gap-2">
-                <Eye className="h-4 w-4" />
+                <Eye className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                 <span>Fully Transparent</span>
               </div>
             </div>
@@ -186,12 +186,12 @@ export default function Home() {
       </section>
 
       {/* Stats Strip */}
-      <section className="relative -mt-16 z-10 py-8">
+      <section className="relative -mt-12 sm:-mt-16 z-10 py-6 sm:py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            <div className="group relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary-100 to-indigo-100 rounded-bl-full opacity-50"></div>
-              <div className="relative px-6 py-8 text-center">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
+            <div className="group relative overflow-hidden rounded-xl sm:rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100">
+              <div className="absolute top-0 right-0 w-20 h-20 sm:w-24 sm:h-24 bg-gradient-to-br from-primary-100 to-indigo-100 rounded-bl-full opacity-50"></div>
+              <div className="relative px-4 sm:px-6 py-6 sm:py-8 text-center">
                 <div className="inline-flex items-center justify-center h-12 w-12 rounded-xl bg-gradient-to-br from-primary-500 to-indigo-600 mb-4 shadow-md">
                   <FileText className="h-6 w-6 text-white" />
                 </div>
@@ -237,20 +237,20 @@ export default function Home() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-white"></div>
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 border border-primary-200 mb-6">
-              <Target className="h-4 w-4 text-primary-600" />
-              <span className="text-sm font-semibold text-primary-700">Our Mission</span>
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary-50 border border-primary-200 mb-4 sm:mb-6">
+              <Target className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary-600" />
+              <span className="text-xs sm:text-sm font-semibold text-primary-700">Our Mission</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 sm:mb-6 px-4">
               Fairness Through <span className="bg-gradient-to-r from-primary-600 to-indigo-600 bg-clip-text text-transparent">Technology</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
               ENIGMA eliminates bias from university admissions through blind AI evaluation and
               real-time monitoring. We ensure every applicant is judged solely on merit, with
               complete transparency and cryptographic proof of integrity.
@@ -258,41 +258,41 @@ export default function Home() {
           </div>
 
           {/* Feature highlights */}
-          <div className="grid md:grid-cols-3 gap-6 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-10 md:mt-12">
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-indigo-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
-                <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-primary-500 to-indigo-600 flex items-center justify-center mb-4 shadow-md">
-                  <Shield className="h-7 w-7 text-white" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-indigo-600 rounded-xl sm:rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
+                <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-lg sm:rounded-xl bg-gradient-to-br from-primary-500 to-indigo-600 flex items-center justify-center mb-3 sm:mb-4 shadow-md">
+                  <Shield className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Zero Bias</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Zero Bias</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   All identifying information is completely removed before evaluation. Only merit matters.
                 </p>
               </div>
             </div>
 
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
-                <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-4 shadow-md">
-                  <Eye className="h-7 w-7 text-white" />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl sm:rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
+                <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-lg sm:rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-3 sm:mb-4 shadow-md">
+                  <Eye className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Full Transparency</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Full Transparency</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   Every decision is explained with detailed feedback and cryptographic verification.
                 </p>
               </div>
             </div>
 
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
-                <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 shadow-md">
-                  <Award className="h-7 w-7 text-white" />
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl sm:rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
+                <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-lg sm:rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-3 sm:mb-4 shadow-md">
+                  <Award className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Merit-Based</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Merit-Based</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   AI evaluates applications purely on academic achievement and potential.
                 </p>
               </div>
@@ -564,57 +564,59 @@ export default function Home() {
               <span className="text-white/90 font-medium text-sm">Join the Future of Admissions</span>
             </div>
 
-            <h2 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-white mb-6 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 sm:mb-6 leading-tight px-4">
               Ready to Experience{' '}
-              <span className="inline-block bg-white/10 backdrop-blur-sm px-4 py-1 rounded-xl">
+              <span className="inline-block bg-white/10 backdrop-blur-sm px-3 sm:px-4 py-1 rounded-xl">
                 Fair Admissions?
               </span>
             </h2>
 
-            <p className="text-lg sm:text-xl text-white/90 mb-10 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-white/90 mb-8 sm:mb-10 leading-relaxed px-4">
               {student
                 ? 'Access your dashboard to submit your application and track your progress in real-time.'
                 : 'Submit your application and be evaluated purely on merit, with complete transparency and cryptographic integrity.'}
             </p>
 
-            <div className="flex gap-4 justify-center flex-wrap">
-              <Link href={getApplicationLink()}>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center px-4 max-w-lg sm:max-w-none mx-auto">
+              <Link href={getApplicationLink()} className="w-full sm:w-auto">
                 <button
                   disabled={!admissionInfo?.is_open}
-                  className="group relative inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white text-primary-700 font-bold text-lg shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                  className="w-full group relative inline-flex items-center justify-center gap-2 min-h-[48px] sm:min-h-[52px] px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-white text-primary-700 font-bold text-base sm:text-lg shadow-2xl hover:shadow-white/20 hover:scale-105 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 touch-manipulation"
                 >
                   {student ? 'Go to Dashboard' : 'Start Your Application'}
                   {(student || admissionInfo?.is_open) && (
-                    <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                   )}
                 </button>
               </Link>
-              <Link href="/verify">
-                <button className="group inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-semibold text-lg hover:bg-white/20 hover:scale-105 transition-all shadow-lg">
-                  <Shield className="h-5 w-5" />
+              <Link href="/verify" className="w-full sm:w-auto">
+                <button className="w-full group inline-flex items-center justify-center gap-2 min-h-[48px] sm:min-h-[52px] px-6 sm:px-8 py-3 sm:py-4 rounded-xl bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-semibold text-base sm:text-lg hover:bg-white/20 hover:scale-105 transition-all shadow-lg touch-manipulation">
+                  <Shield className="h-4 w-4 sm:h-5 sm:w-5" />
                   Verify Results
-                  <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </Link>
             </div>
 
             {/* Trust badges */}
-            <div className="mt-12 flex flex-wrap items-center justify-center gap-8 text-white/70 text-sm">
+            <div className="mt-10 sm:mt-12 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 text-white/70 text-xs sm:text-sm px-4">
               <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-lg bg-white/10 flex items-center justify-center">
-                  <CheckCircle className="h-4 w-4 text-white" />
+                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-white/10 flex items-center justify-center">
+                  <CheckCircle className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" />
                 </div>
                 <span>No credit card required</span>
               </div>
+              <div className="hidden sm:block h-4 w-px bg-white/30"></div>
               <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-lg bg-white/10 flex items-center justify-center">
-                  <Shield className="h-4 w-4 text-white" />
+                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-white/10 flex items-center justify-center">
+                  <Shield className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" />
                 </div>
                 <span>100% Secure</span>
               </div>
+              <div className="hidden sm:block h-4 w-px bg-white/30"></div>
               <div className="flex items-center gap-2">
-                <div className="h-8 w-8 rounded-lg bg-white/10 flex items-center justify-center">
-                  <Clock className="h-4 w-4 text-white" />
+                <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-lg bg-white/10 flex items-center justify-center">
+                  <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-white" />
                 </div>
                 <span>Results in ~24h</span>
               </div>

@@ -151,20 +151,20 @@ const AdminInterviewsPage = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
       <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-6">
-            <div className="flex items-start gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 sm:gap-6 mb-6">
+            <div className="flex items-start gap-3 sm:gap-4">
               <div className="flex-shrink-0">
-                <div className="h-20 w-20 rounded-2xl bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center ring-4 ring-white/10">
-                  <Video className="h-10 w-10 text-white" />
+                <div className="h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 rounded-xl sm:rounded-2xl bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center ring-4 ring-white/10">
+                  <Video className="h-7 w-7 sm:h-8 sm:w-8 md:h-10 md:w-10 text-white" />
                 </div>
               </div>
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2 mb-2">
-                  <h1 className="text-3xl font-bold">Interview Management</h1>
-                  <Sparkles className="h-6 w-6 text-yellow-300 flex-shrink-0" />
+                <div className="flex items-center gap-2 mb-1 sm:mb-2">
+                  <h1 className="text-2xl sm:text-3xl font-bold">Interview Management</h1>
+                  <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-300 flex-shrink-0" />
                 </div>
-                <p className="text-primary-100">Schedule and manage applicant interviews</p>
+                <p className="text-sm sm:text-base text-primary-100">Schedule and manage applicant interviews</p>
               </div>
             </div>
             {/* Back to Dashboard button removed (available in navbar) */}
@@ -227,21 +227,21 @@ const AdminInterviewsPage = () => {
                 {selectedApplicants.length > 0 ? (
                   <div className="space-y-4">
                     {selectedApplicants.map(app => (
-                      <div key={app.application_id} className="bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl p-6 border border-gray-200">
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      <div key={app.application_id} className="bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl p-4 sm:p-6 border border-gray-200">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
                           <div className="space-y-3">
                             <div className="flex items-center gap-3">
-                              <div className="h-12 w-12 rounded-lg bg-primary-100 flex items-center justify-center">
-                                <Users className="h-6 w-6 text-primary-600" />
+                              <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
+                                <Users className="h-5 w-5 sm:h-6 sm:w-6 text-primary-600" />
                               </div>
-                              <div>
-                                <h3 className="font-bold text-gray-900">{app.name}</h3>
-                                <p className="text-sm text-gray-600">Application ID: {app.application_id}</p>
+                              <div className="min-w-0 flex-1">
+                                <h3 className="font-bold text-gray-900 text-sm sm:text-base truncate">{app.name}</h3>
+                                <p className="text-xs sm:text-sm text-gray-600 truncate">App ID: {app.application_id}</p>
                               </div>
                             </div>
-                            <div className="flex items-center gap-2 text-sm text-gray-600">
-                              <Mail className="h-4 w-4" />
-                              <span>{app.email}</span>
+                            <div className="flex items-center gap-2 text-xs sm:text-sm text-gray-600">
+                              <Mail className="h-4 w-4 flex-shrink-0" />
+                              <span className="truncate">{app.email}</span>
                             </div>
                           </div>
 
@@ -316,53 +316,53 @@ const AdminInterviewsPage = () => {
                   const statusBadge = getStatusBadge(interview.status);
 
                   return (
-                    <div key={interview.id} className="bg-gradient-to-r from-primary-50 to-indigo-50 rounded-xl p-6 border border-primary-100">
+                    <div key={interview.id} className="bg-gradient-to-r from-primary-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-primary-100">
                       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-                        <div className="flex-1">
+                        <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-3 mb-3">
-                            <div className="h-12 w-12 rounded-lg bg-primary-100 flex items-center justify-center">
-                              <Video className="h-6 w-6 text-primary-600" />
+                            <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-lg bg-primary-100 flex items-center justify-center flex-shrink-0">
+                              <Video className="h-5 w-5 sm:h-6 sm:w-6 text-primary-600" />
                             </div>
-                            <div>
-                              <h3 className="font-bold text-gray-900">Interview #{interview.id}</h3>
-                              <p className="text-sm text-gray-600">Application: {interview.application_id}</p>
+                            <div className="min-w-0">
+                              <h3 className="font-bold text-gray-900 text-sm sm:text-base">Interview #{interview.id}</h3>
+                              <p className="text-xs sm:text-sm text-gray-600 truncate">Application: {interview.application_id}</p>
                             </div>
                           </div>
 
-                          <div className="flex flex-wrap items-center gap-4 text-sm">
+                          <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm">
                             <div className="flex items-center gap-2 text-gray-600">
-                              <Clock className="h-4 w-4" />
-                              <span>{interviewTime.toLocaleString('en-US', {
+                              <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4 flex-shrink-0" />
+                              <span className="break-words">{interviewTime.toLocaleString('en-US', {
                                 dateStyle: 'medium',
                                 timeStyle: 'short'
                               })}</span>
                             </div>
-                            <div className={`px-3 py-1 rounded-lg text-xs font-semibold ${statusBadge.bg} ${statusBadge.color} flex items-center gap-1`}>
+                            <div className={`px-2.5 sm:px-3 py-1 rounded-lg text-xs font-semibold ${statusBadge.bg} ${statusBadge.color} flex items-center gap-1 flex-shrink-0`}>
                               <statusBadge.icon className="h-3 w-3" />
                               {statusBadge.label}
                             </div>
                           </div>
                         </div>
 
-                        <div className="flex flex-col sm:flex-row gap-2">
+                        <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
                           <button
                             onClick={() => router.push(`/interview/${interview.id}`)}
                             disabled={!isJoinable}
-                            className={`px-5 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 ${
+                            className={`min-h-[44px] px-4 sm:px-5 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 ${
                               isJoinable
                                 ? 'bg-primary-600 text-white hover:bg-primary-700 shadow-md hover:shadow-lg'
                                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                             }`}
                           >
                             <Video className="h-4 w-4" />
-                            {isJoinable ? 'Join Now' : 'Not Available'}
+                            <span className="text-sm sm:text-base">{isJoinable ? 'Join Now' : 'Not Available'}</span>
                           </button>
                           <button
                             onClick={() => handleDelete(interview.id)}
-                            className="px-5 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all font-medium flex items-center justify-center gap-2"
+                            className="min-h-[44px] px-4 sm:px-5 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-all font-medium flex items-center justify-center gap-2"
                           >
                             <Trash2 className="h-4 w-4" />
-                            Delete
+                            <span className="text-sm sm:text-base">Delete</span>
                           </button>
                         </div>
                       </div>
@@ -413,7 +413,7 @@ const ScheduleForm = ({ applicationId, onSchedule, error }: {
   return (
     <form onSubmit={handleSubmit} className="space-y-3">
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
+        <label className="block text-sm sm:text-base font-medium text-gray-700 mb-2">
           Interview Date & Time
         </label>
         <input
@@ -421,29 +421,29 @@ const ScheduleForm = ({ applicationId, onSchedule, error }: {
           value={time}
           onChange={(e) => setTime(e.target.value)}
           required
-          className="block w-full rounded-lg border border-gray-300 focus:border-primary-500 focus:ring-primary-500 px-3 py-2.5 text-sm"
+          className="block w-full rounded-lg border border-gray-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-500 px-3 sm:px-4 py-2.5 text-base"
         />
       </div>
       {error && (
         <div className="bg-red-50 border border-red-200 rounded-lg p-3 flex items-start gap-2">
           <AlertCircle className="h-4 w-4 text-red-600 flex-shrink-0 mt-0.5" />
-          <p className="text-sm text-red-700">{error}</p>
+          <p className="text-xs sm:text-sm text-red-700">{error}</p>
         </div>
       )}
       <button
         type="submit"
         disabled={scheduling}
-        className="w-full px-5 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full min-h-[44px] px-4 sm:px-5 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 touch-manipulation"
       >
         {scheduling ? (
           <>
             <Loader2 className="h-4 w-4 animate-spin" />
-            Scheduling...
+            <span className="text-sm sm:text-base">Scheduling...</span>
           </>
         ) : (
           <>
             <CalendarPlus className="h-4 w-4" />
-            Schedule Interview
+            <span className="text-sm sm:text-base">Schedule Interview</span>
           </>
         )}
       </button>

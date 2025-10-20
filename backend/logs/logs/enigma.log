@@ -7512,3 +7512,269 @@ server closed the connection unexpectedly
 {
     "taskName": "Task-211"
 }
+2025-10-20 14:14:06 | ERROR    | api.public | Failed to get admission info: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-246"
+}
+2025-10-20 14:14:06 | ERROR    | database | Database session error: 500: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:14:06 | ERROR    | database | Database session error: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:14:06 | ERROR    | database | Database session error: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:14:06 | ERROR    | api.public | Failed to get admission info: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-254"
+}
+2025-10-20 14:14:07 | ERROR    | database | Database session error: 500: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:14:07 | ERROR    | database | Database session error: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:14:07 | ERROR    | api.public | Failed to get admission info: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-256"
+}
+2025-10-20 14:14:07 | ERROR    | database | Database session error: 500: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:14:19 | ERROR    | api.public | Failed to get admission info: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-260"
+}
+2025-10-20 14:14:19 | ERROR    | database | Database session error: 500: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:14:19 | ERROR    | api.public | Failed to get admission info: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-261"
+}
+2025-10-20 14:14:19 | ERROR    | database | Database session error: 500: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:14:20 | ERROR    | database | Database session error: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:15:32 | ERROR    | api.public | Failed to get admission info: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-269"
+}
+2025-10-20 14:15:32 | ERROR    | database | Database session error: 500: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:15:32 | ERROR    | database | Database session error: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:16:22 | ERROR    | database | Database session error: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:16:24 | ERROR    | database | Database session error: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:16:24 | ERROR    | api.public | Failed to get admission info: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-277"
+}
+2025-10-20 14:16:25 | ERROR    | database | Database session error: 500: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:16:25 | ERROR    | api.public | Failed to get admission info: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-278"
+}
+2025-10-20 14:16:25 | ERROR    | database | Database session error: 500: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:16:35 | ERROR    | database | Database session error: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:16:36 | ERROR    | api.public | Failed to get admission info: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-284"
+}
+2025-10-20 14:16:36 | ERROR    | database | Database session error: 500: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:16:36 | ERROR    | database | Database session error: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:16:36 | ERROR    | api.public | Failed to get admission info: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": "Task-285"
+}
+2025-10-20 14:16:36 | ERROR    | database | Database session error: 500: (psycopg2.OperationalError) could not translate host name "aws-1-us-east-1.pooler.supabase.com" to address: Name or service not known
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-20 14:24:34 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 14:24:38 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-327"
+}
+2025-10-20 14:24:41 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-327"
+}
+2025-10-20 14:25:38 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 14:26:11 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 16:19:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 16:19:19 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-20 16:19:19 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-20 16:19:24 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-20 16:19:24 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-20 16:19:24 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-20 16:19:24 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-20 16:19:25 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 16:19:43 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 16:20:02 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 16:20:26 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 16:20:26 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-20 16:20:26 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-20 16:20:30 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-20 16:20:30 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-20 16:20:30 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-20 16:20:30 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-20 16:20:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

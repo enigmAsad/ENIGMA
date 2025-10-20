@@ -153,9 +153,9 @@ export default function AdminDashboard() {
 
   if (isLoading || loadingData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-teal-600 mx-auto mb-4" />
+          <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
           <p className="text-gray-600 font-medium">Loading dashboard...</p>
         </div>
       </div>
@@ -163,9 +163,9 @@ export default function AdminDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-teal-600 via-teal-700 to-cyan-700 text-white">
+      <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
             <div className="flex items-start gap-4">
@@ -179,7 +179,7 @@ export default function AdminDashboard() {
                   <h1 className="text-3xl font-bold">Admin Dashboard</h1>
                   <Sparkles className="h-6 w-6 text-yellow-300 flex-shrink-0" />
                 </div>
-                <p className="text-teal-100">Welcome back, {admin?.username || 'Administrator'}</p>
+                <p className="text-primary-100">Welcome back, {admin?.username || 'Administrator'}</p>
               </div>
             </div>
 
@@ -206,8 +206,8 @@ export default function AdminDashboard() {
                     <p className="text-sm font-medium text-gray-600 mb-1">Total Applications</p>
                     <p className="text-4xl font-bold text-gray-900">{stats.total_applications}</p>
                   </div>
-                  <div className="flex-shrink-0 h-14 w-14 rounded-xl bg-teal-100 flex items-center justify-center">
-                    <FileText className="h-7 w-7 text-teal-600" />
+                  <div className="flex-shrink-0 h-14 w-14 rounded-xl bg-primary-100 flex items-center justify-center">
+                    <FileText className="h-7 w-7 text-primary-600" />
                   </div>
                 </div>
               </div>
@@ -250,7 +250,7 @@ export default function AdminDashboard() {
           <div className="space-y-6 mb-8">
             {/* Cycle Info Card */}
             <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-              <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-6 py-4">
+              <div className="bg-gradient-to-r from-primary-500 to-indigo-600 px-6 py-4">
                 <div className="flex items-center justify-between">
                   <h2 className="text-xl font-bold text-white flex items-center gap-2">
                     <Calendar className="h-5 w-5" />
@@ -312,7 +312,7 @@ export default function AdminDashboard() {
                     </h4>
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                       <div className="text-center">
-                        <p className="text-3xl font-bold text-teal-600">{cycleStatus.stats.total_applications}</p>
+                        <p className="text-3xl font-bold text-primary-600">{cycleStatus.stats.total_applications}</p>
                         <p className="text-xs text-gray-600 mt-1">Total</p>
                       </div>
                       <div className="text-center">
@@ -340,7 +340,7 @@ export default function AdminDashboard() {
             {/* Phase Progress */}
             <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden p-6">
               <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <Activity className="h-5 w-5 text-teal-600" />
+                <Activity className="h-5 w-5 text-primary-600" />
                 Cycle Progress
               </h3>
               <PhaseProgress currentPhase={activeCycle.phase} />
@@ -349,7 +349,7 @@ export default function AdminDashboard() {
             {/* Phase Actions */}
             <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden p-6">
               <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
-                <Target className="h-5 w-5 text-teal-600" />
+                <Target className="h-5 w-5 text-primary-600" />
                 Available Actions
               </h3>
               <div className="flex flex-wrap gap-3">
@@ -362,7 +362,7 @@ export default function AdminDashboard() {
                       disabled={processingAction !== null}
                       className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${
                         action.variant === 'teal'
-                          ? 'bg-teal-600 text-white hover:bg-teal-700'
+                          ? 'bg-primary-600 text-white hover:bg-primary-700'
                           : 'bg-gray-600 text-white hover:bg-gray-700'
                       }`}
                     >
@@ -400,7 +400,7 @@ export default function AdminDashboard() {
                 </p>
                 <button
                   onClick={() => router.push('/admin/cycles')}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all font-medium shadow-md hover:shadow-lg"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg"
                 >
                   <Calendar className="h-4 w-4" />
                   Create Admission Cycle
@@ -414,19 +414,19 @@ export default function AdminDashboard() {
         {/* Quick Actions Grid */}
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden p-6">
           <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-            <Settings className="h-5 w-5 text-teal-600" />
+            <Settings className="h-5 w-5 text-primary-600" />
             Quick Actions
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <button
               onClick={() => router.push('/admin/cycles')}
-              className="group bg-gradient-to-br from-teal-50 to-cyan-50 rounded-xl p-6 border border-teal-200 hover:shadow-lg transition-all text-left"
+              className="group bg-gradient-to-br from-primary-50 to-indigo-50 rounded-xl p-6 border border-primary-200 hover:shadow-lg transition-all text-left"
             >
               <div className="flex items-center justify-between mb-3">
-                <div className="h-10 w-10 rounded-lg bg-teal-100 flex items-center justify-center group-hover:bg-teal-200 transition-colors">
-                  <Calendar className="h-5 w-5 text-teal-600" />
+                <div className="h-10 w-10 rounded-lg bg-primary-100 flex items-center justify-center group-hover:bg-primary-200 transition-colors">
+                  <Calendar className="h-5 w-5 text-primary-600" />
                 </div>
-                <ChevronRight className="h-5 w-5 text-teal-400 group-hover:text-teal-600 transition-colors" />
+                <ChevronRight className="h-5 w-5 text-primary-400 group-hover:text-primary-600 transition-colors" />
               </div>
               <h3 className="font-bold text-gray-900 mb-1">Manage Cycles</h3>
               <p className="text-sm text-gray-600">Create, edit, or close cycles</p>

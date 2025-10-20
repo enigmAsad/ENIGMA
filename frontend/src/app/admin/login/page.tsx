@@ -28,10 +28,10 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-teal-50 to-cyan-100">
+    <div className="min-h-screen flex bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-50">
       {/* Left decorative panel (desktop) */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-600 to-cyan-700" />
+        <div className="absolute inset-0 bg-gradient-to-r from-teal-600 via-teal-700 to-cyan-700" />
 
         {/* Light accents */}
         <div className="absolute top-8 right-16 w-56 h-56 bg-white/10 rounded-full blur-3xl" />
@@ -81,7 +81,7 @@ export default function AdminLoginPage() {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12">
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
-            <div className="h-16 w-16 rounded-full bg-gradient-to-r from-teal-600 to-cyan-700 flex items-center justify-center mx-auto shadow-lg">
+            <div className="h-16 w-16 rounded-full bg-gradient-to-r from-teal-600 via-teal-700 to-cyan-700 flex items-center justify-center mx-auto shadow-lg">
               <img src="/images/eNigma-logo.png" alt="eNigma Logo" className="w-10 h-10 object-contain" />
             </div>
             <h2 className="mt-4 text-3xl font-bold text-gray-900">Admin Login</h2>

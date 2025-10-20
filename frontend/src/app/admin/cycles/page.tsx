@@ -298,23 +298,23 @@ export default function AdminCyclesPage() {
 
   if (isLoading || loadingData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-teal-50 to-cyan-100 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
           <div className="relative">
-            <Loader2 className="h-16 w-16 text-teal-600 animate-spin mx-auto" />
-            <Calendar className="h-6 w-6 text-teal-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+            <Loader2 className="h-16 w-16 text-primary-600 animate-spin mx-auto" />
+            <Calendar className="h-6 w-6 text-primary-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
           </div>
-          <p className="mt-6 text-lg font-medium text-teal-900">Loading admission cycles...</p>
-          <p className="text-sm text-teal-600 mt-2">Preparing your management dashboard</p>
+          <p className="mt-6 text-lg font-medium text-primary-900">Loading admission cycles...</p>
+          <p className="text-sm text-primary-600 mt-2">Preparing your management dashboard</p>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-teal-50 to-cyan-100">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header with Gradient */}
-      <div className="bg-gradient-to-r from-teal-600 via-teal-700 to-cyan-700 text-white shadow-2xl">
+      <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 text-white shadow-2xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex justify-between items-start">
             <div className="flex-1">
@@ -324,9 +324,9 @@ export default function AdminCyclesPage() {
                 </div>
                 <div>
                   <h1 className="text-3xl font-extrabold">Admission Cycles</h1>
-                  <p className="text-teal-100 text-sm mt-1">Manage cycles and control application periods</p>
+                  <p className="text-primary-100 text-sm mt-1">Manage cycles and control application periods</p>
                 </div>
-                <Sparkles className="h-5 w-5 text-teal-200 ml-2" />
+                <Sparkles className="h-5 w-5 text-primary-200 ml-2" />
               </div>
 
               {/* Stats Bar */}
@@ -334,16 +334,16 @@ export default function AdminCyclesPage() {
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 border border-white/20">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-teal-100 text-xs font-medium uppercase">Total Cycles</p>
+                      <p className="text-primary-100 text-xs font-medium uppercase">Total Cycles</p>
                       <p className="text-3xl font-bold text-white mt-1">{cycles.length}</p>
                     </div>
-                    <TrendingUp className="h-8 w-8 text-teal-200" />
+                    <TrendingUp className="h-8 w-8 text-primary-200" />
                   </div>
                 </div>
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 border border-white/20">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-teal-100 text-xs font-medium uppercase">Active Cycles</p>
+                      <p className="text-primary-100 text-xs font-medium uppercase">Active Cycles</p>
                       <p className="text-3xl font-bold text-white mt-1">
                         {cycles.filter(c => c.is_open).length}
                       </p>
@@ -354,12 +354,12 @@ export default function AdminCyclesPage() {
                 <div className="bg-white/10 backdrop-blur-sm rounded-lg px-4 py-3 border border-white/20">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-teal-100 text-xs font-medium uppercase">Completed</p>
+                      <p className="text-primary-100 text-xs font-medium uppercase">Completed</p>
                       <p className="text-3xl font-bold text-white mt-1">
                         {cycles.filter(c => c.phase === 'completed').length}
                       </p>
                     </div>
-                    <CheckCircle2 className="h-8 w-8 text-teal-200" />
+                    <CheckCircle2 className="h-8 w-8 text-primary-200" />
                   </div>
                 </div>
               </div>
@@ -391,7 +391,7 @@ export default function AdminCyclesPage() {
         <div className="mb-6">
           <button
             onClick={() => setShowCreateForm(!showCreateForm)}
-            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-teal-600 to-cyan-700 text-white rounded-lg hover:from-teal-700 hover:to-cyan-800 transition-all font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02]"
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-600 to-indigo-700 text-white rounded-lg hover:from-primary-700 hover:to-indigo-800 transition-all font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02]"
           >
             {showCreateForm ? (
               <>
@@ -410,7 +410,7 @@ export default function AdminCyclesPage() {
         {/* Create Cycle Form */}
         {showCreateForm && (
           <div className="bg-white rounded-2xl shadow-2xl mb-8 overflow-hidden border border-gray-200">
-            <div className="bg-gradient-to-r from-teal-600 to-cyan-700 px-6 py-4">
+            <div className="bg-gradient-to-r from-primary-600 to-indigo-700 px-6 py-4">
               <div className="flex items-center gap-3">
                 <div className="p-2 bg-white/20 rounded-lg">
                   <Plus className="h-5 w-5 text-white" />
@@ -439,7 +439,7 @@ export default function AdminCyclesPage() {
                     value={formData.cycle_name}
                     onChange={(e) => setFormData({ ...formData, cycle_name: e.target.value })}
                     required
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent shadow-sm"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
                     placeholder="e.g., Fall 2025 Admissions"
                   />
                 </div>
@@ -454,15 +454,15 @@ export default function AdminCyclesPage() {
                     onChange={(e) => setFormData({ ...formData, max_seats: parseInt(e.target.value) || 1 })}
                     required
                     min="1"
-                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent shadow-sm"
+                    className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
                     placeholder="e.g., 100"
                   />
                 </div>
 
-                <div className="rounded-lg bg-teal-50 border border-teal-200 p-4">
+                <div className="rounded-lg bg-primary-50 border border-primary-200 p-4">
                   <div className="flex items-start gap-3">
-                    <Clock className="h-5 w-5 text-teal-600 mt-0.5" />
-                    <p className="text-sm text-teal-800">
+                    <Clock className="h-5 w-5 text-primary-600 mt-0.5" />
+                    <p className="text-sm text-primary-800">
                       <strong>Timezone:</strong> Enter dates in <strong>your local time (PKT, UTC+5)</strong>.
                       The system will automatically convert and store them in UTC. Displayed times will show in PKT.
                     </p>
@@ -479,7 +479,7 @@ export default function AdminCyclesPage() {
                       value={formData.start_date}
                       onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
                       required
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent shadow-sm"
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
                     />
                     <p className="text-xs text-gray-500 mt-1.5">When admissions open (local time)</p>
                   </div>
@@ -493,7 +493,7 @@ export default function AdminCyclesPage() {
                       value={formData.end_date}
                       onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
                       required
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent shadow-sm"
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
                     />
                     <p className="text-xs text-gray-500 mt-1.5">Application deadline (local time)</p>
                   </div>
@@ -507,7 +507,7 @@ export default function AdminCyclesPage() {
                       value={formData.result_date}
                       onChange={(e) => setFormData({ ...formData, result_date: e.target.value })}
                       required
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent shadow-sm"
+                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
                     />
                     <p className="text-xs text-gray-500 mt-1.5">When results are published (local time)</p>
                   </div>
@@ -517,7 +517,7 @@ export default function AdminCyclesPage() {
                   <button
                     type="submit"
                     disabled={processing === 'create'}
-                    className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-teal-600 to-cyan-700 text-white rounded-lg hover:from-teal-700 hover:to-cyan-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-lg"
+                    className="flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-primary-600 to-indigo-700 text-white rounded-lg hover:from-primary-700 hover:to-indigo-800 transition-all disabled:opacity-50 disabled:cursor-not-allowed font-semibold shadow-lg"
                   >
                     {processing === 'create' ? (
                       <>
@@ -550,14 +550,14 @@ export default function AdminCyclesPage() {
         {/* Cycles List */}
         <div className="space-y-4">
           <div className="flex items-center gap-2">
-            <Calendar className="h-5 w-5 text-teal-600" />
+            <Calendar className="h-5 w-5 text-primary-600" />
             <h2 className="text-xl font-bold text-gray-900">All Admission Cycles</h2>
           </div>
 
           {cycles.length === 0 ? (
             <div className="bg-white rounded-2xl shadow-lg p-12 text-center border border-gray-200">
-              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-teal-100 mb-4">
-                <Calendar className="h-8 w-8 text-teal-600" />
+              <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-100 mb-4">
+                <Calendar className="h-8 w-8 text-primary-600" />
               </div>
               <p className="text-lg font-semibold text-gray-900 mb-2">No admission cycles created yet</p>
               <p className="text-sm text-gray-500">Create your first cycle to start managing admissions</p>
@@ -572,7 +572,7 @@ export default function AdminCyclesPage() {
                 return (
                   <div key={cycle.cycle_id} className="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200 hover:shadow-xl transition-shadow">
                     {/* Cycle Card Header */}
-                    <div className="bg-gradient-to-r from-teal-600 to-cyan-700 px-6 py-4">
+                    <div className="bg-gradient-to-r from-primary-600 to-indigo-700 px-6 py-4">
                       <div className="flex justify-between items-center">
                         <div className="flex items-center gap-3 flex-1">
                           <div className="p-2 bg-white/20 rounded-lg">
@@ -628,14 +628,14 @@ export default function AdminCyclesPage() {
                     <div className="p-6 bg-gradient-to-r from-gray-50 to-gray-100 border-b border-gray-200">
                       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
                         <div className="text-center">
-                          <Users className="h-5 w-5 text-teal-600 mx-auto mb-1" />
+                          <Users className="h-5 w-5 text-primary-600 mx-auto mb-1" />
                           <p className="text-xs text-gray-500 uppercase font-medium">Applications</p>
                           <p className="text-xl font-bold text-gray-900 mt-1">{cycle.current_seats}</p>
                           <p className="text-xs text-gray-500">submitted</p>
                         </div>
 
                         <div className="text-center">
-                          <Target className="h-5 w-5 text-cyan-600 mx-auto mb-1" />
+                          <Target className="h-5 w-5 text-indigo-600 mx-auto mb-1" />
                           <p className="text-xs text-gray-500 uppercase font-medium">Target Seats</p>
                           <p className="text-xl font-bold text-gray-900 mt-1">{cycle.max_seats}</p>
                           <p className="text-xs text-gray-500">to select</p>
@@ -793,7 +793,7 @@ export default function AdminCyclesPage() {
                                     disabled={processing !== null}
                                     className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl ${
                                       action.variant === 'primary'
-                                        ? 'bg-gradient-to-r from-teal-600 to-cyan-700 text-white hover:from-teal-700 hover:to-cyan-800'
+                                        ? 'bg-gradient-to-r from-primary-600 to-indigo-700 text-white hover:from-primary-700 hover:to-indigo-800'
                                         : 'bg-gray-600 text-white hover:bg-gray-700'
                                     }`}
                                   >

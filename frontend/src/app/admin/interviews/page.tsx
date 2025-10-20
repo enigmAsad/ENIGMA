@@ -112,9 +112,9 @@ const AdminInterviewsPage = () => {
 
   if (dataLoading || authLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-teal-600 mx-auto mb-4" />
+          <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
           <p className="text-gray-600 font-medium">Loading interview data...</p>
         </div>
       </div>
@@ -127,7 +127,7 @@ const AdminInterviewsPage = () => {
 
   if (error) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center p-4">
         <div className="bg-white rounded-2xl shadow-lg border border-red-200 p-8 max-w-md">
           <div className="flex items-center justify-center h-16 w-16 rounded-full bg-red-100 mx-auto mb-4">
             <AlertCircle className="h-8 w-8 text-red-600" />
@@ -136,7 +136,7 @@ const AdminInterviewsPage = () => {
           <p className="text-gray-600 text-center mb-6">{error}</p>
           <button
             onClick={() => window.location.reload()}
-            className="w-full px-4 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-colors font-medium"
+            className="w-full px-4 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors font-medium"
           >
             Try Again
           </button>
@@ -146,9 +146,9 @@ const AdminInterviewsPage = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-teal-600 via-teal-700 to-cyan-700 text-white">
+      <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-6">
             <div className="flex items-start gap-4">
@@ -162,7 +162,7 @@ const AdminInterviewsPage = () => {
                   <h1 className="text-3xl font-bold">Interview Management</h1>
                   <Sparkles className="h-6 w-6 text-yellow-300 flex-shrink-0" />
                 </div>
-                <p className="text-teal-100">Schedule and manage applicant interviews</p>
+                <p className="text-primary-100">Schedule and manage applicant interviews</p>
               </div>
             </div>
             <button
@@ -220,7 +220,7 @@ const AdminInterviewsPage = () => {
         {activeCycle ? (
           <div className="mb-8">
             <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-              <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-6 py-4">
+              <div className="bg-gradient-to-r from-primary-500 to-indigo-600 px-6 py-4">
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
                   <CalendarPlus className="h-5 w-5" />
                   Schedule New Interviews - {activeCycle.cycle_name}
@@ -235,8 +235,8 @@ const AdminInterviewsPage = () => {
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                           <div className="space-y-3">
                             <div className="flex items-center gap-3">
-                              <div className="h-12 w-12 rounded-lg bg-teal-100 flex items-center justify-center">
-                                <Users className="h-6 w-6 text-teal-600" />
+                              <div className="h-12 w-12 rounded-lg bg-primary-100 flex items-center justify-center">
+                                <Users className="h-6 w-6 text-primary-600" />
                               </div>
                               <div>
                                 <h3 className="font-bold text-gray-900">{app.name}</h3>
@@ -285,7 +285,7 @@ const AdminInterviewsPage = () => {
                 </p>
                 <button
                   onClick={() => router.push('/admin/cycles')}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all font-medium shadow-md hover:shadow-lg"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg"
                 >
                   <Calendar className="h-4 w-4" />
                   Manage Cycles
@@ -298,7 +298,7 @@ const AdminInterviewsPage = () => {
 
         {/* Scheduled Interviews */}
         <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
-          <div className="bg-gradient-to-r from-purple-500 to-pink-600 px-6 py-4">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-6 py-4">
             <h2 className="text-xl font-bold text-white flex items-center gap-2">
               <Calendar className="h-5 w-5" />
               Scheduled Interviews
@@ -321,12 +321,12 @@ const AdminInterviewsPage = () => {
                   const statusBadge = getStatusBadge(interview.status);
 
                   return (
-                    <div key={interview.id} className="bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl p-6 border border-gray-200">
+                    <div key={interview.id} className="bg-gradient-to-r from-primary-50 to-indigo-50 rounded-xl p-6 border border-primary-100">
                       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
                         <div className="flex-1">
                           <div className="flex items-center gap-3 mb-3">
-                            <div className="h-10 w-10 rounded-lg bg-purple-100 flex items-center justify-center">
-                              <Video className="h-5 w-5 text-purple-600" />
+                            <div className="h-12 w-12 rounded-lg bg-primary-100 flex items-center justify-center">
+                              <Video className="h-6 w-6 text-primary-600" />
                             </div>
                             <div>
                               <h3 className="font-bold text-gray-900">Interview #{interview.id}</h3>
@@ -355,7 +355,7 @@ const AdminInterviewsPage = () => {
                             disabled={!isJoinable}
                             className={`px-5 py-2.5 rounded-lg font-medium transition-all flex items-center justify-center gap-2 ${
                               isJoinable
-                                ? 'bg-purple-600 text-white hover:bg-purple-700 shadow-md hover:shadow-lg'
+                                ? 'bg-primary-600 text-white hover:bg-primary-700 shadow-md hover:shadow-lg'
                                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                             }`}
                           >
@@ -426,7 +426,7 @@ const ScheduleForm = ({ applicationId, onSchedule, error }: {
           value={time}
           onChange={(e) => setTime(e.target.value)}
           required
-          className="block w-full rounded-lg border border-gray-300 focus:border-teal-500 focus:ring-teal-500 px-3 py-2.5 text-sm"
+          className="block w-full rounded-lg border border-gray-300 focus:border-primary-500 focus:ring-primary-500 px-3 py-2.5 text-sm"
         />
       </div>
       {error && (
@@ -438,7 +438,7 @@ const ScheduleForm = ({ applicationId, onSchedule, error }: {
       <button
         type="submit"
         disabled={scheduling}
-        className="w-full px-5 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all font-medium shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+        className="w-full px-5 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
       >
         {scheduling ? (
           <>

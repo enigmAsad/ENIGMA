@@ -107,9 +107,9 @@ export default function AdminBiasDashboard() {
 
   if (isLoading || loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-teal-600 mx-auto mb-4" />
+          <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
           <p className="text-gray-600 font-medium">Loading bias monitoring data...</p>
         </div>
       </div>
@@ -121,9 +121,9 @@ export default function AdminBiasDashboard() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-teal-50 to-cyan-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
-      <div className="bg-gradient-to-r from-teal-600 via-teal-700 to-cyan-700 text-white">
+      <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-6">
             <div className="flex items-start gap-4">
@@ -137,7 +137,7 @@ export default function AdminBiasDashboard() {
                   <h1 className="text-3xl font-bold">Bias Monitoring</h1>
                   <Sparkles className="h-6 w-6 text-yellow-300 flex-shrink-0" />
                 </div>
-                <p className="text-teal-100">Real-time evaluator bias detection and management</p>
+                <p className="text-primary-100">Real-time evaluator bias detection and management</p>
               </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
@@ -247,7 +247,7 @@ export default function AdminBiasDashboard() {
                   type="checkbox"
                   checked={showReviewed}
                   onChange={(e) => setShowReviewed(e.target.checked)}
-                  className="rounded border-gray-300 text-teal-600 focus:ring-teal-500"
+                  className="rounded border-gray-300 text-primary-600 focus:ring-primary-500"
                 />
                 <span className="text-sm text-gray-700">Show Reviewed</span>
               </label>
@@ -255,7 +255,7 @@ export default function AdminBiasDashboard() {
               <select
                 value={selectedSeverity}
                 onChange={(e) => setSelectedSeverity(e.target.value)}
-                className="border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium focus:border-teal-500 focus:ring-teal-500"
+                className="border border-gray-300 rounded-lg px-4 py-2 text-sm font-medium focus:border-primary-500 focus:ring-primary-500"
               >
                 <option value="all">All Severities</option>
                 <option value="high">High Only</option>
@@ -343,7 +343,7 @@ export default function AdminBiasDashboard() {
                           {!flag.reviewed && (
                             <button
                               onClick={() => setSelectedFlag(flag)}
-                              className="inline-flex items-center gap-1 px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 font-medium transition-all"
+                              className="inline-flex items-center gap-1 px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 font-medium transition-all"
                             >
                               <Eye className="h-4 w-4" />
                               Review
@@ -435,7 +435,7 @@ export default function AdminBiasDashboard() {
       {selectedFlag && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-2xl max-w-3xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
-            <div className="bg-gradient-to-r from-teal-500 to-cyan-600 px-6 py-4">
+            <div className="bg-gradient-to-r from-primary-500 to-indigo-600 px-6 py-4">
               <div className="flex justify-between items-center">
                 <h2 className="text-2xl font-bold text-white flex items-center gap-2">
                   <Shield className="h-6 w-6" />
@@ -502,7 +502,7 @@ export default function AdminBiasDashboard() {
                   value={resolution}
                   onChange={(e) => setResolution(e.target.value)}
                   rows={4}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-teal-500 focus:border-transparent text-sm"
+                  className="w-full border border-gray-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm"
                   placeholder="Enter detailed resolution notes explaining the actions taken and outcome..."
                 />
               </div>
@@ -517,7 +517,7 @@ export default function AdminBiasDashboard() {
                 <button
                   onClick={handleResolveFlag}
                   disabled={resolving || !resolution.trim()}
-                  className="px-6 py-2.5 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition-all font-medium shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                  className="px-6 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
                 >
                   {resolving ? (
                     <>

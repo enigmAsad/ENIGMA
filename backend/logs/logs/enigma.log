@@ -7208,3 +7208,71 @@ server closed the connection unexpectedly
 {
     "taskName": "Task-141"
 }
+2025-10-20 02:45:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:45:20 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:45:26 | INFO     | student_auth | Issued session STS_698DEF103C for student STU_B17774BA
+{
+    "taskName": "Task-271"
+}
+2025-10-20 02:45:27 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-271"
+}
+2025-10-20 07:22:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 07:22:07 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-20 07:22:07 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-20 07:22:13 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-20 07:22:13 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-20 07:22:13 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-20 07:22:13 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-20 07:22:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 07:22:40 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:22:45 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-17"
+}
+2025-10-20 07:22:48 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-17"
+}
+2025-10-20 07:23:54 | INFO     | student_auth | Issued session STS_D4A8FEE24F for student STU_B17774BA
+{
+    "taskName": "Task-75"
+}
+2025-10-20 07:23:54 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-75"
+}

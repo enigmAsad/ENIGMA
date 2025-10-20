@@ -132,8 +132,8 @@ export default function Navigation() {
       default:
         return [
           { href: '/', label: 'Home', icon: Home },
-          { href: '/about', label: 'About', icon: Users },
           { href: '/dashboard', label: 'Public Dashboard', icon: BarChart3 },
+          { href: '/about', label: 'About Us', icon: Users },
         ];
     }
   };

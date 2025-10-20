@@ -7778,3 +7778,71 @@ server closed the connection unexpectedly
 {
     "taskName": null
 }
+2025-10-20 16:20:53 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 16:24:53 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 16:25:48 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 16:25:48 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-20 16:25:48 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-20 16:25:54 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-20 16:25:54 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-20 16:25:54 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-20 16:25:54 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-20 16:25:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 16:26:11 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 16:26:41 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 16:26:43 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 16:26:45 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 16:26:48 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 16:26:51 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 16:27:09 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}

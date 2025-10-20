@@ -102,7 +102,7 @@ export default function AboutPage() {
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Meet the Team</h2>
-                <p className="text-indigo-100 text-sm">The indie hackers behind ENIGMA</p>
+                <p className="text-indigo-100 text-sm">The indie hackers behind enigmA</p>
               </div>
             </div>
           </div>
@@ -189,7 +189,7 @@ export default function AboutPage() {
                     </div>
                     <div className="flex items-center gap-2 text-sm text-gray-700">
                       <CheckCircle2 className="h-4 w-4 text-emerald-600" />
-                      <span>Performance Optimization</span>
+                      <span>DevOps and Deployment</span>
                     </div>
                   </div>
                 </div>

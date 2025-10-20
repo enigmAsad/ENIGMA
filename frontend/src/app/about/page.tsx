@@ -25,7 +25,7 @@ export default function AboutPage() {
               <span className="text-white/90 font-medium text-xs sm:text-sm">Built with passion</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-3 sm:mb-4">
-              About ENIGMA
+              About enigmA
             </h1>
             <p className="text-base sm:text-lg md:text-xl text-white/90 mb-2 max-w-3xl mx-auto">
               Two indie hackers on a mission to revolutionize admissions with AI-powered fairness and transparency
@@ -52,18 +52,18 @@ export default function AboutPage() {
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Our Mission</h2>
-                <p className="text-purple-100 text-sm">Why we built ENIGMA</p>
+                <p className="text-purple-100 text-sm">What drives enigmA</p>
               </div>
             </div>
           </div>
           <div className="p-8">
             <p className="text-gray-700 leading-relaxed text-lg mb-4">
-              We believe that <span className="font-bold text-gray-900">merit should be the only factor</span> in academic admissions.
-              Traditional processes are plagued by unconscious bias, lack of transparency, and inconsistent evaluation criteria.
+              At <span className="font-bold text-gray-900">enigmA</span>, we believe in building AI-powered solutions that solve real-world problems.
+              We're passionate about creating innovative products that combine cutting-edge technology with thoughtful design.
             </p>
             <p className="text-gray-700 leading-relaxed text-lg">
-              ENIGMA leverages cutting-edge AI and cryptographic techniques to create a <span className="font-bold text-gray-900">completely fair,
-              bias-free, and verifiable</span> admissions process that gives every applicant an equal opportunity to succeed based purely on their merits.
+              As indie hackers, we have the <span className="font-bold text-gray-900">freedom to innovate rapidly</span> and build products
+              that truly matter. We bootstrap our projects, stay lean, and focus on delivering exceptional value to our users.
             </p>
           </div>
         </div>
@@ -375,31 +375,21 @@ export default function AboutPage() {
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Our Journey</h2>
-                <p className="text-gray-300 text-sm">Building ENIGMA from the ground up</p>
+                <p className="text-gray-300 text-sm">Building enigmA from the ground up</p>
               </div>
             </div>
           </div>
           <div className="p-8">
-            <div className="grid sm:grid-cols-3 gap-6 mb-8">
+            <div className="grid sm:grid-cols-2 gap-6 mb-8">
 
               <div className="group text-center bg-gradient-to-br from-primary-50 to-indigo-50 rounded-2xl p-8 border-2 border-primary-200 hover:border-primary-300 transition-all hover:shadow-lg">
                 <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-primary-500 to-indigo-600 mb-4 shadow-lg group-hover:scale-110 transition-transform">
                   <Lightbulb className="h-8 w-8 text-white" />
                 </div>
                 <p className="text-4xl font-extrabold bg-gradient-to-r from-primary-600 to-indigo-600 bg-clip-text text-transparent mb-2">
-                  2024
+                  2025
                 </p>
                 <p className="text-sm text-gray-600">Founded</p>
-              </div>
-
-              <div className="group text-center bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 border-2 border-emerald-200 hover:border-emerald-300 transition-all hover:shadow-lg">
-                <div className="inline-flex items-center justify-center h-16 w-16 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 mb-4 shadow-lg group-hover:scale-110 transition-transform">
-                  <GitBranch className="h-8 w-8 text-white" />
-                </div>
-                <p className="text-4xl font-extrabold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-2">
-                  100+
-                </p>
-                <p className="text-sm text-gray-600">Commits</p>
               </div>
 
               <div className="group text-center bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 border-2 border-purple-200 hover:border-purple-300 transition-all hover:shadow-lg">
@@ -409,26 +399,63 @@ export default function AboutPage() {
                 <p className="text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">
                   ∞
                 </p>
-                <p className="text-sm text-gray-600">Passion</p>
+                <p className="text-sm text-gray-600">Passion & Dedication</p>
               </div>
 
             </div>
 
-            <div className="p-6 bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl border-2 border-gray-200">
-              <div className="flex items-start gap-4">
-                <div className="flex-shrink-0">
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-primary-600 to-indigo-700 flex items-center justify-center">
-                    <Award className="h-6 w-6 text-white" />
+            <div className="space-y-6">
+              <div className="p-6 bg-gradient-to-r from-primary-50 to-indigo-50 rounded-xl border-2 border-primary-200">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="h-12 w-12 rounded-full bg-gradient-to-br from-primary-600 to-indigo-700 flex items-center justify-center">
+                      <Target className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-900 text-lg mb-2">Why We Chose This Path</h3>
+                    <p className="text-gray-800 leading-relaxed">
+                      Instead of settling for a stable 9-to-5 like everyone else, we decided to do <span className="font-bold text-gray-900">something meaningful</span>.
+                      We want to provide our contribution to this world, innovate fearlessly, take risks, and be willing to do what others are scared to attempt.
+                      Life is too short to play it safe – we'd rather build, fail, learn, and ultimately create products that make a real impact.
+                    </p>
                   </div>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-bold text-gray-900 text-lg mb-2">Why We Started</h3>
-                  <p className="text-gray-800 leading-relaxed">
-                    We witnessed firsthand how talented individuals were overlooked due to unconscious bias in traditional
-                    admissions processes. ENIGMA is our answer to this problem – <span className="font-bold text-gray-900">a system that judges
-                    merit, not demographics</span>. As indie hackers, we have the freedom to innovate rapidly and build
-                    something truly revolutionary.
-                  </p>
+              </div>
+
+              <div className="p-6 bg-gradient-to-r from-emerald-50 to-teal-50 rounded-xl border-2 border-emerald-200">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="h-12 w-12 rounded-full bg-gradient-to-br from-emerald-600 to-teal-700 flex items-center justify-center">
+                      <Rocket className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-900 text-lg mb-2">The Indie Hacker Mindset</h3>
+                    <p className="text-gray-800 leading-relaxed">
+                      As indie hackers, we're not constrained by corporate bureaucracy or investor pressure. We have the <span className="font-bold text-gray-900">freedom to innovate rapidly</span>,
+                      pivot when needed, and stay true to our vision. We build products we believe in, bootstrap them with our own resources,
+                      and measure success by the value we create – not just the revenue we generate.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border-2 border-purple-200">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0">
+                    <div className="h-12 w-12 rounded-full bg-gradient-to-br from-purple-600 to-pink-700 flex items-center justify-center">
+                      <Sparkles className="h-6 w-6 text-white" />
+                    </div>
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="font-bold text-gray-900 text-lg mb-2">Our Vision for the Future</h3>
+                    <p className="text-gray-800 leading-relaxed">
+                      We envision enigmA becoming a portfolio of innovative AI-powered products that solve real problems.
+                      Each project we build pushes the boundaries of what's possible, challenges the status quo, and puts users first.
+                      We're not just building software – we're <span className="font-bold text-gray-900">building a legacy of meaningful innovation</span>.
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>

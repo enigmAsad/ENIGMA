@@ -13,7 +13,7 @@ import { adminApiClient } from '@/lib/adminApi';
 import Image from 'next/image';
 import {
   Home, BarChart3, FileText, Video, LayoutDashboard,
-  Calendar, LogOut, Menu, X, User, Shield, ChevronDown,
+  Calendar, LogOut, Menu, X, User, Users, Shield, ChevronDown,
   Sparkles
 } from 'lucide-react';
 
@@ -132,6 +132,7 @@ export default function Navigation() {
       default:
         return [
           { href: '/', label: 'Home', icon: Home },
+          { href: '/about', label: 'About', icon: Users },
           { href: '/dashboard', label: 'Public Dashboard', icon: BarChart3 },
         ];
     }

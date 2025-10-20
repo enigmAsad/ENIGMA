@@ -256,6 +256,116 @@ export default function AboutPage() {
           </div>
         </div>
 
+        {/* Company & Projects */}
+        <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300">
+          <div className="bg-gradient-to-r from-primary-500 to-indigo-600 px-8 py-6">
+            <div className="flex items-center gap-3">
+              <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
+                <Rocket className="h-6 w-6 text-white" />
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold text-white">The enigmA Family</h2>
+                <p className="text-primary-100 text-sm">Our company and bootstrapped projects</p>
+              </div>
+            </div>
+          </div>
+          <div className="p-8">
+            {/* Company Intro */}
+            <div className="flex flex-col md:flex-row items-center gap-8 mb-8 p-6 bg-gradient-to-r from-primary-50 to-indigo-50 rounded-2xl border-2 border-primary-200">
+              <div className="flex-shrink-0">
+                <div className="h-32 w-32 sm:h-40 sm:w-40 rounded-2xl overflow-hidden bg-white shadow-xl border-4 border-white">
+                  <Image
+                    src="/images/enigmA-logo.jpg"
+                    alt="enigmA Company Logo"
+                    width={200}
+                    height={200}
+                    className="h-full w-full object-contain p-2"
+                  />
+                </div>
+              </div>
+              <div className="flex-1 text-center md:text-left">
+                <h3 className="text-3xl font-extrabold bg-gradient-to-r from-primary-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+                  enigmA
+                </h3>
+                <p className="text-gray-800 leading-relaxed text-lg">
+                  Our company dedicated to building innovative AI-powered solutions. We bootstrap passion projects
+                  that solve real problems and push the boundaries of what's possible with modern technology.
+                </p>
+              </div>
+            </div>
+
+            {/* Projects Grid */}
+            <div className="grid md:grid-cols-3 gap-6">
+
+              {/* ENIGMA */}
+              <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-50 to-pink-50 p-6 border-2 border-purple-200 hover:border-purple-300 transition-all hover:shadow-lg">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-purple-200/30 rounded-bl-full"></div>
+                <div className="relative">
+                  <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-purple-500 to-pink-600 mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                    <Shield className="h-7 w-7 text-white" />
+                  </div>
+                  <h4 className="font-bold text-purple-900 text-xl mb-2">ENIGMA</h4>
+                  <div className="inline-block px-2 py-1 rounded-md bg-purple-200 text-purple-800 text-xs font-semibold mb-3">
+                    Current Project
+                  </div>
+                  <p className="text-sm text-purple-800 leading-relaxed">
+                    AI-powered fair admissions platform. Eliminates bias through blind evaluation and cryptographic verification.
+                  </p>
+                </div>
+              </div>
+
+              {/* eNigma */}
+              <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 to-teal-50 p-6 border-2 border-emerald-200 hover:border-emerald-300 transition-all hover:shadow-lg">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-200/30 rounded-bl-full"></div>
+                <div className="relative">
+                  <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-600 mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                    <Zap className="h-7 w-7 text-white" />
+                  </div>
+                  <h4 className="font-bold text-emerald-900 text-xl mb-2">eNigma</h4>
+                  <div className="inline-block px-2 py-1 rounded-md bg-emerald-200 text-emerald-800 text-xs font-semibold mb-3">
+                    Bootstrapped
+                  </div>
+                  <p className="text-sm text-emerald-800 leading-relaxed">
+                    AI-powered ecommerce website builder. Create beautiful, conversion-optimized online stores in minutes.
+                  </p>
+                </div>
+              </div>
+
+              {/* enigMATE */}
+              <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-50 to-yellow-50 p-6 border-2 border-orange-200 hover:border-orange-300 transition-all hover:shadow-lg">
+                <div className="absolute top-0 right-0 w-24 h-24 bg-orange-200/30 rounded-bl-full"></div>
+                <div className="relative">
+                  <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-br from-orange-500 to-yellow-600 mb-4 shadow-lg group-hover:scale-110 transition-transform">
+                    <Globe className="h-7 w-7 text-white" />
+                  </div>
+                  <h4 className="font-bold text-orange-900 text-xl mb-2">enigMATE</h4>
+                  <div className="inline-block px-2 py-1 rounded-md bg-orange-200 text-orange-800 text-xs font-semibold mb-3">
+                    Bootstrapped
+                  </div>
+                  <p className="text-sm text-orange-800 leading-relaxed">
+                    Full website-aware browser extension. Intelligent browsing companion that understands entire web pages.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+
+            <div className="mt-6 p-6 bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl border-2 border-gray-200">
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-primary-600 to-indigo-700 flex items-center justify-center">
+                    <Sparkles className="h-5 w-5 text-white" />
+                  </div>
+                </div>
+                <p className="text-gray-800 leading-relaxed flex-1">
+                  All three projects are <span className="font-bold text-gray-900">bootstrapped and built from scratch</span> by our team.
+                  We believe in creating products that make a real difference, funded by passion and driven by purpose.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Journey & Stats */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-shadow duration-300">
           <div className="bg-gradient-to-r from-gray-700 via-slate-800 to-gray-900 px-8 py-6">

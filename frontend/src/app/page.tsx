@@ -72,7 +72,7 @@ export default function Home() {
                 {admissionInfo.is_open && admissionInfo.seats_available !== undefined && (
                   <span className="inline-flex items-center gap-1 px-2.5 sm:px-3 py-0.5 rounded-full bg-white/20 text-xs">
                     <Users className="h-3 w-3" />
-                    {admissionInfo.seats_available} of {admissionInfo.max_seats} seats
+                    {admissionInfo.max_seats} seats
                   </span>
                 )}
               </div>

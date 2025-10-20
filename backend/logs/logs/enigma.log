@@ -8194,3 +8194,67 @@ server closed the connection unexpectedly
 {
     "taskName": "Task-292"
 }
+2025-10-20 22:21:55 | INFO     | phase_manager | Performing shortlisting for cycle CYC_20251020_170727
+{
+    "taskName": "Task-299"
+}
+2025-10-20 22:21:57 | INFO     | phase_manager | Updated 2 applications to SHORTLISTED status
+{
+    "taskName": "Task-299"
+}
+2025-10-20 22:21:57 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-299"
+}
+2025-10-20 22:21:59 | INFO     | phase_manager | Shortlisting complete: 2 shortlisted, 0 not selected. Cycle moved to SELECTION phase.
+{
+    "taskName": "Task-299"
+}
+2025-10-20 22:21:59 | INFO     | api.admin_phases | Shortlisting performed for cycle CYC_20251020_170727 by admin enigma
+{
+    "taskName": "Task-299"
+}
+2025-10-20 22:22:08 | INFO     | phase_manager | Performing final selection for cycle CYC_20251020_170727
+{
+    "taskName": "Task-304"
+}
+2025-10-20 22:22:09 | ERROR    | api.admin_phases | Failed to perform final selection for cycle CYC_20251020_170727: No scored interviews found for this cycle.
+{
+    "taskName": "Task-304"
+}
+2025-10-20 22:22:09 | ERROR    | database | Database session error: 400: No scored interviews found for this cycle.
+{
+    "taskName": null
+}
+2025-10-20 22:22:18 | INFO     | phase_manager | Publishing results for cycle CYC_20251020_170727
+{
+    "taskName": "Task-307"
+}
+2025-10-20 22:22:22 | INFO     | hash_chain | Created hash chain entry for ANON_1760962511032_01EF9D: f33f5f8952e5bbe9...
+{
+    "taskName": "Task-307"
+}
+2025-10-20 22:22:23 | INFO     | hash_chain | Created hash chain entry for ANON_1760962515493_27A3FD: 22c5b05b2530b783...
+{
+    "taskName": "Task-307"
+}
+2025-10-20 22:22:24 | INFO     | phase_manager | Results published for cycle CYC_20251020_170727
+{
+    "taskName": "Task-307"
+}
+2025-10-20 22:22:24 | INFO     | api.admin_phases | Results published for cycle CYC_20251020_170727 by admin enigma
+{
+    "taskName": "Task-307"
+}
+2025-10-20 22:24:25 | INFO     | phase_manager | Completing cycle CYC_20251020_170727
+{
+    "taskName": "Task-313"
+}
+2025-10-20 22:24:26 | INFO     | phase_manager | Cycle CYC_20251020_170727 completed
+{
+    "taskName": "Task-313"
+}
+2025-10-20 22:24:26 | INFO     | api.admin_phases | Cycle CYC_20251020_170727 completed by admin enigma
+{
+    "taskName": "Task-313"
+}

@@ -8,6 +8,7 @@ import PhaseProgress from '@/components/PhaseProgress';
 import BatchManagement from '@/components/BatchManagement';
 import { SkeletonTable, SkeletonStats } from '@/components/Skeleton';
 import Modal, { type ModalType } from '@/components/Modal';
+import PipelineProgressModal, { type PipelineStep } from '@/components/PipelineProgressModal';
 import {
   Calendar,
   Plus,
@@ -24,7 +25,10 @@ import {
   Clock,
   Award,
   Target,
-  CheckCircle2
+  CheckCircle2,
+  Zap,
+  Send,
+  CheckCheck
 } from 'lucide-react';
 
 // Utility function to format dates in Pakistan Standard Time
@@ -131,6 +135,10 @@ export default function AdminCyclesPage() {
     setModalState({ ...modalState, isOpen: false });
   };
 
+  // Pipeline state
+  const [isPipelineRunning, setIsPipelineRunning] = useState(false);
+  const [pipelineSteps, setPipelineSteps] = useState<PipelineStep[]>([]);
+
   useEffect(() => {
     if (isAuthenticated) {
       loadCycles();
@@ -169,50 +177,143 @@ export default function AdminCyclesPage() {
     }
   };
 
+  const handleStartPipeline = async (cycleId: string) => {
+    // Initialize pipeline steps
+    const initialSteps: PipelineStep[] = [
+      {
+        key: 'preprocess',
+        label: 'Step 1: Data Preprocessing',
+        description: 'Scrubbing PII and preparing applications for evaluation',
+        status: 'pending',
+      },
+      {
+        key: 'export',
+        label: 'Step 2: Batch Export',
+        description: 'Exporting applications to JSONL format for LLM processing',
+        status: 'pending',
+      },
+      {
+        key: 'llm',
+        label: 'Step 3: LLM Evaluation',
+        description: 'Running AI evaluation on all applications',
+        status: 'pending',
+      },
+      {
+        key: 'shortlist',
+        label: 'Step 4: Shortlisting',
+        description: 'Selecting top candidates for interviews based on scores',
+        status: 'pending',
+      },
+      {
+        key: 'final',
+        label: 'Step 5: Final Selection',
+        description: 'Performing final selection based on interview performance',
+        status: 'pending',
+      },
+    ];
+
+    setPipelineSteps(initialSteps);
+    setIsPipelineRunning(true);
+
+    const updateStep = (key: string, status: PipelineStep['status'], errorMessage?: string) => {
+      setPipelineSteps(prev =>
+        prev.map(step =>
+          step.key === key ? { ...step, status, errorMessage } : step
+        )
+      );
+    };
+
+    try {
+      // Step 1: Preprocessing
+      updateStep('preprocess', 'running');
+      await adminApiClient.startPreprocessing(cycleId);
+      updateStep('preprocess', 'completed');
+      await loadCycles(); // Refresh to get updated phase
+
+      // Step 2: Export
+      updateStep('export', 'running');
+      const exportResult = await adminApiClient.exportBatchData(cycleId);
+      updateStep('export', 'completed');
+      await loadCycles();
+
+      // Step 3: LLM Evaluation
+      updateStep('llm', 'running');
+      await adminApiClient.startLLMProcessing(cycleId);
+      updateStep('llm', 'completed');
+      await loadCycles();
+
+      // Step 4: Shortlisting
+      updateStep('shortlist', 'running');
+      const shortlistResult = await adminApiClient.performSelection(cycleId);
+      updateStep('shortlist', 'completed');
+      await loadCycles();
+
+      // Step 5: Final Selection
+      updateStep('final', 'running');
+      const finalResult = await adminApiClient.performFinalSelection(cycleId);
+      updateStep('final', 'completed');
+      await loadCycles();
+
+      // Show success modal after pipeline completes
+      setTimeout(() => {
+        setIsPipelineRunning(false);
+        showModal(
+          'success',
+          'Pipeline Complete!',
+          `The automated processing pipeline has completed successfully.\n\n✓ ${exportResult.record_count} applications exported\n✓ ${shortlistResult.selected_count} candidates shortlisted (cutoff: ${shortlistResult.cutoff_score.toFixed(2)})\n✓ ${finalResult.selected_count} applicants selected\n\nYou can now publish the results.`
+        );
+      }, 1500);
+
+    } catch (error: any) {
+      // Find which step is currently running and mark it as error
+      const runningStep = pipelineSteps.find(s => s.status === 'running');
+      if (runningStep) {
+        updateStep(runningStep.key, 'error', error.message || 'An error occurred during this step');
+      }
+
+      console.error('Pipeline error:', error);
+
+      // Keep modal open to show error
+      setTimeout(() => {
+        setIsPipelineRunning(false);
+      }, 2000);
+    }
+  };
+
   const handlePhaseTransition = async (cycleId: string, action: string) => {
+    // Special handling for pipeline action
+    if (action === 'pipeline') {
+      await handleStartPipeline(cycleId);
+      return;
+    }
+
     setProcessing(cycleId);
     try {
       let result;
       switch (action) {
         case 'freeze':
           result = await adminApiClient.freezeCycle(cycleId);
-          break;
-        case 'preprocess':
-          result = await adminApiClient.startPreprocessing(cycleId);
-          break;
-        case 'export':
-          result = await adminApiClient.exportBatchData(cycleId);
           showModal(
             'success',
-            'Export Successful',
-            `Successfully exported ${result.record_count} applications.\n\nBatch ID: ${result.batch_id}\n\nYou can now proceed to run the LLM evaluation.`
-          );
-          break;
-        case 'processing':
-          result = await adminApiClient.startLLMProcessing(cycleId);
-          break;
-        case 'select':
-          result = await adminApiClient.performSelection(cycleId);
-          showModal(
-            'success',
-            'Shortlisting Complete',
-            `Successfully shortlisted ${result.selected_count} applicants for interviews.\n\nCutoff Score: ${result.cutoff_score.toFixed(2)}\n\nSelected applicants are now ready for Phase 2 interviews.`
-          );
-          break;
-        case 'final-select':
-          // Type assertion because the response is different
-          const finalResult = await adminApiClient.performFinalSelection(cycleId);
-          showModal(
-            'success',
-            'Final Selection Complete',
-            `Successfully selected ${finalResult.selected_count} applicants for admission.\n\nThe admission cycle is now ready for results publication.`
+            'Cycle Frozen',
+            'The cycle has been frozen. You can now start the automated processing pipeline.'
           );
           break;
         case 'publish':
           result = await adminApiClient.publishResults(cycleId);
+          showModal(
+            'success',
+            'Results Published',
+            'Results have been published and are now visible to all applicants.'
+          );
           break;
         case 'complete':
           result = await adminApiClient.completeCycle(cycleId);
+          showModal(
+            'success',
+            'Cycle Completed',
+            'The admission cycle has been marked as complete and archived.'
+          );
           break;
         default:
           throw new Error('Unknown action');
@@ -236,37 +337,52 @@ export default function AdminCyclesPage() {
     const actions = [];
     const phase = cycle.phase;
 
-    // Backend returns lowercase phase values (e.g., 'submission', 'batch_prep')
+    // Simplified 3-button workflow:
+    // 1. Freeze Cycle (when in submission)
+    // 2. Start Pipeline (when frozen - runs entire pipeline automatically)
+    // 3. Publish Results (when selection is complete)
+
     switch (phase) {
       case 'submission':
-        actions.push({ key: 'freeze', label: 'Freeze Cycle', variant: 'primary' });
-        break;
-      case 'frozen':
-        actions.push({ key: 'preprocess', label: 'Start Preprocessing', variant: 'primary' });
-        break;
-      case 'preprocessing':
-        actions.push({ key: 'export', label: 'Export for LLM', variant: 'primary' });
-        break;
-      case 'batch_prep':
-        actions.push({ key: 'processing', label: 'Run LLM Evaluation', variant: 'primary' });
-        break;
-      case 'processing':
-        actions.push({ key: 'processing', label: 'Re-run LLM Evaluation', variant: 'secondary' });
-        break;
-      case 'scored':
         actions.push({
-          key: 'select',
-          label: 'Perform Shortlisting',
+          key: 'freeze',
+          label: 'Freeze Cycle',
           variant: 'primary',
-          description: `This will select the top ${cycle.max_seats * 2} applicants for interviews.`
+          description: 'Close submissions and freeze the cycle for processing'
         });
         break;
-      case 'selection':
-        actions.push({ key: 'final-select', label: 'Perform Final Selection', variant: 'primary' });
-        actions.push({ key: 'publish', label: 'Publish Results', variant: 'secondary' });
+
+      case 'frozen':
+      case 'preprocessing':
+      case 'batch_prep':
+      case 'processing':
+      case 'scored':
+        // All these intermediate phases get the "Start Pipeline" button
+        actions.push({
+          key: 'pipeline',
+          label: phase === 'frozen' ? 'Start Automated Pipeline' : 'Resume Pipeline',
+          variant: 'primary',
+          description: 'Automatically run: Preprocessing → Export → LLM Evaluation → Shortlisting → Final Selection'
+        });
         break;
+
+      case 'selection':
+        // Pipeline completed, ready to publish
+        actions.push({
+          key: 'publish',
+          label: 'Publish Results',
+          variant: 'primary',
+          description: 'Make results visible to applicants'
+        });
+        break;
+
       case 'published':
-        actions.push({ key: 'complete', label: 'Complete Cycle', variant: 'secondary' });
+        actions.push({
+          key: 'complete',
+          label: 'Complete Cycle',
+          variant: 'secondary',
+          description: 'Archive this cycle and mark it as complete'
+        });
         break;
     }
 
@@ -851,40 +967,55 @@ export default function AdminCyclesPage() {
                           <div className="mb-6">
                             <h4 className="text-sm font-semibold text-gray-700 mb-4 uppercase">Phase Actions</h4>
                             <div className="flex flex-wrap gap-3">
-                              {availableActions.map((action) => (
-                                <div key={action.key}>
-                                  <button
-                                    onClick={() => handlePhaseTransition(cycle.cycle_id, action.key)}
-                                    disabled={processing !== null}
-                                    className={`flex items-center gap-2 px-4 py-2 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl ${
-                                      action.variant === 'primary'
-                                        ? 'bg-gradient-to-r from-primary-600 to-indigo-700 text-white hover:from-primary-700 hover:to-indigo-800'
-                                        : 'bg-gray-600 text-white hover:bg-gray-700'
-                                    }`}
-                                  >
-                                    {processing === cycle.cycle_id ? (
-                                      <>
-                                        <Loader2 className="h-4 w-4 animate-spin" />
-                                        Processing...
-                                      </>
-                                    ) : (
-                                      <>
-                                        <Settings className="h-4 w-4" />
-                                        {action.label}
-                                      </>
+                              {availableActions.map((action) => {
+                                // Get appropriate icon based on action type
+                                const getActionIcon = () => {
+                                  if (action.key === 'pipeline') return Zap;
+                                  if (action.key === 'freeze') return Lock;
+                                  if (action.key === 'publish') return Send;
+                                  if (action.key === 'complete') return CheckCheck;
+                                  return Settings;
+                                };
+                                const ActionIcon = getActionIcon();
+
+                                return (
+                                  <div key={action.key} className="w-full">
+                                    <button
+                                      onClick={() => handlePhaseTransition(cycle.cycle_id, action.key)}
+                                      disabled={processing !== null || isPipelineRunning}
+                                      className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl hover:scale-[1.02] ${
+                                        action.key === 'pipeline'
+                                          ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white hover:from-purple-700 hover:via-indigo-700 hover:to-blue-700'
+                                          : action.variant === 'primary'
+                                          ? 'bg-gradient-to-r from-primary-600 to-indigo-700 text-white hover:from-primary-700 hover:to-indigo-800'
+                                          : 'bg-gray-600 text-white hover:bg-gray-700'
+                                      }`}
+                                    >
+                                      {processing === cycle.cycle_id ? (
+                                        <>
+                                          <Loader2 className="h-5 w-5 animate-spin" />
+                                          Processing...
+                                        </>
+                                      ) : (
+                                        <>
+                                          <ActionIcon className={`h-5 w-5 ${action.key === 'pipeline' ? 'animate-pulse' : ''}`} />
+                                          {action.label}
+                                        </>
+                                      )}
+                                    </button>
+                                    {action.description && (
+                                      <p className="text-xs text-gray-600 mt-2 italic">{action.description}</p>
                                     )}
-                                  </button>
-                                  {action.description && (
-                                    <p className="text-xs text-gray-500 mt-2 max-w-xs">{action.description}</p>
-                                  )}
-                                </div>
-                              ))}
+                                  </div>
+                                );
+                              })}
                             </div>
                           </div>
                         )}
 
-                        {/* Batch Management - Show for PROCESSING and SCORED phases */}
-                        {(cycle.phase === 'processing' || cycle.phase === 'scored') && (
+                        {/* Batch Management - Hidden now that pipeline is automated
+                            Keeping code for manual intervention if needed */}
+                        {false && (cycle.phase === 'processing' || cycle.phase === 'scored') && (
                           <div>
                             <h4 className="text-sm font-semibold text-gray-700 mb-4 uppercase">Batch Management</h4>
                             <BatchManagement
@@ -912,6 +1043,14 @@ export default function AdminCyclesPage() {
         message={modalState.message}
         showCancel={modalState.showCancel}
         onConfirm={modalState.onConfirm}
+      />
+
+      {/* Pipeline Progress Modal */}
+      <PipelineProgressModal
+        isOpen={isPipelineRunning}
+        steps={pipelineSteps}
+        onClose={() => setIsPipelineRunning(false)}
+        canClose={!pipelineSteps.some(s => s.status === 'running')}
       />
     </div>
   );

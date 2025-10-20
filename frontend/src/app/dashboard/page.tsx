@@ -83,22 +83,22 @@ export default function DashboardPage() {
           <div className="absolute bottom-0 left-1/4 h-96 w-96 rounded-full bg-indigo-400/20 blur-3xl"></div>
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 sm:gap-6">
             <div>
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-4 shadow-lg">
-                <Activity className="h-4 w-4 text-emerald-300" />
-                <span className="text-white/90 font-medium text-sm">Live Metrics</span>
+              <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 mb-3 sm:mb-4 shadow-lg">
+                <Activity className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-300" />
+                <span className="text-white/90 font-medium text-xs sm:text-sm">Live Metrics</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-3">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold mb-2 sm:mb-3">
                 Fairness Dashboard
               </h1>
-              <p className="text-xl text-white/90 mb-2">
+              <p className="text-base sm:text-lg md:text-xl text-white/90 mb-2">
                 Public transparency metrics for ENIGMA Phase 1 evaluations
               </p>
               {lastUpdated && (
-                <div className="inline-flex items-center gap-2 text-sm text-white/70">
-                  <Clock className="h-4 w-4" />
+                <div className="inline-flex items-center gap-2 text-xs sm:text-sm text-white/70">
+                  <Clock className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
                   <span>Last updated: {lastUpdated.toLocaleString()}</span>
                 </div>
               )}
@@ -107,10 +107,10 @@ export default function DashboardPage() {
             <button
               onClick={fetchStats}
               disabled={loading}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-semibold hover:bg-white/20 transition-all shadow-lg hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="w-full md:w-auto flex items-center justify-center gap-2 min-h-[44px] px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-white/10 backdrop-blur-sm border-2 border-white/30 text-white font-semibold hover:bg-white/20 transition-all shadow-lg hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 touch-manipulation"
             >
-              <RefreshCw className={`h-5 w-5 ${loading ? 'animate-spin' : ''}`} />
-              Refresh Data
+              <RefreshCw className={`h-4 w-4 sm:h-5 sm:w-5 ${loading ? 'animate-spin' : ''}`} />
+              <span className="text-sm sm:text-base">Refresh Data</span>
             </button>
           </div>
         </div>

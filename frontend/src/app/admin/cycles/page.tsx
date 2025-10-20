@@ -177,8 +177,8 @@ export default function AdminCyclesPage() {
     }
   };
 
-  const handleStartPipeline = async (cycleId: string) => {
-    // Initialize pipeline steps
+  const handleStartPipeline = async (cycleId: string, cycle: AdmissionCycle) => {
+    // Initialize pipeline steps (Phase 1 only - stops at shortlisting)
     const initialSteps: PipelineStep[] = [
       {
         key: 'preprocess',
@@ -195,19 +195,13 @@ export default function AdminCyclesPage() {
       {
         key: 'llm',
         label: 'Step 3: LLM Evaluation',
-        description: 'Running AI evaluation on all applications',
+        description: 'Running AI evaluation on all applications (Phase 1 scores)',
         status: 'pending',
       },
       {
         key: 'shortlist',
-        label: 'Step 4: Shortlisting',
-        description: 'Selecting top candidates for interviews based on scores',
-        status: 'pending',
-      },
-      {
-        key: 'final',
-        label: 'Step 5: Final Selection',
-        description: 'Performing final selection based on interview performance',
+        label: 'Step 4: Interview Shortlisting',
+        description: `Selecting top ${cycle.max_seats * 2} candidates for Phase 2 interviews`,
         status: 'pending',
       },
     ];
@@ -242,16 +236,10 @@ export default function AdminCyclesPage() {
       updateStep('llm', 'completed');
       await loadCycles();
 
-      // Step 4: Shortlisting
+      // Step 4: Shortlisting (Final step - Pipeline stops here)
       updateStep('shortlist', 'running');
       const shortlistResult = await adminApiClient.performSelection(cycleId);
       updateStep('shortlist', 'completed');
-      await loadCycles();
-
-      // Step 5: Final Selection
-      updateStep('final', 'running');
-      const finalResult = await adminApiClient.performFinalSelection(cycleId);
-      updateStep('final', 'completed');
       await loadCycles();
 
       // Show success modal after pipeline completes
@@ -259,8 +247,8 @@ export default function AdminCyclesPage() {
         setIsPipelineRunning(false);
         showModal(
           'success',
-          'Pipeline Complete!',
-          `The automated processing pipeline has completed successfully.\n\n✓ ${exportResult.record_count} applications exported\n✓ ${shortlistResult.selected_count} candidates shortlisted (cutoff: ${shortlistResult.cutoff_score.toFixed(2)})\n✓ ${finalResult.selected_count} applicants selected\n\nYou can now publish the results.`
+          'Phase 1 Pipeline Complete!',
+          `The automated Phase 1 evaluation has completed successfully.\n\n✓ ${exportResult.record_count} applications processed\n✓ ${shortlistResult.selected_count} candidates shortlisted for interviews\n✓ Cutoff Score: ${shortlistResult.cutoff_score.toFixed(2)}\n\n📋 NEXT STEPS:\n1. Go to "Manage Interviews" to schedule Phase 2 interviews\n2. Conduct bias-monitored interviews with shortlisted candidates\n3. Return here to perform final selection after interviews complete\n\nNote: Only ${cycle.max_seats} students will be selected after interviews.`
         );
       }, 1500);
 
@@ -280,10 +268,14 @@ export default function AdminCyclesPage() {
     }
   };
 
-  const handlePhaseTransition = async (cycleId: string, action: string) => {
+  const handlePhaseTransition = async (cycleId: string, action: string, cycle?: AdmissionCycle) => {
     // Special handling for pipeline action
     if (action === 'pipeline') {
-      await handleStartPipeline(cycleId);
+      if (!cycle) {
+        console.error('Cycle object required for pipeline action');
+        return;
+      }
+      await handleStartPipeline(cycleId, cycle);
       return;
     }
 
@@ -296,7 +288,16 @@ export default function AdminCyclesPage() {
           showModal(
             'success',
             'Cycle Frozen',
-            'The cycle has been frozen. You can now start the automated processing pipeline.'
+            'The cycle has been frozen. You can now start the automated Phase 1 pipeline to shortlist candidates for interviews.'
+          );
+          break;
+        case 'final-select':
+          // Phase 7b: Final selection after interviews
+          result = await adminApiClient.performFinalSelection(cycleId);
+          showModal(
+            'success',
+            'Final Selection Complete',
+            `Successfully selected ${result.selected_count} applicants for admission.\n\nThe final ${result.selected_count} students have been chosen based on combined Phase 1 scores and Phase 2 interview performance.\n\nYou can now publish the results to notify selected applicants.`
           );
           break;
         case 'publish':
@@ -304,7 +305,7 @@ export default function AdminCyclesPage() {
           showModal(
             'success',
             'Results Published',
-            'Results have been published and are now visible to all applicants.'
+            `Results have been published and are now visible to ${cycle?.selected_count || 'all selected'} applicants.`
           );
           break;
         case 'complete':
@@ -337,16 +338,19 @@ export default function AdminCyclesPage() {
     const actions = [];
     const phase = cycle.phase;
 
-    // Simplified 3-button workflow:
-    // 1. Freeze Cycle (when in submission)
-    // 2. Start Pipeline (when frozen - runs entire pipeline automatically)
-    // 3. Publish Results (when selection is complete)
+    // Correct workflow with interview integration:
+    // 1. Freeze Cycle (submission → frozen)
+    // 2. Start Pipeline (frozen → scored) - Stops at shortlisting for interviews
+    // 3. [Manual: Schedule & Complete Interviews for 2k shortlisted students]
+    // 4. Perform Final Selection (scored → selection) - Selects k students after interviews
+    // 5. Publish Results (selection → published)
+    // 6. Complete Cycle (published → completed)
 
     switch (phase) {
       case 'submission':
         actions.push({
           key: 'freeze',
-          label: 'Freeze Cycle',
+          label: '🔒 Freeze Cycle',
           variant: 'primary',
           description: 'Close submissions and freeze the cycle for processing'
         });
@@ -356,30 +360,39 @@ export default function AdminCyclesPage() {
       case 'preprocessing':
       case 'batch_prep':
       case 'processing':
-      case 'scored':
-        // All these intermediate phases get the "Start Pipeline" button
+        // Phase 1 Pipeline: Runs through shortlisting (2k students)
         actions.push({
           key: 'pipeline',
-          label: phase === 'frozen' ? 'Start Automated Pipeline' : 'Resume Pipeline',
+          label: phase === 'frozen' ? '⚡ Start Phase 1 Pipeline' : '⚡ Resume Pipeline',
           variant: 'primary',
-          description: 'Automatically run: Preprocessing → Export → LLM Evaluation → Shortlisting → Final Selection'
+          description: `Automated: Preprocessing → Export → LLM Evaluation → Shortlist ${cycle.max_seats * 2} candidates for interviews`
+        });
+        break;
+
+      case 'scored':
+        // After shortlisting - waiting for interviews or ready for final selection
+        actions.push({
+          key: 'final-select',
+          label: '🎯 Perform Final Selection',
+          variant: 'primary',
+          description: `Select final ${cycle.max_seats} students from interview pool. Ensure all interviews are completed first!`
         });
         break;
 
       case 'selection':
-        // Pipeline completed, ready to publish
+        // Final selection complete, ready to publish
         actions.push({
           key: 'publish',
-          label: 'Publish Results',
+          label: '📤 Publish Results',
           variant: 'primary',
-          description: 'Make results visible to applicants'
+          description: `Make results visible to ${cycle.max_seats} selected applicants`
         });
         break;
 
       case 'published':
         actions.push({
           key: 'complete',
-          label: 'Complete Cycle',
+          label: '✅ Complete Cycle',
           variant: 'secondary',
           description: 'Archive this cycle and mark it as complete'
         });
@@ -981,11 +994,13 @@ export default function AdminCyclesPage() {
                                 return (
                                   <div key={action.key} className="w-full">
                                     <button
-                                      onClick={() => handlePhaseTransition(cycle.cycle_id, action.key)}
+                                      onClick={() => handlePhaseTransition(cycle.cycle_id, action.key, cycle)}
                                       disabled={processing !== null || isPipelineRunning}
                                       className={`w-full flex items-center justify-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-lg hover:shadow-xl hover:scale-[1.02] ${
                                         action.key === 'pipeline'
                                           ? 'bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600 text-white hover:from-purple-700 hover:via-indigo-700 hover:to-blue-700'
+                                          : action.key === 'final-select'
+                                          ? 'bg-gradient-to-r from-green-600 via-emerald-600 to-teal-600 text-white hover:from-green-700 hover:via-emerald-700 hover:to-teal-700'
                                           : action.variant === 'primary'
                                           ? 'bg-gradient-to-r from-primary-600 to-indigo-700 text-white hover:from-primary-700 hover:to-indigo-800'
                                           : 'bg-gray-600 text-white hover:bg-gray-700'

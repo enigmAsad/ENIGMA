@@ -13,7 +13,7 @@ import {
   CheckCircle, Ban, GraduationCap, Users, Lock, ShieldCheck, Search,
   BarChart3, Target, Zap, TrendingUp, Globe, Award, FileText, Video,
   Sparkles, ArrowRight, Shield, Eye, Clock, ChevronRight, Star,
-  Verify, Database, RefreshCw, CheckCircle2
+  Database, RefreshCw, CheckCircle2
 } from 'lucide-react';
 import { adminApiClient, type AdmissionInfo } from '@/lib/adminApi';
 import { useAuth } from '@/hooks/useStudentAuth';

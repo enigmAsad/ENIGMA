@@ -119,7 +119,7 @@ export default function StudentApplyPage() {
                           <Users className="h-4 w-4" />
                           <p className="text-xs text-white/80">Seats Available</p>
                         </div>
-                        <p className="text-2xl font-bold">{admissionInfo.seats_available} / {admissionInfo.max_seats}</p>
+                        <p className="text-2xl font-bold">{admissionInfo.max_seats}</p>
                       </div>
                       {admissionInfo.end_date && (
                         <div className="bg-white/10 backdrop-blur-sm rounded-lg p-3 border border-white/20">

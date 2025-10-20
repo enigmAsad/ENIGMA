@@ -20,8 +20,6 @@ import {
   Lock,
   Unlock,
   Loader2,
-  Home,
-  LogOut,
   Clock,
   Award,
   Target,
@@ -80,7 +78,7 @@ const getCurrentPKTDatetimeLocal = (): string => {
 
 export default function AdminCyclesPage() {
   const router = useRouter();
-  const { isAuthenticated, isLoading, admin, logout } = useAdminAuth();
+  const { isAuthenticated, isLoading, admin } = useAdminAuth();
   const [cycles, setCycles] = useState<AdmissionCycle[]>([]);
   const [cycleStatuses, setCycleStatuses] = useState<Record<string, CycleStatus>>({});
   const [loadingData, setLoadingData] = useState(true);
@@ -364,23 +362,7 @@ export default function AdminCyclesPage() {
               </div>
             </div>
 
-            {/* Action Buttons */}
-            <div className="flex flex-col gap-3 ml-6">
-              <button
-                onClick={() => router.push('/admin/dashboard')}
-                className="flex items-center gap-2 px-4 py-2 bg-white/20 backdrop-blur-sm border border-white/30 text-white rounded-lg hover:bg-white/30 transition-all shadow-lg hover:shadow-xl"
-              >
-                <Home className="h-4 w-4" />
-                Dashboard
-              </button>
-              <button
-                onClick={logout}
-                className="flex items-center gap-2 px-4 py-2 bg-red-500/80 backdrop-blur-sm border border-red-400/50 text-white rounded-lg hover:bg-red-600 transition-all shadow-lg hover:shadow-xl"
-              >
-                <LogOut className="h-4 w-4" />
-                Logout
-              </button>
-            </div>
+            {/* Action Buttons removed (available in navbar) */}
           </div>
         </div>
       </div>

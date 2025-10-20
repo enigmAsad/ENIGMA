@@ -11,12 +11,12 @@ import {
   LayoutDashboard, Users, Award, TrendingUp, Calendar,
   Settings, Eye, FileText, CheckCircle2, Clock,
   AlertCircle, Loader2, Shield, BarChart3, Target,
-  ChevronRight, Sparkles, Activity, LogOut
+  ChevronRight, Sparkles, Activity
 } from 'lucide-react';
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const { isAuthenticated, isLoading, admin, logout } = useAdminAuth();
+  const { isAuthenticated, isLoading, admin } = useAdminAuth();
   const [activeCycle, setActiveCycle] = useState<AdmissionCycle | null>(null);
   const [cycleStatus, setCycleStatus] = useState<CycleStatus | null>(null);
   const [stats, setStats] = useState<any>(null);
@@ -183,14 +183,7 @@ export default function AdminDashboard() {
               </div>
             </div>
 
-            {/* Logout Button */}
-            <button
-              onClick={logout}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 transition-all duration-200 font-medium text-sm hover:scale-105 self-start md:self-auto"
-            >
-              <LogOut className="h-4 w-4" />
-              Sign Out
-            </button>
+            {/* Logout Button removed (already available in navbar) */}
           </div>
         </div>
       </div>

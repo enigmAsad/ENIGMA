@@ -7,7 +7,7 @@ import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { SkeletonList } from '@/components/Skeleton';
 import {
   Video, Calendar, Clock, CheckCircle2, XCircle, Trash2,
-  AlertCircle, Loader2, Users, ChevronRight, UserCheck,
+  AlertCircle, Loader2, Users, UserCheck,
   CalendarPlus, Info, Mail, IdCard, Sparkles
 } from 'lucide-react';
 
@@ -167,13 +167,7 @@ const AdminInterviewsPage = () => {
                 <p className="text-primary-100">Schedule and manage applicant interviews</p>
               </div>
             </div>
-            <button
-              onClick={() => router.push('/admin/dashboard')}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 transition-all duration-200 font-medium text-sm hover:scale-105 self-start md:self-auto"
-            >
-              <ChevronRight className="h-4 w-4 rotate-180" />
-              Back to Dashboard
-            </button>
+            {/* Back to Dashboard button removed (available in navbar) */}
           </div>
 
           {/* Stats Bar */}
@@ -291,7 +285,6 @@ const AdminInterviewsPage = () => {
                 >
                   <Calendar className="h-4 w-4" />
                   Manage Cycles
-                  <ChevronRight className="h-4 w-4" />
                 </button>
               </div>
             </div>

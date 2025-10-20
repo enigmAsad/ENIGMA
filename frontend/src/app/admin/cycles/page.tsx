@@ -6,6 +6,7 @@ import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { adminApiClient, type AdmissionCycle, type CreateCycleRequest, type CycleStatus } from '@/lib/adminApi';
 import PhaseProgress from '@/components/PhaseProgress';
 import BatchManagement from '@/components/BatchManagement';
+import { SkeletonTable, SkeletonStats } from '@/components/Skeleton';
 import {
   Calendar,
   Plus,
@@ -298,14 +299,12 @@ export default function AdminCyclesPage() {
 
   if (isLoading || loadingData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="relative">
-            <Loader2 className="h-16 w-16 text-primary-600 animate-spin mx-auto" />
-            <Calendar className="h-6 w-6 text-primary-700 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="space-y-8">
+            <SkeletonStats count={3} />
+            <SkeletonTable rows={5} columns={6} />
           </div>
-          <p className="mt-6 text-lg font-medium text-primary-900">Loading admission cycles...</p>
-          <p className="text-sm text-primary-600 mt-2">Preparing your management dashboard</p>
         </div>
       </div>
     );

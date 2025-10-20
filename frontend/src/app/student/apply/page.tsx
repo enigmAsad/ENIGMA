@@ -10,6 +10,7 @@ import { useAuth } from '@/hooks/useStudentAuth';
 import { adminApiClient, type AdmissionCycle, type AdmissionInfo } from '@/lib/adminApi';
 import { studentApiClient } from '@/lib/studentApi';
 import ApplicationForm from '@/components/ApplicationForm';
+import { SkeletonForm } from '@/components/Skeleton';
 import {
   FileText, CheckCircle2, Lock, Unlock, Calendar,
   Users, Clock, Info, Sparkles, ArrowRight, Loader2,
@@ -54,10 +55,11 @@ export default function StudentApplyPage() {
 
   if (authLoading || loadingCycles) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
-          <p className="text-gray-600 font-medium">Loading application portal...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-indigo-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="bg-white rounded-2xl shadow-xl border border-gray-200 p-8">
+            <SkeletonForm fields={8} />
+          </div>
         </div>
       </div>
     );

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { adminApiClient, AdmissionCycle, InterviewDetails, InterviewCreate, ApplicationDetails } from '@/lib/adminApi';
 import { useAdminAuth } from '@/hooks/useAdminAuth';
+import { SkeletonList } from '@/components/Skeleton';
 import {
   Video, Calendar, Clock, CheckCircle2, XCircle, Trash2,
   AlertCircle, Loader2, Users, ChevronRight, UserCheck,
@@ -112,10 +113,11 @@ const AdminInterviewsPage = () => {
 
   if (dataLoading || authLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
-          <p className="text-gray-600 font-medium">Loading interview data...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="space-y-8">
+            <SkeletonList items={6} />
+          </div>
         </div>
       </div>
     );

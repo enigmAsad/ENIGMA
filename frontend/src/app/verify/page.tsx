@@ -7,6 +7,7 @@
 import { useState, useEffect, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { apiClient, VerifyRequest, VerifyResponse } from '@/lib/api';
+import { SkeletonCard } from '@/components/Skeleton';
 import {
   Shield, CheckCircle2, AlertTriangle, Lock, Unlock,
   Hash, Search, Link2, Info, ArrowLeft, Loader2,
@@ -170,7 +171,11 @@ function VerifyContent() {
                 >
                   {loading ? (
                     <>
-                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <span className="flex gap-1">
+                        <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></span>
+                        <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></span>
+                        <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></span>
+                      </span>
                       Verifying...
                     </>
                   ) : (
@@ -364,7 +369,11 @@ function VerifyContent() {
                 >
                   {chainLoading ? (
                     <>
-                      <Loader2 className="h-5 w-5 animate-spin" />
+                      <span className="flex gap-1">
+                        <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></span>
+                        <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></span>
+                        <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></span>
+                      </span>
                       Verifying Chain...
                     </>
                   ) : (
@@ -590,10 +599,12 @@ function VerifyContent() {
 export default function VerifyPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
-          <p className="text-gray-600 font-medium">Loading verification portal...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="space-y-6">
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
         </div>
       </div>
     }>

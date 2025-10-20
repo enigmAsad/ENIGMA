@@ -9,6 +9,7 @@ import { useInterviewAudio } from '@/hooks/useInterviewAudio';
 import NudgeOverlay from '@/components/NudgeOverlay';
 import InterviewScoreModal from '@/components/InterviewScoreModal';
 import { adminApiClient } from '@/lib/adminApi';
+import { SkeletonCard } from '@/components/Skeleton';
 import {
   Video, VideoOff, Phone, PhoneOff, Mic, MicOff, Monitor,
   User, Shield, Activity, Clock, AlertCircle, CheckCircle2,
@@ -256,10 +257,12 @@ const InterviewRoomPage = () => {
 
   if (isStudentLoading || isAdminLoading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
-          <p className="text-gray-600 font-medium">Loading interview session...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <SkeletonCard />
+            <SkeletonCard />
+          </div>
         </div>
       </div>
     );

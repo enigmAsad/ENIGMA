@@ -7356,3 +7356,15 @@ server closed the connection unexpectedly
 {
     "taskName": "Task-333"
 }
+2025-10-20 08:05:05 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 08:05:12 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-507"
+}
+2025-10-20 08:05:16 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-507"
+}

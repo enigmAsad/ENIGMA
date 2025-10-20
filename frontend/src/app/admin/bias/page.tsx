@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAdminAuth } from "@/hooks/useAdminAuth";
 import { adminApiClient, BiasFlag, BiasMetrics } from "@/lib/adminApi";
+import { SkeletonDashboard } from "@/components/Skeleton";
 import {
   Shield, AlertTriangle, Users, Activity, Filter, Eye,
   XCircle, CheckCircle2, Loader2, AlertCircle, BarChart3,
@@ -107,10 +108,9 @@ export default function AdminBiasDashboard() {
 
   if (isLoading || loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
-          <p className="text-gray-600 font-medium">Loading bias monitoring data...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <SkeletonDashboard />
         </div>
       </div>
     );

@@ -4,7 +4,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useStudentAuth';
-import { Loader2, Check, ShieldCheck } from 'lucide-react';
+import { SkeletonCard } from '@/components/Skeleton';
+import { Check, ShieldCheck } from 'lucide-react';
 
 export default function StudentLoginPage() {
   const { student, login, loading, error } = useAuth();
@@ -18,10 +19,9 @@ export default function StudentLoginPage() {
 
   if (loading || student) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary-50 to-primary-100">
-        <div className="flex items-center text-gray-700">
-          <Loader2 className="h-6 w-6 animate-spin text-primary-600 mr-2" />
-          Loading...
+      <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
+        <div className="max-w-md mx-auto px-4 py-12">
+          <SkeletonCard />
         </div>
       </div>
     );

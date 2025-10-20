@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react';
 import Card from '@/components/Card';
 import Button from '@/components/Button';
 import { apiClient, DashboardStatsResponse } from '@/lib/api';
+import { SkeletonDashboard } from '@/components/Skeleton';
 import {
   FileText, CheckCircle2, BarChart3, RefreshCw, Shield, Lock,
   Eye, Award, Zap, TrendingUp, Users, Clock, Star, Sparkles,
@@ -41,11 +42,9 @@ export default function DashboardPage() {
 
   if (loading && !stats) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="h-16 w-16 animate-spin text-primary-600 mx-auto mb-6" />
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Loading Dashboard</h2>
-          <p className="text-gray-600">Fetching latest fairness metrics...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <SkeletonDashboard />
         </div>
       </div>
     );

@@ -6,6 +6,7 @@ import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { adminApiClient, type AdmissionCycle, type CycleStatus } from '@/lib/adminApi';
 import { apiClient } from '@/lib/api';
 import PhaseProgress from '@/components/PhaseProgress';
+import { SkeletonDashboard } from '@/components/Skeleton';
 import {
   LayoutDashboard, Users, Award, TrendingUp, Calendar,
   Settings, Eye, FileText, CheckCircle2, Clock,
@@ -153,10 +154,9 @@ export default function AdminDashboard() {
 
   if (isLoading || loadingData) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
-          <p className="text-gray-600 font-medium">Loading dashboard...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <SkeletonDashboard />
         </div>
       </div>
     );
@@ -369,7 +369,11 @@ export default function AdminDashboard() {
                       <Icon className="h-4 w-4" />
                       {processingAction === action.key ? (
                         <>
-                          <Loader2 className="h-4 w-4 animate-spin" />
+                          <span className="flex gap-1">
+                            <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></span>
+                            <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></span>
+                            <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></span>
+                          </span>
                           Processing...
                         </>
                       ) : (

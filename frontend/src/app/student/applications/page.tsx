@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useStudentAuth';
 import { studentApiClient, type StudentApplicationHistory } from '@/lib/studentApi';
+import { SkeletonList } from '@/components/Skeleton';
 import {
   FileText, ChevronDown, ChevronUp, Award, TrendingUp,
   Calendar, Clock, CheckCircle2, AlertCircle, Shield,
@@ -100,10 +101,9 @@ export default function StudentApplicationsPage() {
 
   if (!student) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-indigo-50 flex items-center justify-center">
-        <div className="text-center">
-          <Loader2 className="h-12 w-12 animate-spin text-primary-600 mx-auto mb-4" />
-          <p className="text-gray-600 font-medium">Loading...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-primary-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <SkeletonList items={3} />
         </div>
       </div>
     );

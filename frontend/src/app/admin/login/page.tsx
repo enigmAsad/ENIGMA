@@ -157,7 +157,11 @@ export default function AdminLoginPage() {
                   >
                     {loading && (
                       <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                        <Loader2 className="h-5 w-5 animate-spin text-white/80" />
+                        <span className="flex gap-1">
+                          <span className="w-1.5 h-1.5 bg-white/80 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></span>
+                          <span className="w-1.5 h-1.5 bg-white/80 rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></span>
+                          <span className="w-1.5 h-1.5 bg-white/80 rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></span>
+                        </span>
                       </span>
                     )}
                     <span className="flex items-center justify-center">

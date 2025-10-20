@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { studentApiClient } from '@/lib/studentApi';
 import { useAuth } from '@/hooks/useStudentAuth';
+import { SkeletonCard } from '@/components/Skeleton';
 
 export default function GoogleCallbackPage() {
   const searchParams = useSearchParams();
@@ -38,12 +39,36 @@ export default function GoogleCallbackPage() {
   }, [searchParams, router, setStudent]);
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <div className="p-8 bg-white rounded-lg shadow-md">
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
+      <div className="max-w-md mx-auto px-4 py-12">
         {error ? (
-          <p className="text-red-500">{error}</p>
+          <div className="bg-white rounded-2xl shadow-xl border-2 border-red-200 p-8">
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-red-100 mb-4">
+                <span className="text-red-600 text-xl font-bold">!</span>
+              </div>
+              <h2 className="text-xl font-bold text-red-900 mb-2">Login Error</h2>
+              <p className="text-red-700 mb-6">{error}</p>
+              <button
+                onClick={() => router.push('/student/login')}
+                className="px-6 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium"
+              >
+                Try Again
+              </button>
+            </div>
+          </div>
         ) : (
-          <p>Completing login...</p>
+          <div className="space-y-4">
+            <div className="text-center mb-6">
+              <div className="inline-flex gap-1 mb-3">
+                <span className="w-2 h-2 bg-primary-600 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></span>
+                <span className="w-2 h-2 bg-primary-600 rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></span>
+                <span className="w-2 h-2 bg-primary-600 rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></span>
+              </div>
+              <p className="text-gray-700 font-medium">Completing login...</p>
+            </div>
+            <SkeletonCard />
+          </div>
         )}
       </div>
     </div>

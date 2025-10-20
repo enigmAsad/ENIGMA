@@ -8970,3 +8970,495 @@ server closed the connection unexpectedly
 {
     "taskName": null
 }
+2025-10-20 23:16:54 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 23:16:55 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-20 23:16:55 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-20 23:17:42 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-20 23:17:42 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-20 23:17:42 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-20 23:17:42 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-20 23:17:46 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 23:21:29 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 23:22:36 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 23:23:16 | INFO     | api.admin_cycles | Created and opened admission cycle: ABC
+{
+    "taskName": "Task-32"
+}
+2025-10-20 23:23:57 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 23:24:03 | INFO     | student_auth | Issued session STS_67D7D794E1 for student STU_F5355E37
+{
+    "taskName": "Task-42"
+}
+2025-10-20 23:24:04 | INFO     | student_auth | Student STU_F5355E37 logged in via Google
+{
+    "taskName": "Task-42"
+}
+2025-10-20 23:27:00 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-68"
+}
+2025-10-20 23:27:01 | INFO     | audit | AUDIT: create | Application:APP_7F5B9CDB | actor=system | details={'stage': 'intake'} | timestamp=2025-10-20T18:27:01.233819
+{
+    "taskName": "Task-68"
+}
+2025-10-20 23:27:01 | INFO     | application_collector | Application collected successfully: APP_7F5B9CDB
+{
+    "taskName": "Task-68"
+}
+2025-10-20 23:27:02 | INFO     | api.applications | Application submitted: APP_7F5B9CDB (Cycle: ABC)
+{
+    "taskName": "Task-68"
+}
+2025-10-20 23:27:39 | INFO     | phase_manager | Freezing cycle CYC_20251020_182315 by admin ADM_ENIGMA
+{
+    "taskName": "Task-88"
+}
+2025-10-20 23:27:40 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-88"
+}
+2025-10-20 23:27:41 | INFO     | phase_manager | Cycle CYC_20251020_182315 frozen successfully
+{
+    "taskName": "Task-88"
+}
+2025-10-20 23:27:41 | INFO     | api.admin_phases | Cycle CYC_20251020_182315 frozen by admin enigma
+{
+    "taskName": "Task-88"
+}
+2025-10-20 23:27:47 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251020_182315
+{
+    "taskName": "Task-91"
+}
+2025-10-20 23:27:48 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-91"
+}
+2025-10-20 23:27:49 | INFO     | identity_scrubber | Scrubbing application: APP_7F5B9CDB
+{
+    "taskName": "Task-91"
+}
+2025-10-20 23:27:49 | INFO     | identity_scrubber | Applied 4 redactions to APP_7F5B9CDB
+{
+    "taskName": "Task-91"
+}
+2025-10-20 23:27:52 | INFO     | identity_scrubber | Successfully scrubbed APP_7F5B9CDB → ANON_1760966869565_DB9821
+{
+    "taskName": "Task-91"
+}
+2025-10-20 23:27:54 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251020_182315: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-91"
+}
+2025-10-20 23:27:54 | INFO     | api.admin_phases | Preprocessing started for cycle CYC_20251020_182315 by admin enigma
+{
+    "taskName": "Task-91"
+}
+2025-10-20 23:27:57 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-95"
+}
+2025-10-20 23:27:59 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-95"
+}
+2025-10-20 23:27:59 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251020_182315
+{
+    "taskName": "Task-95"
+}
+2025-10-20 23:28:00 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251020_182315: 1 applications ready for export
+{
+    "taskName": "Task-95"
+}
+2025-10-20 23:28:00 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251020_182315 to JSONL
+{
+    "taskName": "Task-95"
+}
+2025-10-20 23:28:01 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251020_182315_20251020_182801.jsonl
+{
+    "taskName": "Task-95"
+}
+2025-10-20 23:28:02 | INFO     | api.admin_phases | Batch export completed for cycle CYC_20251020_182315 by admin enigma
+{
+    "taskName": "Task-95"
+}
+2025-10-20 23:28:06 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:28:08 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:28:08 | INFO     | phase_manager | Starting processing for cycle CYC_20251020_182315
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:28:09 | INFO     | phase_manager | Cycle CYC_20251020_182315 now in PROCESSING phase
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:28:11 | INFO     | worker_llm | Evaluating ANON_1760966869565_DB9821 (attempt 1)
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:28:35 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_6E9FD8BC | actor=worker_llm | details={'anonymized_id': 'ANON_1760966869565_DB9821', 'attempt_number': 1, 'total_score': 78.15} | timestamp=2025-10-20T18:28:35.394233
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:28:36 | INFO     | worker_llm | Worker evaluation complete: ANON_1760966869565_DB9821 → 78.15/100 (attempt 1)
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:28:37 | INFO     | judge_llm | Validating worker evaluation for ANON_1760966869565_DB9821 (attempt 1)
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:28:55 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_C786514A | actor=judge_llm | details={'anonymized_id': 'ANON_1760966869565_DB9821', 'worker_result_id': 'WKR_6E9FD8BC', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-20T18:28:55.012567
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:28:56 | INFO     | judge_llm | Judge validation complete: ANON_1760966869565_DB9821 → APPROVED  (quality: 88/100)
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:28:59 | INFO     | audit | AUDIT: update | HashChain:ANON_1760966869565_DB9821 | actor=hash_chain_generator | details={'hash': '977ef99dc718cac16575624676574c2ccfa308991d9d08051352828b4d3ebcf8'} | timestamp=2025-10-20T18:28:59.606406
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:29:00 | INFO     | hash_chain | Created hash chain entry for ANON_1760966869565_DB9821: 977ef99dc718cac1...
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:29:01 | INFO     | phase_manager | Marking cycle CYC_20251020_182315 as scored
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:29:03 | INFO     | phase_manager | Cycle CYC_20251020_182315 marked as SCORED
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:29:03 | INFO     | api.admin_phases | LLM processing completed for cycle CYC_20251020_182315 by admin enigma
+{
+    "taskName": "Task-98"
+}
+2025-10-20 23:29:05 | INFO     | phase_manager | Performing shortlisting for cycle CYC_20251020_182315
+{
+    "taskName": "Task-102"
+}
+2025-10-20 23:29:06 | INFO     | phase_manager | Updated 1 applications to SHORTLISTED status
+{
+    "taskName": "Task-102"
+}
+2025-10-20 23:29:07 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-102"
+}
+2025-10-20 23:29:08 | INFO     | phase_manager | Shortlisting complete: 1 shortlisted, 0 not selected. Cycle moved to SELECTION phase.
+{
+    "taskName": "Task-102"
+}
+2025-10-20 23:29:08 | INFO     | api.admin_phases | Shortlisting performed for cycle CYC_20251020_182315 by admin enigma
+{
+    "taskName": "Task-102"
+}
+2025-10-20 23:30:58 | INFO     | api.interviews | Interview 7 scheduled for application APP_7F5B9CDB by enigma
+{
+    "taskName": "Task-140"
+}
+2025-10-20 23:32:03 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 23:32:04 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 7
+{
+    "taskName": "Task-172"
+}
+2025-10-20 23:32:04 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 7
+{
+    "taskName": "Task-178"
+}
+2025-10-20 23:32:19 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-192"
+}
+2025-10-20 23:32:23 | INFO     | audio_stream | Audio stream connected for interview 7, speaker: admin
+{
+    "taskName": "Task-192"
+}
+2025-10-20 23:32:23 | INFO     | stt_service | Started audio stream for interview 7
+{
+    "taskName": "Task-192"
+}
+2025-10-20 23:37:13 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-178"
+}
+2025-10-20 23:37:13 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 7
+{
+    "taskName": "Task-178"
+}
+2025-10-20 23:37:13 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 7
+{
+    "taskName": "Task-178"
+}
+2025-10-20 23:37:13 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-192"
+}
+2025-10-20 23:37:13 | INFO     | audio_stream | Audio stream disconnected for interview 7, speaker: admin
+{
+    "taskName": "Task-192"
+}
+2025-10-20 23:37:13 | INFO     | stt_service | Stopped audio stream for interview 7
+{
+    "taskName": "Task-192"
+}
+2025-10-20 23:37:13 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-172"
+}
+2025-10-20 23:37:13 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 7
+{
+    "taskName": "Task-172"
+}
+2025-10-20 23:37:20 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 23:38:31 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 23:38:55 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 7
+{
+    "taskName": "Task-30"
+}
+2025-10-20 23:38:55 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 7
+{
+    "taskName": "Task-36"
+}
+2025-10-20 23:40:01 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-69"
+}
+2025-10-20 23:40:06 | INFO     | audio_stream | Audio stream connected for interview 7, speaker: admin
+{
+    "taskName": "Task-69"
+}
+2025-10-20 23:40:06 | INFO     | stt_service | Started audio stream for interview 7
+{
+    "taskName": "Task-69"
+}
+2025-10-20 23:43:00 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-36"
+}
+2025-10-20 23:43:00 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 7
+{
+    "taskName": "Task-36"
+}
+2025-10-20 23:43:00 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 7
+{
+    "taskName": "Task-36"
+}
+2025-10-20 23:43:01 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 7
+{
+    "taskName": "Task-75"
+}
+2025-10-20 23:43:37 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-75"
+}
+2025-10-20 23:43:37 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 7
+{
+    "taskName": "Task-75"
+}
+2025-10-20 23:43:37 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 7
+{
+    "taskName": "Task-75"
+}
+2025-10-20 23:43:37 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-69"
+}
+2025-10-20 23:43:37 | INFO     | audio_stream | Audio stream disconnected for interview 7, speaker: admin
+{
+    "taskName": "Task-69"
+}
+2025-10-20 23:43:37 | INFO     | stt_service | Stopped audio stream for interview 7
+{
+    "taskName": "Task-69"
+}
+2025-10-20 23:43:38 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-30"
+}
+2025-10-20 23:43:38 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 7
+{
+    "taskName": "Task-30"
+}
+2025-10-20 23:44:00 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'src.database.models.Interview'>
+{
+    "taskName": null
+}
+2025-10-20 23:44:17 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'src.database.models.Interview'>
+{
+    "taskName": null
+}
+2025-10-20 23:45:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 23:46:09 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'src.database.models.Interview'>
+{
+    "taskName": null
+}
+2025-10-20 23:47:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 23:48:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 23:51:15 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 23:51:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 23:51:24 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-20 23:51:24 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-20 23:51:49 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-20 23:51:49 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-20 23:51:49 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-20 23:51:49 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-20 23:51:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 23:53:01 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'src.database.models.Interview'>
+{
+    "taskName": null
+}
+2025-10-20 23:54:25 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'src.database.models.Interview'>
+{
+    "taskName": null
+}
+2025-10-20 23:58:29 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 23:59:57 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'src.database.models.Interview'>
+{
+    "taskName": null
+}
+2025-10-21 00:00:14 | INFO     | api.admin_cycles | Opened admission cycle: ABC
+{
+    "taskName": "Task-29"
+}
+2025-10-21 00:00:36 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'src.database.models.Interview'>
+{
+    "taskName": null
+}
+2025-10-21 00:04:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 00:04:37 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 00:04:38 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 00:04:38 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 00:05:03 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-21 00:05:03 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-21 00:05:03 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-21 00:05:03 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-21 00:05:06 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 00:05:56 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'src.database.models.Interview'>
+{
+    "taskName": null
+}
+2025-10-21 00:08:07 | ERROR    | database | Database session error: Unable to serialize unknown type: <class 'src.database.models.Interview'>
+{
+    "taskName": null
+}
+2025-10-21 00:09:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

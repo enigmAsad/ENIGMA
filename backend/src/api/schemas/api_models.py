@@ -4,6 +4,8 @@ from pydantic import BaseModel, EmailStr, Field, ConfigDict
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 
+from src.models.schemas import InterviewDetails
+
 
 # ============================================================================
 # Application Request/Response Models
@@ -180,4 +182,4 @@ class ApplicationDetails(BaseModel):
     email: EmailStr
     status: str
     timestamp: datetime
-    interview: Optional[Any] = None  # Will be InterviewDetails from schemas
+    interview: Optional[InterviewDetails] = None

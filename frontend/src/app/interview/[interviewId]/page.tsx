@@ -207,7 +207,7 @@ const InterviewRoomPage = () => {
         socketRef.current.send(JSON.stringify({ offer }));
       }
 
-      if (localStream) {
+      if (localStream && isAdmin) {
         audioStreaming.startCapture(localStream);
       }
     }

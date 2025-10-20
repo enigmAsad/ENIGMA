@@ -104,6 +104,7 @@ export function useInterviewAudio({
         ) {
           // Convert Blob to ArrayBuffer and send
           event.data.arrayBuffer().then((buffer) => {
+            console.log(`Sending ${speaker} audio stream chunk: ${buffer.byteLength} bytes`);
             wsRef.current?.send(buffer);
           });
         }

@@ -177,7 +177,7 @@ Top navigation bar with active route highlighting.
 - **Student Session Awareness**: Displays authenticated student name/email, adds quick link to Student Dashboard, and exposes Logout action.
 - **Login Shortcut**: Renders a primary "Student Login" button that triggers the Google OAuth flow when no session exists.
 
-### 6. NudgeOverlay (`NudgeOverlay.tsx`) - **Phase 2 NEW**
+### 6. NudgeOverlay (`NudgeOverlay.tsx`) - **Phase 2**
 Real-time bias alert overlay for admin evaluators during live interviews.
 
 **Props:**
@@ -186,21 +186,115 @@ Real-time bias alert overlay for admin evaluators during live interviews.
 - `onBlock?`: `() => void` - Callback when interview is blocked
 
 **Features:**
-- Connects to WebSocket `/ws/interview/{id}/nudges?admin_id={adminId}`
+- Automatic WebSocket URL derivation from `NEXT_PUBLIC_API_URL` (HTTP→WS conversion)
+- Graceful degradation with yellow warning banner if connection fails
+- Green "Bias monitoring active" indicator when connected
 - Displays three types of nudges with distinct UI:
   - **INFO**: Blue gradient banner at bottom, auto-dismiss after 5s
   - **WARNING**: Yellow/orange banner at top, requires acknowledgment, adds strike
   - **BLOCK**: Red full-screen modal, interview terminated, creates flag
 - Sends acknowledgments back to server via WebSocket
 - Handles multiple concurrent nudges with priority queuing
-- Includes connection status indicator
+- Enhanced error logging with connection state and close event codes
 
 **UI States:**
 ```typescript
-- info: "bg-gradient-to-r from-blue-500 to-blue-600"
+- info: "bg-gradient-to-r from-primary-500 to-primary-600"
 - warning: "bg-gradient-to-r from-yellow-400 to-orange-500"
 - block: "bg-gradient-to-r from-red-600 to-red-700"
 ```
+
+### 7. Modal (`Modal.tsx`) - **v1.5.0 NEW**
+Beautiful custom modal component replacing JavaScript alerts/confirms.
+
+**Props:**
+- `isOpen`: `boolean` - Controls modal visibility
+- `onClose`: `() => void` - Close callback
+- `title`: `string` - Modal title
+- `message`: `string` - Modal message (supports newlines with `\n`)
+- `type`: `'success' | 'error' | 'info' | 'warning'` - Modal style
+- `confirmText?`: `string` - Confirm button text (default: "OK")
+- `showCancel?`: `boolean` - Show cancel button for confirmations
+- `onConfirm?`: `() => void` - Confirm callback
+
+**Features:**
+- 4 themed variants with gradient headers and custom icons
+- Smooth fade-in + scale animation
+- Backdrop blur effect
+- ESC key to close
+- Body scroll lock when open
+- Click outside to close (unless confirmation mode)
+- Multiline message support
+
+**Type Styles:**
+```typescript
+- success: Green gradient with CheckCircle2 icon
+- error: Red gradient with XCircle icon
+- info: Blue gradient with Info icon
+- warning: Yellow/orange gradient with AlertTriangle icon
+```
+
+### 8. PipelineProgressModal (`PipelineProgressModal.tsx`) - **v1.5.0 NEW**
+Real-time progress tracker for automated admin workflow pipeline.
+
+**Props:**
+- `isOpen`: `boolean` - Controls modal visibility
+- `steps`: `PipelineStep[]` - Array of pipeline steps
+- `onClose?`: `() => void` - Close callback
+- `canClose?`: `boolean` - Allow closing (disabled during processing)
+
+**PipelineStep Interface:**
+```typescript
+{
+  key: string;
+  label: string;
+  description: string;
+  status: 'pending' | 'running' | 'completed' | 'error';
+  errorMessage?: string;
+}
+```
+
+**Features:**
+- Live progress bar with percentage tracking
+- 4-step automated workflow visualization
+- Color-coded step states:
+  - Pending: Gray with Circle icon
+  - Running: Blue with spinning Loader icon + pulsing dots
+  - Completed: Green with CheckCircle icon
+  - Error: Red with XCircle icon + error message
+- Animated grid pattern background
+- Step-by-step numbered badges
+- Cannot close during processing (locked modal)
+- Success/error footer button after completion
+
+**UI Elements:**
+- Gradient header: Purple→Indigo→Blue
+- Progress bar: Blue (processing), Green (complete), Red (error)
+- Step cards: Expand/highlight for active step
+- Responsive layout with mobile support
+
+### 9. PhaseProgress (`PhaseProgress.tsx`)
+Visual progress tracker for admission cycle phases.
+
+**Props:**
+- `currentPhase`: `string` - Current backend phase (lowercase with underscores)
+- `className?`: `string` - Additional CSS classes
+
+**Features:**
+- 9-phase workflow with emoji icons (v1.5.0 updated):
+  - 📝 Submission - Applications Open
+  - 🔒 Frozen - Data Locked
+  - 🧹 Preprocessing - Scrubbing PII + Metrics
+  - 📦 Batch Prep - Export Ready
+  - 🤖 Processing - Phase 1 LLM Evaluation
+  - 🎥 **Interviews** - Phase 2 Interviews (2k shortlisted) ← Updated in v1.5.0
+  - 🎯 Selection - Final Selection (k selected)
+  - 📤 Published - Results Live
+  - ✅ Completed - Cycle Closed
+- Live progress bar with percentage
+- Color-coded phases: Completed (green), Active (blue), Pending (gray)
+- "Current" badge for active phase
+- Smooth transitions
 
 ---
 
@@ -374,6 +468,98 @@ Full CRUD interface for managing admission cycles.
 
 ---
 
+### v1.5.0 (2025-10-20) - Automated Pipeline + Interview Integration + Enhanced UX
+
+**MAJOR RELEASE: Streamlined Admin Workflow with Automated Processing Pipeline**
+
+#### **🚀 Automated Pipeline System**
+- **Added**: `PipelineProgressModal` component - Beautiful real-time progress tracker with step-by-step visualization
+  - Live progress bar with percentage tracking
+  - 4-step automated workflow: Preprocessing → Export → LLM Evaluation → Shortlisting (2k students)
+  - Color-coded step states (pending/running/completed/error)
+  - Pulsing indicators for active steps
+  - Graceful error handling with specific step failure identification
+  - Success summary with key metrics (applications processed, shortlisted count, cutoff score)
+- **Updated**: Admin Cycles workflow simplified from 6+ manual buttons to **3-button system**:
+  1. **🔒 Freeze Cycle** - Locks submissions and prepares for processing
+  2. **⚡ Start Phase 1 Pipeline** - Automated 4-step pipeline (stops at interview shortlisting)
+  3. **🎯 Perform Final Selection** - Selects final k students after Phase 2 interviews complete
+  4. **📤 Publish Results** - Makes results visible to selected applicants
+  5. **✅ Complete Cycle** - Archives the cycle
+- **Improved**: Pipeline stops at shortlisting phase to allow Phase 2 interviews (2k candidates → k final selections)
+- **Added**: Clear next-steps messaging after pipeline completion directing admins to interview management
+
+#### **💬 Custom Modal System**
+- **Added**: `Modal.tsx` - Beautiful themed modal component replacing JavaScript alerts
+  - 4 modal types: success (green), error (red), info (blue), warning (yellow/orange)
+  - Gradient headers with icons
+  - Smooth animations (fade-in + scale)
+  - Backdrop blur effect
+  - ESC key support
+  - Confirmation mode with cancel button
+  - Body scroll lock when open
+- **Replaced**: All `alert()` and `confirm()` dialogs with custom modals throughout admin cycles page
+  - Export success notifications
+  - Shortlisting completion
+  - Final selection confirmation
+  - Cycle freeze/open/close/publish/complete confirmations
+  - Delete cycle confirmation with detailed warning
+  - Error messages with helpful troubleshooting text
+
+#### **🎥 Interview Integration & Phase Tracking**
+- **Updated**: `PhaseProgress.tsx` component now correctly shows interview phase
+  - 9-phase workflow visualization with emoji icons
+  - "Scored" phase renamed to "Interviews" with description "Phase 2 Interviews (2k shortlisted)"
+  - "Selection" phase shows "Final Selection (k selected)"
+  - Visual indication that interviews happen DURING the scored phase
+  - Updated descriptions to reflect Phase 1 (LLM) vs Phase 2 (Interviews) distinction
+- **Fixed**: Workflow now correctly separates:
+  - Phase 1 Pipeline: Automated LLM evaluation → Shortlist 2k candidates
+  - **[Manual Phase 2]**: Admins schedule and conduct bias-monitored interviews
+  - Final Selection: Selects k students from interview pool based on combined scores
+
+#### **🔧 WebSocket Error Handling (NudgeOverlay)**
+- **Improved**: Automatic WebSocket URL derivation from `NEXT_PUBLIC_API_URL` (HTTP→WS, HTTPS→WSS)
+- **Added**: Graceful degradation when bias monitoring WebSocket fails:
+  - Yellow warning banner: "Bias Monitoring Unavailable"
+  - Clear explanation that interview can proceed
+  - Dismissible error message
+  - Green "Bias monitoring active" indicator when connected
+- **Enhanced**: Detailed error logging with connection state, URL, and close event codes
+- **Fixed**: Try-catch around WebSocket creation to prevent crashes
+- **Improved**: Distinguishes clean vs unexpected disconnections
+
+#### **📊 UI/UX Enhancements**
+- **Updated**: Admin cycle action buttons now full-width with distinct color coding:
+  - Pipeline button: Purple→Indigo→Blue gradient with pulsing Zap icon
+  - Final Selection button: Green→Emerald→Teal gradient with Target icon
+  - Primary actions: Blue gradient
+  - Secondary actions: Gray
+- **Added**: Hover scale effect and enhanced shadows on all action buttons
+- **Improved**: Action button descriptions provide context and guidance
+- **Updated**: Button labels include emoji icons for visual clarity
+
+#### **🎯 Workflow Clarity**
+- **Documentation**: Added inline comments explaining correct 10-step workflow:
+  ```
+  1. Freeze Cycle (submission → frozen)
+  2. Start Pipeline (frozen → scored) - Automated, stops at shortlisting
+  3. [Manual: Schedule & Complete Interviews for 2k shortlisted students]
+  4. Perform Final Selection (scored → selection) - Selects k students
+  5. Publish Results (selection → published)
+  6. Complete Cycle (published → completed)
+  ```
+- **Updated**: Success modals now include clear next-step instructions
+- **Enhanced**: Phase descriptions explicitly mention "2k shortlisted" and "k selected"
+
+#### **Technical Details**
+- **Location**: `src/components/Modal.tsx`, `src/components/PipelineProgressModal.tsx`, `src/components/PhaseProgress.tsx`, `src/components/NudgeOverlay.tsx`, `src/app/admin/cycles/page.tsx`
+- **Dependencies**: No new dependencies added - uses existing Tailwind CSS and Lucide icons
+- **Breaking Changes**: None - all updates are backward compatible
+- **Performance**: Pipeline runs sequentially with `async/await`, refreshes cycle data after each step
+
+---
+
 ### v1.4.0 (2025-10-19) - Two-Step Selection Workflow UI
 - **Updated**: The Admin Cycles page (`/admin/cycles`) now supports the new two-step selection process.
 - **Updated**: In the `scored` phase, the action button is now **"Perform Shortlisting"** to trigger the initial selection for interviews.
@@ -418,6 +604,6 @@ Full CRUD interface for managing admission cycles.
 - **Features**: Responsive design, form validation, status tracking, cryptographic verification, and a public transparency dashboard.
 
 ---
-**Last Updated:** 2025-10-14
-**Version:** 1.3.0
-**Status:** Production Ready (Phase 1 + Admin Portal + Student Accounts) ✅
+**Last Updated:** 2025-10-20
+**Version:** 1.5.0
+**Status:** Production Ready (Phase 1 + Admin Portal + Student Accounts + Automated Pipeline + Interview Integration) ✅

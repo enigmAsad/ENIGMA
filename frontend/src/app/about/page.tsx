@@ -75,7 +75,7 @@ export default function AboutPage() {
             <div className="relative p-2">
               <div className="overflow-hidden rounded-xl">
                 <Image
-                  src="/images/our-pic-together.HEIC"
+                  src="/images/our-pic-together.jpg"
                   alt="Asad Ghaffar and Arsalan Sikander - The ENIGMA Team"
                   width={1920}
                   height={1080}
@@ -159,7 +159,7 @@ export default function AboutPage() {
                   <div className="flex items-start gap-5 mb-4">
                     <div className="flex-shrink-0 h-24 w-24 sm:h-28 sm:w-28 rounded-2xl overflow-hidden border-4 border-white shadow-xl group-hover:scale-105 transition-transform">
                       <Image
-                        src="/images/arsalan.HEIC"
+                        src="/images/arsalan.jpg"
                         alt="Arsalan Sikander - Full Stack Developer"
                         width={256}
                         height={256}

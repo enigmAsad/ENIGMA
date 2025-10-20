@@ -117,10 +117,10 @@ export default function Navigation() {
     switch (userRole) {
       case 'student':
         return [
+          { href: '/student/dashboard', label: 'Dashboard', icon: LayoutDashboard },
           { href: '/student/apply', label: 'Apply', icon: Sparkles },
           { href: '/student/applications', label: 'My Applications', icon: FileText },
           { href: '/student/interviews', label: 'Interviews', icon: Video },
-          { href: '/student/dashboard', label: 'Dashboard', icon: LayoutDashboard },
         ];
       case 'admin':
         return [

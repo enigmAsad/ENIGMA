@@ -267,7 +267,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Zero Bias</h3>
                 <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
-                  All identifying information is completely removed before evaluation. Only merit matters.
+                  All identifying information is removed before evaluation. Only merit matters.
                 </p>
               </div>
             </div>

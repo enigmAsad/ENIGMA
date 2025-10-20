@@ -7,14 +7,14 @@ import { adminApiClient, InterviewDetails } from '@/lib/adminApi';
 import { studentApiClient } from '@/lib/studentApi';
 import { type AdmissionInfo } from '@/lib/adminApi';
 import {
-  User, Mail, IdCard, LogOut, FileText, CheckCircle2,
+  User, Mail, IdCard, FileText, CheckCircle2,
   Clock, AlertCircle, TrendingUp, Calendar, Shield,
   ChevronRight, Sparkles, Award, Target, Loader2,
   Video, BookOpen, BarChart3, Lock, Unlock
 } from 'lucide-react';
 
 export default function StudentDashboardPage() {
-  const { student, loading, error, logout } = useAuth();
+  const { student, loading, error } = useAuth();
   const router = useRouter();
   const [admissionInfo, setAdmissionInfo] = useState<AdmissionInfo | null>(null);
   const [interviews, setInterviews] = useState<InterviewDetails[]>([]);
@@ -119,14 +119,7 @@ export default function StudentDashboardPage() {
               </div>
             </div>
 
-            {/* Logout Button */}
-            <button
-              onClick={logout}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 transition-all duration-200 font-medium text-sm hover:scale-105 self-start md:self-auto"
-            >
-              <LogOut className="h-4 w-4" />
-              Sign Out
-            </button>
+            {/* Logout Button removed (already available in navbar) */}
           </div>
 
           {error && (

@@ -237,20 +237,20 @@ export default function Home() {
       </section>
 
       {/* Mission Section */}
-      <section className="py-20 relative overflow-hidden">
+      <section className="py-12 sm:py-16 md:py-20 relative overflow-hidden">
         <div className="absolute inset-0 bg-white"></div>
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent"></div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-50 border border-primary-200 mb-6">
-              <Target className="h-4 w-4 text-primary-600" />
-              <span className="text-sm font-semibold text-primary-700">Our Mission</span>
+          <div className="text-center mb-8 sm:mb-10 md:mb-12">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary-50 border border-primary-200 mb-4 sm:mb-6">
+              <Target className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary-600" />
+              <span className="text-xs sm:text-sm font-semibold text-primary-700">Our Mission</span>
             </div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-gray-900 mb-6">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-gray-900 mb-4 sm:mb-6 px-4">
               Fairness Through <span className="bg-gradient-to-r from-primary-600 to-indigo-600 bg-clip-text text-transparent">Technology</span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed px-4">
               ENIGMA eliminates bias from university admissions through blind AI evaluation and
               real-time monitoring. We ensure every applicant is judged solely on merit, with
               complete transparency and cryptographic proof of integrity.
@@ -258,41 +258,41 @@ export default function Home() {
           </div>
 
           {/* Feature highlights */}
-          <div className="grid md:grid-cols-3 gap-6 mt-12">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mt-8 sm:mt-10 md:mt-12">
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-indigo-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
-                <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-primary-500 to-indigo-600 flex items-center justify-center mb-4 shadow-md">
-                  <Shield className="h-7 w-7 text-white" />
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-500 to-indigo-600 rounded-xl sm:rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
+                <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-lg sm:rounded-xl bg-gradient-to-br from-primary-500 to-indigo-600 flex items-center justify-center mb-3 sm:mb-4 shadow-md">
+                  <Shield className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Zero Bias</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Zero Bias</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   All identifying information is completely removed before evaluation. Only merit matters.
                 </p>
               </div>
             </div>
 
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
-                <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-4 shadow-md">
-                  <Eye className="h-7 w-7 text-white" />
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-600 rounded-xl sm:rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
+                <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-lg sm:rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center mb-3 sm:mb-4 shadow-md">
+                  <Eye className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Full Transparency</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Full Transparency</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   Every decision is explained with detailed feedback and cryptographic verification.
                 </p>
               </div>
             </div>
 
             <div className="relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
-              <div className="relative bg-white rounded-2xl p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
-                <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-4 shadow-md">
-                  <Award className="h-7 w-7 text-white" />
+              <div className="absolute inset-0 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-xl sm:rounded-2xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
+              <div className="relative bg-white rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-lg border border-gray-100 hover:shadow-xl transition-all">
+                <div className="h-12 w-12 sm:h-14 sm:w-14 rounded-lg sm:rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 flex items-center justify-center mb-3 sm:mb-4 shadow-md">
+                  <Award className="h-6 w-6 sm:h-7 sm:w-7 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">Merit-Based</h3>
-                <p className="text-gray-600 leading-relaxed">
+                <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 sm:mb-3">Merit-Based</h3>
+                <p className="text-sm sm:text-base text-gray-600 leading-relaxed">
                   AI evaluates applications purely on academic achievement and potential.
                 </p>
               </div>

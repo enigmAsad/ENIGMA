@@ -7368,3 +7368,35 @@ server closed the connection unexpectedly
 {
     "taskName": "Task-507"
 }
+2025-10-20 12:52:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 12:52:10 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-20 12:52:10 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-20 12:52:14 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-20 12:52:14 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-20 12:52:14 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-20 12:52:14 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-20 12:52:15 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

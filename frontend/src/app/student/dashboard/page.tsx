@@ -6,9 +6,16 @@ import { useAuth } from '@/hooks/useStudentAuth';
 import { adminApiClient, InterviewDetails } from '@/lib/adminApi';
 import { studentApiClient } from '@/lib/studentApi';
 import { type AdmissionInfo } from '@/lib/adminApi';
+import { SkeletonDashboard } from '@/components/Skeleton';
+import {
+  User, Mail, IdCard, FileText, CheckCircle2,
+  Clock, AlertCircle, TrendingUp, Calendar, Shield,
+  ChevronRight, Sparkles, Award, Target, Loader2,
+  Video, BookOpen, BarChart3, Lock, Unlock
+} from 'lucide-react';
 
 export default function StudentDashboardPage() {
-  const { student, loading, error, logout } = useAuth();
+  const { student, loading, error } = useAuth();
   const router = useRouter();
   const [admissionInfo, setAdmissionInfo] = useState<AdmissionInfo | null>(null);
   const [interviews, setInterviews] = useState<InterviewDetails[]>([]);
@@ -48,298 +55,414 @@ export default function StudentDashboardPage() {
   }, [student]);
 
   if (loading || admissionLoading) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <SkeletonDashboard />
+        </div>
+      </div>
+    );
   }
 
   const hasResults = student?.application?.results !== null && student?.application?.results !== undefined;
   const applicationStatus = student?.application?.status?.status;
   const isResultPublished = hasResults && ['selected', 'not_selected', 'published'].includes(applicationStatus || '');
 
+  // Status helpers
+  const getStatusInfo = (status: string) => {
+    const statusMap: Record<string, { label: string; color: string; icon: any; bgColor: string }> = {
+      submitted: { label: 'Submitted', color: 'text-blue-600', icon: CheckCircle2, bgColor: 'bg-blue-50' },
+      preprocessing: { label: 'Pre-processing', color: 'text-yellow-600', icon: Clock, bgColor: 'bg-yellow-50' },
+      scored: { label: 'Evaluated', color: 'text-indigo-600', icon: Award, bgColor: 'bg-indigo-50' },
+      selection: { label: 'Under Review', color: 'text-purple-600', icon: Target, bgColor: 'bg-purple-50' },
+      selected: { label: 'Selected', color: 'text-green-600', icon: CheckCircle2, bgColor: 'bg-green-50' },
+      not_selected: { label: 'Not Selected', color: 'text-gray-600', icon: FileText, bgColor: 'bg-gray-50' },
+    };
+    return statusMap[status?.toLowerCase()] || { label: status, color: 'text-gray-600', icon: Clock, bgColor: 'bg-gray-50' };
+  };
+
+  const statusInfo = getStatusInfo(applicationStatus || '');
+
   return (
-    <div className="container mx-auto p-4 md:p-8">
-      <div className="flex justify-between items-center mb-8">
-        <h1 className="text-3xl font-bold text-white">Student Dashboard</h1>
-        <button
-          onClick={logout}
-          className="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700 transition-colors"
-        >
-          Logout
-        </button>
-      </div>
-
-      {error && <p className="text-red-400 bg-red-900/50 p-4 rounded-lg mb-4">Error: {error}</p>}
-
-      {student && (
-        <div className="space-y-6">
-          {/* Student Profile Section */}
-          <div className="bg-gray-800/50 p-6 rounded-lg shadow-xl ring-1 ring-white/10">
-            <h2 className="text-xl font-semibold mb-4 text-white">Profile Information</h2>
-            <div className="space-y-2">
-              <div className="flex justify-between">
-                <span className="text-gray-400">Name:</span>
-                <span className="text-white font-medium">{student.display_name || 'N/A'}</span>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      {/* Hero Section with Profile */}
+      <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="flex items-start gap-4">
+              {/* Avatar */}
+              <div className="flex-shrink-0">
+                <div className="h-20 w-20 rounded-2xl bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center ring-4 ring-white/10">
+                  <User className="h-10 w-10 text-white" />
+                </div>
               </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Email:</span>
-                <span className="text-white font-medium">{student.primary_email}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-400">Student ID:</span>
-                <span className="text-white font-mono font-medium">{student.student_id}</span>
+
+              {/* Profile Info */}
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-2">
+                  <h1 className="text-3xl font-bold truncate">
+                    Welcome back, {student?.display_name?.split(' ')[0] || 'Student'}!
+                  </h1>
+                  <Sparkles className="h-6 w-6 text-yellow-300 flex-shrink-0" />
+                </div>
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3 text-white/90 text-sm">
+                  <div className="flex items-center gap-2">
+                    <Mail className="h-4 w-4" />
+                    <span className="truncate">{student?.primary_email}</span>
+                  </div>
+                  <span className="hidden sm:inline">•</span>
+                  <div className="flex items-center gap-2">
+                    <IdCard className="h-4 w-4" />
+                    <span className="font-mono">{student?.student_id}</span>
+                  </div>
+                </div>
               </div>
             </div>
+
+            {/* Logout Button removed (already available in navbar) */}
           </div>
 
-          {/* Interview Section */}
-          {interviews.length > 0 && (
-            <div className="bg-purple-800/50 p-6 rounded-lg shadow-xl ring-1 ring-white/10">
-              <h2 className="text-xl font-semibold mb-4 text-white">Upcoming Interview</h2>
-              {interviews.map(interview => {
-                const now = new Date();
-                const interviewTime = new Date(interview.interview_time);
-                const oneDay = 24 * 60 * 60 * 1000;
-                const isScheduled = interview.status === 'scheduled';
-                const isWithinWindow = 
-                  now.getTime() >= (interviewTime.getTime() - oneDay) &&
-                  now.getTime() <= (interviewTime.getTime() + oneDay);
-                const isJoinable = isScheduled && isWithinWindow;
-                const showTimeWindowMessage = isScheduled && !isWithinWindow;
-
-                return (
-                  <div key={interview.id} className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">📅</span>
-                      <div>
-                        <h3 className="font-semibold text-purple-400">
-                          Interview Scheduled
-                        </h3>
-                        <p className="text-sm text-purple-300">
-                          Time: {interviewTime.toLocaleString()}
-                        </p>
-                        <p className="text-xs text-purple-400 mt-1">
-                          Status: {interview.status}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="text-right">
-                      <button
-                        onClick={() => router.push(`/interview/${interview.id}`)}
-                        className="bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700 transition-colors disabled:bg-gray-500 disabled:cursor-not-allowed text-sm font-medium"
-                        disabled={!isJoinable}
-                      >
-                        Join Interview
-                      </button>
-                      {showTimeWindowMessage && (
-                        <p className="text-xs text-yellow-400 mt-1">
-                          Joinable 24 hours before/after scheduled time.
-                        </p>
-                      )}
-                    </div>
-                  </div>
-                );
-              })}
+          {error && (
+            <div className="mt-6 bg-red-500/20 backdrop-blur-sm border border-red-300/30 rounded-lg p-4">
+              <p className="text-white/95 text-sm flex items-center gap-2">
+                <AlertCircle className="h-5 w-5" />
+                {error}
+              </p>
             </div>
           )}
+        </div>
+      </div>
 
-          {/* Notifications Section */}
-          <div className="bg-gray-800/50 p-6 rounded-lg shadow-xl ring-1 ring-white/10">
-            <h2 className="text-xl font-semibold mb-4 text-white">📢 Notifications</h2>
-            <div className="space-y-4">
-
-              {/* Results Published Notification */}
-              {isResultPublished && (
-                <div className={`border rounded-lg p-4 ${
-                  student.application?.results?.status === 'selected'
-                    ? 'bg-green-900/30 border-green-700'
-                    : 'bg-gray-900/50 border-gray-700'
-                }`}>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">
-                        {student.application?.results?.status === 'selected' ? '🎉' : '📝'}
-                      </span>
+      {student && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Left Column - Main Content */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Application Status Card */}
+              {student.application ? (
+                <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                  <div className="bg-gradient-to-r from-primary-500 to-indigo-600 px-6 py-4">
+                    <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                      <FileText className="h-5 w-5" />
+                      Application Status
+                    </h2>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between mb-6">
                       <div>
-                        <h3 className={`font-semibold ${
-                          student.application?.results?.status === 'selected'
-                            ? 'text-green-400'
-                            : 'text-gray-300'
-                        }`}>
-                          {student.application?.results?.status === 'selected'
-                            ? 'Congratulations! You\'ve Been Selected!'
-                            : 'Results Published'}
-                        </h3>
-                        <p className="text-sm text-gray-400">
-                          Your evaluation results are now available
-                        </p>
+                        <p className="text-sm text-gray-600 mb-1">Current Status</p>
+                        <div className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg font-semibold ${statusInfo.bgColor} ${statusInfo.color}`}>
+                          <statusInfo.icon className="h-5 w-5" />
+                          {statusInfo.label}
+                        </div>
                       </div>
+                      {student.application.status?.application_id && (
+                        <div className="text-right">
+                          <p className="text-sm text-gray-600 mb-1">Application ID</p>
+                          <p className="font-mono font-bold text-gray-900">{student.application.status.application_id}</p>
+                        </div>
+                      )}
                     </div>
-                    <button
-                      onClick={() => router.push('/student/applications')}
-                      className="bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors text-sm font-medium"
-                    >
-                      View Details
-                    </button>
-                  </div>
-                </div>
-              )}
 
-              {/* Admission Status Notification */}
-              {admissionInfo ? (
-                admissionInfo.is_open ? (
-                  <div className="bg-green-900/30 border border-green-700 rounded-lg p-4">
-                    <div className="flex items-start">
-                      <span className="text-2xl mr-3">✅</span>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-green-400 mb-1">
-                          Admissions Open for {admissionInfo.cycle_name}
-                        </h3>
-                        <p className="text-sm text-green-300 mb-2">
-                          {admissionInfo.seats_available} of {admissionInfo.max_seats} seats available
-                        </p>
-                        {admissionInfo.end_date && (
-                          <p className="text-sm text-green-300">
-                            Deadline: {new Date(admissionInfo.end_date).toLocaleDateString()}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
-                    <div className="flex items-start">
-                      <span className="text-2xl mr-3">🔒</span>
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-400 mb-1">
-                          Admissions Currently Closed
-                        </h3>
-                        <p className="text-sm text-gray-500">
-                          We are not accepting applications at this time. Check back later for updates.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )
-              ) : (
-                <div className="bg-gray-900/50 border border-gray-700 rounded-lg p-4">
-                  <div className="flex items-start">
-                    <span className="text-2xl mr-3">ℹ️</span>
-                    <div className="flex-1">
-                      <p className="text-sm text-gray-500">No admission information available.</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* Application Not Submitted Yet */}
-              {!student.application && admissionInfo?.is_open && (
-                <div className="bg-yellow-900/30 border border-yellow-700 rounded-lg p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">⚡</span>
-                      <div>
-                        <h3 className="font-semibold text-yellow-400">
-                          Ready to Apply?
-                        </h3>
-                        <p className="text-sm text-yellow-300">
-                          You haven't submitted an application yet. Admissions are open!
-                        </p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => router.push('/apply')}
-                      className="bg-primary-600 text-white py-2 px-6 rounded-md hover:bg-primary-700 transition-colors text-sm font-medium"
-                    >
-                      Apply Now
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* Application In Progress (not yet published) */}
-              {student.application && !isResultPublished && (
-                <div className="bg-primary-900/30 border border-primary-700 rounded-lg p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">⏳</span>
-                      <div>
-                        <h3 className="font-semibold text-primary-400">Application In Progress</h3>
-                        <p className="text-sm text-primary-300">
-                          Your application is being evaluated. Check back for updates.
-                        </p>
-                        <p className="text-xs text-primary-400 mt-1">
-                          Status: {applicationStatus?.replace(/_/g, ' ').toUpperCase()}
-                        </p>
-                      </div>
-                    </div>
-                    <button
-                      onClick={() => router.push('/student/applications')}
-                      className="bg-primary-600 text-white py-2 px-4 rounded-md hover:bg-primary-700 transition-colors text-sm font-medium"
+                    {/* Action Buttons */}
+                    <div className="flex flex-wrap gap-3">
+                      <button
+                        onClick={() => router.push('/student/applications')}
+                        className="flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg"
                       >
-                      Track Status
+                        <FileText className="h-4 w-4" />
+                        View Full Details
+                        <ChevronRight className="h-4 w-4" />
+                      </button>
+                      <button
+                        onClick={() => router.push('/verify')}
+                        className="flex items-center gap-2 px-5 py-2.5 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-all font-medium"
+                      >
+                        <Shield className="h-4 w-4" />
+                        Verify Results
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                // No Application Yet
+                <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                  <div className="p-8 text-center">
+                    <div className="inline-flex items-center justify-center h-16 w-16 rounded-full bg-primary-100 mb-4">
+                      <FileText className="h-8 w-8 text-primary-600" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-gray-900 mb-2">No Application Yet</h3>
+                    <p className="text-gray-600 mb-6">You haven't submitted an application for the current cycle.</p>
+                    {admissionInfo?.is_open ? (
+                      <button
+                        onClick={() => router.push('/apply')}
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg"
+                      >
+                        <Sparkles className="h-5 w-5" />
+                        Start Application Now
+                        <ChevronRight className="h-4 w-4" />
+                      </button>
+                    ) : (
+                      <p className="text-sm text-gray-500">Admissions are currently closed. Check back later!</p>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Interviews Card */}
+              {interviews.length > 0 && (
+                <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                  <div className="bg-gradient-to-r from-purple-500 to-pink-600 px-6 py-4">
+                    <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                      <Video className="h-5 w-5" />
+                      Upcoming Interviews
+                    </h2>
+                  </div>
+                  <div className="p-6">
+                    {interviews.map(interview => {
+                      const now = new Date();
+                      const interviewTime = new Date(interview.interview_time);
+                      const oneDay = 24 * 60 * 60 * 1000;
+                      const isScheduled = interview.status === 'scheduled';
+                      const isWithinWindow =
+                        now.getTime() >= (interviewTime.getTime() - oneDay) &&
+                        now.getTime() <= (interviewTime.getTime() + oneDay);
+                      const isJoinable = isScheduled && isWithinWindow;
+
+                      return (
+                        <div key={interview.id} className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 bg-purple-50 rounded-lg">
+                          <div className="flex items-start gap-3">
+                            <div className="flex-shrink-0 h-12 w-12 rounded-lg bg-purple-100 flex items-center justify-center">
+                              <Calendar className="h-6 w-6 text-purple-600" />
+                            </div>
+                            <div>
+                              <h3 className="font-semibold text-gray-900 mb-1">
+                                Phase 2 Interview
+                              </h3>
+                              <p className="text-sm text-gray-600 flex items-center gap-2">
+                                <Clock className="h-4 w-4" />
+                                {interviewTime.toLocaleString('en-US', {
+                                  dateStyle: 'medium',
+                                  timeStyle: 'short'
+                                })}
+                              </p>
+                              <p className="text-xs text-gray-500 mt-1">
+                                Status: <span className="font-medium">{interview.status}</span>
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex flex-col gap-2">
+                            <button
+                              onClick={() => router.push(`/interview/${interview.id}`)}
+                              disabled={!isJoinable}
+                              className={`px-6 py-2.5 rounded-lg font-medium transition-all ${
+                                isJoinable
+                                  ? 'bg-purple-600 text-white hover:bg-purple-700 shadow-md hover:shadow-lg'
+                                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                              }`}
+                            >
+                              {isJoinable ? 'Join Now' : 'Not Available Yet'}
+                            </button>
+                            {!isJoinable && (
+                              <p className="text-xs text-yellow-600 text-center">
+                                Available 24h before/after
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Results Card */}
+              {isResultPublished && (
+                <div className={`rounded-2xl shadow-lg border-2 overflow-hidden ${
+                  student.application?.results?.status === 'selected'
+                    ? 'border-green-400 bg-gradient-to-br from-green-50 to-emerald-50'
+                    : 'border-gray-300 bg-gradient-to-br from-gray-50 to-slate-50'
+                }`}>
+                  <div className="p-8 text-center">
+                    <div className="text-6xl mb-4">
+                      {student.application?.results?.status === 'selected' ? '🎉' : '📝'}
+                    </div>
+                    <h3 className={`text-3xl font-bold mb-2 ${
+                      student.application?.results?.status === 'selected'
+                        ? 'text-green-900'
+                        : 'text-gray-900'
+                    }`}>
+                      {student.application?.results?.status === 'selected'
+                        ? 'Congratulations!'
+                        : 'Results Published'}
+                    </h3>
+                    <p className="text-gray-700 mb-6 max-w-md mx-auto">
+                      {student.application?.results?.status === 'selected'
+                        ? 'You have been selected! View your detailed evaluation results below.'
+                        : 'Your evaluation has been completed. Review the feedback to improve future applications.'}
+                    </p>
+                    <button
+                      onClick={() => router.push('/student/applications')}
+                      className={`inline-flex items-center gap-2 px-6 py-3 rounded-lg font-medium shadow-md hover:shadow-lg transition-all ${
+                        student.application?.results?.status === 'selected'
+                          ? 'bg-green-600 text-white hover:bg-green-700'
+                          : 'bg-gray-700 text-white hover:bg-gray-800'
+                      }`}
+                    >
+                      <Award className="h-5 w-5" />
+                      View Results
+                      <ChevronRight className="h-4 w-4" />
                     </button>
                   </div>
                 </div>
               )}
             </div>
-          </div>
 
-          {/* Quick Actions */}
-          <div className="bg-gray-800/50 p-6 rounded-lg shadow-xl ring-1 ring-white/10">
-            <h2 className="text-xl font-semibold mb-4 text-white">Quick Actions</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <button
-                onClick={() => router.push('/student/applications')}
-                className="bg-primary-600 text-white p-4 rounded-lg hover:bg-primary-700 transition-colors text-left"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">📋</span>
-                  <div>
-                    <h3 className="font-semibold">My Applications</h3>
-                    <p className="text-sm text-primary-200">View all submissions and results</p>
+            {/* Right Column - Sidebar */}
+            <div className="space-y-6">
+              {/* Admission Info Card */}
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-4">
+                    {admissionInfo?.is_open ? (
+                      <Unlock className="h-6 w-6 text-green-600" />
+                    ) : (
+                      <Lock className="h-6 w-6 text-gray-600" />
+                    )}
+                    <h3 className="text-lg font-bold text-gray-900">Admission Status</h3>
                   </div>
-                </div>
-              </button>
 
-              {admissionInfo?.is_open && !student.application && (
-                <button
-                  onClick={() => router.push('/apply')}
-                  className="bg-green-600 text-white p-4 rounded-lg hover:bg-green-700 transition-colors text-left"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-2xl">✍️</span>
-                    <div>
-                      <h3 className="font-semibold">Submit Application</h3>
-                      <p className="text-sm text-green-200">Apply for {admissionInfo.cycle_name}</p>
+                  {admissionInfo ? (
+                    admissionInfo.is_open ? (
+                      <div className="space-y-3">
+                        <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                          <p className="text-sm font-semibold text-green-900 mb-1">
+                            ✅ Applications Open
+                          </p>
+                          <p className="text-xs text-green-700">
+                            {admissionInfo.cycle_name}
+                          </p>
+                        </div>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-gray-600">Seats Available:</span>
+                            <span className="font-semibold text-gray-900">
+                              {admissionInfo.seats_available} / {admissionInfo.max_seats}
+                            </span>
+                          </div>
+                          {admissionInfo.end_date && (
+                            <div className="flex justify-between">
+                              <span className="text-gray-600">Deadline:</span>
+                              <span className="font-semibold text-gray-900">
+                                {new Date(admissionInfo.end_date).toLocaleDateString()}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
+                        <p className="text-sm font-semibold text-gray-700 mb-1">
+                          🔒 Admissions Closed
+                        </p>
+                        <p className="text-xs text-gray-600">
+                          Check back later for updates
+                        </p>
+                      </div>
+                    )
+                  ) : (
+                    <div className="p-4 bg-gray-50 rounded-lg">
+                      <p className="text-sm text-gray-600">No information available</p>
                     </div>
-                  </div>
-                </button>
-              )}
+                  )}
+                </div>
+              </div>
 
-              <button
-                onClick={() => router.push('/verify')}
-                className="bg-gray-700 text-white p-4 rounded-lg hover:bg-gray-600 transition-colors text-left"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">🔐</span>
-                  <div>
-                    <h3 className="font-semibold">Verify Results</h3>
-                    <p className="text-sm text-gray-300">Check cryptographic integrity</p>
+              {/* Quick Actions */}
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+                <div className="p-6">
+                  <h3 className="text-lg font-bold text-gray-900 mb-4">Quick Actions</h3>
+                  <div className="space-y-3">
+                    <button
+                      onClick={() => router.push('/student/applications')}
+                      className="w-full flex items-center gap-3 p-4 bg-gradient-to-r from-primary-50 to-indigo-50 rounded-lg hover:from-primary-100 hover:to-indigo-100 transition-all group"
+                    >
+                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-primary-100 flex items-center justify-center group-hover:bg-primary-200 transition-colors">
+                        <FileText className="h-5 w-5 text-primary-600" />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <p className="font-semibold text-gray-900">My Applications</p>
+                        <p className="text-xs text-gray-600">View history & results</p>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                    </button>
+
+                    <button
+                      onClick={() => router.push('/student/interviews')}
+                      className="w-full flex items-center gap-3 p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg hover:from-purple-100 hover:to-pink-100 transition-all group"
+                    >
+                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-purple-100 flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                        <Video className="h-5 w-5 text-purple-600" />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <p className="font-semibold text-gray-900">My Interviews</p>
+                        <p className="text-xs text-gray-600">Scheduled sessions</p>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                    </button>
+
+                    <button
+                      onClick={() => router.push('/verify')}
+                      className="w-full flex items-center gap-3 p-4 bg-gradient-to-r from-gray-50 to-slate-50 rounded-lg hover:from-gray-100 hover:to-slate-100 transition-all group"
+                    >
+                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-gray-100 flex items-center justify-center group-hover:bg-gray-200 transition-colors">
+                        <Shield className="h-5 w-5 text-gray-600" />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <p className="font-semibold text-gray-900">Verify Results</p>
+                        <p className="text-xs text-gray-600">Cryptographic proof</p>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                    </button>
+
+                    <button
+                      onClick={() => router.push('/dashboard')}
+                      className="w-full flex items-center gap-3 p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-lg hover:from-blue-100 hover:to-cyan-100 transition-all group"
+                    >
+                      <div className="flex-shrink-0 h-10 w-10 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                        <BarChart3 className="h-5 w-5 text-blue-600" />
+                      </div>
+                      <div className="flex-1 text-left">
+                        <p className="font-semibold text-gray-900">Public Dashboard</p>
+                        <p className="text-xs text-gray-600">View statistics</p>
+                      </div>
+                      <ChevronRight className="h-5 w-5 text-gray-400 group-hover:text-gray-600 transition-colors" />
+                    </button>
                   </div>
                 </div>
-              </button>
+              </div>
 
-              <button
-                onClick={() => router.push('/dashboard')}
-                className="bg-gray-700 text-white p-4 rounded-lg hover:bg-gray-600 transition-colors text-left"
-              >
-                <div className="flex items-center gap-3">
-                  <span className="text-2xl">📊</span>
-                  <div>
-                    <h3 className="font-semibold">Public Dashboard</h3>
-                    <p className="text-sm text-gray-300">View system statistics</p>
-                  </div>
+              {/* Help Card */}
+              <div className="bg-gradient-to-br from-primary-600 to-indigo-700 rounded-2xl shadow-lg p-6 text-white">
+                <div className="flex items-center gap-2 mb-3">
+                  <BookOpen className="h-5 w-5" />
+                  <h3 className="font-bold">Need Help?</h3>
                 </div>
-              </button>
+                <ul className="space-y-2 text-sm text-white/90">
+                  <li className="flex items-start gap-2">
+                    <span className="flex-shrink-0">•</span>
+                    <span>Track your application status in real-time</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="flex-shrink-0">•</span>
+                    <span>Verify results with cryptographic proof</span>
+                  </li>
+                  <li className="flex items-start gap-2">
+                    <span className="flex-shrink-0">•</span>
+                    <span>All evaluations are blind and anonymous</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

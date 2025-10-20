@@ -102,6 +102,49 @@ All Phase 2 components have been fully implemented and integrated:
 - **RESTful API**: FastAPI-based web service
 - **Scalable**: Supports 1M+ applications with proper indexing
 
+### Modular API Architecture (v2.4.1+)
+
+**Status:** Production-ready modular architecture implemented (2025-10-19)
+
+The ENIGMA API has been refactored from a monolithic `api.py` (2,198 lines) into a modular architecture for improved maintainability and team collaboration:
+
+**Structure:**
+```
+backend/
+├── api.py (73 lines) - Main app entry point
+└── src/api/
+    ├── dependencies/auth.py      - Authentication dependencies
+    ├── routers/                  - Domain-specific routers
+    │   ├── public.py             - Public endpoints (5)
+    │   ├── applications.py       - Application routes (5)
+    │   ├── student_auth.py       - Student OAuth (6)
+    │   ├── admin_auth.py         - Admin auth (3)
+    │   ├── admin_cycles.py       - Cycle management (10)
+    │   ├── admin_phases.py       - Phase transitions (10)
+    │   ├── interviews.py         - Interview management (5)
+    │   ├── bias_monitoring.py    - Bias dashboard (4)
+    │   └── websockets.py         - WebSockets (3)
+    └── schemas/api_models.py     - API-specific models
+```
+
+**Benefits:**
+- ✅ **Zero breaking changes** - All 55 endpoints identical
+- ✅ **27x smaller main file** - Better IDE performance
+- ✅ **Parallel development** - Reduced merge conflicts
+- ✅ **Easier testing** - Router-level unit tests
+- ✅ **Clear organization** - Each router < 350 lines
+
+**Usage:**
+```bash
+uvicorn api:app --reload
+```
+
+**Documentation:**
+- Architecture: `MODULAR_REFACTOR_PLAN.md`
+- Migration: `MODULAR_MIGRATION_GUIDE.md`
+- Endpoint mapping: `ENDPOINT_COMPARISON.md`
+- Developer guide: `DEVELOPER_GUIDE_MODULAR.md`
+
 ### Technology Stack
 
 ```

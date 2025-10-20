@@ -270,6 +270,8 @@ class AdminAPIClient {
       role: data.role,
     }));
 
+    // Notify listeners (e.g., navbar) that admin auth changed
+    try { window.dispatchEvent(new Event('admin-auth-changed')); } catch {}
     return data;
   }
 
@@ -282,6 +284,8 @@ class AdminAPIClient {
     } finally {
       localStorage.removeItem('admin_token');
       localStorage.removeItem('admin_user');
+      // Notify listeners (e.g., navbar) that admin auth changed
+      try { window.dispatchEvent(new Event('admin-auth-changed')); } catch {}
     }
   }
 

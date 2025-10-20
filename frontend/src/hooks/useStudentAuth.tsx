@@ -2,6 +2,7 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
+import { usePathname } from 'next/navigation';
 import { studentApiClient, Student } from '@/lib/studentApi';
 import { createCodeVerifier, createCodeChallenge } from '@/lib/pkce';
 
@@ -21,6 +22,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [student, setStudent] = useState<Student | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const pathname = usePathname();
 
   const verifyStudent = useCallback(async () => {
     try {
@@ -34,8 +36,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   useEffect(() => {
+    // Avoid unnecessary student session calls on admin routes to prevent 401s and race conditions
+    if (pathname?.startsWith('/admin')) {
+      setLoading(false);
+      setStudent(null);
+      return;
+    }
     verifyStudent();
-  }, [verifyStudent]);
+  }, [verifyStudent, pathname]);
 
   const login = async () => {
     try {

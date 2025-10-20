@@ -6760,3 +6760,611 @@ server closed the connection unexpectedly
 {
     "taskName": null
 }
+2025-10-19 22:02:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:03:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:03:26 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:03:35 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:03:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:07:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:07:21 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 22:07:21 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 22:07:27 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 22:07:27 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 22:07:27 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 22:07:27 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 22:07:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:07:47 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:08:03 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:08:09 | INFO     | student_auth | Issued session STS_6E5404FC63 for student STU_B17774BA
+{
+    "taskName": "Task-20"
+}
+2025-10-19 22:08:10 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-20"
+}
+2025-10-19 22:10:02 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-56"
+}
+2025-10-19 22:10:06 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-56"
+}
+2025-10-19 22:10:20 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:10:29 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:10:51 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:10:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:12:08 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:16:58 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-17"
+}
+2025-10-19 22:17:02 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-17"
+}
+2025-10-19 22:25:58 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-61"
+}
+2025-10-19 22:26:01 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-61"
+}
+2025-10-19 22:26:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:30:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:30:18 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 22:30:18 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 22:30:23 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 22:30:23 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 22:30:23 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 22:30:23 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 22:30:24 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:30:54 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:31:01 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-14"
+}
+2025-10-19 22:31:04 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-14"
+}
+2025-10-19 22:31:14 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:34:22 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-35"
+}
+2025-10-19 22:34:26 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-35"
+}
+2025-10-19 22:36:39 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:37:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:37:54 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:37:54 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-19 22:37:54 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-19 22:37:59 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-19 22:37:59 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-19 22:37:59 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-19 22:37:59 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-19 22:38:00 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-19 22:38:24 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:38:38 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:38:43 | INFO     | student_auth | Issued session STS_410DB9D66A for student STU_B17774BA
+{
+    "taskName": "Task-22"
+}
+2025-10-19 22:38:43 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-22"
+}
+2025-10-19 22:43:57 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:44:03 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:44:06 | INFO     | student_auth | Issued session STS_D0C68026FC for student STU_B17774BA
+{
+    "taskName": "Task-72"
+}
+2025-10-19 22:44:06 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-72"
+}
+2025-10-19 22:44:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:44:15 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-87"
+}
+2025-10-19 22:44:19 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-87"
+}
+2025-10-19 22:46:09 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:55:44 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 22:58:21 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:00:11 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:04:23 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:04:29 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:11:06 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:11:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:11:49 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:12:01 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:37:42 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:37:45 | INFO     | student_auth | Issued session STS_CAF2A5D60F for student STU_B17774BA
+{
+    "taskName": "Task-167"
+}
+2025-10-19 23:37:45 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-167"
+}
+2025-10-19 23:37:51 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:04 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:07 | INFO     | student_auth | Issued session STS_D3457E34DA for student STU_B17774BA
+{
+    "taskName": "Task-191"
+}
+2025-10-19 23:39:07 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-191"
+}
+2025-10-19 23:39:10 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:11 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:15 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:39:18 | INFO     | student_auth | Issued session STS_D8D68582AF for student STU_B17774BA
+{
+    "taskName": "Task-211"
+}
+2025-10-19 23:39:18 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-211"
+}
+2025-10-19 23:41:01 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:43:05 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:43:08 | INFO     | student_auth | Issued session STS_CD5FF2B1F0 for student STU_B17774BA
+{
+    "taskName": "Task-237"
+}
+2025-10-19 23:43:08 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-237"
+}
+2025-10-19 23:43:44 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-19 23:43:59 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:13:55 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 02:13:56 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-20 02:13:56 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-20 02:14:01 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-20 02:14:01 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-20 02:14:01 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-20 02:14:01 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-20 02:14:01 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 02:14:24 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:14:29 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:14:33 | INFO     | student_auth | Issued session STS_AB9E969C13 for student STU_B17774BA
+{
+    "taskName": "Task-15"
+}
+2025-10-20 02:14:34 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-15"
+}
+2025-10-20 02:17:29 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:19:23 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:19:28 | INFO     | student_auth | Issued session STS_3DB23FD284 for student STU_B17774BA
+{
+    "taskName": "Task-101"
+}
+2025-10-20 02:19:28 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-101"
+}
+2025-10-20 02:36:09 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:36:15 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-141"
+}
+2025-10-20 02:36:19 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-141"
+}
+2025-10-20 02:45:13 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:45:20 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 02:45:26 | INFO     | student_auth | Issued session STS_698DEF103C for student STU_B17774BA
+{
+    "taskName": "Task-271"
+}
+2025-10-20 02:45:27 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-271"
+}
+2025-10-20 07:22:07 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 07:22:07 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-20 07:22:07 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-20 07:22:13 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-20 07:22:13 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-20 07:22:13 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-20 07:22:13 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-20 07:22:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-20 07:22:40 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:22:45 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-17"
+}
+2025-10-20 07:22:48 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-17"
+}
+2025-10-20 07:23:54 | INFO     | student_auth | Issued session STS_D4A8FEE24F for student STU_B17774BA
+{
+    "taskName": "Task-75"
+}
+2025-10-20 07:23:54 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-75"
+}
+2025-10-20 07:42:53 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:43:31 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:43:35 | INFO     | student_auth | Issued session STS_4602F40B11 for student STU_B17774BA
+{
+    "taskName": "Task-268"
+}
+2025-10-20 07:43:36 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-268"
+}
+2025-10-20 07:43:40 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:43:40 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:43:41 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:43:41 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:43:41 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:43:41 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:43:51 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:44:45 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:50:48 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:50:52 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:51:01 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:51:09 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:52:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:53:01 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 07:53:04 | INFO     | student_auth | Issued session STS_AE2060FFC0 for student STU_B17774BA
+{
+    "taskName": "Task-333"
+}
+2025-10-20 07:53:04 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-333"
+}
+2025-10-20 08:05:05 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 08:05:12 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-507"
+}
+2025-10-20 08:05:16 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-507"
+}

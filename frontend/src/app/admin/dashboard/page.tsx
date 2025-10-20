@@ -6,10 +6,17 @@ import { useAdminAuth } from '@/hooks/useAdminAuth';
 import { adminApiClient, type AdmissionCycle, type CycleStatus } from '@/lib/adminApi';
 import { apiClient } from '@/lib/api';
 import PhaseProgress from '@/components/PhaseProgress';
+import { SkeletonDashboard } from '@/components/Skeleton';
+import {
+  LayoutDashboard, Users, Award, TrendingUp, Calendar,
+  Settings, Eye, FileText, CheckCircle2, Clock,
+  AlertCircle, Loader2, Shield, BarChart3, Target,
+  ChevronRight, Sparkles, Activity
+} from 'lucide-react';
 
 export default function AdminDashboard() {
   const router = useRouter();
-  const { isAuthenticated, isLoading, admin, logout } = useAdminAuth();
+  const { isAuthenticated, isLoading, admin } = useAdminAuth();
   const [activeCycle, setActiveCycle] = useState<AdmissionCycle | null>(null);
   const [cycleStatus, setCycleStatus] = useState<CycleStatus | null>(null);
   const [stats, setStats] = useState<any>(null);
@@ -32,7 +39,6 @@ export default function AdminDashboard() {
       setActiveCycle(cycle);
       setStats(dashStats);
 
-      // Load detailed cycle status if cycle exists
       if (cycle) {
         try {
           const status = await adminApiClient.getCycleStatus(cycle.cycle_id);
@@ -72,6 +78,10 @@ export default function AdminDashboard() {
           result = await adminApiClient.performSelection(activeCycle.cycle_id);
           alert(`Selected ${result.selected_count} applicants with cutoff score ${result.cutoff_score.toFixed(2)}`);
           break;
+        case 'final_select':
+          result = await adminApiClient.performFinalSelection(activeCycle.cycle_id);
+          alert(`Final selection completed: ${result.selected_count} applicants selected`);
+          break;
         case 'publish':
           result = await adminApiClient.publishResults(activeCycle.cycle_id);
           break;
@@ -82,7 +92,6 @@ export default function AdminDashboard() {
           throw new Error('Unknown action');
       }
 
-      // Refresh data
       await loadDashboardData();
     } catch (error: any) {
       alert(error.message || `Failed to ${action} cycle`);
@@ -98,264 +107,130 @@ export default function AdminDashboard() {
     const actions = [];
     const phase = activeCycle.phase;
 
-    // Backend returns lowercase phase values (e.g., 'submission', 'batch_prep')
     switch (phase) {
       case 'submission':
-        actions.push({ key: 'freeze', label: 'Freeze Cycle', variant: 'primary' });
+        actions.push({ key: 'freeze', label: 'Freeze Cycle', variant: 'teal', icon: Shield });
         break;
       case 'frozen':
-        actions.push({ key: 'preprocess', label: 'Start Preprocessing', variant: 'primary' });
+        actions.push({ key: 'preprocess', label: 'Start Preprocessing', variant: 'teal', icon: Activity });
         break;
       case 'preprocessing':
-        actions.push({ key: 'export', label: 'Export for LLM', variant: 'primary' });
+        actions.push({ key: 'export', label: 'Export for LLM', variant: 'teal', icon: FileText });
         break;
       case 'batch_prep':
-        actions.push({ key: 'processing', label: 'Run LLM Evaluation', variant: 'primary' });
+        actions.push({ key: 'processing', label: 'Run LLM Evaluation', variant: 'teal', icon: TrendingUp });
         break;
       case 'processing':
-        actions.push({ key: 'processing', label: 'Re-run LLM Evaluation', variant: 'secondary' });
+        actions.push({ key: 'processing', label: 'Re-run LLM Evaluation', variant: 'gray', icon: TrendingUp });
         break;
       case 'scored':
-        actions.push({ key: 'select', label: 'Perform Selection', variant: 'primary' });
+        actions.push({ key: 'select', label: 'Perform Shortlisting', variant: 'teal', icon: Target });
         break;
       case 'selection':
-        actions.push({ key: 'publish', label: 'Publish Results', variant: 'primary' });
+        actions.push({ key: 'final_select', label: 'Perform Final Selection', variant: 'teal', icon: CheckCircle2 });
         break;
       case 'published':
-        actions.push({ key: 'complete', label: 'Complete Cycle', variant: 'secondary' });
+        actions.push({ key: 'complete', label: 'Complete Cycle', variant: 'gray', icon: CheckCircle2 });
         break;
     }
 
     return actions;
   };
 
+  const getPhaseColor = (phase: string) => {
+    const phaseMap: Record<string, string> = {
+      submission: 'bg-blue-100 text-blue-700',
+      frozen: 'bg-purple-100 text-purple-700',
+      preprocessing: 'bg-yellow-100 text-yellow-700',
+      batch_prep: 'bg-orange-100 text-orange-700',
+      processing: 'bg-pink-100 text-pink-700',
+      scored: 'bg-indigo-100 text-indigo-700',
+      selection: 'bg-teal-100 text-teal-700',
+      published: 'bg-green-100 text-green-700',
+      completed: 'bg-gray-100 text-gray-700',
+    };
+    return phaseMap[phase] || 'bg-gray-100 text-gray-700';
+  };
+
   if (isLoading || loadingData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading dashboard...</p>
+      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <SkeletonDashboard />
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
       {/* Header */}
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">Admin Dashboard</h1>
-              <p className="text-sm text-gray-600 mt-1">
-                Welcome back, {admin?.username}
-              </p>
+      <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 text-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0">
+                <div className="h-20 w-20 rounded-2xl bg-white/20 backdrop-blur-sm border-2 border-white/30 flex items-center justify-center ring-4 ring-white/10">
+                  <LayoutDashboard className="h-10 w-10 text-white" />
+                </div>
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2 mb-2">
+                  <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+                  <Sparkles className="h-6 w-6 text-yellow-300 flex-shrink-0" />
+                </div>
+                <p className="text-primary-100">Welcome back, {admin?.username || 'Administrator'}</p>
+              </div>
             </div>
-            <div className="flex gap-3">
-              <button
-                onClick={() => router.push('/admin/cycles')}
-                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-              >
-                Manage Cycles
-              </button>
-              <button
-                onClick={() => router.push('/admin/interviews')}
-                className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors"
-              >
-                Interviews
-              </button>
-              <button
-                onClick={logout}
-                className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors"
-              >
-                Logout
-              </button>
-            </div>
+
+            {/* Logout Button removed (already available in navbar) */}
           </div>
         </div>
-      </header>
+      </div>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Active Cycle Status */}
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Current Admission Cycle</h2>
-          {activeCycle ? (
-            <div className="space-y-6">
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex justify-between items-start">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900">{activeCycle.cycle_name}</h3>
-                    <p className="text-sm text-gray-600 mt-1">
-                      Phase: <span className="font-semibold capitalize">{activeCycle.phase.toLowerCase()}</span>
-                    </p>
-                    <div className="mt-4 grid grid-cols-2 md:grid-cols-5 gap-4">
-                      <div>
-                        <p className="text-sm text-gray-600">Status</p>
-                        <p className="text-lg font-semibold">
-                          {activeCycle.is_open ? (
-                            <span className="text-green-600">Open</span>
-                          ) : (
-                            <span className="text-red-600">Closed</span>
-                          )}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-600">Seats</p>
-                        <p className="text-lg font-semibold">
-                          {activeCycle.max_seats} total seat(s) available
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-600">Selected</p>
-                        <p className="text-lg font-semibold">
-                          {activeCycle.selected_count || 0}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-600">Start Date</p>
-                        <p className="text-lg font-semibold">
-                          {new Date(activeCycle.start_date).toLocaleDateString()}
-                        </p>
-                      </div>
-                      <div>
-                        <p className="text-sm text-gray-600">End Date</p>
-                        <p className="text-lg font-semibold">
-                          {new Date(activeCycle.end_date).toLocaleDateString()}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="flex gap-2">
-                    <button
-                      onClick={() => router.push('/admin/cycles')}
-                      className="px-4 py-2 text-sm bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
-                    >
-                      Manage
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Phase Progress */}
-              <PhaseProgress currentPhase={activeCycle.phase} />
-
-              {/* Phase Actions */}
-              <div className="bg-white rounded-lg shadow p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Phase Actions</h3>
-                <div className="flex flex-wrap gap-3">
-                  {getAvailableActions().map((action) => (
-                    <button
-                      key={action.key}
-                      onClick={() => handlePhaseTransition(action.key)}
-                      disabled={processingAction !== null}
-                      className={`px-4 py-2 rounded-lg font-medium transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed ${action.variant === 'primary'
-                        ? 'bg-primary-600 text-white hover:bg-primary-700'
-                        : 'bg-gray-600 text-white hover:bg-gray-700'
-                        }`}
-                    >
-                      {processingAction === action.key ? 'Processing...' : action.label}
-                    </button>
-                  ))}
-                  {getAvailableActions().length === 0 && (
-                    <p className="text-gray-500 italic">No actions available for current phase</p>
-                  )}
-                </div>
-              </div>
-
-              {/* Detailed Status */}
-              {cycleStatus && (
-                <div className="bg-white rounded-lg shadow p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 mb-4">Application Status</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-primary-600">{cycleStatus.stats.total_applications}</p>
-                      <p className="text-sm text-gray-600">Total Applications</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-yellow-600">{cycleStatus.stats.submitted}</p>
-                      <p className="text-sm text-gray-600">Submitted</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-purple-600">{cycleStatus.stats.finalized}</p>
-                      <p className="text-sm text-gray-600">Finalized</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-green-600">{cycleStatus.stats.scored}</p>
-                      <p className="text-sm text-gray-600">Scored</p>
-                    </div>
-                    <div className="text-center">
-                      <p className="text-2xl font-bold text-indigo-600">{cycleStatus.stats.selected}</p>
-                      <p className="text-sm text-gray-600">Selected</p>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
-              <p className="text-yellow-800">
-                No active admission cycle. Create one to start accepting applications.
-              </p>
-              <button
-                onClick={() => router.push('/admin/cycles')}
-                className="mt-3 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
-              >
-                Create Admission Cycle
-              </button>
-            </div>
-          )}
-        </div>
-
-        {/* Statistics */}
+        {/* Overview Statistics */}
         {stats && (
-          <div className="mb-8">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Overview</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6">
+                <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <p className="text-sm text-gray-600">Total Applications</p>
-                    <p className="text-3xl font-bold text-gray-900 mt-1">
-                      {stats.total_applications}
-                    </p>
+                    <p className="text-sm font-medium text-gray-600 mb-1">Total Applications</p>
+                    <p className="text-4xl font-bold text-gray-900">{stats.total_applications}</p>
                   </div>
-                  <div className="text-primary-600">
-                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                    </svg>
+                  <div className="flex-shrink-0 h-14 w-14 rounded-xl bg-primary-100 flex items-center justify-center">
+                    <FileText className="h-7 w-7 text-primary-600" />
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center">
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6">
+                <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <p className="text-sm text-gray-600">Completed Evaluations</p>
-                    <p className="text-3xl font-bold text-gray-900 mt-1">
-                      {stats.completed_evaluations}
-                    </p>
+                    <p className="text-sm font-medium text-gray-600 mb-1">Completed Evaluations</p>
+                    <p className="text-4xl font-bold text-gray-900">{stats.completed_evaluations}</p>
                   </div>
-                  <div className="text-green-600">
-                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
+                  <div className="flex-shrink-0 h-14 w-14 rounded-xl bg-green-100 flex items-center justify-center">
+                    <CheckCircle2 className="h-7 w-7 text-green-600" />
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div className="bg-white rounded-lg shadow p-6">
-                <div className="flex items-center">
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden hover:shadow-xl transition-shadow">
+              <div className="p-6">
+                <div className="flex items-center justify-between">
                   <div className="flex-1">
-                    <p className="text-sm text-gray-600">Average Score</p>
-                    <p className="text-3xl font-bold text-gray-900 mt-1">
+                    <p className="text-sm font-medium text-gray-600 mb-1">Average Score</p>
+                    <p className="text-4xl font-bold text-gray-900">
                       {stats.average_score ? stats.average_score.toFixed(1) : 'N/A'}
                     </p>
                   </div>
-                  <div className="text-purple-600">
-                    <svg className="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                    </svg>
+                  <div className="flex-shrink-0 h-14 w-14 rounded-xl bg-purple-100 flex items-center justify-center">
+                    <BarChart3 className="h-7 w-7 text-purple-600" />
                   </div>
                 </div>
               </div>
@@ -363,48 +238,237 @@ export default function AdminDashboard() {
           </div>
         )}
 
-        {/* Quick Actions */}
-        <div>
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Active Cycle Section */}
+        {activeCycle ? (
+          <div className="space-y-6 mb-8">
+            {/* Cycle Info Card */}
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden">
+              <div className="bg-gradient-to-r from-primary-500 to-indigo-600 px-6 py-4">
+                <div className="flex items-center justify-between">
+                  <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                    <Calendar className="h-5 w-5" />
+                    Current Admission Cycle
+                  </h2>
+                  <button
+                    onClick={() => router.push('/admin/cycles')}
+                    className="px-4 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm border border-white/30 rounded-lg transition-all text-white text-sm font-medium"
+                  >
+                    Manage Cycles
+                  </button>
+                </div>
+              </div>
+
+              <div className="p-6">
+                <div className="flex flex-wrap items-center gap-3 mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900">{activeCycle.cycle_name}</h3>
+                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${getPhaseColor(activeCycle.phase)}`}>
+                    {activeCycle.phase.replace('_', ' ').toUpperCase()}
+                  </span>
+                  <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                    activeCycle.is_open
+                      ? 'bg-green-100 text-green-700'
+                      : 'bg-red-100 text-red-700'
+                  }`}>
+                    {activeCycle.is_open ? 'OPEN' : 'CLOSED'}
+                  </span>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                  <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
+                    <p className="text-xs text-blue-600 font-medium mb-1">Max Seats</p>
+                    <p className="text-2xl font-bold text-blue-900">{activeCycle.max_seats}</p>
+                  </div>
+                  <div className="bg-green-50 rounded-lg p-4 border border-green-100">
+                    <p className="text-xs text-green-600 font-medium mb-1">Selected</p>
+                    <p className="text-2xl font-bold text-green-900">{activeCycle.selected_count || 0}</p>
+                  </div>
+                  <div className="bg-purple-50 rounded-lg p-4 border border-purple-100">
+                    <p className="text-xs text-purple-600 font-medium mb-1">Start Date</p>
+                    <p className="text-sm font-bold text-purple-900">
+                      {new Date(activeCycle.start_date).toLocaleDateString()}
+                    </p>
+                  </div>
+                  <div className="bg-orange-50 rounded-lg p-4 border border-orange-100">
+                    <p className="text-xs text-orange-600 font-medium mb-1">End Date</p>
+                    <p className="text-sm font-bold text-orange-900">
+                      {new Date(activeCycle.end_date).toLocaleDateString()}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Detailed Application Stats */}
+                {cycleStatus && (
+                  <div className="bg-gradient-to-br from-gray-50 to-slate-50 rounded-xl p-6 border border-gray-200">
+                    <h4 className="text-sm font-bold text-gray-700 uppercase tracking-wide mb-4 flex items-center gap-2">
+                      <BarChart3 className="h-4 w-4" />
+                      Application Status Breakdown
+                    </h4>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+                      <div className="text-center">
+                        <p className="text-3xl font-bold text-primary-600">{cycleStatus.stats.total_applications}</p>
+                        <p className="text-xs text-gray-600 mt-1">Total</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-3xl font-bold text-yellow-600">{cycleStatus.stats.submitted}</p>
+                        <p className="text-xs text-gray-600 mt-1">Submitted</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-3xl font-bold text-purple-600">{cycleStatus.stats.finalized}</p>
+                        <p className="text-xs text-gray-600 mt-1">Finalized</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-3xl font-bold text-green-600">{cycleStatus.stats.scored}</p>
+                        <p className="text-xs text-gray-600 mt-1">Scored</p>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-3xl font-bold text-indigo-600">{cycleStatus.stats.selected}</p>
+                        <p className="text-xs text-gray-600 mt-1">Selected</p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Phase Progress */}
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden p-6">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <Activity className="h-5 w-5 text-primary-600" />
+                Cycle Progress
+              </h3>
+              <PhaseProgress currentPhase={activeCycle.phase} />
+            </div>
+
+            {/* Phase Actions */}
+            <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden p-6">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <Target className="h-5 w-5 text-primary-600" />
+                Available Actions
+              </h3>
+              <div className="flex flex-wrap gap-3">
+                {getAvailableActions().map((action) => {
+                  const Icon = action.icon;
+                  return (
+                    <button
+                      key={action.key}
+                      onClick={() => handlePhaseTransition(action.key)}
+                      disabled={processingAction !== null}
+                      className={`flex items-center gap-2 px-5 py-2.5 rounded-lg font-medium transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed ${
+                        action.variant === 'teal'
+                          ? 'bg-primary-600 text-white hover:bg-primary-700'
+                          : 'bg-gray-600 text-white hover:bg-gray-700'
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" />
+                      {processingAction === action.key ? (
+                        <>
+                          <span className="flex gap-1">
+                            <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></span>
+                            <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></span>
+                            <span className="w-1.5 h-1.5 bg-current rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></span>
+                          </span>
+                          Processing...
+                        </>
+                      ) : (
+                        action.label
+                      )}
+                    </button>
+                  );
+                })}
+                {getAvailableActions().length === 0 && (
+                  <p className="text-gray-500 italic flex items-center gap-2">
+                    <AlertCircle className="h-4 w-4" />
+                    No actions available for current phase
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="bg-white rounded-2xl border-2 border-yellow-300 p-8 mb-8">
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 h-12 w-12 rounded-full bg-yellow-100 flex items-center justify-center">
+                <AlertCircle className="h-6 w-6 text-yellow-600" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">No Active Admission Cycle</h3>
+                <p className="text-gray-600 mb-4">
+                  Create a new admission cycle to start accepting and processing applications.
+                </p>
+                <button
+                  onClick={() => router.push('/admin/cycles')}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-all font-medium shadow-md hover:shadow-lg"
+                >
+                  <Calendar className="h-4 w-4" />
+                  Create Admission Cycle
+                  <ChevronRight className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Quick Actions Grid */}
+        <div className="bg-white rounded-2xl shadow-lg border border-gray-200 overflow-hidden p-6">
+          <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+            <Settings className="h-5 w-5 text-primary-600" />
+            Quick Actions
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <button
               onClick={() => router.push('/admin/cycles')}
-              className="bg-white rounded-lg shadow p-6 text-left hover:shadow-lg transition-shadow"
+              className="group bg-gradient-to-br from-primary-50 to-indigo-50 rounded-xl p-6 border border-primary-200 hover:shadow-lg transition-all text-left"
             >
-              <h3 className="font-semibold text-gray-900">Manage Cycles</h3>
-              <p className="text-sm text-gray-600 mt-1">
-                Create, edit, or close admission cycles
-              </p>
+              <div className="flex items-center justify-between mb-3">
+                <div className="h-10 w-10 rounded-lg bg-primary-100 flex items-center justify-center group-hover:bg-primary-200 transition-colors">
+                  <Calendar className="h-5 w-5 text-primary-600" />
+                </div>
+                <ChevronRight className="h-5 w-5 text-primary-400 group-hover:text-primary-600 transition-colors" />
+              </div>
+              <h3 className="font-bold text-gray-900 mb-1">Manage Cycles</h3>
+              <p className="text-sm text-gray-600">Create, edit, or close cycles</p>
             </button>
 
             <button
               onClick={() => router.push('/admin/interviews')}
-              className="bg-white rounded-lg shadow p-6 text-left hover:shadow-lg transition-shadow"
+              className="group bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-200 hover:shadow-lg transition-all text-left"
             >
-              <h3 className="font-semibold text-gray-900">Manage Interviews</h3>
-              <p className="text-sm text-gray-600 mt-1">
-                Schedule and manage applicant interviews
-              </p>
+              <div className="flex items-center justify-between mb-3">
+                <div className="h-10 w-10 rounded-lg bg-purple-100 flex items-center justify-center group-hover:bg-purple-200 transition-colors">
+                  <Users className="h-5 w-5 text-purple-600" />
+                </div>
+                <ChevronRight className="h-5 w-5 text-purple-400 group-hover:text-purple-600 transition-colors" />
+              </div>
+              <h3 className="font-bold text-gray-900 mb-1">Interviews</h3>
+              <p className="text-sm text-gray-600">Schedule & manage sessions</p>
+            </button>
+
+            <button
+              onClick={() => router.push('/admin/bias')}
+              className="group bg-gradient-to-br from-orange-50 to-red-50 rounded-xl p-6 border border-orange-200 hover:shadow-lg transition-all text-left"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <div className="h-10 w-10 rounded-lg bg-orange-100 flex items-center justify-center group-hover:bg-orange-200 transition-colors">
+                  <Shield className="h-5 w-5 text-orange-600" />
+                </div>
+                <ChevronRight className="h-5 w-5 text-orange-400 group-hover:text-orange-600 transition-colors" />
+              </div>
+              <h3 className="font-bold text-gray-900 mb-1">Bias Monitor</h3>
+              <p className="text-sm text-gray-600">View bias alerts & flags</p>
             </button>
 
             <button
               onClick={() => router.push('/dashboard')}
-              className="bg-white rounded-lg shadow p-6 text-left hover:shadow-lg transition-shadow"
+              className="group bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200 hover:shadow-lg transition-all text-left"
             >
-              <h3 className="font-semibold text-gray-900">View Public Dashboard</h3>
-              <p className="text-sm text-gray-600 mt-1">
-                See what applicants see
-              </p>
-            </button>
-
-            <button
-              onClick={() => router.push('/')}
-              className="bg-white rounded-lg shadow p-6 text-left hover:shadow-lg transition-shadow"
-            >
-              <h3 className="font-semibold text-gray-900">View Homepage</h3>
-              <p className="text-sm text-gray-600 mt-1">
-                Check the public-facing site
-              </p>
+              <div className="flex items-center justify-between mb-3">
+                <div className="h-10 w-10 rounded-lg bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">
+                  <Eye className="h-5 w-5 text-blue-600" />
+                </div>
+                <ChevronRight className="h-5 w-5 text-blue-400 group-hover:text-blue-600 transition-colors" />
+              </div>
+              <h3 className="font-bold text-gray-900 mb-1">Public View</h3>
+              <p className="text-sm text-gray-600">See applicant perspective</p>
             </button>
           </div>
         </div>

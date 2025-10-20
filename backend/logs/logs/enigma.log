@@ -7970,3 +7970,227 @@ server closed the connection unexpectedly
 {
     "taskName": "Task-149"
 }
+2025-10-20 22:12:18 | INFO     | application_collector | Collecting new application from asadghaffar202020@gmail.com
+{
+    "taskName": "Task-210"
+}
+2025-10-20 22:12:19 | INFO     | audit | AUDIT: create | Application:APP_D9D677F6 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-20T17:12:19.321304
+{
+    "taskName": "Task-210"
+}
+2025-10-20 22:12:19 | INFO     | application_collector | Application collected successfully: APP_D9D677F6
+{
+    "taskName": "Task-210"
+}
+2025-10-20 22:12:20 | INFO     | api.applications | Application submitted: APP_D9D677F6 (Cycle: FA21)
+{
+    "taskName": "Task-210"
+}
+2025-10-20 22:12:38 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 22:12:49 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-20 22:12:52 | INFO     | student_auth | Issued session STS_4BB76982E8 for student STU_B17774BA
+{
+    "taskName": "Task-232"
+}
+2025-10-20 22:12:53 | INFO     | student_auth | Student STU_B17774BA logged in via Google
+{
+    "taskName": "Task-232"
+}
+2025-10-20 22:14:08 | INFO     | application_collector | Collecting new application from asadghaffar.dev@gmail.com
+{
+    "taskName": "Task-252"
+}
+2025-10-20 22:14:09 | INFO     | audit | AUDIT: create | Application:APP_72AF550F | actor=system | details={'stage': 'intake'} | timestamp=2025-10-20T17:14:09.944181
+{
+    "taskName": "Task-252"
+}
+2025-10-20 22:14:09 | INFO     | application_collector | Application collected successfully: APP_72AF550F
+{
+    "taskName": "Task-252"
+}
+2025-10-20 22:14:10 | INFO     | api.applications | Application submitted: APP_72AF550F (Cycle: FA21)
+{
+    "taskName": "Task-252"
+}
+2025-10-20 22:15:00 | INFO     | phase_manager | Freezing cycle CYC_20251020_170727 by admin ADM_ENIGMA
+{
+    "taskName": "Task-278"
+}
+2025-10-20 22:15:01 | INFO     | phase_manager | Finalized 2 applications
+{
+    "taskName": "Task-278"
+}
+2025-10-20 22:15:01 | INFO     | phase_manager | Cycle CYC_20251020_170727 frozen successfully
+{
+    "taskName": "Task-278"
+}
+2025-10-20 22:15:01 | INFO     | api.admin_phases | Cycle CYC_20251020_170727 frozen by admin enigma
+{
+    "taskName": "Task-278"
+}
+2025-10-20 22:15:09 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251020_170727
+{
+    "taskName": "Task-281"
+}
+2025-10-20 22:15:10 | INFO     | phase_manager | Processing 2 finalized applications
+{
+    "taskName": "Task-281"
+}
+2025-10-20 22:15:10 | INFO     | identity_scrubber | Scrubbing application: APP_72AF550F
+{
+    "taskName": "Task-281"
+}
+2025-10-20 22:15:11 | INFO     | identity_scrubber | Applied 7 redactions to APP_72AF550F
+{
+    "taskName": "Task-281"
+}
+2025-10-20 22:15:13 | INFO     | identity_scrubber | Successfully scrubbed APP_72AF550F → ANON_1760962511032_01EF9D
+{
+    "taskName": "Task-281"
+}
+2025-10-20 22:15:15 | INFO     | identity_scrubber | Scrubbing application: APP_D9D677F6
+{
+    "taskName": "Task-281"
+}
+2025-10-20 22:15:15 | INFO     | identity_scrubber | Applied 2 redactions to APP_D9D677F6
+{
+    "taskName": "Task-281"
+}
+2025-10-20 22:15:17 | INFO     | identity_scrubber | Successfully scrubbed APP_D9D677F6 → ANON_1760962515493_27A3FD
+{
+    "taskName": "Task-281"
+}
+2025-10-20 22:15:19 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251020_170727: 2 scrubbed, 2 metrics computed, 2 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-281"
+}
+2025-10-20 22:15:19 | INFO     | api.admin_phases | Preprocessing started for cycle CYC_20251020_170727 by admin enigma
+{
+    "taskName": "Task-281"
+}
+2025-10-20 22:15:30 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-285"
+}
+2025-10-20 22:15:30 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-285"
+}
+2025-10-20 22:15:30 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251020_170727
+{
+    "taskName": "Task-285"
+}
+2025-10-20 22:15:31 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251020_170727: 2 applications ready for export
+{
+    "taskName": "Task-285"
+}
+2025-10-20 22:15:31 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251020_170727 to JSONL
+{
+    "taskName": "Task-285"
+}
+2025-10-20 22:15:33 | INFO     | batch_processor | Exported 2 applications to batch_exports\batch_export_CYC_20251020_170727_20251020_171532.jsonl
+{
+    "taskName": "Task-285"
+}
+2025-10-20 22:15:34 | INFO     | api.admin_phases | Batch export completed for cycle CYC_20251020_170727 by admin enigma
+{
+    "taskName": "Task-285"
+}
+2025-10-20 22:18:23 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:18:24 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:18:24 | INFO     | phase_manager | Starting processing for cycle CYC_20251020_170727
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:18:25 | INFO     | phase_manager | Cycle CYC_20251020_170727 now in PROCESSING phase
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:18:28 | INFO     | worker_llm | Evaluating ANON_1760962511032_01EF9D (attempt 1)
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:18:46 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_0B7A84B7 | actor=worker_llm | details={'anonymized_id': 'ANON_1760962511032_01EF9D', 'attempt_number': 1, 'total_score': 66.2} | timestamp=2025-10-20T17:18:46.322903
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:18:47 | INFO     | worker_llm | Worker evaluation complete: ANON_1760962511032_01EF9D → 66.20/100 (attempt 1)
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:18:48 | INFO     | judge_llm | Validating worker evaluation for ANON_1760962511032_01EF9D (attempt 1)
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:05 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_74B6A9DE | actor=judge_llm | details={'anonymized_id': 'ANON_1760962511032_01EF9D', 'worker_result_id': 'WKR_0B7A84B7', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-20T17:19:05.609164
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:06 | INFO     | judge_llm | Judge validation complete: ANON_1760962511032_01EF9D → APPROVED  (quality: 86/100)
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:07 | INFO     | worker_llm | Evaluating ANON_1760962515493_27A3FD (attempt 1)
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:18 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_3C335B60 | actor=worker_llm | details={'anonymized_id': 'ANON_1760962515493_27A3FD', 'attempt_number': 1, 'total_score': 90.95} | timestamp=2025-10-20T17:19:18.425084
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:19 | INFO     | worker_llm | Worker evaluation complete: ANON_1760962515493_27A3FD → 90.95/100 (attempt 1)
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:20 | INFO     | judge_llm | Validating worker evaluation for ANON_1760962515493_27A3FD (attempt 1)
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:38 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_1301F5FC | actor=judge_llm | details={'anonymized_id': 'ANON_1760962515493_27A3FD', 'worker_result_id': 'WKR_3C335B60', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-20T17:19:38.052732
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:39 | INFO     | judge_llm | Judge validation complete: ANON_1760962515493_27A3FD → APPROVED  (quality: 92/100)
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:46 | INFO     | audit | AUDIT: update | HashChain:ANON_1760962511032_01EF9D | actor=hash_chain_generator | details={'hash': '5621a50475ab9bc4e37e51a3396299455b91e73dcbefa4b8b73f6d4c7f9d567d'} | timestamp=2025-10-20T17:19:46.092358
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:47 | INFO     | hash_chain | Created hash chain entry for ANON_1760962511032_01EF9D: 5621a50475ab9bc4...
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:49 | INFO     | audit | AUDIT: update | HashChain:ANON_1760962515493_27A3FD | actor=hash_chain_generator | details={'hash': '64dff9bb057b9044e83ee2c10669c2ed79920e70cb2491a8cf8f074d6e62d56f'} | timestamp=2025-10-20T17:19:49.316043
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:50 | INFO     | hash_chain | Created hash chain entry for ANON_1760962515493_27A3FD: 64dff9bb057b9044...
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:51 | INFO     | phase_manager | Marking cycle CYC_20251020_170727 as scored
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:52 | INFO     | phase_manager | Cycle CYC_20251020_170727 marked as SCORED
+{
+    "taskName": "Task-292"
+}
+2025-10-20 22:19:52 | INFO     | api.admin_phases | LLM processing completed for cycle CYC_20251020_170727 by admin enigma
+{
+    "taskName": "Task-292"
+}

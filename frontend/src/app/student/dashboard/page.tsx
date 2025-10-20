@@ -347,7 +347,7 @@ export default function StudentDashboardPage() {
                           <div className="flex justify-between">
                             <span className="text-gray-600">Seats Available:</span>
                             <span className="font-semibold text-gray-900">
-                              {admissionInfo.seats_available} / {admissionInfo.max_seats}
+                              {admissionInfo.max_seats}
                             </span>
                           </div>
                           {admissionInfo.end_date && (

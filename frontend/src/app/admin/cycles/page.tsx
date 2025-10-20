@@ -7,6 +7,7 @@ import { adminApiClient, type AdmissionCycle, type CreateCycleRequest, type Cycl
 import PhaseProgress from '@/components/PhaseProgress';
 import BatchManagement from '@/components/BatchManagement';
 import { SkeletonTable, SkeletonStats } from '@/components/Skeleton';
+import Modal, { type ModalType } from '@/components/Modal';
 import {
   Calendar,
   Plus,
@@ -95,6 +96,41 @@ export default function AdminCyclesPage() {
   const [expandedCycle, setExpandedCycle] = useState<string | null>(null);
   const [deletingCycleId, setDeletingCycleId] = useState<string | null>(null);
 
+  // Modal state
+  const [modalState, setModalState] = useState<{
+    isOpen: boolean;
+    type: ModalType;
+    title: string;
+    message: string;
+    showCancel?: boolean;
+    onConfirm?: () => void;
+  }>({
+    isOpen: false,
+    type: 'info',
+    title: '',
+    message: '',
+  });
+
+  const showModal = (
+    type: ModalType,
+    title: string,
+    message: string,
+    options?: { showCancel?: boolean; onConfirm?: () => void }
+  ) => {
+    setModalState({
+      isOpen: true,
+      type,
+      title,
+      message,
+      showCancel: options?.showCancel,
+      onConfirm: options?.onConfirm,
+    });
+  };
+
+  const closeModal = () => {
+    setModalState({ ...modalState, isOpen: false });
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
       loadCycles();
@@ -146,19 +182,31 @@ export default function AdminCyclesPage() {
           break;
         case 'export':
           result = await adminApiClient.exportBatchData(cycleId);
-          alert(`Exported ${result.record_count} applications. Batch ID: ${result.batch_id}`);
+          showModal(
+            'success',
+            'Export Successful',
+            `Successfully exported ${result.record_count} applications.\n\nBatch ID: ${result.batch_id}\n\nYou can now proceed to run the LLM evaluation.`
+          );
           break;
         case 'processing':
           result = await adminApiClient.startLLMProcessing(cycleId);
           break;
         case 'select':
           result = await adminApiClient.performSelection(cycleId);
-          alert(`Shortlisted ${result.selected_count} applicants with cutoff score ${result.cutoff_score.toFixed(2)}`);
+          showModal(
+            'success',
+            'Shortlisting Complete',
+            `Successfully shortlisted ${result.selected_count} applicants for interviews.\n\nCutoff Score: ${result.cutoff_score.toFixed(2)}\n\nSelected applicants are now ready for Phase 2 interviews.`
+          );
           break;
         case 'final-select':
           // Type assertion because the response is different
           const finalResult = await adminApiClient.performFinalSelection(cycleId);
-          alert(`Final Selection Complete: ${finalResult.selected_count} applicants selected.`);
+          showModal(
+            'success',
+            'Final Selection Complete',
+            `Successfully selected ${finalResult.selected_count} applicants for admission.\n\nThe admission cycle is now ready for results publication.`
+          );
           break;
         case 'publish':
           result = await adminApiClient.publishResults(cycleId);
@@ -173,7 +221,11 @@ export default function AdminCyclesPage() {
       // Refresh data
       await loadCycles();
     } catch (error: any) {
-      alert(error.message || `Failed to ${action} cycle`);
+      showModal(
+        'error',
+        'Operation Failed',
+        error.message || `Failed to ${action} cycle. Please try again or contact support if the issue persists.`
+      );
       console.error(`Phase transition error:`, error);
     } finally {
       setProcessing(null);
@@ -259,8 +311,17 @@ export default function AdminCyclesPage() {
     try {
       await adminApiClient.openCycle(cycleId);
       await loadCycles();
+      showModal(
+        'success',
+        'Cycle Opened',
+        'The admission cycle has been successfully opened. Students can now submit applications.'
+      );
     } catch (error: any) {
-      alert(error.message || 'Failed to open cycle');
+      showModal(
+        'error',
+        'Failed to Open Cycle',
+        error.message || 'Unable to open the cycle. Please try again.'
+      );
     } finally {
       setProcessing(null);
     }
@@ -271,28 +332,51 @@ export default function AdminCyclesPage() {
     try {
       await adminApiClient.closeCycle(cycleId);
       await loadCycles();
+      showModal(
+        'success',
+        'Cycle Closed',
+        'The admission cycle has been successfully closed. No new applications will be accepted.'
+      );
     } catch (error: any) {
-      alert(error.message || 'Failed to close cycle');
+      showModal(
+        'error',
+        'Failed to Close Cycle',
+        error.message || 'Unable to close the cycle. Please try again.'
+      );
     } finally {
       setProcessing(null);
     }
   };
 
   const handleDeleteCycle = async (cycle: AdmissionCycle) => {
-    if (!confirm(`Are you sure you want to delete the cycle "${cycle.cycle_name}"? This cannot be undone.`)) {
-      return;
-    }
-
-    setDeletingCycleId(cycle.cycle_id);
-    try {
-      const response = await adminApiClient.deleteCycle(cycle.cycle_id);
-      alert(response.message);
-      await loadCycles();
-    } catch (error: any) {
-      alert(error.message || 'Failed to delete cycle');
-    } finally {
-      setDeletingCycleId(null);
-    }
+    showModal(
+      'warning',
+      'Confirm Delete',
+      `Are you sure you want to delete the cycle "${cycle.cycle_name}"?\n\nThis action cannot be undone and will permanently remove:\n• All applications in this cycle\n• All evaluation data\n• All interview records\n\nPlease confirm to proceed.`,
+      {
+        showCancel: true,
+        onConfirm: async () => {
+          setDeletingCycleId(cycle.cycle_id);
+          try {
+            const response = await adminApiClient.deleteCycle(cycle.cycle_id);
+            showModal(
+              'success',
+              'Cycle Deleted',
+              response.message || `The cycle "${cycle.cycle_name}" has been permanently deleted.`
+            );
+            await loadCycles();
+          } catch (error: any) {
+            showModal(
+              'error',
+              'Delete Failed',
+              error.message || 'Unable to delete the cycle. Please try again.'
+            );
+          } finally {
+            setDeletingCycleId(null);
+          }
+        },
+      }
+    );
   };
 
   if (isLoading || loadingData) {
@@ -818,6 +902,17 @@ export default function AdminCyclesPage() {
           )}
         </div>
       </main>
+
+      {/* Custom Modal */}
+      <Modal
+        isOpen={modalState.isOpen}
+        onClose={closeModal}
+        type={modalState.type}
+        title={modalState.title}
+        message={modalState.message}
+        showCancel={modalState.showCancel}
+        onConfirm={modalState.onConfirm}
+      />
     </div>
   );
 }

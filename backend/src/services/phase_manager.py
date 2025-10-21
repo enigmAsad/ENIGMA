@@ -556,6 +556,7 @@ class PhaseManager:
 
         # **FIX**: Use the correct repository method to get top performers
         top_performers = self.interview_repo.get_top_interview_performers(cycle_id, limit=max_seats)
+        logger.debug(f"perform_final_selection: top_performers: {top_performers}")
 
         if not top_performers:
             raise PhaseTransitionError("No scored interviews found for this cycle.")
@@ -563,17 +564,21 @@ class PhaseManager:
         # Extract the application_ids of the winners
         selected_app_ids = set()
         for score in top_performers:
-            # The relationship is InterviewScore -> Interview -> Application
+            logger.debug(f"perform_final_selection: Processing score: {score.id}, interview: {score.interview.id if score.interview else 'None'}, application_id: {score.interview.application_id if score.interview else 'None'}")
             if score.interview and score.interview.application_id:
                 selected_app_ids.add(score.interview.application_id)
+        logger.debug(f"perform_final_selection: selected_app_ids: {selected_app_ids}")
 
         # Get all applications that were shortlisted for this cycle
         shortlisted_apps = self.app_repo.get_by_cycle(cycle_id, status=ApplicationStatusEnum.SHORTLISTED)
         shortlisted_app_ids = {app.application_id for app in shortlisted_apps}
+        logger.debug(f"perform_final_selection: shortlisted_app_ids: {shortlisted_app_ids}")
 
         # Determine who was not selected from the shortlisted group
         not_selected_app_ids = list(shortlisted_app_ids - selected_app_ids)
         final_selected_app_ids = list(selected_app_ids)
+        logger.debug(f"perform_final_selection: not_selected_app_ids: {not_selected_app_ids}")
+        logger.debug(f"perform_final_selection: final_selected_app_ids: {final_selected_app_ids}")
 
         # Update statuses in FinalScore and Application tables
         if final_selected_app_ids:
@@ -642,20 +647,38 @@ class PhaseManager:
         from src.database.models import FinalScore, AnonymizedApplication
 
         # Update Application table
-        app_stmt = (
+        # NOTE: We are intentionally NOT setting Application.status to PUBLISHED here.
+        # The goal is for Application.status to remain SELECTED or NOT_SELECTED,
+        # and the cycle's phase to indicate that results are published.
+
+        # Mark any remaining SHORTLISTED applications as NOT_SELECTED
+        not_selected_shortlisted_stmt = (
             update(Application)
             .where(
                 Application.admission_cycle_id == cycle_id,
-                Application.status.in_([
-                    ApplicationStatusEnum.SELECTED,
-                    ApplicationStatusEnum.NOT_SELECTED
-                ])
+                Application.status == ApplicationStatusEnum.SHORTLISTED
             )
-            .values(status=ApplicationStatusEnum.PUBLISHED)
+            .values(status=ApplicationStatusEnum.NOT_SELECTED)
         )
-        self.db.execute(app_stmt)
+        self.db.execute(not_selected_shortlisted_stmt)
 
-
+        # Also update FinalScore status for these applications
+        not_selected_shortlisted_final_score_stmt = (
+            update(FinalScore)
+            .where(
+                FinalScore.anonymized_id.in_(
+                    select(AnonymizedApplication.anonymized_id)
+                    .join(Application, AnonymizedApplication.application_id == Application.application_id)
+                    .where(
+                        Application.admission_cycle_id == cycle_id,
+                        Application.status == ApplicationStatusEnum.NOT_SELECTED # Now NOT_SELECTED due to previous update
+                    )
+                ),
+                FinalScore.status == ApplicationStatusEnum.SHORTLISTED
+            )
+            .values(status=ApplicationStatusEnum.NOT_SELECTED)
+        )
+        self.db.execute(not_selected_shortlisted_final_score_stmt)
 
         # Refresh hash for all published scores
         select_stmt = (

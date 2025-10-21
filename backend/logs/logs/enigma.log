@@ -24789,3 +24789,1039 @@ DETAIL:  Key (interview_id)=(2) already exists.
 {
     "taskName": null
 }
+2025-10-21 18:45:30 | INFO     | api.interviews | Interview 2 deleted by enigma
+{
+    "taskName": "Task-17"
+}
+2025-10-21 18:48:29 | INFO     | api.interviews | Interview 3 scheduled for application APP_24C6B315 by enigma
+{
+    "taskName": "Task-82"
+}
+2025-10-21 18:48:35 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 18:48:35 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-109"
+}
+2025-10-21 18:48:35 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-115"
+}
+2025-10-21 18:48:41 | INFO     | stt_service | AudioStreamManager initialized with silence detection (threshold: -40dBFS, trigger: 1.5s, min: 2.0s, max: 30.0s)
+{
+    "taskName": "Task-136"
+}
+2025-10-21 18:48:44 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: admin
+{
+    "taskName": "Task-136"
+}
+2025-10-21 18:48:44 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-136"
+}
+2025-10-21 18:48:55 | INFO     | api.interviews | Score added to interview 3 by admin enigma
+{
+    "taskName": "Task-142"
+}
+2025-10-21 18:48:57 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-136"
+}
+2025-10-21 18:48:57 | INFO     | audio_stream | Audio stream disconnected for interview 3, speaker: admin
+{
+    "taskName": "Task-136"
+}
+2025-10-21 18:48:57 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-136"
+}
+2025-10-21 18:48:57 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-115"
+}
+2025-10-21 18:48:57 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-115"
+}
+2025-10-21 18:48:57 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-115"
+}
+2025-10-21 18:50:00 | INFO     | phase_manager | Publishing results for cycle CYC_20251021_133651
+{
+    "taskName": "Task-166"
+}
+2025-10-21 18:50:01 | INFO     | hash_chain | Created hash chain entry for ANON_1761035943391_6691D7: f6b47b3fe4c9987f...
+{
+    "taskName": "Task-166"
+}
+2025-10-21 18:50:01 | INFO     | phase_manager | Results published for cycle CYC_20251021_133651
+{
+    "taskName": "Task-166"
+}
+2025-10-21 18:50:01 | INFO     | api.admin_phases | Results published for cycle CYC_20251021_133651 by admin enigma
+{
+    "taskName": "Task-166"
+}
+2025-10-21 18:50:13 | INFO     | phase_manager | Completing cycle CYC_20251021_133651
+{
+    "taskName": "Task-198"
+}
+2025-10-21 18:50:13 | INFO     | phase_manager | Cycle CYC_20251021_133651 completed
+{
+    "taskName": "Task-198"
+}
+2025-10-21 18:50:13 | INFO     | api.admin_phases | Cycle CYC_20251021_133651 completed by admin enigma
+{
+    "taskName": "Task-198"
+}
+2025-10-21 18:55:26 | ERROR    | database | Database transaction error: (<CloseCode.ABNORMAL_CLOSURE: 1006>, '')
+{
+    "taskName": "Task-109"
+}
+2025-10-21 18:55:26 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-109"
+}
+2025-10-21 20:04:08 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 20:05:48 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 20:06:09 | INFO     | api.admin_cycles | Created and opened admission cycle: Final Cycle
+{
+    "taskName": "Task-47"
+}
+2025-10-21 20:06:39 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-64"
+}
+2025-10-21 20:06:39 | INFO     | audit | AUDIT: create | Application:APP_3357A5E5 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-21T15:06:39.360063
+{
+    "taskName": "Task-64"
+}
+2025-10-21 20:06:39 | INFO     | application_collector | Application collected successfully: APP_3357A5E5
+{
+    "taskName": "Task-64"
+}
+2025-10-21 20:06:39 | INFO     | api.applications | Application submitted: APP_3357A5E5 (Cycle: Final Cycle)
+{
+    "taskName": "Task-64"
+}
+2025-10-21 20:06:52 | INFO     | api.interviews | Interview 3 deleted by enigma
+{
+    "taskName": "Task-96"
+}
+2025-10-21 20:07:07 | INFO     | phase_manager | Freezing cycle CYC_20251021_150609 by admin ADM_ENIGMA
+{
+    "taskName": "Task-105"
+}
+2025-10-21 20:07:07 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-105"
+}
+2025-10-21 20:07:07 | INFO     | phase_manager | Cycle CYC_20251021_150609 frozen successfully
+{
+    "taskName": "Task-105"
+}
+2025-10-21 20:07:07 | INFO     | api.admin_phases | Cycle CYC_20251021_150609 frozen by admin enigma
+{
+    "taskName": "Task-105"
+}
+2025-10-21 20:07:08 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251021_150609
+{
+    "taskName": "Task-110"
+}
+2025-10-21 20:07:08 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-110"
+}
+2025-10-21 20:07:08 | INFO     | identity_scrubber | Scrubbing application: APP_3357A5E5
+{
+    "taskName": "Task-110"
+}
+2025-10-21 20:07:08 | INFO     | identity_scrubber | Applied 4 redactions to APP_3357A5E5
+{
+    "taskName": "Task-110"
+}
+2025-10-21 20:07:09 | INFO     | identity_scrubber | Successfully scrubbed APP_3357A5E5 → ANON_1761041228882_5929C9
+{
+    "taskName": "Task-110"
+}
+2025-10-21 20:07:09 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251021_150609: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-110"
+}
+2025-10-21 20:07:09 | INFO     | api.admin_phases | Preprocessing started for cycle CYC_20251021_150609 by admin enigma
+{
+    "taskName": "Task-110"
+}
+2025-10-21 20:07:11 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-114"
+}
+2025-10-21 20:07:12 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-114"
+}
+2025-10-21 20:07:12 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251021_150609
+{
+    "taskName": "Task-114"
+}
+2025-10-21 20:07:12 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251021_150609: 1 applications ready for export
+{
+    "taskName": "Task-114"
+}
+2025-10-21 20:07:12 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251021_150609 to JSONL
+{
+    "taskName": "Task-114"
+}
+2025-10-21 20:07:12 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251021_150609_20251021_150712.jsonl
+{
+    "taskName": "Task-114"
+}
+2025-10-21 20:07:12 | INFO     | api.admin_phases | Batch export completed for cycle CYC_20251021_150609 by admin enigma
+{
+    "taskName": "Task-114"
+}
+2025-10-21 20:07:14 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:15 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:15 | INFO     | phase_manager | Starting processing for cycle CYC_20251021_150609
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:15 | INFO     | phase_manager | Cycle CYC_20251021_150609 now in PROCESSING phase
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:15 | INFO     | worker_llm | Evaluating ANON_1761041228882_5929C9 (attempt 1)
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:34 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_0FB8442A | actor=worker_llm | details={'anonymized_id': 'ANON_1761041228882_5929C9', 'attempt_number': 1, 'total_score': 83.45} | timestamp=2025-10-21T15:07:34.965767
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:34 | INFO     | worker_llm | Worker evaluation complete: ANON_1761041228882_5929C9 → 83.45/100 (attempt 1)
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:34 | INFO     | judge_llm | Validating worker evaluation for ANON_1761041228882_5929C9 (attempt 1)
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:48 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_48E44BFB | actor=judge_llm | details={'anonymized_id': 'ANON_1761041228882_5929C9', 'worker_result_id': 'WKR_0FB8442A', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-21T15:07:48.029092
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:48 | INFO     | judge_llm | Judge validation complete: ANON_1761041228882_5929C9 → APPROVED  (quality: 88/100)
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:48 | INFO     | audit | AUDIT: update | HashChain:ANON_1761041228882_5929C9 | actor=hash_chain_generator | details={'hash': 'e0e270da0c6ae3143fee3dde3c300a3777613064d6c168b77c2c0243578a473b'} | timestamp=2025-10-21T15:07:48.123093
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:48 | INFO     | hash_chain | Created hash chain entry for ANON_1761041228882_5929C9: e0e270da0c6ae314...
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:48 | INFO     | phase_manager | Marking cycle CYC_20251021_150609 as scored
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:48 | INFO     | phase_manager | Cycle CYC_20251021_150609 marked as SCORED
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:48 | INFO     | api.admin_phases | LLM processing completed for cycle CYC_20251021_150609 by admin enigma
+{
+    "taskName": "Task-119"
+}
+2025-10-21 20:07:48 | INFO     | phase_manager | Performing shortlisting for cycle CYC_20251021_150609
+{
+    "taskName": "Task-122"
+}
+2025-10-21 20:07:48 | INFO     | phase_manager | Updated 1 applications to SHORTLISTED status
+{
+    "taskName": "Task-122"
+}
+2025-10-21 20:07:48 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-122"
+}
+2025-10-21 20:07:48 | INFO     | phase_manager | Shortlisting complete: 1 shortlisted, 0 not selected. Cycle moved to SELECTION phase.
+{
+    "taskName": "Task-122"
+}
+2025-10-21 20:07:48 | INFO     | api.admin_phases | Shortlisting performed for cycle CYC_20251021_150609 by admin enigma
+{
+    "taskName": "Task-122"
+}
+2025-10-21 20:08:10 | INFO     | api.interviews | Interview 4 scheduled for application APP_3357A5E5 by enigma
+{
+    "taskName": "Task-144"
+}
+2025-10-21 20:08:17 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 20:08:18 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 4
+{
+    "taskName": "Task-171"
+}
+2025-10-21 20:08:18 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 4
+{
+    "taskName": "Task-177"
+}
+2025-10-21 20:08:25 | INFO     | stt_service | AudioStreamManager initialized with silence detection (threshold: -40dBFS, trigger: 1.5s, min: 2.0s, max: 30.0s)
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:29 | INFO     | audio_stream | Audio stream connected for interview 4, speaker: admin
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:29 | INFO     | stt_service | Started audio stream for interview 4
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:39 | INFO     | stt_service | Returning 223860 bytes for transcription (duration: 7.00s) for SpeakerEnum.ADMIN in interview 4
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:39 | INFO     | audio_stream | Processing 223860 bytes for admin
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:39 | INFO     | stt_service | Sending 223904 bytes to Whisper API as WAV
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:43 | INFO     | stt_service | Transcribed: 'Okay, I am speaking some words and you have to wri...' (confidence: 0.90)
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:43 | INFO     | stt_service | Stored transcript 255 for interview 4
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:43 | INFO     | audio_stream | Running bias analysis for transcript 255
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:43 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 255
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:44 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 255
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:44 | INFO     | bias_monitoring_workflow | Analyzing transcript 255 for bias
+{
+    "taskName": null
+}
+2025-10-21 20:08:52 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 20:08:52 | INFO     | bias_monitoring_workflow | Stored bias analysis 246
+{
+    "taskName": null
+}
+2025-10-21 20:08:54 | INFO     | api.interviews | Score added to interview 4 by admin enigma
+{
+    "taskName": "Task-209"
+}
+2025-10-21 20:08:55 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:55 | INFO     | audio_stream | Audio stream disconnected for interview 4, speaker: admin
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:55 | INFO     | stt_service | Stopped audio stream for interview 4
+{
+    "taskName": "Task-192"
+}
+2025-10-21 20:08:56 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-177"
+}
+2025-10-21 20:08:56 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 4
+{
+    "taskName": "Task-177"
+}
+2025-10-21 20:08:56 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 4
+{
+    "taskName": "Task-177"
+}
+2025-10-21 20:09:34 | INFO     | phase_manager | Publishing results for cycle CYC_20251021_150609
+{
+    "taskName": "Task-244"
+}
+2025-10-21 20:09:34 | INFO     | hash_chain | Created hash chain entry for ANON_1761041228882_5929C9: 021cd56f334a5f65...
+{
+    "taskName": "Task-244"
+}
+2025-10-21 20:09:34 | INFO     | phase_manager | Results published for cycle CYC_20251021_150609
+{
+    "taskName": "Task-244"
+}
+2025-10-21 20:09:34 | INFO     | api.admin_phases | Results published for cycle CYC_20251021_150609 by admin enigma
+{
+    "taskName": "Task-244"
+}
+2025-10-21 20:17:30 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-171"
+}
+2025-10-21 20:17:30 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 4
+{
+    "taskName": "Task-171"
+}
+2025-10-21 20:17:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 20:18:08 | INFO     | phase_manager | Completing cycle CYC_20251021_150609
+{
+    "taskName": "Task-5"
+}
+2025-10-21 20:18:08 | INFO     | phase_manager | Cycle CYC_20251021_150609 completed
+{
+    "taskName": "Task-5"
+}
+2025-10-21 20:18:08 | INFO     | api.admin_phases | Cycle CYC_20251021_150609 completed by admin enigma
+{
+    "taskName": "Task-5"
+}
+2025-10-21 20:18:38 | INFO     | api.admin_cycles | Created and opened admission cycle: Please 
+{
+    "taskName": "Task-19"
+}
+2025-10-21 20:19:03 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-36"
+}
+2025-10-21 20:19:03 | INFO     | audit | AUDIT: create | Application:APP_D84943B7 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-21T15:19:03.261661
+{
+    "taskName": "Task-36"
+}
+2025-10-21 20:19:03 | INFO     | application_collector | Application collected successfully: APP_D84943B7
+{
+    "taskName": "Task-36"
+}
+2025-10-21 20:19:03 | INFO     | api.applications | Application submitted: APP_D84943B7 (Cycle: Please )
+{
+    "taskName": "Task-36"
+}
+2025-10-21 20:19:13 | INFO     | phase_manager | Freezing cycle CYC_20251021_151838 by admin ADM_ENIGMA
+{
+    "taskName": "Task-62"
+}
+2025-10-21 20:19:13 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-62"
+}
+2025-10-21 20:19:13 | INFO     | phase_manager | Cycle CYC_20251021_151838 frozen successfully
+{
+    "taskName": "Task-62"
+}
+2025-10-21 20:19:13 | INFO     | api.admin_phases | Cycle CYC_20251021_151838 frozen by admin enigma
+{
+    "taskName": "Task-62"
+}
+2025-10-21 20:19:15 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251021_151838
+{
+    "taskName": "Task-67"
+}
+2025-10-21 20:19:15 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-67"
+}
+2025-10-21 20:19:15 | INFO     | identity_scrubber | Scrubbing application: APP_D84943B7
+{
+    "taskName": "Task-67"
+}
+2025-10-21 20:19:15 | INFO     | identity_scrubber | Applied 4 redactions to APP_D84943B7
+{
+    "taskName": "Task-67"
+}
+2025-10-21 20:19:15 | INFO     | identity_scrubber | Successfully scrubbed APP_D84943B7 → ANON_1761041955283_193F38
+{
+    "taskName": "Task-67"
+}
+2025-10-21 20:19:15 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251021_151838: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-67"
+}
+2025-10-21 20:19:15 | INFO     | api.admin_phases | Preprocessing started for cycle CYC_20251021_151838 by admin enigma
+{
+    "taskName": "Task-67"
+}
+2025-10-21 20:19:17 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-70"
+}
+2025-10-21 20:19:18 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-70"
+}
+2025-10-21 20:19:18 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251021_151838
+{
+    "taskName": "Task-70"
+}
+2025-10-21 20:19:18 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251021_151838: 1 applications ready for export
+{
+    "taskName": "Task-70"
+}
+2025-10-21 20:19:18 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251021_151838 to JSONL
+{
+    "taskName": "Task-70"
+}
+2025-10-21 20:19:18 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251021_151838_20251021_151918.jsonl
+{
+    "taskName": "Task-70"
+}
+2025-10-21 20:19:18 | INFO     | api.admin_phases | Batch export completed for cycle CYC_20251021_151838 by admin enigma
+{
+    "taskName": "Task-70"
+}
+2025-10-21 20:19:19 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:21 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:21 | INFO     | phase_manager | Starting processing for cycle CYC_20251021_151838
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:21 | INFO     | phase_manager | Cycle CYC_20251021_151838 now in PROCESSING phase
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:21 | INFO     | worker_llm | Evaluating ANON_1761041955283_193F38 (attempt 1)
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:35 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_13D4AE00 | actor=worker_llm | details={'anonymized_id': 'ANON_1761041955283_193F38', 'attempt_number': 1, 'total_score': 78.8} | timestamp=2025-10-21T15:19:35.922585
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:35 | INFO     | worker_llm | Worker evaluation complete: ANON_1761041955283_193F38 → 78.80/100 (attempt 1)
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:35 | INFO     | judge_llm | Validating worker evaluation for ANON_1761041955283_193F38 (attempt 1)
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:56 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_88B0F480 | actor=judge_llm | details={'anonymized_id': 'ANON_1761041955283_193F38', 'worker_result_id': 'WKR_13D4AE00', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-21T15:19:56.857468
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:56 | INFO     | judge_llm | Judge validation complete: ANON_1761041955283_193F38 → APPROVED  (quality: 87/100)
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:56 | INFO     | audit | AUDIT: update | HashChain:ANON_1761041955283_193F38 | actor=hash_chain_generator | details={'hash': '9033ac6cf8de7b83baf8fe02b1b3ddcd0c6d90151b2cce2739ef51d798d7ec42'} | timestamp=2025-10-21T15:19:56.938469
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:56 | INFO     | hash_chain | Created hash chain entry for ANON_1761041955283_193F38: 9033ac6cf8de7b83...
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:56 | INFO     | phase_manager | Marking cycle CYC_20251021_151838 as scored
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:56 | INFO     | phase_manager | Cycle CYC_20251021_151838 marked as SCORED
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:56 | INFO     | api.admin_phases | LLM processing completed for cycle CYC_20251021_151838 by admin enigma
+{
+    "taskName": "Task-74"
+}
+2025-10-21 20:19:57 | INFO     | phase_manager | Performing shortlisting for cycle CYC_20251021_151838
+{
+    "taskName": "Task-77"
+}
+2025-10-21 20:19:57 | INFO     | phase_manager | Updated 1 applications to SHORTLISTED status
+{
+    "taskName": "Task-77"
+}
+2025-10-21 20:19:57 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-77"
+}
+2025-10-21 20:19:57 | INFO     | phase_manager | Shortlisting complete: 1 shortlisted, 0 not selected. Cycle moved to SELECTION phase.
+{
+    "taskName": "Task-77"
+}
+2025-10-21 20:19:57 | INFO     | api.admin_phases | Shortlisting performed for cycle CYC_20251021_151838 by admin enigma
+{
+    "taskName": "Task-77"
+}
+2025-10-21 20:20:22 | INFO     | api.interviews | Interview 4 deleted by enigma
+{
+    "taskName": "Task-105"
+}
+2025-10-21 20:20:27 | INFO     | api.interviews | Interview 5 scheduled for application APP_D84943B7 by enigma
+{
+    "taskName": "Task-109"
+}
+2025-10-21 20:20:41 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 20:20:41 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 5
+{
+    "taskName": "Task-146"
+}
+2025-10-21 20:20:41 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 5
+{
+    "taskName": "Task-153"
+}
+2025-10-21 20:20:45 | INFO     | stt_service | AudioStreamManager initialized with silence detection (threshold: -40dBFS, trigger: 1.5s, min: 2.0s, max: 30.0s)
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:20:48 | INFO     | audio_stream | Audio stream connected for interview 5, speaker: admin
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:20:48 | INFO     | stt_service | Started audio stream for interview 5
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:20:59 | INFO     | stt_service | Returning 253890 bytes for transcription (duration: 7.93s) for SpeakerEnum.ADMIN in interview 5
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:20:59 | INFO     | audio_stream | Processing 253890 bytes for admin
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:20:59 | INFO     | stt_service | Sending 253934 bytes to Whisper API as WAV
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:21:06 | INFO     | stt_service | Transcribed: 'Can I do another one? I know this is very good. Ca...' (confidence: 0.90)
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:21:06 | INFO     | stt_service | Stored transcript 256 for interview 5
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:21:06 | INFO     | audio_stream | Running bias analysis for transcript 256
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:21:06 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 256
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:21:06 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 256
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:21:06 | INFO     | bias_monitoring_workflow | Analyzing transcript 256 for bias
+{
+    "taskName": null
+}
+2025-10-21 20:21:14 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 20:21:14 | INFO     | bias_monitoring_workflow | Stored bias analysis 247
+{
+    "taskName": null
+}
+2025-10-21 20:21:19 | INFO     | api.interviews | Score added to interview 5 by admin enigma
+{
+    "taskName": "Task-176"
+}
+2025-10-21 20:21:20 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:21:20 | INFO     | audio_stream | Audio stream disconnected for interview 5, speaker: admin
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:21:20 | INFO     | stt_service | Stopped audio stream for interview 5
+{
+    "taskName": "Task-159"
+}
+2025-10-21 20:21:20 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-153"
+}
+2025-10-21 20:21:20 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 5
+{
+    "taskName": "Task-153"
+}
+2025-10-21 20:21:20 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 5
+{
+    "taskName": "Task-153"
+}
+2025-10-21 20:21:36 | INFO     | phase_manager | Publishing results for cycle CYC_20251021_151838
+{
+    "taskName": "Task-215"
+}
+2025-10-21 20:21:37 | INFO     | hash_chain | Created hash chain entry for ANON_1761041955283_193F38: d1dd5535a92ab59c...
+{
+    "taskName": "Task-215"
+}
+2025-10-21 20:21:37 | INFO     | phase_manager | Results published for cycle CYC_20251021_151838
+{
+    "taskName": "Task-215"
+}
+2025-10-21 20:21:37 | INFO     | api.admin_phases | Results published for cycle CYC_20251021_151838 by admin enigma
+{
+    "taskName": "Task-215"
+}
+2025-10-21 20:25:24 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-146"
+}
+2025-10-21 20:25:24 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 5
+{
+    "taskName": "Task-146"
+}
+2025-10-21 20:25:28 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 20:26:03 | INFO     | phase_manager | Completing cycle CYC_20251021_151838
+{
+    "taskName": "Task-5"
+}
+2025-10-21 20:26:03 | INFO     | phase_manager | Cycle CYC_20251021_151838 completed
+{
+    "taskName": "Task-5"
+}
+2025-10-21 20:26:03 | INFO     | api.admin_phases | Cycle CYC_20251021_151838 completed by admin enigma
+{
+    "taskName": "Task-5"
+}
+2025-10-21 20:26:21 | INFO     | api.admin_cycles | Created and opened admission cycle: PLease2
+{
+    "taskName": "Task-10"
+}
+2025-10-21 20:26:48 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-23"
+}
+2025-10-21 20:26:48 | INFO     | audit | AUDIT: create | Application:APP_7AB1D3A4 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-21T15:26:48.360284
+{
+    "taskName": "Task-23"
+}
+2025-10-21 20:26:48 | INFO     | application_collector | Application collected successfully: APP_7AB1D3A4
+{
+    "taskName": "Task-23"
+}
+2025-10-21 20:26:48 | INFO     | api.applications | Application submitted: APP_7AB1D3A4 (Cycle: PLease2)
+{
+    "taskName": "Task-23"
+}
+2025-10-21 20:27:42 | INFO     | phase_manager | Freezing cycle CYC_20251021_152621 by admin ADM_ENIGMA
+{
+    "taskName": "Task-44"
+}
+2025-10-21 20:27:42 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-44"
+}
+2025-10-21 20:27:42 | INFO     | phase_manager | Cycle CYC_20251021_152621 frozen successfully
+{
+    "taskName": "Task-44"
+}
+2025-10-21 20:27:42 | INFO     | api.admin_phases | Cycle CYC_20251021_152621 frozen by admin enigma
+{
+    "taskName": "Task-44"
+}
+2025-10-21 20:27:45 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251021_152621
+{
+    "taskName": "Task-49"
+}
+2025-10-21 20:27:45 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-49"
+}
+2025-10-21 20:27:45 | INFO     | identity_scrubber | Scrubbing application: APP_7AB1D3A4
+{
+    "taskName": "Task-49"
+}
+2025-10-21 20:27:45 | INFO     | identity_scrubber | Applied 4 redactions to APP_7AB1D3A4
+{
+    "taskName": "Task-49"
+}
+2025-10-21 20:27:45 | INFO     | identity_scrubber | Successfully scrubbed APP_7AB1D3A4 → ANON_1761042465438_511835
+{
+    "taskName": "Task-49"
+}
+2025-10-21 20:27:45 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251021_152621: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-49"
+}
+2025-10-21 20:27:45 | INFO     | api.admin_phases | Preprocessing started for cycle CYC_20251021_152621 by admin enigma
+{
+    "taskName": "Task-49"
+}
+2025-10-21 20:27:47 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-52"
+}
+2025-10-21 20:27:48 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-52"
+}
+2025-10-21 20:27:48 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251021_152621
+{
+    "taskName": "Task-52"
+}
+2025-10-21 20:27:48 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251021_152621: 1 applications ready for export
+{
+    "taskName": "Task-52"
+}
+2025-10-21 20:27:48 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251021_152621 to JSONL
+{
+    "taskName": "Task-52"
+}
+2025-10-21 20:27:49 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251021_152621_20251021_152749.jsonl
+{
+    "taskName": "Task-52"
+}
+2025-10-21 20:27:49 | INFO     | api.admin_phases | Batch export completed for cycle CYC_20251021_152621 by admin enigma
+{
+    "taskName": "Task-52"
+}
+2025-10-21 20:27:50 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:27:51 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:27:51 | INFO     | phase_manager | Starting processing for cycle CYC_20251021_152621
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:27:51 | INFO     | phase_manager | Cycle CYC_20251021_152621 now in PROCESSING phase
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:27:51 | INFO     | worker_llm | Evaluating ANON_1761042465438_511835 (attempt 1)
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:28:12 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_D3A5942A | actor=worker_llm | details={'anonymized_id': 'ANON_1761042465438_511835', 'attempt_number': 1, 'total_score': 85.2} | timestamp=2025-10-21T15:28:12.565638
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:28:12 | INFO     | worker_llm | Worker evaluation complete: ANON_1761042465438_511835 → 85.20/100 (attempt 1)
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:28:12 | INFO     | judge_llm | Validating worker evaluation for ANON_1761042465438_511835 (attempt 1)
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:28:35 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_5C57BF36 | actor=judge_llm | details={'anonymized_id': 'ANON_1761042465438_511835', 'worker_result_id': 'WKR_D3A5942A', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-21T15:28:35.909075
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:28:35 | INFO     | judge_llm | Judge validation complete: ANON_1761042465438_511835 → APPROVED  (quality: 88/100)
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:28:36 | INFO     | audit | AUDIT: update | HashChain:ANON_1761042465438_511835 | actor=hash_chain_generator | details={'hash': '979d6c432a2b07aeef5408a402c56043c3fef7bb1f4cb4bead6117d4af739fab'} | timestamp=2025-10-21T15:28:36.037075
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:28:36 | INFO     | hash_chain | Created hash chain entry for ANON_1761042465438_511835: 979d6c432a2b07ae...
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:28:36 | INFO     | phase_manager | Marking cycle CYC_20251021_152621 as scored
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:28:36 | INFO     | phase_manager | Cycle CYC_20251021_152621 marked as SCORED
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:28:36 | INFO     | api.admin_phases | LLM processing completed for cycle CYC_20251021_152621 by admin enigma
+{
+    "taskName": "Task-55"
+}
+2025-10-21 20:28:36 | INFO     | phase_manager | Performing shortlisting for cycle CYC_20251021_152621
+{
+    "taskName": "Task-61"
+}
+2025-10-21 20:28:36 | INFO     | phase_manager | Updated 1 applications to SHORTLISTED status
+{
+    "taskName": "Task-61"
+}
+2025-10-21 20:28:36 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-61"
+}
+2025-10-21 20:28:36 | INFO     | phase_manager | Shortlisting complete: 1 shortlisted, 0 not selected. Cycle moved to SELECTION phase.
+{
+    "taskName": "Task-61"
+}
+2025-10-21 20:28:36 | INFO     | api.admin_phases | Shortlisting performed for cycle CYC_20251021_152621 by admin enigma
+{
+    "taskName": "Task-61"
+}
+2025-10-21 20:28:53 | INFO     | api.interviews | Interview 6 scheduled for application APP_7AB1D3A4 by enigma
+{
+    "taskName": "Task-88"
+}
+2025-10-21 20:29:03 | INFO     | api.interviews | Interview 5 deleted by enigma
+{
+    "taskName": "Task-103"
+}
+2025-10-21 20:29:09 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 20:29:10 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 6
+{
+    "taskName": "Task-121"
+}
+2025-10-21 20:29:10 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 6
+{
+    "taskName": "Task-127"
+}
+2025-10-21 20:29:19 | INFO     | stt_service | AudioStreamManager initialized with silence detection (threshold: -40dBFS, trigger: 1.5s, min: 2.0s, max: 30.0s)
+{
+    "taskName": "Task-142"
+}
+2025-10-21 20:29:24 | INFO     | audio_stream | Audio stream connected for interview 6, speaker: admin
+{
+    "taskName": "Task-142"
+}
+2025-10-21 20:29:24 | INFO     | stt_service | Started audio stream for interview 6
+{
+    "taskName": "Task-142"
+}
+2025-10-21 20:29:35 | INFO     | api.interviews | Score added to interview 6 by admin enigma
+{
+    "taskName": "Task-148"
+}
+2025-10-21 20:29:36 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-142"
+}
+2025-10-21 20:29:36 | INFO     | audio_stream | Audio stream disconnected for interview 6, speaker: admin
+{
+    "taskName": "Task-142"
+}
+2025-10-21 20:29:36 | INFO     | stt_service | Stopped audio stream for interview 6
+{
+    "taskName": "Task-142"
+}
+2025-10-21 20:29:36 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-127"
+}
+2025-10-21 20:29:36 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 6
+{
+    "taskName": "Task-127"
+}
+2025-10-21 20:29:36 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 6
+{
+    "taskName": "Task-127"
+}
+2025-10-21 20:30:02 | INFO     | phase_manager | Publishing results for cycle CYC_20251021_152621
+{
+    "taskName": "Task-206"
+}
+2025-10-21 20:30:02 | INFO     | hash_chain | Created hash chain entry for ANON_1761042465438_511835: 31b09a88e6f4a30d...
+{
+    "taskName": "Task-206"
+}
+2025-10-21 20:30:02 | INFO     | phase_manager | Results published for cycle CYC_20251021_152621
+{
+    "taskName": "Task-206"
+}
+2025-10-21 20:30:02 | INFO     | api.admin_phases | Results published for cycle CYC_20251021_152621 by admin enigma
+{
+    "taskName": "Task-206"
+}
+2025-10-21 20:30:21 | INFO     | phase_manager | Completing cycle CYC_20251021_152621
+{
+    "taskName": "Task-212"
+}
+2025-10-21 20:30:22 | INFO     | phase_manager | Cycle CYC_20251021_152621 completed
+{
+    "taskName": "Task-212"
+}
+2025-10-21 20:30:22 | INFO     | api.admin_phases | Cycle CYC_20251021_152621 completed by admin enigma
+{
+    "taskName": "Task-212"
+}
+2025-10-21 20:42:46 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-121"
+}
+2025-10-21 20:42:46 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 6
+{
+    "taskName": "Task-121"
+}
+2025-10-21 20:43:00 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 20:43:00 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 20:43:00 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 20:43:00 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-21 20:43:00 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-21 20:43:00 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-21 20:43:00 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-21 20:43:04 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

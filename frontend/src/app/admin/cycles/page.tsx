@@ -301,6 +301,12 @@ export default function AdminCyclesPage() {
           );
           break;
         case 'publish':
+          // First, perform final selection if the cycle is in the SELECTION phase
+          // This ensures applicants are marked SELECTED/NOT_SELECTED before publishing
+          if (cycle?.phase === 'selection') {
+            await adminApiClient.performFinalSelection(cycleId);
+            // No need to show a modal here, as the publish modal will follow
+          }
           result = await adminApiClient.publishResults(cycleId);
           showModal(
             'success',

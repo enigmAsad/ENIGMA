@@ -112,7 +112,7 @@ class ApplicationRepository(BaseRepository[Application]):
         Returns:
             List[Application]: List of applications
         """
-        stmt = select(Application).where(
+        stmt = select(Application).options(joinedload(Application.interview)).where(
             Application.admission_cycle_id == cycle_id
         )
 

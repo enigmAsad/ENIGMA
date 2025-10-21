@@ -21,7 +21,7 @@ const InterviewRoomPage = () => {
   const { interviewId } = useParams();
   const router = useRouter();
 
-  const { student, isLoading: isStudentLoading } = useStudentAuth();
+  const { student, loading: isStudentLoading } = useStudentAuth();
   const { admin, isLoading: isAdminLoading } = useAdminAuth();
 
   const [isScoreModalOpen, setScoreModalOpen] = useState(false);
@@ -98,7 +98,18 @@ const InterviewRoomPage = () => {
     };
 
     pc.ontrack = (event) => {
-      setRemoteStream(event.streams[0]);
+      if (remoteVideoRef.current) {
+        let stream = remoteVideoRef.current.srcObject as MediaStream;
+        if (!stream) {
+          stream = new MediaStream();
+          remoteVideoRef.current.srcObject = stream;
+        }
+        if (!stream.getTrackById(event.track.id)) {
+          stream.addTrack(event.track);
+        }
+        // Update state to trigger UI changes that depend on the stream
+        setRemoteStream(stream);
+      }
       setConnectionStatus('connected');
     };
 
@@ -206,12 +217,16 @@ const InterviewRoomPage = () => {
       if (socketRef.current?.readyState === WebSocket.OPEN) {
         socketRef.current.send(JSON.stringify({ offer }));
       }
-
-      if (localStream) {
-        audioStreaming.startCapture(localStream);
-      }
     }
   };
+
+  // Start audio capture only when the WebSocket is connected and the call has started
+  useEffect(() => {
+    if (audioStreaming.isConnected && localStream && isAdmin) {
+      console.log("Audio WebSocket connected, starting audio capture.");
+      audioStreaming.startCapture(localStream);
+    }
+  }, [audioStreaming.isConnected, localStream, isAdmin]);
 
   const endCall = () => {
     audioStreaming.stopCapture();
@@ -573,6 +588,21 @@ const InterviewRoomPage = () => {
                           </p>
                         </div>
                       )}
+
+                      {/* Transcribed Text Display (Temporary) */}
+                      <div className="p-3 bg-gray-50 border-2 border-gray-200 rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <FileText className="h-5 w-5 text-gray-600" />
+                          <p className="text-sm font-semibold text-gray-900">
+                            Live Transcription (Temporary)
+                          </p>
+                        </div>
+                        <textarea
+                          className="w-full h-40 p-2 text-sm font-mono bg-white border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          value={audioStreaming.transcribedText.join('\n')}
+                          readOnly
+                        />
+                      </div>
                     </div>
                   )}
 

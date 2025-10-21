@@ -226,7 +226,7 @@ class Settings(BaseSettings):
 
     # STT Configuration
     stt_chunk_duration_seconds: int = Field(
-        default=10,
+        default=30,
         ge=5,
         le=30,
         description="Audio chunk duration for STT processing (seconds)"

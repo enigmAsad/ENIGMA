@@ -161,7 +161,7 @@ def analyze_bias_node(state: BiasMonitoringState) -> BiasMonitoringState:
         ]
 
         response = client.chat.completions.create(
-            model=settings.BIAS_DETECTION_MODEL,
+            model=settings.bias_detection_model,
             messages=messages,
             response_format={"type": "json_object"},
         )
@@ -221,7 +221,7 @@ def store_analysis_node(state: BiasMonitoringState, db: Session) -> BiasMonitori
             evidence_quotes=state.get("evidence_quotes"),
             context_summary=state.get("context_summary"),
             recommended_action=RecommendedActionEnum(state["recommended_action"]),
-            llm_model=settings.BIAS_DETECTION_MODEL,
+            llm_model=settings.bias_detection_model,
             llm_response_raw=state.get("llm_response_raw"),
         )
 
@@ -267,7 +267,7 @@ def check_strikes_node(state: BiasMonitoringState, db: Session) -> BiasMonitorin
         actual_action = recommended
 
         # Auto-block conditions
-        if strike_count >= settings.STRIKE_LIMIT_PER_INTERVIEW:
+        if strike_count >= settings.strike_limit_per_interview:
             actual_action = "block"
             logger.warning(f"Admin {state['admin_id']} hit strike limit in interview")
         elif history.current_status.value in ["suspended", "banned"]:
@@ -278,9 +278,9 @@ def check_strikes_node(state: BiasMonitoringState, db: Session) -> BiasMonitorin
 
         # Confidence threshold check
         thresholds = {
-            "nudge": settings.NUDGE_THRESHOLD_LOW,
-            "warn": settings.NUDGE_THRESHOLD_MEDIUM,
-            "block": settings.NUDGE_THRESHOLD_HIGH,
+            "nudge": settings.nudge_threshold_low,
+            "warn": settings.nudge_threshold_medium,
+            "block": settings.nudge_threshold_high,
         }
 
         required_confidence = thresholds.get(actual_action, 0.0)

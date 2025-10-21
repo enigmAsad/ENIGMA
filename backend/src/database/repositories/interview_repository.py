@@ -4,8 +4,9 @@ from typing import List, Optional, Dict, Any
 from datetime import datetime
 from sqlalchemy.orm import Session
 from sqlalchemy import select
+from sqlalchemy.orm import joinedload
 
-from src.database.models import Interview, InterviewStatusEnum, InterviewScore
+from src.database.models import Interview, InterviewStatusEnum, InterviewScore, Application
 from src.database.repositories.base_repository import BaseRepository
 from src.utils.logger import get_logger
 
@@ -176,10 +177,11 @@ class InterviewRepository(BaseRepository[Interview]):
 
     def get_top_interview_performers(self, cycle_id: str, limit: int) -> List[InterviewScore]:
         """Get the top performing interviews for a cycle based on score."""
-        from src.database.models import InterviewScore, Application
+        # from src.database.models import InterviewScore, Application
 
         stmt = (
             select(InterviewScore)
+            .options(joinedload(InterviewScore.interview))
             .join(Interview, InterviewScore.interview_id == Interview.id)
             .join(Application, Interview.application_id == Application.application_id)
             .where(Application.admission_cycle_id == cycle_id)

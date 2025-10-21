@@ -27257,3 +27257,771 @@ DETAIL:  Key (interview_id)=(2) already exists.
 {
     "taskName": "Task-321"
 }
+2025-10-22 00:20:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-22 00:20:35 | INFO     | student_auth | Issued session STS_6F59B27548 for student STU_BA2E18AC
+{
+    "taskName": "Task-408"
+}
+2025-10-22 00:20:35 | INFO     | student_auth | Student STU_BA2E18AC logged in via Google
+{
+    "taskName": "Task-408"
+}
+2025-10-22 00:20:54 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-22 00:20:54 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-22 00:21:34 | WARNING  | api.websockets | Student attempted WebRTC connection to interview 2 before admin started it
+{
+    "taskName": "Task-459"
+}
+2025-10-22 00:21:35 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-22 00:21:38 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-468"
+}
+2025-10-22 00:21:38 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-474"
+}
+2025-10-22 00:21:44 | INFO     | interview_repository | Interview 2 started by admin ADM_ENIGMA at 2025-10-21 19:21:43.838439+00:00
+{
+    "taskName": "Task-479"
+}
+2025-10-22 00:21:44 | INFO     | api.interviews | Interview 2 started by admin ADM_ENIGMA (COI accepted at 2025-10-21 19:21:43.838439+00:00)
+{
+    "taskName": "Task-479"
+}
+2025-10-22 00:21:58 | INFO     | audio_stream | Audio stream connected for interview 2, speaker: admin
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:21:58 | INFO     | stt_service | Started audio stream for interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:01 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:01 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:01 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:05 | INFO     | stt_service | Transcribed: '....' (confidence: 0.90)
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:06 | INFO     | stt_service | Stored transcript 9 for interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:06 | INFO     | audio_stream | Running bias analysis for transcript 9
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:07 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 9
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:07 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 9
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:07 | INFO     | bias_monitoring_workflow | Analyzing transcript 9 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:22:12 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-22 00:22:13 | INFO     | bias_monitoring_workflow | Stored bias analysis 7
+{
+    "taskName": null
+}
+2025-10-22 00:22:15 | INFO     | stt_service | Returning 425880 bytes for transcription (duration: 13.31s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:15 | INFO     | audio_stream | Processing 425880 bytes for admin
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:15 | INFO     | stt_service | Sending 425924 bytes to Whisper API as WAV
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:18 | INFO     | stt_service | Transcribed: 'Yeah. Yeah....' (confidence: 0.90)
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:19 | INFO     | stt_service | Stored transcript 10 for interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:19 | INFO     | audio_stream | Running bias analysis for transcript 10
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:20 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 10
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:20 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 10
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:20 | INFO     | bias_monitoring_workflow | Analyzing transcript 10 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:22:25 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-22 00:22:26 | INFO     | bias_monitoring_workflow | Stored bias analysis 8
+{
+    "taskName": null
+}
+2025-10-22 00:22:28 | INFO     | stt_service | Returning 444990 bytes for transcription (duration: 13.91s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:28 | INFO     | audio_stream | Processing 444990 bytes for admin
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:28 | INFO     | stt_service | Sending 445034 bytes to Whisper API as WAV
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:31 | INFO     | stt_service | Transcribed: 'Bro, he's the best. He's the best. Oh. Yaar. Isko ...' (confidence: 0.90)
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:33 | INFO     | stt_service | Stored transcript 11 for interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:33 | INFO     | audio_stream | Running bias analysis for transcript 11
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:33 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 11
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:33 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 11
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:33 | INFO     | bias_monitoring_workflow | Analyzing transcript 11 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:22:50 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=True, severity=high
+{
+    "taskName": null
+}
+2025-10-22 00:22:51 | INFO     | bias_monitoring_workflow | Stored bias analysis 9
+{
+    "taskName": null
+}
+2025-10-22 00:22:54 | WARNING  | nudge_service | Delivered warning to admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-543"
+}
+2025-10-22 00:22:54 | INFO     | nudge_connection_manager | Sent nudge to admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:57 | INFO     | stt_service | Returning 778050 bytes for transcription (duration: 24.31s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:57 | INFO     | audio_stream | Processing 778050 bytes for admin
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:22:57 | INFO     | stt_service | Sending 778094 bytes to Whisper API as WAV
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:01 | INFO     | stt_service | Transcribed: 'Do you want to continue or what? I don't know. I j...' (confidence: 0.90)
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:02 | INFO     | stt_service | Stored transcript 12 for interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:03 | INFO     | audio_stream | Running bias analysis for transcript 12
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:03 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 12
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:03 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 12
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:03 | INFO     | bias_monitoring_workflow | Analyzing transcript 12 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:23:18 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-22 00:23:18 | INFO     | bias_monitoring_workflow | Stored bias analysis 10
+{
+    "taskName": null
+}
+2025-10-22 00:23:20 | INFO     | stt_service | Returning 464100 bytes for transcription (duration: 14.50s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:20 | INFO     | audio_stream | Processing 464100 bytes for admin
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:20 | INFO     | stt_service | Sending 464144 bytes to Whisper API as WAV
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:23 | INFO     | stt_service | Transcribed: 'So, 0, 0, 1. Standard....' (confidence: 0.90)
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:24 | INFO     | stt_service | Stored transcript 13 for interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:25 | INFO     | audio_stream | Running bias analysis for transcript 13
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:25 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 13
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:25 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 13
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:25 | INFO     | bias_monitoring_workflow | Analyzing transcript 13 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:23:31 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-22 00:23:32 | INFO     | bias_monitoring_workflow | Stored bias analysis 11
+{
+    "taskName": null
+}
+2025-10-22 00:23:32 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:32 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:32 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:35 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:36 | INFO     | stt_service | Stored transcript 14 for interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:37 | INFO     | audio_stream | Running bias analysis for transcript 14
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:37 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 14
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:37 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 14
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:37 | INFO     | bias_monitoring_workflow | Analyzing transcript 14 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:23:41 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-22 00:23:42 | INFO     | bias_monitoring_workflow | Stored bias analysis 12
+{
+    "taskName": null
+}
+2025-10-22 00:23:42 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:42 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:42 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:45 | INFO     | stt_service | Transcribed: '...' (confidence: 0.90)
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:46 | INFO     | stt_service | Stored transcript 15 for interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:47 | INFO     | audio_stream | Running bias analysis for transcript 15
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:47 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 15
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:47 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 15
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:23:47 | INFO     | bias_monitoring_workflow | Analyzing transcript 15 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:24:00 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=True, severity=low
+{
+    "taskName": null
+}
+2025-10-22 00:24:01 | INFO     | bias_monitoring_workflow | Stored bias analysis 13
+{
+    "taskName": null
+}
+2025-10-22 00:24:03 | INFO     | nudge_service | Delivered info nudge to admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-603"
+}
+2025-10-22 00:24:03 | INFO     | nudge_connection_manager | Sent nudge to admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:24:03 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:24:03 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:24:03 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:24:05 | INFO     | stt_service | Transcribed: 'Thank you for watching!...' (confidence: 0.90)
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:24:06 | INFO     | stt_service | Stored transcript 16 for interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:24:08 | ERROR    | database | Database transaction error: 
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:24:08 | INFO     | audio_stream | Audio stream disconnected for interview 2, speaker: admin
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:24:08 | INFO     | stt_service | Stopped audio stream for interview 2
+{
+    "taskName": "Task-497"
+}
+2025-10-22 00:24:44 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-474"
+}
+2025-10-22 00:24:44 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-474"
+}
+2025-10-22 00:24:44 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 2
+{
+    "taskName": "Task-474"
+}
+2025-10-22 00:24:44 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-618"
+}
+2025-10-22 00:25:31 | INFO     | nudge_stream | Admin ADM_ENIGMA acknowledged nudge 2
+{
+    "taskName": "Task-618"
+}
+2025-10-22 00:25:33 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-468"
+}
+2025-10-22 00:25:33 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-468"
+}
+2025-10-22 00:25:33 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 2
+{
+    "taskName": "Task-468"
+}
+2025-10-22 00:25:33 | ERROR    | database | Database transaction error: (<CloseCode.ABNORMAL_CLOSURE: 1006>, '')
+{
+    "taskName": "Task-618"
+}
+2025-10-22 00:25:33 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-618"
+}
+2025-10-22 00:25:36 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-22 00:25:39 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-671"
+}
+2025-10-22 00:25:39 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-677"
+}
+2025-10-22 00:25:42 | INFO     | audio_stream | Audio stream connected for interview 2, speaker: admin
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:42 | INFO     | stt_service | Started audio stream for interview 2
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:45 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:45 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:45 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:46 | INFO     | stt_service | Transcribed: 'Bye....' (confidence: 0.90)
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:47 | INFO     | stt_service | Stored transcript 17 for interview 2
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:48 | INFO     | audio_stream | Running bias analysis for transcript 17
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:48 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 17
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:48 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 17
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:48 | INFO     | bias_monitoring_workflow | Analyzing transcript 17 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:25:54 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-22 00:25:55 | INFO     | bias_monitoring_workflow | Stored bias analysis 14
+{
+    "taskName": null
+}
+2025-10-22 00:25:56 | INFO     | stt_service | Returning 360360 bytes for transcription (duration: 11.26s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:56 | INFO     | audio_stream | Processing 360360 bytes for admin
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:25:56 | INFO     | stt_service | Sending 360404 bytes to Whisper API as WAV
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:02 | INFO     | stt_service | Transcribed: '...' (confidence: 0.90)
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:03 | INFO     | stt_service | Stored transcript 18 for interview 2
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:04 | INFO     | audio_stream | Running bias analysis for transcript 18
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:04 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 18
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:04 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 18
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:04 | INFO     | bias_monitoring_workflow | Analyzing transcript 18 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:26:10 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-22 00:26:10 | INFO     | bias_monitoring_workflow | Stored bias analysis 15
+{
+    "taskName": null
+}
+2025-10-22 00:26:10 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:10 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:10 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:15 | INFO     | stt_service | Transcribed: '...' (confidence: 0.90)
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:16 | INFO     | stt_service | Stored transcript 19 for interview 2
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:17 | INFO     | audio_stream | Running bias analysis for transcript 19
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:17 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 19
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:17 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 19
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:17 | INFO     | bias_monitoring_workflow | Analyzing transcript 19 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:26:24 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-22 00:26:25 | INFO     | bias_monitoring_workflow | Stored bias analysis 16
+{
+    "taskName": null
+}
+2025-10-22 00:26:35 | ERROR    | database | Database transaction error: (<CloseCode.ABNORMAL_CLOSURE: 1006>, '')
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:35 | INFO     | audio_stream | Audio stream disconnected for interview 2, speaker: admin
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:26:35 | INFO     | stt_service | Stopped audio stream for interview 2
+{
+    "taskName": "Task-690"
+}
+2025-10-22 00:27:15 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-671"
+}
+2025-10-22 00:27:15 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-671"
+}
+2025-10-22 00:27:15 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 2
+{
+    "taskName": "Task-671"
+}
+2025-10-22 00:27:15 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-677"
+}
+2025-10-22 00:27:15 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-677"
+}
+2025-10-22 00:27:18 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-22 00:27:21 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-770"
+}
+2025-10-22 00:27:21 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-776"
+}
+2025-10-22 00:27:50 | INFO     | audio_stream | Audio stream connected for interview 2, speaker: admin
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:27:50 | INFO     | stt_service | Started audio stream for interview 2
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:27:58 | INFO     | stt_service | Returning 218400 bytes for transcription (duration: 6.83s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:27:58 | INFO     | audio_stream | Processing 218400 bytes for admin
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:27:58 | INFO     | stt_service | Sending 218444 bytes to Whisper API as WAV
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:02 | INFO     | stt_service | Transcribed: 'Thank you-all Thank you for watching Comment if ne...' (confidence: 0.90)
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:03 | INFO     | stt_service | Stored transcript 20 for interview 2
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:03 | INFO     | audio_stream | Running bias analysis for transcript 20
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:03 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 20
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:03 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 20
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:03 | INFO     | bias_monitoring_workflow | Analyzing transcript 20 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:28:13 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-22 00:28:13 | INFO     | bias_monitoring_workflow | Stored bias analysis 17
+{
+    "taskName": null
+}
+2025-10-22 00:28:15 | INFO     | stt_service | Returning 548730 bytes for transcription (duration: 17.15s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:15 | INFO     | audio_stream | Processing 548730 bytes for admin
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:15 | INFO     | stt_service | Sending 548774 bytes to Whisper API as WAV
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:19 | INFO     | stt_service | Transcribed: 'Hello, did you study at Comsat University? I also ...' (confidence: 0.90)
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:20 | INFO     | stt_service | Stored transcript 21 for interview 2
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:21 | INFO     | audio_stream | Running bias analysis for transcript 21
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:21 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 21
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:21 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 21
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:21 | INFO     | bias_monitoring_workflow | Analyzing transcript 21 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:28:33 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=True, severity=medium
+{
+    "taskName": null
+}
+2025-10-22 00:28:33 | INFO     | bias_monitoring_workflow | Stored bias analysis 18
+{
+    "taskName": null
+}
+2025-10-22 00:28:37 | WARNING  | nudge_service | Delivered warning to admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-841"
+}
+2025-10-22 00:28:38 | INFO     | nudge_connection_manager | Sent nudge to admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:39 | INFO     | stt_service | Returning 783510 bytes for transcription (duration: 24.48s) for SpeakerEnum.ADMIN in interview 2
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:39 | INFO     | audio_stream | Processing 783510 bytes for admin
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:39 | INFO     | stt_service | Sending 783554 bytes to Whisper API as WAV
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:44 | INFO     | stt_service | Transcribed: 'what the heck is happening?...' (confidence: 0.90)
+{
+    "taskName": "Task-808"
+}
+2025-10-22 00:28:45 | INFO     | stt_service | Stored transcript 22 for interview 2
+{
+    "taskName": "Task-808"
+}

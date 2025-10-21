@@ -28277,3 +28277,7 @@ DETAIL:  Key (interview_id)=(2) already exists.
 {
     "taskName": null
 }
+2025-10-22 01:05:22 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}

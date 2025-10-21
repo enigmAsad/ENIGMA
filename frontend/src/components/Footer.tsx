@@ -228,7 +228,7 @@ export default function Footer() {
           <div className="border-t border-white/10 py-5 sm:py-6">
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs sm:text-sm">
               <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2 text-gray-400">
-                <span className="font-medium">&copy; {currentYear} ENIGMA</span>
+                <span className="font-medium">&copy; {currentYear} ENIGMA (Equitable National Intelligence for Governance, Merit &amp; Accountability)</span>
                 <span className="hidden md:inline text-gray-500">•</span>
                 <span className="text-xs sm:text-sm">All rights reserved.</span>
               </div>

@@ -294,7 +294,8 @@ class AdminUser(Base):
 
     # Relationships
     sessions = relationship("AdminSession", back_populates="admin")
-    interviews = relationship("Interview", back_populates="admin")
+    interviews = relationship("Interview", foreign_keys="Interview.admin_id", back_populates="admin")
+    coi_accepted_interviews = relationship("Interview", foreign_keys="Interview.coi_accepted_by")
 
     # Bias Monitoring Relationships
     bias_analyses = relationship("LiveBiasAnalysis", back_populates="admin")
@@ -656,13 +657,19 @@ class Interview(Base):
     status = Column(SQLEnum(InterviewStatusEnum), nullable=False, default=InterviewStatusEnum.SCHEDULED)
     notes = Column(Text, nullable=True)
 
+    # Interview start tracking and COI acceptance
+    started_at = Column(TIMESTAMP(timezone=True), nullable=True)
+    coi_accepted_at = Column(TIMESTAMP(timezone=True), nullable=True)
+    coi_accepted_by = Column(String(50), ForeignKey("admin_users.admin_id"), nullable=True)
+
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow)
     updated_at = Column(TIMESTAMP(timezone=True), nullable=False, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     # Relationships
     application = relationship("Application", back_populates="interview")
     student = relationship("StudentAccount", back_populates="interviews")
-    admin = relationship("AdminUser", back_populates="interviews")
+    admin = relationship("AdminUser", foreign_keys=[admin_id], back_populates="interviews")
+    coi_acceptor = relationship("AdminUser", foreign_keys=[coi_accepted_by])
     cycle = relationship("AdmissionCycle", back_populates="interviews")
 
     # Bias Monitoring Relationships
@@ -676,6 +683,7 @@ class Interview(Base):
         Index("idx_interview_status_time", "status", "interview_time"),
         Index("idx_interview_student_cycle", "student_id", "admission_cycle_id"),
         Index("idx_interview_admin_cycle", "admin_id", "admission_cycle_id"),
+        Index("idx_interview_started_at", "started_at"),
     )
 
 

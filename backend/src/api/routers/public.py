@@ -6,9 +6,9 @@ from typing import Dict, Any, Optional
 from datetime import datetime, timezone
 
 from src.database.engine import get_db
-from src.database.repositories import AdminRepository, ApplicationRepository
+from src.database.repositories import AdminRepository, ApplicationRepository, InterviewRepository
 from src.config.settings import get_settings
-from src.api.schemas.api_models import DashboardStatsResponse
+from src.api.schemas.api_models import DashboardStatsResponse, InterviewStatusResponse
 from src.models.schemas import AdmissionInfoResponse
 from src.utils.logger import get_logger
 
@@ -157,4 +157,33 @@ async def get_dashboard_stats(db: Session = Depends(get_db)):
 
     except Exception as e:
         logger.error(f"Dashboard stats failed: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@router.get("/interviews/{interview_id}/status", response_model=InterviewStatusResponse)
+async def get_interview_status(
+    interview_id: int,
+    db: Session = Depends(get_db)
+):
+    """Get the start status of an interview (public endpoint for students).
+
+    Returns whether the interview has been started by the admin.
+    This allows students to poll and wait for the admin to begin.
+    """
+    try:
+        interview_repo = InterviewRepository(db)
+        status = interview_repo.get_interview_status(interview_id)
+
+        if not status:
+            raise HTTPException(
+                status_code=404,
+                detail="Interview not found"
+            )
+
+        return InterviewStatusResponse(**status)
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to get interview status for {interview_id}: {e}")
         raise HTTPException(status_code=500, detail=str(e))

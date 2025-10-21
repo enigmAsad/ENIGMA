@@ -177,14 +177,14 @@ export default function Navigation() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1">
+          <div className="hidden lg:flex items-center space-x-1">
             {!isCheckingAuth && navLinks.map((link) => {
               const Icon = link.icon;
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`group flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
+                  className={`group flex items-center whitespace-nowrap gap-2 px-3 lg:px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200 ${
                     isActive(link.href)
                       ? 'bg-gradient-to-r from-primary-50 to-indigo-50 text-primary-700 shadow-sm'
                       : 'text-gray-700 hover:bg-gray-50 hover:text-primary-600'
@@ -210,7 +210,7 @@ export default function Navigation() {
             {!isCheckingAuth && userRole === 'student' && student && (
               <div className="flex items-center gap-3 ml-4 pl-4 border-l-2 border-gray-200">
                 <div className="hidden lg:flex flex-col text-xs text-right">
-                  <span className="font-semibold text-gray-900">
+                  <span className="font-semibold text-gray-900 truncate max-w-[150px]">
                     {student.display_name || 'Student'}
                   </span>
                   <span className="text-gray-500 truncate max-w-[150px]">
@@ -235,7 +235,7 @@ export default function Navigation() {
             {!isCheckingAuth && userRole === 'admin' && adminData && (
               <div className="flex items-center gap-3 ml-4 pl-4 border-l-2 border-gray-200">
                 <div className="hidden lg:flex flex-col text-xs text-right">
-                  <span className="font-semibold text-gray-900">
+                  <span className="font-semibold text-gray-900 truncate max-w-[150px]">
                     {adminData.username}
                   </span>
                   <span className="text-teal-600 uppercase text-[10px] font-bold flex items-center gap-1">
@@ -263,7 +263,7 @@ export default function Navigation() {
                 <button
                   type="button"
                   onClick={studentLogin}
-                  className="px-4 py-2 rounded-lg text-sm font-semibold bg-gradient-to-r from-primary-600 to-indigo-600 text-white hover:from-primary-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg hover:scale-105"
+                  className="px-4 py-2 whitespace-nowrap rounded-lg text-sm font-semibold bg-gradient-to-r from-primary-600 to-indigo-600 text-white hover:from-primary-700 hover:to-indigo-700 transition-all shadow-md hover:shadow-lg hover:scale-105"
                 >
                   Student Login
                 </button>
@@ -282,7 +282,7 @@ export default function Navigation() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
+            className="lg:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100 transition-colors"
           >
             {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -291,7 +291,7 @@ export default function Navigation() {
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-200 bg-white/95 backdrop-blur-lg">
+        <div className="lg:hidden border-t border-gray-200 bg-white/95 backdrop-blur-lg">
           <div className="px-4 py-4 space-y-2">
             {!isCheckingAuth && navLinks.map((link) => {
               const Icon = link.icon;

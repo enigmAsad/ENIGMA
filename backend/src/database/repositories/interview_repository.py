@@ -1,7 +1,7 @@
 """Interview repository for managing interviews."""
 
 from typing import List, Optional, Dict, Any
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 from sqlalchemy import select
 from sqlalchemy.orm import joinedload
@@ -190,3 +190,58 @@ class InterviewRepository(BaseRepository[Interview]):
         )
         result = self.db.execute(stmt)
         return list(result.scalars().all())
+
+    def start_interview(self, interview_id: int, admin_id: str) -> Optional[Interview]:
+        """Start an interview by recording COI acceptance and start time.
+
+        Args:
+            interview_id: The ID of the interview to start
+            admin_id: The ID of the admin starting the interview
+
+        Returns:
+            The updated interview object, or None if not found
+        """
+        interview = self.get_by_id(interview_id)
+        if not interview:
+            logger.warning(f"Interview {interview_id} not found for starting")
+            return None
+
+        # Validate that the admin is assigned to this interview
+        if interview.admin_id != admin_id:
+            logger.warning(f"Admin {admin_id} is not assigned to interview {interview_id}")
+            return None
+
+        # Check if already started
+        if interview.started_at is not None:
+            logger.warning(f"Interview {interview_id} already started at {interview.started_at}")
+            return interview  # Return existing interview
+
+        # Update interview with start time and COI acceptance
+        now = datetime.now(timezone.utc)
+        interview.started_at = now
+        interview.coi_accepted_at = now
+        interview.coi_accepted_by = admin_id
+        interview.updated_at = now
+
+        self.db.flush()
+        logger.info(f"Interview {interview_id} started by admin {admin_id} at {now}")
+        return interview
+
+    def get_interview_status(self, interview_id: int) -> Optional[Dict[str, Any]]:
+        """Get the start status of an interview (public endpoint - minimal data).
+
+        Args:
+            interview_id: The ID of the interview
+
+        Returns:
+            A dictionary with started status and timestamp, or None if not found
+        """
+        interview = self.get_by_id(interview_id)
+        if not interview:
+            return None
+
+        return {
+            "interview_id": interview.id,
+            "started": interview.started_at is not None,
+            "started_at": interview.started_at.isoformat() if interview.started_at else None,
+        }

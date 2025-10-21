@@ -174,14 +174,14 @@ export default function DashboardPage() {
 
           {/* Processing Pipeline */}
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300">
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                   <Activity className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Processing Pipeline</h2>
-                  <p className="text-indigo-100 text-sm">Current status of applications</p>
+                <h2 className="text-2xl font-bold text-white">Processing Pipeline</h2>
+                <p className="text-indigo-100 text-sm">Current status of applications</p>
                 </div>
               </div>
             </div>
@@ -243,14 +243,14 @@ export default function DashboardPage() {
 
           {/* Score Distribution */}
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300">
-            <div className="bg-gradient-to-r from-emerald-500 to-teal-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                   <TrendingUp className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Score Distribution</h2>
-                  <p className="text-emerald-100 text-sm">Distribution of final scores</p>
+                <h2 className="text-2xl font-bold text-white">Score Distribution</h2>
+                <p className="text-indigo-100 text-sm">Distribution of final scores</p>
                 </div>
               </div>
             </div>
@@ -310,14 +310,14 @@ export default function DashboardPage() {
 
           {/* Fairness Guarantees */}
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300">
-            <div className="bg-gradient-to-r from-blue-500 to-cyan-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                   <Shield className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Fairness Guarantees</h2>
-                  <p className="text-blue-100 text-sm">How ENIGMA ensures bias-free evaluation</p>
+                <h2 className="text-2xl font-bold text-white">Fairness Guarantees</h2>
+                <p className="text-indigo-100 text-sm">How ENIGMA ensures bias-free evaluation</p>
                 </div>
               </div>
             </div>
@@ -390,14 +390,14 @@ export default function DashboardPage() {
 
           {/* System Health */}
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300">
-            <div className="bg-gradient-to-r from-pink-500 to-rose-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                   <Zap className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">System Health</h2>
-                  <p className="text-pink-100 text-sm">Processing performance metrics</p>
+                <h2 className="text-2xl font-bold text-white">System Health</h2>
+                <p className="text-indigo-100 text-sm">Processing performance metrics</p>
                 </div>
               </div>
             </div>
@@ -445,14 +445,14 @@ export default function DashboardPage() {
 
           {/* About Phase 1 */}
           <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-            <div className="bg-gradient-to-r from-gray-700 via-slate-800 to-gray-900 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
               <div className="flex items-center gap-3">
                 <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                   <Database className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">About Phase 1 Evaluation</h2>
-                  <p className="text-gray-300 text-sm">The blind AI screening process</p>
+                <h2 className="text-2xl font-bold text-white">About Phase 1 Evaluation</h2>
+                <p className="text-indigo-100 text-sm">The blind AI screening process</p>
                 </div>
               </div>
             </div>

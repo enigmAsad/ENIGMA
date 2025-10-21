@@ -183,3 +183,27 @@ class ApplicationDetails(BaseModel):
     status: str
     timestamp: datetime
     interview: Optional[InterviewDetails] = None
+
+
+# ============================================================================
+# Interview Start & COI Models
+# ============================================================================
+
+class StartInterviewRequest(BaseModel):
+    """Request model for starting an interview and accepting COI."""
+    coi_accepted: bool = Field(..., description="Must be true to start interview")
+
+
+class StartInterviewResponse(BaseModel):
+    """Response after starting an interview."""
+    success: bool
+    message: str
+    interview_id: int
+    started_at: datetime
+
+
+class InterviewStatusResponse(BaseModel):
+    """Public response for checking if interview has started."""
+    interview_id: int
+    started: bool
+    started_at: Optional[datetime] = None

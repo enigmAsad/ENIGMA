@@ -45,14 +45,14 @@ export default function AboutPage() {
 
         {/* Mission Statement */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300 -mt-16 relative z-10">
-          <div className="bg-gradient-to-r from-purple-500 to-pink-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Rocket className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Our Mission</h2>
-                <p className="text-purple-100 text-sm">What drives enigmA</p>
+                <p className="text-indigo-100 text-sm">What drives enigmA</p>
               </div>
             </div>
           </div>
@@ -86,8 +86,8 @@ export default function AboutPage() {
             </div>
             <div className="px-8 py-6 bg-gradient-to-r from-primary-50 to-indigo-50 border-t-2 border-primary-100">
               <p className="text-center text-gray-700 font-medium">
-                <span className="font-bold text-primary-900">Asad Ghaffar</span> and <span className="font-bold text-primary-900">Arsalan Sikander</span> –
-                Building the future of fair admissions
+                <span className="font-bold text-primary-900">Asad Ghaffar</span> and <span className="font-bold text-primary-900">Arsalan Sikander</span> 
+                ,  On a mission to build something meaningful
               </p>
             </div>
           </div>
@@ -95,7 +95,7 @@ export default function AboutPage() {
 
         {/* Team Members */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300">
-          <div className="bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Users className="h-6 w-6 text-white" />
@@ -132,21 +132,20 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-gray-800 leading-relaxed mb-4">
-                    Focused on model alignment, privacy-preserving inference, and building reliable AI systems
-                    that enhance fairness and transparency.
+                    Specializes in autonomous agentic systems and multi-modal AI ; turns complex intelligent workflows into scalable, production-ready solutions.
                   </p>
                   <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-700">
+                      <CheckCircle2 className="h-4 w-4 text-primary-600" />
+                      <span>Agentic AI & Workflow Automation</span>
+                    </div>
                     <div className="flex items-center gap-2 text-sm text-gray-700">
                       <CheckCircle2 className="h-4 w-4 text-primary-600" />
                       <span>AI Model Development & Fine-tuning</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-gray-700">
                       <CheckCircle2 className="h-4 w-4 text-primary-600" />
-                      <span>Bias Detection & Mitigation</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-700">
-                      <CheckCircle2 className="h-4 w-4 text-primary-600" />
-                      <span>Privacy-Preserving ML</span>
+                      <span>AI Infrastructure & MLOps</span>
                     </div>
                   </div>
                 </div>
@@ -201,14 +200,14 @@ export default function AboutPage() {
 
         {/* Core Values */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300">
-          <div className="bg-gradient-to-r from-emerald-500 to-teal-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Star className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Our Core Values</h2>
-                <p className="text-emerald-100 text-sm">What drives us every day</p>
+                <p className="text-indigo-100 text-sm">What drives us every day</p>
               </div>
             </div>
           </div>
@@ -258,14 +257,14 @@ export default function AboutPage() {
 
         {/* Company & Projects */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300">
-          <div className="bg-gradient-to-r from-primary-500 to-indigo-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Rocket className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">The enigmA Family</h2>
-                <p className="text-primary-100 text-sm">Our company and bootstrapped projects</p>
+                <p className="text-indigo-100 text-sm">Our company and bootstrapped projects</p>
               </div>
             </div>
           </div>
@@ -368,14 +367,14 @@ export default function AboutPage() {
 
         {/* Journey & Stats */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-          <div className="bg-gradient-to-r from-gray-700 via-slate-800 to-gray-900 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <TrendingUp className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Our Journey</h2>
-                <p className="text-gray-300 text-sm">Building enigmA from the ground up</p>
+                <p className="text-indigo-100 text-sm">Building enigmA from the ground up</p>
               </div>
             </div>
           </div>
@@ -417,7 +416,7 @@ export default function AboutPage() {
                     <p className="text-gray-800 leading-relaxed">
                       Instead of settling for a stable 9-to-5 like everyone else, we decided to do <span className="font-bold text-gray-900">something meaningful</span>.
                       We want to provide our contribution to this world, innovate fearlessly, take risks, and be willing to do what others are scared to attempt.
-                      Life is too short to play it safe – we'd rather build, fail, learn, and ultimately create products that make a real impact.
+                      Life is too short to play it safe, we'd rather build, fail, learn, and ultimately create products that make a real impact.
                     </p>
                   </div>
                 </div>
@@ -435,7 +434,7 @@ export default function AboutPage() {
                     <p className="text-gray-800 leading-relaxed">
                       As indie hackers, we're not constrained by corporate bureaucracy or investor pressure. We have the <span className="font-bold text-gray-900">freedom to innovate rapidly</span>,
                       pivot when needed, and stay true to our vision. We build products we believe in, bootstrap them with our own resources,
-                      and measure success by the value we create – not just the revenue we generate.
+                      and measure success by the value we create, not just the revenue we generate.
                     </p>
                   </div>
                 </div>
@@ -453,7 +452,7 @@ export default function AboutPage() {
                     <p className="text-gray-800 leading-relaxed">
                       We envision enigmA becoming a portfolio of innovative AI-powered products that solve real problems.
                       Each project we build pushes the boundaries of what's possible, challenges the status quo, and puts users first.
-                      We're not just building software – we're <span className="font-bold text-gray-900">building a legacy of meaningful innovation</span>.
+                      We're not just building software, we're <span className="font-bold text-gray-900">building a legacy of meaningful innovation</span>.
                     </p>
                   </div>
                 </div>

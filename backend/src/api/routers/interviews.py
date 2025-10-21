@@ -15,6 +15,7 @@ from src.models.schemas import (
     InterviewScoreCreate,
     InterviewScoreRead,
 )
+from src.api.schemas.api_models import StartInterviewRequest, StartInterviewResponse
 from src.utils.logger import get_logger
 
 logger = get_logger("api.interviews")
@@ -86,6 +87,61 @@ async def schedule_interview(
         raise
     except Exception as e:
         logger.error(f"Failed to schedule interview: {e}", exc_info=True)
+        raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
+
+
+@router.post("/{interview_id}/start-interview", response_model=StartInterviewResponse)
+async def start_interview(
+    interview_id: int,
+    request: StartInterviewRequest,
+    admin: Dict[str, Any] = Depends(get_current_admin),
+    db: Session = Depends(get_db),
+):
+    """Start an interview after admin accepts COI declaration.
+
+    This endpoint records the admin's acceptance of the Conflict of Interest
+    declaration and marks the interview as started. Only the assigned admin
+    can start their interview.
+    """
+    try:
+        # Validate COI acceptance
+        if not request.coi_accepted:
+            raise HTTPException(
+                status_code=400,
+                detail="You must accept the Conflict of Interest declaration to start the interview"
+            )
+
+        interview_repo = InterviewRepository(db)
+
+        # Start the interview (validates admin assignment internally)
+        interview = interview_repo.start_interview(interview_id, admin["admin_id"])
+
+        if not interview:
+            raise HTTPException(
+                status_code=404,
+                detail="Interview not found or you are not assigned to this interview"
+            )
+
+        # Commit the changes
+        db.commit()
+
+        logger.info(
+            f"Interview {interview_id} started by admin {admin['admin_id']} "
+            f"(COI accepted at {interview.coi_accepted_at})"
+        )
+
+        return StartInterviewResponse(
+            success=True,
+            message="Interview started successfully. COI declaration recorded.",
+            interview_id=interview.id,
+            started_at=interview.started_at,
+        )
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        db.rollback()
+        logger.error(f"Failed to start interview {interview_id}: {e}", exc_info=True)
         raise HTTPException(status_code=500, detail=f"An unexpected error occurred: {e}")
 
 

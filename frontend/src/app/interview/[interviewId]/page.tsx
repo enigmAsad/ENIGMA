@@ -8,7 +8,10 @@ import { useOptionalAdminAuth as useAdminAuth } from '@/hooks/useOptionalAdminAu
 import { useInterviewAudio } from '@/hooks/useInterviewAudio';
 import NudgeOverlay from '@/components/NudgeOverlay';
 import InterviewScoreModal from '@/components/InterviewScoreModal';
+import COIModal from '@/components/COIModal';
+import WaitingScreen from '@/components/WaitingScreen';
 import { adminApiClient } from '@/lib/adminApi';
+import { apiClient } from '@/lib/api';
 import { SkeletonCard } from '@/components/Skeleton';
 import {
   Video, VideoOff, Phone, PhoneOff, Mic, MicOff, Monitor,
@@ -26,6 +29,12 @@ const InterviewRoomPage = () => {
 
   const [isScoreModalOpen, setScoreModalOpen] = useState(false);
   const [isSavingScore, setIsSavingScore] = useState(false);
+
+  // COI and interview start tracking
+  const [coiModalOpen, setCoiModalOpen] = useState(false);
+  const [isStartingInterview, setIsStartingInterview] = useState(false);
+  const [interviewStarted, setInterviewStarted] = useState(false);
+  const [checkingStatus, setCheckingStatus] = useState(true);
 
   const isAdmin = !!admin;
   const speaker = isAdmin ? 'admin' : 'student';
@@ -85,6 +94,53 @@ const InterviewRoomPage = () => {
     }
   }, [isStudentLoading, isAdminLoading, student, admin, router]);
 
+  // Admin: Check if interview already started, otherwise show COI modal
+  useEffect(() => {
+    if (isAdmin && !isAdminLoading) {
+      const checkInterviewStatus = async () => {
+        try {
+          const status = await apiClient.checkInterviewStatus(Number(interviewId));
+          if (status.started) {
+            setInterviewStarted(true);
+            setCheckingStatus(false);
+          } else {
+            setCoiModalOpen(true);
+            setCheckingStatus(false);
+          }
+        } catch (error) {
+          console.error('Failed to check interview status:', error);
+          setCheckingStatus(false);
+        }
+      };
+
+      checkInterviewStatus();
+    }
+  }, [isAdmin, isAdminLoading, interviewId]);
+
+  // Student: Poll for interview start status
+  useEffect(() => {
+    if (!isAdmin && !isAdminLoading && !isStudentLoading) {
+      const checkInterviewStatus = async () => {
+        try {
+          const status = await apiClient.checkInterviewStatus(Number(interviewId));
+          setInterviewStarted(status.started);
+          setCheckingStatus(false);
+        } catch (error) {
+          console.error('Failed to check interview status:', error);
+          setCheckingStatus(false);
+        }
+      };
+
+      // Initial check
+      checkInterviewStatus();
+
+      // Poll every 5 seconds
+      const interval = setInterval(checkInterviewStatus, 5000);
+
+      return () => clearInterval(interval);
+    }
+  }, [isAdmin, isAdminLoading, isStudentLoading, interviewId]);
+
   useEffect(() => {
     const pc = new RTCPeerConnection({
       iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
@@ -129,16 +185,19 @@ const InterviewRoomPage = () => {
   }, []);
 
   useEffect(() => {
-    const ws = new WebSocket(`ws://localhost:8000/ws/interview/${interviewId}`);
+    const role = isAdmin ? 'admin' : 'student';
+    const ws = new WebSocket(`ws://localhost:8000/ws/interview/${interviewId}?role=${role}`);
     socketRef.current = ws;
 
     const handleOffer = async (offer: RTCSessionDescriptionInit) => {
-      if (peerConnectionRef.current && localVideoRef.current?.stream) {
+      console.log('Received offer, localStream:', !!localStream, 'peerConnection:', !!peerConnectionRef.current);
+
+      if (peerConnectionRef.current && localStream) {
         await peerConnectionRef.current.setRemoteDescription(new RTCSessionDescription(offer));
 
-        localVideoRef.current.stream.getTracks().forEach(track => {
+        localStream.getTracks().forEach(track => {
           if (!peerConnectionRef.current?.getSenders().find(s => s.track === track)) {
-            peerConnectionRef.current?.addTrack(track, localVideoRef.current?.stream as MediaStream);
+            peerConnectionRef.current?.addTrack(track, localStream);
           }
         });
 
@@ -146,15 +205,20 @@ const InterviewRoomPage = () => {
         await peerConnectionRef.current.setLocalDescription(answer);
         if (socketRef.current?.readyState === WebSocket.OPEN) {
           socketRef.current.send(JSON.stringify({ answer }));
+          console.log('Answer sent to admin');
         }
         setIsCallStarted(true);
         setConnectionStatus('connecting');
+        console.log('Student call started');
+      } else {
+        console.warn('Cannot handle offer - missing localStream or peerConnection');
       }
     };
 
     const handleAnswer = async (answer: RTCSessionDescriptionInit) => {
       if (peerConnectionRef.current?.signalingState === 'have-local-offer') {
         await peerConnectionRef.current.setRemoteDescription(new RTCSessionDescription(answer));
+        console.log('Answer received and set');
       }
     };
 
@@ -174,7 +238,7 @@ const InterviewRoomPage = () => {
     return () => {
       ws.close();
     };
-  }, [interviewId]);
+  }, [interviewId, isAdmin, localStream]);
 
   useEffect(() => {
     if (remoteStream && remoteVideoRef.current) {
@@ -202,7 +266,30 @@ const InterviewRoomPage = () => {
     }
   };
 
+  // COI acceptance handler for admin
+  const handleCOIAccept = async () => {
+    setIsStartingInterview(true);
+    try {
+      await adminApiClient.startInterview(Number(interviewId), {
+        coi_accepted: true,
+      });
+      setInterviewStarted(true);
+      setCoiModalOpen(false);
+    } catch (error) {
+      console.error('Failed to start interview:', error);
+      alert('Failed to start interview. Please try again.');
+    } finally {
+      setIsStartingInterview(false);
+    }
+  };
+
   const startCall = async () => {
+    // Only admin can start the call (safety check - button is already hidden for students)
+    if (!isAdmin) {
+      console.error('Only the interviewer can start the call');
+      return;
+    }
+
     if (peerConnectionRef.current && localStream && !isCallStarted) {
       setIsCallStarted(true);
       setConnectionStatus('connecting');
@@ -270,7 +357,7 @@ const InterviewRoomPage = () => {
     setTimeout(() => endCall(), 10000);
   }, []);
 
-  if (isStudentLoading || isAdminLoading) {
+  if (isStudentLoading || isAdminLoading || checkingStatus) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -281,6 +368,11 @@ const InterviewRoomPage = () => {
         </div>
       </div>
     );
+  }
+
+  // Show waiting screen for students if interview hasn't started
+  if (!isAdmin && !interviewStarted) {
+    return <WaitingScreen />;
   }
 
   return (
@@ -434,14 +526,28 @@ const InterviewRoomPage = () => {
             <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
               <div className="flex items-center justify-center gap-4">
                 {!isCallStarted ? (
-                  <button
-                    onClick={startCall}
-                    disabled={!localStream || interviewBlocked}
-                    className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all font-bold shadow-lg hover:shadow-xl disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-lg"
-                  >
-                    <Phone className="h-6 w-6" />
-                    {interviewBlocked ? 'Interview Blocked' : 'Start Interview'}
-                  </button>
+                  <>
+                    {isAdmin ? (
+                      <button
+                        onClick={startCall}
+                        disabled={!localStream || interviewBlocked}
+                        className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all font-bold shadow-lg hover:shadow-xl disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-lg"
+                      >
+                        <Phone className="h-6 w-6" />
+                        {interviewBlocked ? 'Interview Blocked' : 'Start Video Call'}
+                      </button>
+                    ) : (
+                      <div className="flex flex-col items-center gap-4 py-4">
+                        <div className="flex items-center gap-3 text-gray-700">
+                          <Loader2 className="h-6 w-6 animate-spin text-primary-600" />
+                          <span className="text-lg font-medium">Waiting for interviewer to start the call...</span>
+                        </div>
+                        <p className="text-sm text-gray-500">
+                          The video call will begin automatically when the interviewer is ready
+                        </p>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <>
                     {/* Mute Button */}
@@ -659,6 +765,13 @@ const InterviewRoomPage = () => {
         onClose={handleCloseModal}
         onSave={handleSaveScore}
         isSaving={isSavingScore}
+      />
+
+      {/* COI Modal for Admin */}
+      <COIModal
+        isOpen={coiModalOpen}
+        onAcceptAndStart={handleCOIAccept}
+        isStarting={isStartingInterview}
       />
     </div>
   );

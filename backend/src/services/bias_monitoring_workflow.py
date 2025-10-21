@@ -267,7 +267,7 @@ def check_strikes_node(state: BiasMonitoringState, db: Session) -> BiasMonitorin
         actual_action = recommended
 
         # Auto-block conditions
-        if strike_count >= settings.STRIKE_LIMIT_PER_INTERVIEW:
+        if strike_count >= settings.strike_limit_per_interview:
             actual_action = "block"
             logger.warning(f"Admin {state['admin_id']} hit strike limit in interview")
         elif history.current_status.value in ["suspended", "banned"]:
@@ -278,9 +278,9 @@ def check_strikes_node(state: BiasMonitoringState, db: Session) -> BiasMonitorin
 
         # Confidence threshold check
         thresholds = {
-            "nudge": settings.NUDGE_THRESHOLD_LOW,
-            "warn": settings.NUDGE_THRESHOLD_MEDIUM,
-            "block": settings.NUDGE_THRESHOLD_HIGH,
+            "nudge": settings.nudge_threshold_low,
+            "warn": settings.nudge_threshold_medium,
+            "block": settings.nudge_threshold_high,
         }
 
         required_confidence = thresholds.get(actual_action, 0.0)

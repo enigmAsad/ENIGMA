@@ -21,7 +21,7 @@ const InterviewRoomPage = () => {
   const { interviewId } = useParams();
   const router = useRouter();
 
-  const { student, isLoading: isStudentLoading } = useStudentAuth();
+  const { student, loading: isStudentLoading } = useStudentAuth();
   const { admin, isLoading: isAdminLoading } = useAdminAuth();
 
   const [isScoreModalOpen, setScoreModalOpen] = useState(false);
@@ -98,7 +98,18 @@ const InterviewRoomPage = () => {
     };
 
     pc.ontrack = (event) => {
-      setRemoteStream(event.streams[0]);
+      if (remoteVideoRef.current) {
+        let stream = remoteVideoRef.current.srcObject as MediaStream;
+        if (!stream) {
+          stream = new MediaStream();
+          remoteVideoRef.current.srcObject = stream;
+        }
+        if (!stream.getTrackById(event.track.id)) {
+          stream.addTrack(event.track);
+        }
+        // Update state to trigger UI changes that depend on the stream
+        setRemoteStream(stream);
+      }
       setConnectionStatus('connected');
     };
 

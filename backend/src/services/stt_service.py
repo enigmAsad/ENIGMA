@@ -4,7 +4,7 @@ import asyncio
 from typing import Optional, Dict, Any
 from datetime import datetime, timezone
 import io
-import wave  # Import wave module
+import wave
 
 from openai import AsyncOpenAI
 from sqlalchemy.orm import Session
@@ -40,7 +40,7 @@ class STTService:
         """Transcribe an audio chunk using OpenAI Whisper API.
 
         Args:
-            audio_data: Raw audio bytes (PCM format)
+            audio_data: Raw 16-bit PCM audio bytes.
             language: Language code (default: "en")
 
         Returns:
@@ -50,28 +50,27 @@ class STTService:
                 - duration: Audio duration in seconds
         """
         try:
-            # Convert raw PCM data to WAV format in memory
-            # Assuming 48kHz, 16-bit mono audio from the browser
-            wav_buffer = io.BytesIO()
-            with wave.open(wav_buffer, "wb") as wf:
-                wf.setnchannels(1)  # Mono
-                wf.setsampwidth(2)  # 16-bit
-                wf.setframerate(48000)  # 48kHz sample rate
+            # Wrap the raw PCM data in a WAV container in memory.
+            # The frontend will send audio at 16kHz, 16-bit, mono.
+            wav_file = io.BytesIO()
+            with wave.open(wav_file, "wb") as wf:
+                wf.setnchannels(1)
+                wf.setsampwidth(2)
+                wf.setframerate(16000)
                 wf.writeframes(audio_data)
             
-            wav_data = wav_buffer.getvalue()
-
-            # Create a file-like object from the WAV bytes
-            audio_file = io.BytesIO(wav_data)
-            audio_file.name = "audio.wav"  # Set filename to .wav
+            # After writing, the BytesIO object's cursor is at the end.
+            # We need to reset it to the beginning before reading it for the API call.
+            wav_file.seek(0)
+            wav_file.name = "audio.wav" # The API client needs a name
 
             # Call Whisper API
-            logger.info(f"Sending {len(wav_data)} bytes to Whisper API as WAV")
+            logger.info(f"Sending {len(wav_file.getvalue())} bytes to Whisper API as WAV")
             response = await self.client.audio.transcriptions.create(
                 model="whisper-1",
-                file=audio_file,
+                file=wav_file, # Pass the BytesIO object directly
                 language=language,
-                response_format="verbose_json",  # Get detailed response with timestamps
+                response_format="verbose_json",
             )
 
             # Extract result
@@ -80,7 +79,6 @@ class STTService:
             # Whisper doesn't provide confidence directly, use segment data if available
             confidence = 0.9  # Default high confidence
             if hasattr(response, "segments") and response.segments:
-                # Average the "no_speech_prob" from segments as a proxy for confidence
                 confidences = [1.0 - seg.get("no_speech_prob", 0.1) for seg in response.segments if isinstance(seg, dict)]
                 if confidences:
                     confidence = sum(confidences) / len(confidences)
@@ -111,7 +109,7 @@ class STTService:
         Args:
             interview_id: ID of the interview
             speaker: Who is speaking (admin/student)
-            audio_data: Raw audio bytes
+            audio_data: Raw PCM audio bytes.
             start_time: When this chunk started
 
         Returns:
@@ -226,7 +224,7 @@ class AudioStreamManager:
         Args:
             interview_id: The interview ID
             speaker: Who is speaking
-            audio_chunk: Audio data chunk
+            audio_chunk: Raw PCM audio data chunk
 
         Returns:
             Complete audio chunk if buffer is full, None otherwise
@@ -240,15 +238,15 @@ class AudioStreamManager:
             return None
 
         stream = self.active_streams[interview_id]
-        buffer_key = f"{speaker.value}_buffer"
-        time_key = f"last_{speaker.value}_chunk_time"
+        buffer_key = f"{speaker.name.lower()}_buffer"
+        time_key = f"last_{speaker.name.lower()}_chunk_time"
 
         # Add to buffer
         stream[buffer_key].extend(audio_chunk)
 
         # Check if buffer duration reached (approximate based on size)
-        # Assuming ~16kbps for WebM/Opus audio
-        expected_size = self.buffer_duration * 2000  # ~2KB per second
+        # 16kHz, 16-bit mono audio is 32,000 bytes per second.
+        expected_size = self.buffer_duration * 32000
 
         if len(stream[buffer_key]) >= expected_size:
             # Return the buffered data and reset

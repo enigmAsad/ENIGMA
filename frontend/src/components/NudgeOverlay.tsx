@@ -211,13 +211,13 @@ export default function NudgeOverlay({
       return (
         <div
           key={nudge.nudge_id}
-          className={`fixed inset-0 ${styles.bg} ${styles.text} ${styles.zIndex} flex items-center justify-center p-4`}
+          className={`fixed inset-0 ${styles.bg} ${styles.text} ${styles.zIndex} flex items-center justify-center p-4 sm:p-8 overflow-y-auto`}
         >
-          <div className="max-w-2xl mx-auto p-6 sm:p-8 text-center">
+          <div className="max-w-2xl w-full mx-auto p-6 sm:p-8 text-center space-y-4 sm:space-y-6">
             <div className="text-4xl sm:text-5xl md:text-6xl mb-4 sm:mb-6">{styles.icon}</div>
             <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Interview Terminated</h1>
-            <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 leading-relaxed">{nudge.message}</p>
-            <div className="bg-white/10 rounded-lg p-4 sm:p-6 mb-4 sm:mb-6">
+            <p className="text-base sm:text-lg md:text-xl leading-relaxed break-words">{nudge.message}</p>
+            <div className="bg-white/10 rounded-lg p-4 sm:p-6">
               <p className="text-xs sm:text-sm">
                 This incident has been logged and flagged for review by
                 administrators. You will be redirected to the dashboard.
@@ -237,14 +237,14 @@ export default function NudgeOverlay({
       <div
         key={nudge.nudge_id}
         className={`fixed left-4 right-4 sm:left-1/2 sm:transform sm:-translate-x-1/2 ${styles.position} ${styles.zIndex}
-                   sm:max-w-3xl sm:w-full animate-slide-in-up`}
+                   sm:max-w-3xl sm:w-full`}
       >
         <div
-          className={`${styles.bg} ${styles.text} rounded-lg shadow-2xl p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4`}
+          className={`animate-slide-in-up ${styles.bg} ${styles.text} rounded-lg shadow-2xl p-3 sm:p-4 flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 w-full max-h-[calc(100vh-4rem)] sm:max-h-[calc(100vh-5rem)] overflow-y-auto`}
         >
           <div className="text-2xl sm:text-3xl flex-shrink-0">{styles.icon}</div>
           <div className="flex-1 min-w-0">
-            <p className="text-sm sm:text-base font-medium leading-relaxed">
+            <p className="text-sm sm:text-base font-medium leading-relaxed break-words">
               {nudge.message}
             </p>
           </div>
@@ -299,11 +299,11 @@ export default function NudgeOverlay({
         @keyframes slide-in-up {
           from {
             opacity: 0;
-            transform: translate(-50%, 20px);
+            transform: translate3d(0, 12px, 0);
           }
           to {
             opacity: 1;
-            transform: translate(-50%, 0);
+            transform: translate3d(0, 0, 0);
           }
         }
 

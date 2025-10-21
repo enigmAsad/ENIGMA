@@ -146,6 +146,8 @@ async def delete_interview(
         deleted = interview_repo.delete_interview(interview_id)
         if not deleted:
             raise HTTPException(status_code=404, detail="Interview not found during deletion")
+        
+        db.commit() # Commit the transaction to persist the deletion and cascaded deletes
 
         logger.info(f"Interview {interview_id} deleted by {admin['username']}")
         return Response(status_code=204)

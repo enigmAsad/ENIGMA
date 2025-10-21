@@ -30,6 +30,7 @@ export function useInterviewAudio({
 }: UseInterviewAudioProps) {
   const [isConnected, setIsConnected] = useState(false);
   const [lastTranscriptId, setLastTranscriptId] = useState<number | null>(null);
+  const [transcribedText, setTranscribedText] = useState<string[]>([]); // NEW: State to store transcribed text
 
   // Refs for Web Audio API objects and WebSocket
   const wsRef = useRef<WebSocket | null>(null);
@@ -59,6 +60,7 @@ export function useInterviewAudio({
           console.log(`[useInterviewAudio] Audio chunk transcribed with ID: ${data.transcript_id}`);
           if (data.text) {
             console.log(`[useInterviewAudio] --> Transcribed Text: "${data.text}"`);
+            setTranscribedText((prev) => [...prev, data.text!]); // NEW: Add new text to state, using non-null assertion
           }
           setLastTranscriptId(data.transcript_id);
         }
@@ -181,6 +183,7 @@ export function useInterviewAudio({
   return {
     isConnected,
     lastTranscriptId,
+    transcribedText, // NEW: Return transcribed text
     startCapture,
     stopCapture,
   };

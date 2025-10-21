@@ -588,6 +588,21 @@ const InterviewRoomPage = () => {
                           </p>
                         </div>
                       )}
+
+                      {/* Transcribed Text Display (Temporary) */}
+                      <div className="p-3 bg-gray-50 border-2 border-gray-200 rounded-lg">
+                        <div className="flex items-center gap-2 mb-1">
+                          <FileText className="h-5 w-5 text-gray-600" />
+                          <p className="text-sm font-semibold text-gray-900">
+                            Live Transcription (Temporary)
+                          </p>
+                        </div>
+                        <textarea
+                          className="w-full h-40 p-2 text-sm font-mono bg-white border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-primary-500"
+                          value={audioStreaming.transcribedText.join('\n')}
+                          readOnly
+                        />
+                      </div>
                     </div>
                   )}
 

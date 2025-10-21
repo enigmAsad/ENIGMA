@@ -141,23 +141,23 @@ async def audio_stream_endpoint(
                 audio_chunk = await websocket.receive_bytes()
 
                 # Add to buffer
-                complete_chunk = audio_stream_manager.add_audio_chunk(
+                result = audio_stream_manager.add_audio_chunk(
                     interview_id=interview_id,
                     speaker=speaker_enum,
                     audio_chunk=audio_chunk,
                 )
 
                 # If buffer is full, process it
-                if complete_chunk:
+                if result:
+                    complete_chunk, start_time = result # Unpack the tuple
                     logger.info(f"Processing {len(complete_chunk)} bytes for {speaker}")
-                    start_time = datetime.now(timezone.utc)
 
                     # Transcribe and store
                     transcript_id = await stt_service.process_and_store_chunk(
                         interview_id=interview_id,
                         speaker=speaker_enum,
                         audio_data=complete_chunk,
-                        start_time=start_time,
+                        start_time=start_time, # Correct start_time is passed
                     )
 
                     if transcript_id:

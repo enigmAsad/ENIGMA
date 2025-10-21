@@ -95,7 +95,7 @@ export default function AboutPage() {
 
         {/* Team Members */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300">
-          <div className="bg-gradient-to-r from-indigo-500 to-purple-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Users className="h-6 w-6 text-white" />
@@ -200,14 +200,14 @@ export default function AboutPage() {
 
         {/* Core Values */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300">
-          <div className="bg-gradient-to-r from-emerald-500 to-teal-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Star className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Our Core Values</h2>
-                <p className="text-emerald-100 text-sm">What drives us every day</p>
+                <p className="text-indigo-100 text-sm">What drives us every day</p>
               </div>
             </div>
           </div>
@@ -257,14 +257,14 @@ export default function AboutPage() {
 
         {/* Company & Projects */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300">
-          <div className="bg-gradient-to-r from-primary-500 to-indigo-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Rocket className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">The enigmA Family</h2>
-                <p className="text-primary-100 text-sm">Our company and bootstrapped projects</p>
+                <p className="text-indigo-100 text-sm">Our company and bootstrapped projects</p>
               </div>
             </div>
           </div>
@@ -367,14 +367,14 @@ export default function AboutPage() {
 
         {/* Journey & Stats */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden hover:shadow-2xl transition-shadow duration-300">
-          <div className="bg-gradient-to-r from-gray-700 via-slate-800 to-gray-900 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <TrendingUp className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Our Journey</h2>
-                <p className="text-gray-300 text-sm">Building enigmA from the ground up</p>
+                <p className="text-indigo-100 text-sm">Building enigmA from the ground up</p>
               </div>
             </div>
           </div>

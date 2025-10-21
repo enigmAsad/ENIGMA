@@ -434,7 +434,7 @@ export default function AboutPage() {
                     <p className="text-gray-800 leading-relaxed">
                       As indie hackers, we're not constrained by corporate bureaucracy or investor pressure. We have the <span className="font-bold text-gray-900">freedom to innovate rapidly</span>,
                       pivot when needed, and stay true to our vision. We build products we believe in, bootstrap them with our own resources,
-                      and measure success by the value we create – not just the revenue we generate.
+                      and measure success by the value we create, not just the revenue we generate.
                     </p>
                   </div>
                 </div>
@@ -452,7 +452,7 @@ export default function AboutPage() {
                     <p className="text-gray-800 leading-relaxed">
                       We envision enigmA becoming a portfolio of innovative AI-powered products that solve real problems.
                       Each project we build pushes the boundaries of what's possible, challenges the status quo, and puts users first.
-                      We're not just building software – we're <span className="font-bold text-gray-900">building a legacy of meaningful innovation</span>.
+                      We're not just building software, we're <span className="font-bold text-gray-900">building a legacy of meaningful innovation</span>.
                     </p>
                   </div>
                 </div>

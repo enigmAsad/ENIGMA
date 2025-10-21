@@ -45,14 +45,14 @@ export default function AboutPage() {
 
         {/* Mission Statement */}
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden mb-8 hover:shadow-2xl transition-shadow duration-300 -mt-16 relative z-10">
-          <div className="bg-gradient-to-r from-purple-500 to-pink-600 px-8 py-6">
+          <div className="bg-gradient-to-r from-primary-600 via-primary-700 to-indigo-700 px-8 py-6">
             <div className="flex items-center gap-3">
               <div className="h-12 w-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
                 <Rocket className="h-6 w-6 text-white" />
               </div>
               <div>
                 <h2 className="text-2xl font-bold text-white">Our Mission</h2>
-                <p className="text-purple-100 text-sm">What drives enigmA</p>
+                <p className="text-indigo-100 text-sm">What drives enigmA</p>
               </div>
             </div>
           </div>

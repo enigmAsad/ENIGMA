@@ -190,12 +190,14 @@ const InterviewRoomPage = () => {
     socketRef.current = ws;
 
     const handleOffer = async (offer: RTCSessionDescriptionInit) => {
-      if (peerConnectionRef.current && localVideoRef.current?.stream) {
+      console.log('Received offer, localStream:', !!localStream, 'peerConnection:', !!peerConnectionRef.current);
+
+      if (peerConnectionRef.current && localStream) {
         await peerConnectionRef.current.setRemoteDescription(new RTCSessionDescription(offer));
 
-        localVideoRef.current.stream.getTracks().forEach(track => {
+        localStream.getTracks().forEach(track => {
           if (!peerConnectionRef.current?.getSenders().find(s => s.track === track)) {
-            peerConnectionRef.current?.addTrack(track, localVideoRef.current?.stream as MediaStream);
+            peerConnectionRef.current?.addTrack(track, localStream);
           }
         });
 
@@ -203,15 +205,20 @@ const InterviewRoomPage = () => {
         await peerConnectionRef.current.setLocalDescription(answer);
         if (socketRef.current?.readyState === WebSocket.OPEN) {
           socketRef.current.send(JSON.stringify({ answer }));
+          console.log('Answer sent to admin');
         }
         setIsCallStarted(true);
         setConnectionStatus('connecting');
+        console.log('Student call started');
+      } else {
+        console.warn('Cannot handle offer - missing localStream or peerConnection');
       }
     };
 
     const handleAnswer = async (answer: RTCSessionDescriptionInit) => {
       if (peerConnectionRef.current?.signalingState === 'have-local-offer') {
         await peerConnectionRef.current.setRemoteDescription(new RTCSessionDescription(answer));
+        console.log('Answer received and set');
       }
     };
 
@@ -231,7 +238,7 @@ const InterviewRoomPage = () => {
     return () => {
       ws.close();
     };
-  }, [interviewId]);
+  }, [interviewId, isAdmin, localStream]);
 
   useEffect(() => {
     if (remoteStream && remoteVideoRef.current) {
@@ -277,15 +284,9 @@ const InterviewRoomPage = () => {
   };
 
   const startCall = async () => {
-    // Prevent student from starting call
+    // Only admin can start the call (safety check - button is already hidden for students)
     if (!isAdmin) {
-      alert('Only the interviewer can start the call');
-      return;
-    }
-
-    // Prevent admin from starting before accepting COI
-    if (!interviewStarted && isAdmin) {
-      alert('Please accept the COI declaration first');
+      console.error('Only the interviewer can start the call');
       return;
     }
 
@@ -525,14 +526,28 @@ const InterviewRoomPage = () => {
             <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
               <div className="flex items-center justify-center gap-4">
                 {!isCallStarted ? (
-                  <button
-                    onClick={startCall}
-                    disabled={!localStream || interviewBlocked}
-                    className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all font-bold shadow-lg hover:shadow-xl disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-lg"
-                  >
-                    <Phone className="h-6 w-6" />
-                    {interviewBlocked ? 'Interview Blocked' : 'Start Interview'}
-                  </button>
+                  <>
+                    {isAdmin ? (
+                      <button
+                        onClick={startCall}
+                        disabled={!localStream || interviewBlocked}
+                        className="flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-xl hover:from-green-700 hover:to-emerald-700 transition-all font-bold shadow-lg hover:shadow-xl disabled:from-gray-300 disabled:to-gray-300 disabled:cursor-not-allowed text-lg"
+                      >
+                        <Phone className="h-6 w-6" />
+                        {interviewBlocked ? 'Interview Blocked' : 'Start Video Call'}
+                      </button>
+                    ) : (
+                      <div className="flex flex-col items-center gap-4 py-4">
+                        <div className="flex items-center gap-3 text-gray-700">
+                          <Loader2 className="h-6 w-6 animate-spin text-primary-600" />
+                          <span className="text-lg font-medium">Waiting for interviewer to start the call...</span>
+                        </div>
+                        <p className="text-sm text-gray-500">
+                          The video call will begin automatically when the interviewer is ready
+                        </p>
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <>
                     {/* Mute Button */}

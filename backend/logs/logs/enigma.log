@@ -26901,3 +26901,359 @@ DETAIL:  Key (interview_id)=(2) already exists.
 {
     "taskName": null
 }
+2025-10-21 23:54:48 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:55:01 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-18"
+}
+2025-10-21 23:55:04 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-18"
+}
+2025-10-21 23:55:21 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:55:35 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:55:37 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:55:44 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:55:51 | INFO     | student_auth | Issued session STS_4D35A13A5A for student STU_F15223E5
+{
+    "taskName": "Task-59"
+}
+2025-10-21 23:55:51 | INFO     | student_auth | Student STU_F15223E5 logged in via Google
+{
+    "taskName": "Task-59"
+}
+2025-10-21 23:56:24 | INFO     | api.interviews | Interview 3 scheduled for application APP_17ABB6C3 by enigma
+{
+    "taskName": "Task-86"
+}
+2025-10-21 23:56:34 | WARNING  | api.websockets | Student attempted WebRTC connection to interview 3 before admin started it
+{
+    "taskName": "Task-95"
+}
+2025-10-21 23:56:35 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:56:37 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-102"
+}
+2025-10-21 23:56:37 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-108"
+}
+2025-10-21 23:56:46 | INFO     | interview_repository | Interview 3 started by admin ADM_ENIGMA at 2025-10-21 18:56:46.765562+00:00
+{
+    "taskName": "Task-114"
+}
+2025-10-21 23:56:47 | INFO     | api.interviews | Interview 3 started by admin ADM_ENIGMA (COI accepted at 2025-10-21 18:56:46.765562+00:00)
+{
+    "taskName": "Task-114"
+}
+2025-10-21 23:59:29 | INFO     | stt_service | AudioStreamManager initialized with silence detection (threshold: -40dBFS, trigger: 1.5s, min: 2.0s, max: 30.0s)
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:31 | INFO     | audio_stream | Audio stream connected for interview 3, speaker: admin
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:31 | INFO     | stt_service | Started audio stream for interview 3
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:34 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 3
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:34 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:34 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:37 | INFO     | stt_service | Transcribed: 'Thank you for watching!...' (confidence: 0.90)
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:38 | INFO     | stt_service | Stored transcript 5 for interview 3
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:39 | INFO     | audio_stream | Running bias analysis for transcript 5
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:39 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 5
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:39 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 5
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:39 | INFO     | bias_monitoring_workflow | Analyzing transcript 5 for bias
+{
+    "taskName": null
+}
+2025-10-21 23:59:46 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 23:59:46 | INFO     | bias_monitoring_workflow | Stored bias analysis 4
+{
+    "taskName": null
+}
+2025-10-21 23:59:46 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 3
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:46 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:46 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:48 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:49 | INFO     | stt_service | Stored transcript 6 for interview 3
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:50 | INFO     | audio_stream | Running bias analysis for transcript 6
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:50 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 6
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:50 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 6
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:50 | INFO     | bias_monitoring_workflow | Analyzing transcript 6 for bias
+{
+    "taskName": null
+}
+2025-10-21 23:59:53 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-108"
+}
+2025-10-21 23:59:53 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-108"
+}
+2025-10-21 23:59:53 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-108"
+}
+2025-10-21 23:59:53 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-102"
+}
+2025-10-21 23:59:53 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-102"
+}
+2025-10-21 23:59:55 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:59:56 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 23:59:57 | INFO     | bias_monitoring_workflow | Stored bias analysis 5
+{
+    "taskName": null
+}
+2025-10-21 23:59:59 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-226"
+}
+2025-10-21 23:59:59 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 3
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:59 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:59 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-163"
+}
+2025-10-21 23:59:59 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-235"
+}
+2025-10-22 00:00:01 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:02 | INFO     | stt_service | Stored transcript 7 for interview 3
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:03 | INFO     | audio_stream | Running bias analysis for transcript 7
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:03 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 7
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:03 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 7
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:03 | INFO     | bias_monitoring_workflow | Analyzing transcript 7 for bias
+{
+    "taskName": null
+}
+2025-10-22 00:00:08 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-22 00:00:09 | INFO     | bias_monitoring_workflow | Stored bias analysis 6
+{
+    "taskName": null
+}
+2025-10-22 00:00:09 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 3
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:09 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:09 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:10 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:11 | INFO     | stt_service | Stored transcript 8 for interview 3
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:12 | ERROR    | database | Database transaction error: 
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:12 | INFO     | audio_stream | Audio stream disconnected for interview 3, speaker: admin
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:12 | INFO     | stt_service | Stopped audio stream for interview 3
+{
+    "taskName": "Task-163"
+}
+2025-10-22 00:00:22 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-226"
+}
+2025-10-22 00:00:22 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-226"
+}
+2025-10-22 00:00:22 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-226"
+}
+2025-10-22 00:00:22 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-235"
+}
+2025-10-22 00:00:22 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-235"
+}
+2025-10-22 00:00:22 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-22 00:00:28 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-281"
+}
+2025-10-22 00:00:28 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-287"
+}
+2025-10-22 00:00:30 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-281"
+}
+2025-10-22 00:00:30 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-281"
+}
+2025-10-22 00:00:30 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-281"
+}
+2025-10-22 00:00:30 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-287"
+}
+2025-10-22 00:00:30 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-287"
+}
+2025-10-22 00:00:34 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-22 00:00:36 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-314"
+}
+2025-10-22 00:00:36 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 3
+{
+    "taskName": "Task-321"
+}
+2025-10-22 00:06:46 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-314"
+}
+2025-10-22 00:06:46 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-314"
+}
+2025-10-22 00:06:46 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 3
+{
+    "taskName": "Task-314"
+}
+2025-10-22 00:06:46 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-321"
+}
+2025-10-22 00:06:46 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 3
+{
+    "taskName": "Task-321"
+}

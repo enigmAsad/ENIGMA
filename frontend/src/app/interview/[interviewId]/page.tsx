@@ -206,12 +206,16 @@ const InterviewRoomPage = () => {
       if (socketRef.current?.readyState === WebSocket.OPEN) {
         socketRef.current.send(JSON.stringify({ offer }));
       }
-
-      if (localStream && isAdmin) {
-        audioStreaming.startCapture(localStream);
-      }
     }
   };
+
+  // Start audio capture only when the WebSocket is connected and the call has started
+  useEffect(() => {
+    if (audioStreaming.isConnected && localStream && isAdmin) {
+      console.log("Audio WebSocket connected, starting audio capture.");
+      audioStreaming.startCapture(localStream);
+    }
+  }, [audioStreaming.isConnected, localStream, isAdmin]);
 
   const endCall = () => {
     audioStreaming.stopCapture();

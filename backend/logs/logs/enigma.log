@@ -9462,3 +9462,2017 @@ server closed the connection unexpectedly
 {
     "taskName": null
 }
+2025-10-21 00:10:23 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 00:10:23 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 7
+{
+    "taskName": "Task-67"
+}
+2025-10-21 00:10:24 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 7
+{
+    "taskName": "Task-73"
+}
+2025-10-21 00:11:37 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-73"
+}
+2025-10-21 00:11:37 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 7
+{
+    "taskName": "Task-73"
+}
+2025-10-21 00:11:37 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 7
+{
+    "taskName": "Task-73"
+}
+2025-10-21 00:11:38 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 7
+{
+    "taskName": "Task-79"
+}
+2025-10-21 00:12:27 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-67"
+}
+2025-10-21 00:12:27 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 7
+{
+    "taskName": "Task-67"
+}
+2025-10-21 00:12:27 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 7
+{
+    "taskName": "Task-67"
+}
+2025-10-21 00:12:27 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-79"
+}
+2025-10-21 00:12:27 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 7
+{
+    "taskName": "Task-79"
+}
+2025-10-21 00:12:30 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 00:12:32 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 7
+{
+    "taskName": "Task-99"
+}
+2025-10-21 00:12:32 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 7
+{
+    "taskName": "Task-105"
+}
+2025-10-21 00:12:55 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-111"
+}
+2025-10-21 00:12:59 | INFO     | audio_stream | Audio stream connected for interview 7, speaker: admin
+{
+    "taskName": "Task-111"
+}
+2025-10-21 00:12:59 | INFO     | stt_service | Started audio stream for interview 7
+{
+    "taskName": "Task-111"
+}
+2025-10-21 00:16:27 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-105"
+}
+2025-10-21 00:16:27 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 7
+{
+    "taskName": "Task-105"
+}
+2025-10-21 00:16:27 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 7
+{
+    "taskName": "Task-105"
+}
+2025-10-21 00:16:27 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 7
+{
+    "taskName": "Task-117"
+}
+2025-10-21 00:16:41 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-111"
+}
+2025-10-21 00:16:41 | INFO     | audio_stream | Audio stream disconnected for interview 7, speaker: admin
+{
+    "taskName": "Task-111"
+}
+2025-10-21 00:16:41 | INFO     | stt_service | Stopped audio stream for interview 7
+{
+    "taskName": "Task-111"
+}
+2025-10-21 00:16:41 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-117"
+}
+2025-10-21 00:16:41 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 7
+{
+    "taskName": "Task-117"
+}
+2025-10-21 00:16:41 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 7
+{
+    "taskName": "Task-117"
+}
+2025-10-21 00:17:55 | ERROR    | database | Database session error: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 00:18:14 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 00:18:14 | ERROR    | database | Database session error: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 00:18:31 | ERROR    | database | Database session error: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (3.227.209.82), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 00:18:31 | ERROR    | database | Database session error: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 00:18:31 | ERROR    | database | Database session error: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 00:18:31 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-99"
+}
+2025-10-21 00:18:31 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 7
+{
+    "taskName": "Task-99"
+}
+2025-10-21 00:18:48 | ERROR    | database | Database session error: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (3.227.209.82), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 00:18:48 | ERROR    | database | Database session error: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (3.227.209.82), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 00:18:48 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 15:12:04 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:12:05 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 15:12:05 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 15:12:24 | ERROR    | database | Database connection failed: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 15:12:24 | ERROR    | main | Failed to connect to database
+{
+    "taskName": null
+}
+2025-10-21 15:12:24 | ERROR    | main | Please check your DATABASE_URL in .env file
+{
+    "taskName": null
+}
+2025-10-21 15:13:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:13:52 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 15:13:52 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 15:14:09 | ERROR    | database | Database connection failed: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (3.227.209.82), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 15:14:09 | ERROR    | main | Failed to connect to database
+{
+    "taskName": null
+}
+2025-10-21 15:14:09 | ERROR    | main | Please check your DATABASE_URL in .env file
+{
+    "taskName": null
+}
+2025-10-21 15:16:41 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:16:41 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 15:16:41 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 15:16:58 | ERROR    | database | Database connection failed: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (3.227.209.82), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 15:16:58 | ERROR    | main | Failed to connect to database
+{
+    "taskName": null
+}
+2025-10-21 15:16:58 | ERROR    | main | Please check your DATABASE_URL in .env file
+{
+    "taskName": null
+}
+2025-10-21 15:18:42 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:18:42 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 15:18:42 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 15:19:01 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-21 15:19:01 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-21 15:19:01 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-21 15:19:01 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-21 15:19:03 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:19:30 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:20:39 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 15:20:45 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 15:20:45 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 15:20:53 | ERROR    | api.student_auth | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_6A29F604', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 21, 10, 20, 52, 570190), 'updated_at': datetime.datetime(2025, 10, 21, 10, 20, 52, 570190), 'verified_at': datetime.datetime(2025, 10, 21, 10, 20, 52, 568192, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-26"
+}
+2025-10-21 15:20:53 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-21 15:22:16 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 15:22:22 | ERROR    | api.student_auth | An unexpected error occurred during student login: (psycopg2.errors.InvalidTextRepresentation) invalid input value for enum studentstatusenum: "ACTIVE"
+LINE 1: ...salansikander0216@gmail.com', 'Arsalan Sikander', 'ACTIVE', ...
+                                                             ^
+
+[SQL: INSERT INTO student_accounts (student_id, primary_email, display_name, status, created_at, updated_at, verified_at) VALUES (%(student_id)s, %(primary_email)s, %(display_name)s, %(status)s, %(created_at)s, %(updated_at)s, %(verified_at)s)]
+[parameters: {'student_id': 'STU_8199A055', 'primary_email': 'arsalansikander0216@gmail.com', 'display_name': 'Arsalan Sikander', 'status': 'ACTIVE', 'created_at': datetime.datetime(2025, 10, 21, 10, 22, 21, 850678), 'updated_at': datetime.datetime(2025, 10, 21, 10, 22, 21, 850678), 'verified_at': datetime.datetime(2025, 10, 21, 10, 22, 21, 849713, tzinfo=datetime.timezone.utc)}]
+(Background on this error at: https://sqlalche.me/e/20/9h9h)
+{
+    "taskName": "Task-33"
+}
+2025-10-21 15:22:22 | ERROR    | database | Database session error: 500: An internal error occurred.
+{
+    "taskName": null
+}
+2025-10-21 15:23:38 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:23:38 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 15:23:38 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 15:23:55 | ERROR    | database | Database connection failed: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 15:23:55 | ERROR    | main | Failed to connect to database
+{
+    "taskName": null
+}
+2025-10-21 15:23:55 | ERROR    | main | Please check your DATABASE_URL in .env file
+{
+    "taskName": null
+}
+2025-10-21 15:29:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:29:45 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 15:29:45 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 15:30:02 | ERROR    | database | Database connection failed: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 15:30:02 | ERROR    | main | Failed to connect to database
+{
+    "taskName": null
+}
+2025-10-21 15:30:02 | ERROR    | main | Please check your DATABASE_URL in .env file
+{
+    "taskName": null
+}
+2025-10-21 15:32:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:32:10 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 15:32:10 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 15:32:27 | ERROR    | database | Database connection failed: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  Unable to check out process from the pool due to timeout
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-10-21 15:32:27 | ERROR    | main | Failed to connect to database
+{
+    "taskName": null
+}
+2025-10-21 15:32:27 | ERROR    | main | Please check your DATABASE_URL in .env file
+{
+    "taskName": null
+}
+2025-10-21 15:32:58 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:32:59 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 15:32:59 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 15:33:18 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-21 15:33:18 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-21 15:33:18 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-21 15:33:18 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-21 15:33:21 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:43:31 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:43:31 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 15:43:31 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 15:43:32 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-21 15:43:32 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-21 15:43:32 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-21 15:43:32 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-21 15:43:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:43:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:44:30 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:44:49 | INFO     | create_admin | Admin user created successfully: enigma
+{
+    "taskName": null
+}
+2025-10-21 15:45:01 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 15:45:08 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 15:45:11 | INFO     | student_auth | Created new student account STU_D6407573 for arsalansikander0216@gmail.com
+{
+    "taskName": "Task-14"
+}
+2025-10-21 15:45:11 | INFO     | student_auth | Linked OAuth identity google:113590372563471847411 to student STU_D6407573
+{
+    "taskName": "Task-14"
+}
+2025-10-21 15:45:11 | INFO     | student_auth | Issued session STS_C68B7061DE for student STU_D6407573
+{
+    "taskName": "Task-14"
+}
+2025-10-21 15:45:11 | INFO     | student_auth | Student STU_D6407573 logged in via Google
+{
+    "taskName": "Task-14"
+}
+2025-10-21 15:45:29 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-31"
+}
+2025-10-21 15:45:29 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-31"
+}
+2025-10-21 15:45:58 | INFO     | api.admin_cycles | Created and opened admission cycle: Test Cycle 1
+{
+    "taskName": "Task-55"
+}
+2025-10-21 15:46:57 | INFO     | application_collector | Collecting new application from arsalansikander0216@gmail.com
+{
+    "taskName": "Task-71"
+}
+2025-10-21 15:46:57 | INFO     | audit | AUDIT: create | Application:APP_E18A7707 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-21T10:46:57.086193
+{
+    "taskName": "Task-71"
+}
+2025-10-21 15:46:57 | INFO     | application_collector | Application collected successfully: APP_E18A7707
+{
+    "taskName": "Task-71"
+}
+2025-10-21 15:46:57 | INFO     | api.applications | Application submitted: APP_E18A7707 (Cycle: Test Cycle 1)
+{
+    "taskName": "Task-71"
+}
+2025-10-21 15:47:15 | INFO     | phase_manager | Freezing cycle CYC_20251021_104557 by admin ADM_ENIGMA
+{
+    "taskName": "Task-90"
+}
+2025-10-21 15:47:15 | INFO     | phase_manager | Finalized 1 applications
+{
+    "taskName": "Task-90"
+}
+2025-10-21 15:47:15 | INFO     | phase_manager | Cycle CYC_20251021_104557 frozen successfully
+{
+    "taskName": "Task-90"
+}
+2025-10-21 15:47:15 | INFO     | api.admin_phases | Cycle CYC_20251021_104557 frozen by admin enigma
+{
+    "taskName": "Task-90"
+}
+2025-10-21 15:47:18 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251021_104557
+{
+    "taskName": "Task-93"
+}
+2025-10-21 15:47:18 | INFO     | phase_manager | Processing 1 finalized applications
+{
+    "taskName": "Task-93"
+}
+2025-10-21 15:47:18 | INFO     | identity_scrubber | Scrubbing application: APP_E18A7707
+{
+    "taskName": "Task-93"
+}
+2025-10-21 15:47:18 | INFO     | identity_scrubber | Applied 4 redactions to APP_E18A7707
+{
+    "taskName": "Task-93"
+}
+2025-10-21 15:47:19 | INFO     | identity_scrubber | Successfully scrubbed APP_E18A7707 → ANON_1761025638795_4FB437
+{
+    "taskName": "Task-93"
+}
+2025-10-21 15:47:19 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251021_104557: 1 scrubbed, 1 metrics computed, 1 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-93"
+}
+2025-10-21 15:47:19 | INFO     | api.admin_phases | Preprocessing started for cycle CYC_20251021_104557 by admin enigma
+{
+    "taskName": "Task-93"
+}
+2025-10-21 15:47:20 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-96"
+}
+2025-10-21 15:47:22 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-96"
+}
+2025-10-21 15:47:22 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251021_104557
+{
+    "taskName": "Task-96"
+}
+2025-10-21 15:47:22 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251021_104557: 1 applications ready for export
+{
+    "taskName": "Task-96"
+}
+2025-10-21 15:47:22 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251021_104557 to JSONL
+{
+    "taskName": "Task-96"
+}
+2025-10-21 15:47:22 | INFO     | batch_processor | Exported 1 applications to batch_exports\batch_export_CYC_20251021_104557_20251021_104722.jsonl
+{
+    "taskName": "Task-96"
+}
+2025-10-21 15:47:22 | INFO     | api.admin_phases | Batch export completed for cycle CYC_20251021_104557 by admin enigma
+{
+    "taskName": "Task-96"
+}
+2025-10-21 15:47:23 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:47:24 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:47:24 | INFO     | phase_manager | Starting processing for cycle CYC_20251021_104557
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:47:24 | INFO     | phase_manager | Cycle CYC_20251021_104557 now in PROCESSING phase
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:47:24 | INFO     | worker_llm | Evaluating ANON_1761025638795_4FB437 (attempt 1)
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:47:49 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_62E0DD19 | actor=worker_llm | details={'anonymized_id': 'ANON_1761025638795_4FB437', 'attempt_number': 1, 'total_score': 79.5} | timestamp=2025-10-21T10:47:49.002399
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:47:49 | INFO     | worker_llm | Worker evaluation complete: ANON_1761025638795_4FB437 → 79.50/100 (attempt 1)
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:47:49 | INFO     | judge_llm | Validating worker evaluation for ANON_1761025638795_4FB437 (attempt 1)
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:48:12 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_BA30A58A | actor=judge_llm | details={'anonymized_id': 'ANON_1761025638795_4FB437', 'worker_result_id': 'WKR_62E0DD19', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-21T10:48:12.485583
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:48:12 | INFO     | judge_llm | Judge validation complete: ANON_1761025638795_4FB437 → APPROVED  (quality: 88/100)
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:48:12 | INFO     | audit | AUDIT: update | HashChain:ANON_1761025638795_4FB437 | actor=hash_chain_generator | details={'hash': '50749542617d694e85aa5ac687e079a2e1a4eca5c5577f39370f9868d04a6e81'} | timestamp=2025-10-21T10:48:12.550582
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:48:12 | INFO     | hash_chain | Created hash chain entry for ANON_1761025638795_4FB437: 50749542617d694e...
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:48:12 | INFO     | phase_manager | Marking cycle CYC_20251021_104557 as scored
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:48:12 | INFO     | phase_manager | Cycle CYC_20251021_104557 marked as SCORED
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:48:12 | INFO     | api.admin_phases | LLM processing completed for cycle CYC_20251021_104557 by admin enigma
+{
+    "taskName": "Task-99"
+}
+2025-10-21 15:48:12 | INFO     | phase_manager | Performing shortlisting for cycle CYC_20251021_104557
+{
+    "taskName": "Task-102"
+}
+2025-10-21 15:48:12 | INFO     | phase_manager | Updated 1 applications to SHORTLISTED status
+{
+    "taskName": "Task-102"
+}
+2025-10-21 15:48:12 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-102"
+}
+2025-10-21 15:48:12 | INFO     | phase_manager | Shortlisting complete: 1 shortlisted, 0 not selected. Cycle moved to SELECTION phase.
+{
+    "taskName": "Task-102"
+}
+2025-10-21 15:48:12 | INFO     | api.admin_phases | Shortlisting performed for cycle CYC_20251021_104557 by admin enigma
+{
+    "taskName": "Task-102"
+}
+2025-10-21 15:48:38 | INFO     | api.interviews | Interview 1 scheduled for application APP_E18A7707 by enigma
+{
+    "taskName": "Task-119"
+}
+2025-10-21 15:49:21 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-147"
+}
+2025-10-21 15:49:21 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 15:49:21 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-154"
+}
+2025-10-21 15:49:29 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-161"
+}
+2025-10-21 15:49:33 | INFO     | audio_stream | Audio stream connected for interview 1, speaker: admin
+{
+    "taskName": "Task-161"
+}
+2025-10-21 15:49:33 | INFO     | stt_service | Started audio stream for interview 1
+{
+    "taskName": "Task-161"
+}
+2025-10-21 15:53:10 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-161"
+}
+2025-10-21 15:53:10 | INFO     | audio_stream | Audio stream disconnected for interview 1, speaker: admin
+{
+    "taskName": "Task-161"
+}
+2025-10-21 15:53:10 | INFO     | stt_service | Stopped audio stream for interview 1
+{
+    "taskName": "Task-161"
+}
+2025-10-21 15:53:10 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-154"
+}
+2025-10-21 15:53:10 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-154"
+}
+2025-10-21 15:53:10 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 1
+{
+    "taskName": "Task-154"
+}
+2025-10-21 15:53:14 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-183"
+}
+2025-10-21 15:53:14 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-189"
+}
+2025-10-21 15:53:29 | INFO     | audio_stream | Audio stream connected for interview 1, speaker: admin
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:53:29 | INFO     | stt_service | Started audio stream for interview 1
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:01 | INFO     | audio_stream | Processing 20628 bytes for admin
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:01 | INFO     | stt_service | Sending 20672 bytes to Whisper API as WAV
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:04 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:04 | INFO     | stt_service | Stored transcript 1 for interview 1
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:05 | INFO     | audio_stream | Running bias analysis for transcript 1
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:05 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 1
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:05 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 1
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:05 | INFO     | bias_monitoring_workflow | Analyzing transcript 1 for bias
+{
+    "taskName": null
+}
+2025-10-21 15:54:08 | ERROR    | bias_monitoring_workflow | Bias analysis failed: 'Settings' object has no attribute 'BIAS_DETECTION_MODEL'
+{
+    "taskName": null
+}
+2025-10-21 15:54:08 | ERROR    | bias_detection_service | Workflow error: 'Settings' object has no attribute 'BIAS_DETECTION_MODEL'
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:08 | ERROR    | bias_detection_service | Bias detection failed: 'Settings' object has no attribute 'BIAS_DETECTION_MODEL'
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:08 | ERROR    | database | Database transaction error: 'Settings' object has no attribute 'BIAS_DETECTION_MODEL'
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:08 | ERROR    | audio_stream | Audio stream error: 'Settings' object has no attribute 'BIAS_DETECTION_MODEL'
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:54:08 | INFO     | stt_service | Stopped audio stream for interview 1
+{
+    "taskName": "Task-195"
+}
+2025-10-21 15:57:31 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-183"
+}
+2025-10-21 15:57:31 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-183"
+}
+2025-10-21 15:57:31 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 1
+{
+    "taskName": "Task-183"
+}
+2025-10-21 15:57:31 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-189"
+}
+2025-10-21 15:57:31 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-189"
+}
+2025-10-21 15:57:31 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-147"
+}
+2025-10-21 15:57:31 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-147"
+}
+2025-10-21 15:57:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 15:58:22 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 15:58:22 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-33"
+}
+2025-10-21 15:58:22 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-40"
+}
+2025-10-21 15:58:28 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:58:33 | INFO     | audio_stream | Audio stream connected for interview 1, speaker: admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:58:33 | INFO     | stt_service | Started audio stream for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:58:58 | INFO     | audio_stream | Processing 20459 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:58:58 | INFO     | stt_service | Sending 20503 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:05 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:05 | INFO     | stt_service | Stored transcript 2 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:05 | INFO     | audio_stream | Running bias analysis for transcript 2
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:05 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 2
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:05 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 2
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:06 | INFO     | bias_monitoring_workflow | Analyzing transcript 2 for bias
+{
+    "taskName": null
+}
+2025-10-21 15:59:17 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 15:59:17 | INFO     | bias_monitoring_workflow | Stored bias analysis 1
+{
+    "taskName": null
+}
+2025-10-21 15:59:21 | INFO     | audio_stream | Processing 20794 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:21 | INFO     | stt_service | Sending 20838 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:24 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:24 | INFO     | stt_service | Stored transcript 3 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:24 | INFO     | audio_stream | Running bias analysis for transcript 3
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:24 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 3
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:24 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 3
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:24 | INFO     | bias_monitoring_workflow | Analyzing transcript 3 for bias
+{
+    "taskName": null
+}
+2025-10-21 15:59:34 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 15:59:34 | INFO     | bias_monitoring_workflow | Stored bias analysis 2
+{
+    "taskName": null
+}
+2025-10-21 15:59:44 | INFO     | audio_stream | Processing 20356 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:44 | INFO     | stt_service | Sending 20400 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:46 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:46 | INFO     | stt_service | Stored transcript 4 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:46 | INFO     | audio_stream | Running bias analysis for transcript 4
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:46 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 4
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:46 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 4
+{
+    "taskName": "Task-47"
+}
+2025-10-21 15:59:46 | INFO     | bias_monitoring_workflow | Analyzing transcript 4 for bias
+{
+    "taskName": null
+}
+2025-10-21 15:59:53 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 15:59:53 | INFO     | bias_monitoring_workflow | Stored bias analysis 3
+{
+    "taskName": null
+}
+2025-10-21 16:00:06 | INFO     | audio_stream | Processing 20527 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:06 | INFO     | stt_service | Sending 20571 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:09 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:09 | INFO     | stt_service | Stored transcript 5 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:09 | INFO     | audio_stream | Running bias analysis for transcript 5
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:09 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 5
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:09 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 5
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:09 | INFO     | bias_monitoring_workflow | Analyzing transcript 5 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:00:18 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:00:18 | INFO     | bias_monitoring_workflow | Stored bias analysis 4
+{
+    "taskName": null
+}
+2025-10-21 16:00:29 | INFO     | audio_stream | Processing 20477 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:29 | INFO     | stt_service | Sending 20521 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:32 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:32 | INFO     | stt_service | Stored transcript 6 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:32 | INFO     | audio_stream | Running bias analysis for transcript 6
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:32 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 6
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:32 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 6
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:32 | INFO     | bias_monitoring_workflow | Analyzing transcript 6 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:00:47 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:00:47 | INFO     | bias_monitoring_workflow | Stored bias analysis 5
+{
+    "taskName": null
+}
+2025-10-21 16:00:51 | INFO     | audio_stream | Processing 20220 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:51 | INFO     | stt_service | Sending 20264 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:54 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:54 | INFO     | stt_service | Stored transcript 7 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:54 | INFO     | audio_stream | Running bias analysis for transcript 7
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:54 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 7
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:54 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 7
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:00:54 | INFO     | bias_monitoring_workflow | Analyzing transcript 7 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:01:02 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:01:02 | INFO     | bias_monitoring_workflow | Stored bias analysis 6
+{
+    "taskName": null
+}
+2025-10-21 16:01:14 | INFO     | audio_stream | Processing 20804 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:14 | INFO     | stt_service | Sending 20848 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:15 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:15 | INFO     | stt_service | Stored transcript 8 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:15 | INFO     | audio_stream | Running bias analysis for transcript 8
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:15 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 8
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:15 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 8
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:15 | INFO     | bias_monitoring_workflow | Analyzing transcript 8 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:01:22 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:01:22 | INFO     | bias_monitoring_workflow | Stored bias analysis 7
+{
+    "taskName": null
+}
+2025-10-21 16:01:37 | INFO     | audio_stream | Processing 20430 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:37 | INFO     | stt_service | Sending 20474 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:39 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:39 | INFO     | stt_service | Stored transcript 9 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:39 | INFO     | audio_stream | Running bias analysis for transcript 9
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:39 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 9
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:39 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 9
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:39 | INFO     | bias_monitoring_workflow | Analyzing transcript 9 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:01:47 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:01:47 | INFO     | bias_monitoring_workflow | Stored bias analysis 8
+{
+    "taskName": null
+}
+2025-10-21 16:01:59 | INFO     | audio_stream | Processing 20318 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:01:59 | INFO     | stt_service | Sending 20362 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:02 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:02 | INFO     | stt_service | Stored transcript 10 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:02 | INFO     | audio_stream | Running bias analysis for transcript 10
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:02 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 10
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:02 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 10
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:02 | INFO     | bias_monitoring_workflow | Analyzing transcript 10 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:02:09 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:02:09 | INFO     | bias_monitoring_workflow | Stored bias analysis 9
+{
+    "taskName": null
+}
+2025-10-21 16:02:21 | INFO     | audio_stream | Processing 21916 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:21 | INFO     | stt_service | Sending 21960 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:23 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:23 | INFO     | stt_service | Stored transcript 11 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:23 | INFO     | audio_stream | Running bias analysis for transcript 11
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:23 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 11
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:23 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 11
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:23 | INFO     | bias_monitoring_workflow | Analyzing transcript 11 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:02:30 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:02:30 | INFO     | bias_monitoring_workflow | Stored bias analysis 10
+{
+    "taskName": null
+}
+2025-10-21 16:02:31 | INFO     | audio_stream | Processing 21670 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:31 | INFO     | stt_service | Sending 21714 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:33 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:33 | INFO     | stt_service | Stored transcript 12 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:33 | INFO     | audio_stream | Running bias analysis for transcript 12
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:33 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 12
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:33 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 12
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:33 | INFO     | bias_monitoring_workflow | Analyzing transcript 12 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:02:42 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:02:42 | INFO     | bias_monitoring_workflow | Stored bias analysis 11
+{
+    "taskName": null
+}
+2025-10-21 16:02:42 | INFO     | audio_stream | Processing 21420 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:42 | INFO     | stt_service | Sending 21464 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:43 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:43 | INFO     | stt_service | Stored transcript 13 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:43 | INFO     | audio_stream | Running bias analysis for transcript 13
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:43 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 13
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:43 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 13
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:43 | INFO     | bias_monitoring_workflow | Analyzing transcript 13 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:02:54 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-40"
+}
+2025-10-21 16:02:54 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-40"
+}
+2025-10-21 16:02:54 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 1
+{
+    "taskName": "Task-40"
+}
+2025-10-21 16:02:54 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-33"
+}
+2025-10-21 16:02:54 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-33"
+}
+2025-10-21 16:02:56 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:02:56 | INFO     | bias_monitoring_workflow | Stored bias analysis 12
+{
+    "taskName": null
+}
+2025-10-21 16:02:56 | INFO     | audio_stream | Processing 21295 bytes for admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:56 | INFO     | stt_service | Sending 21339 bytes to Whisper API as WAV
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:58 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:58 | INFO     | stt_service | Stored transcript 14 for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:58 | ERROR    | database | Database transaction error: 
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:58 | INFO     | audio_stream | Audio stream disconnected for interview 1, speaker: admin
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:02:58 | INFO     | stt_service | Stopped audio stream for interview 1
+{
+    "taskName": "Task-47"
+}
+2025-10-21 16:03:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 16:03:29 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-5"
+}
+2025-10-21 16:05:03 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-5"
+}
+2025-10-21 16:05:03 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-5"
+}
+2025-10-21 16:05:03 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 1
+{
+    "taskName": "Task-5"
+}
+2025-10-21 16:05:05 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 16:05:05 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-27"
+}
+2025-10-21 16:05:05 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-33"
+}
+2025-10-21 16:05:47 | INFO     | stt_service | AudioStreamManager initialized with 10s buffer duration
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:05:51 | INFO     | audio_stream | Audio stream connected for interview 1, speaker: admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:05:51 | INFO     | stt_service | Started audio stream for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:16 | INFO     | audio_stream | Processing 20733 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:16 | INFO     | stt_service | Sending 20777 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:20 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:20 | INFO     | stt_service | Stored transcript 15 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:20 | INFO     | audio_stream | Running bias analysis for transcript 15
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:21 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 15
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:21 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 15
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:21 | INFO     | bias_monitoring_workflow | Analyzing transcript 15 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:06:28 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:06:28 | INFO     | bias_monitoring_workflow | Stored bias analysis 13
+{
+    "taskName": null
+}
+2025-10-21 16:06:39 | INFO     | audio_stream | Processing 20406 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:39 | INFO     | stt_service | Sending 20450 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:42 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:42 | INFO     | stt_service | Stored transcript 16 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:42 | INFO     | audio_stream | Running bias analysis for transcript 16
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:42 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 16
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:42 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 16
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:06:42 | INFO     | bias_monitoring_workflow | Analyzing transcript 16 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:06:49 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:06:49 | INFO     | bias_monitoring_workflow | Stored bias analysis 14
+{
+    "taskName": null
+}
+2025-10-21 16:07:01 | INFO     | audio_stream | Processing 20470 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:01 | INFO     | stt_service | Sending 20514 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:03 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:03 | INFO     | stt_service | Stored transcript 17 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:03 | INFO     | audio_stream | Running bias analysis for transcript 17
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:03 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 17
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:03 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 17
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:03 | INFO     | bias_monitoring_workflow | Analyzing transcript 17 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:07:11 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:07:11 | INFO     | bias_monitoring_workflow | Stored bias analysis 15
+{
+    "taskName": null
+}
+2025-10-21 16:07:24 | INFO     | audio_stream | Processing 20457 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:24 | INFO     | stt_service | Sending 20501 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:27 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:27 | INFO     | stt_service | Stored transcript 18 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:27 | INFO     | audio_stream | Running bias analysis for transcript 18
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:27 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 18
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:27 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 18
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:27 | INFO     | bias_monitoring_workflow | Analyzing transcript 18 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:07:35 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:07:35 | INFO     | bias_monitoring_workflow | Stored bias analysis 16
+{
+    "taskName": null
+}
+2025-10-21 16:07:46 | INFO     | audio_stream | Processing 20466 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:46 | INFO     | stt_service | Sending 20510 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:48 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:48 | INFO     | stt_service | Stored transcript 19 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:48 | INFO     | audio_stream | Running bias analysis for transcript 19
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:48 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 19
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:48 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 19
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:07:48 | INFO     | bias_monitoring_workflow | Analyzing transcript 19 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:07:54 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:07:54 | INFO     | bias_monitoring_workflow | Stored bias analysis 17
+{
+    "taskName": null
+}
+2025-10-21 16:08:09 | INFO     | audio_stream | Processing 20653 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:09 | INFO     | stt_service | Sending 20697 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:11 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:11 | INFO     | stt_service | Stored transcript 20 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:11 | INFO     | audio_stream | Running bias analysis for transcript 20
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:11 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 20
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:11 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 20
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:11 | INFO     | bias_monitoring_workflow | Analyzing transcript 20 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:08:18 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:08:18 | INFO     | bias_monitoring_workflow | Stored bias analysis 18
+{
+    "taskName": null
+}
+2025-10-21 16:08:31 | INFO     | audio_stream | Processing 20402 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:31 | INFO     | stt_service | Sending 20446 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:34 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:34 | INFO     | stt_service | Stored transcript 21 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:34 | INFO     | audio_stream | Running bias analysis for transcript 21
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:34 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 21
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:34 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 21
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:34 | INFO     | bias_monitoring_workflow | Analyzing transcript 21 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:08:40 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:08:40 | INFO     | bias_monitoring_workflow | Stored bias analysis 19
+{
+    "taskName": null
+}
+2025-10-21 16:08:54 | INFO     | audio_stream | Processing 20916 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:54 | INFO     | stt_service | Sending 20960 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:55 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:55 | INFO     | stt_service | Stored transcript 22 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:55 | INFO     | audio_stream | Running bias analysis for transcript 22
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:55 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 22
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:55 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 22
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:08:55 | INFO     | bias_monitoring_workflow | Analyzing transcript 22 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:09:02 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:09:02 | INFO     | bias_monitoring_workflow | Stored bias analysis 20
+{
+    "taskName": null
+}
+2025-10-21 16:09:17 | INFO     | audio_stream | Processing 20712 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:17 | INFO     | stt_service | Sending 20756 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:18 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:18 | INFO     | stt_service | Stored transcript 23 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:18 | INFO     | audio_stream | Running bias analysis for transcript 23
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:18 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 23
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:18 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 23
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:18 | INFO     | bias_monitoring_workflow | Analyzing transcript 23 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:09:27 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:09:27 | INFO     | bias_monitoring_workflow | Stored bias analysis 21
+{
+    "taskName": null
+}
+2025-10-21 16:09:31 | INFO     | audio_stream | Processing 20087 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:31 | INFO     | stt_service | Sending 20131 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:34 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:34 | INFO     | stt_service | Stored transcript 24 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:34 | INFO     | audio_stream | Running bias analysis for transcript 24
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:34 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 24
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:34 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 24
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:34 | INFO     | bias_monitoring_workflow | Analyzing transcript 24 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:09:41 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:09:41 | INFO     | bias_monitoring_workflow | Stored bias analysis 22
+{
+    "taskName": null
+}
+2025-10-21 16:09:41 | INFO     | audio_stream | Processing 20278 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:41 | INFO     | stt_service | Sending 20322 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:43 | INFO     | stt_service | Transcribed: 'you...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:43 | INFO     | stt_service | Stored transcript 25 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:43 | INFO     | audio_stream | Running bias analysis for transcript 25
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:43 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 25
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:43 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 25
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:43 | INFO     | bias_monitoring_workflow | Analyzing transcript 25 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:09:51 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:09:51 | INFO     | bias_monitoring_workflow | Stored bias analysis 23
+{
+    "taskName": null
+}
+2025-10-21 16:09:51 | INFO     | audio_stream | Processing 21420 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:51 | INFO     | stt_service | Sending 21464 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:53 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:53 | INFO     | stt_service | Stored transcript 26 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:53 | INFO     | audio_stream | Running bias analysis for transcript 26
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:53 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 26
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:53 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 26
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:09:53 | INFO     | bias_monitoring_workflow | Analyzing transcript 26 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:10:01 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:10:01 | INFO     | bias_monitoring_workflow | Stored bias analysis 24
+{
+    "taskName": null
+}
+2025-10-21 16:10:01 | INFO     | audio_stream | Processing 21812 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:01 | INFO     | stt_service | Sending 21856 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:03 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:03 | INFO     | stt_service | Stored transcript 27 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:03 | INFO     | audio_stream | Running bias analysis for transcript 27
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:03 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 27
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:03 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 27
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:03 | INFO     | bias_monitoring_workflow | Analyzing transcript 27 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:10:10 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 16:10:10 | INFO     | bias_monitoring_workflow | Stored bias analysis 25
+{
+    "taskName": null
+}
+2025-10-21 16:10:10 | INFO     | audio_stream | Processing 21420 bytes for admin
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:10 | INFO     | stt_service | Sending 21464 bytes to Whisper API as WAV
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:12 | INFO     | stt_service | Transcribed: 'You...' (confidence: 0.90)
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:12 | INFO     | stt_service | Stored transcript 28 for interview 1
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:12 | INFO     | audio_stream | Running bias analysis for transcript 28
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:12 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 28
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:12 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 28
+{
+    "taskName": "Task-70"
+}
+2025-10-21 16:10:12 | INFO     | bias_monitoring_workflow | Analyzing transcript 28 for bias
+{
+    "taskName": null
+}
+2025-10-21 16:10:16 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-33"
+}
+2025-10-21 16:10:16 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-33"
+}
+2025-10-21 16:10:16 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 1
+{
+    "taskName": "Task-33"
+}
+2025-10-21 16:10:16 | ERROR    | database | Database transaction error: (1012, None)
+{
+    "taskName": "Task-27"
+}
+2025-10-21 16:10:16 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-27"
+}
+2025-10-21 16:10:20 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}

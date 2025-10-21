@@ -161,7 +161,7 @@ def analyze_bias_node(state: BiasMonitoringState) -> BiasMonitoringState:
         ]
 
         response = client.chat.completions.create(
-            model=settings.BIAS_DETECTION_MODEL,
+            model=settings.bias_detection_model,
             messages=messages,
             response_format={"type": "json_object"},
         )
@@ -221,7 +221,7 @@ def store_analysis_node(state: BiasMonitoringState, db: Session) -> BiasMonitori
             evidence_quotes=state.get("evidence_quotes"),
             context_summary=state.get("context_summary"),
             recommended_action=RecommendedActionEnum(state["recommended_action"]),
-            llm_model=settings.BIAS_DETECTION_MODEL,
+            llm_model=settings.bias_detection_model,
             llm_response_raw=state.get("llm_response_raw"),
         )
 

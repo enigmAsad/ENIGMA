@@ -161,18 +161,19 @@ async def audio_stream_endpoint(
                     )
 
                     if transcript_id:
-                        # Send acknowledgment
+                        # Get the transcript to access its text
+                        transcript = stt_service.transcript_repo.get_by_id(transcript_id)
+
+                        # Send acknowledgment with the transcribed text
                         await websocket.send_json({
                             "status": "transcribed",
                             "transcript_id": transcript_id,
+                            "text": transcript.transcript_text if transcript else None,
                         })
 
                         # If speaker is admin, run bias detection
-                        if speaker_enum == SpeakerEnum.ADMIN:
+                        if speaker_enum == SpeakerEnum.ADMIN and transcript:
                             logger.info(f"Running bias analysis for transcript {transcript_id}")
-
-                            # Get the transcript text
-                            transcript = stt_service.transcript_repo.get_by_id(transcript_id)
 
                             # Get recent context
                             context_str = stt_service.get_recent_context(

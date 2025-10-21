@@ -9,6 +9,8 @@ interface UseInterviewAudioProps {
 interface TranscriptStatus {
   status: string;
   transcript_id?: number;
+  text?: string; // Added to receive the transcribed text
+  error?: string;
 }
 
 export function useInterviewAudio({
@@ -42,15 +44,18 @@ export function useInterviewAudio({
       try {
         const data: TranscriptStatus = JSON.parse(event.data);
         if (data.status === "transcribed" && data.transcript_id) {
-          console.log(`Audio chunk transcribed: ${data.transcript_id}`);
+          console.log(`Audio chunk transcribed with ID: ${data.transcript_id}`);
+          if (data.text) {
+            console.log(`--> Transcribed Text: "${data.text}"`);
+          }
           setLastTranscriptId(data.transcript_id);
         }
 
         if (data.error) {
-          console.error("Audio stream error:", data.error);
+          console.error("Audio stream error from server:", data.error);
         }
       } catch (error) {
-        console.error("Error parsing audio status:", error);
+        console.error("Error parsing audio status message:", error);
       }
     };
 

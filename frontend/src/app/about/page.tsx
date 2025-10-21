@@ -86,8 +86,8 @@ export default function AboutPage() {
             </div>
             <div className="px-8 py-6 bg-gradient-to-r from-primary-50 to-indigo-50 border-t-2 border-primary-100">
               <p className="text-center text-gray-700 font-medium">
-                <span className="font-bold text-primary-900">Asad Ghaffar</span> and <span className="font-bold text-primary-900">Arsalan Sikander</span> –
-                Building the future of fair admissions
+                <span className="font-bold text-primary-900">Asad Ghaffar</span> and <span className="font-bold text-primary-900">Arsalan Sikander</span> 
+                ,  On a mission to build something meaningful
               </p>
             </div>
           </div>
@@ -132,21 +132,20 @@ export default function AboutPage() {
                     </div>
                   </div>
                   <p className="text-gray-800 leading-relaxed mb-4">
-                    Focused on model alignment, privacy-preserving inference, and building reliable AI systems
-                    that enhance fairness and transparency.
+                    Specializes in autonomous agentic systems and multi-modal AI ; turns complex intelligent workflows into scalable, production-ready solutions.
                   </p>
                   <div className="space-y-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-700">
+                      <CheckCircle2 className="h-4 w-4 text-primary-600" />
+                      <span>Agentic AI & Workflow Automation</span>
+                    </div>
                     <div className="flex items-center gap-2 text-sm text-gray-700">
                       <CheckCircle2 className="h-4 w-4 text-primary-600" />
                       <span>AI Model Development & Fine-tuning</span>
                     </div>
                     <div className="flex items-center gap-2 text-sm text-gray-700">
                       <CheckCircle2 className="h-4 w-4 text-primary-600" />
-                      <span>Bias Detection & Mitigation</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-gray-700">
-                      <CheckCircle2 className="h-4 w-4 text-primary-600" />
-                      <span>Privacy-Preserving ML</span>
+                      <span>AI Infrastructure & MLOps</span>
                     </div>
                   </div>
                 </div>
@@ -417,7 +416,7 @@ export default function AboutPage() {
                     <p className="text-gray-800 leading-relaxed">
                       Instead of settling for a stable 9-to-5 like everyone else, we decided to do <span className="font-bold text-gray-900">something meaningful</span>.
                       We want to provide our contribution to this world, innovate fearlessly, take risks, and be willing to do what others are scared to attempt.
-                      Life is too short to play it safe – we'd rather build, fail, learn, and ultimately create products that make a real impact.
+                      Life is too short to play it safe, we'd rather build, fail, learn, and ultimately create products that make a real impact.
                     </p>
                   </div>
                 </div>

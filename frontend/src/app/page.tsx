@@ -110,6 +110,9 @@ export default function Home() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold tracking-tight text-white mb-2">
                 ENIGMA
               </h1>
+            <p className="text-sm sm:text-base md:text-lg text-white/80 font-medium mb-4">
+              Equitable National Intelligence for Governance, Merit and Accountability
+            </p>
               <div className="flex items-center justify-center gap-2 sm:gap-3 flex-wrap">
                 <div className="h-1 w-8 sm:w-12 bg-gradient-to-r from-transparent via-white/60 to-transparent rounded-full"></div>
                 <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-300" />

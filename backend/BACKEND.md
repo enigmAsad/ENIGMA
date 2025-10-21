@@ -866,6 +866,19 @@ with get_db_context() as db:
 
 ## Changelog
 
+### v2.4.3 (2025-10-21) - STT Accuracy & API Fixes
+
+**STT & Transcription Improvements:**
+- **Improved**: Enhanced Speech-to-Text (STT) accuracy by implementing silence detection in `AudioStreamManager` (`stt_service.py`). The system now uses `pydub` to dynamically buffer audio and process chunks based on speech pauses, leading to more complete and coherent transcriptions.
+- **Added**: New configuration options for STT service: `MIN_AUDIO_SECONDS`, `MAX_AUDIO_SECONDS`, and `SILENCE_TRIGGER_SECONDS`.
+- **Fixed**: Corrected timestamping logic for audio chunks to ensure accurate `start_time` for each transcript segment. The websockets router was updated to handle this correctly.
+
+**API & Bug Fixes:**
+- **Fixed**: Resolved a critical serialization error on the `/admin/interviews` endpoint. Updated the `ApplicationDetails` Pydantic model in `api_models.py` to use a dedicated `InterviewDetails` schema, preventing `TypeError: Failed to fetch` on the frontend.
+- **Improved**: Proactively added a `joinedload` to the SQLAlchemy query in `ApplicationRepository` to prevent potential N+1 query issues when fetching applications with interview details.
+- **Dependencies**: Added `pydub` to the project dependencies for silence detection.
+- **Location**: `src/services/stt_service.py`, `src/api/routers/websockets.py`, `src/api/schemas/api_models.py`, `src/database/repositories/application_repository.py`
+
 ### v2.4.2 (2025-10-20) - Frontend Integration & Workflow Clarification
 
 **Documentation Update: Interview Integration & Automated Pipeline**

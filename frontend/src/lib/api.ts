@@ -164,6 +164,17 @@ class APIClient {
   }> {
     return this.request('/health');
   }
+
+  /**
+   * Check interview start status (public endpoint)
+   */
+  async checkInterviewStatus(interviewId: number): Promise<{
+    interview_id: number;
+    started: boolean;
+    started_at: string | null;
+  }> {
+    return this.request(`/interviews/${interviewId}/status`);
+  }
 }
 
 // Export singleton instance

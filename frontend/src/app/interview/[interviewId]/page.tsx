@@ -8,7 +8,10 @@ import { useOptionalAdminAuth as useAdminAuth } from '@/hooks/useOptionalAdminAu
 import { useInterviewAudio } from '@/hooks/useInterviewAudio';
 import NudgeOverlay from '@/components/NudgeOverlay';
 import InterviewScoreModal from '@/components/InterviewScoreModal';
+import COIModal from '@/components/COIModal';
+import WaitingScreen from '@/components/WaitingScreen';
 import { adminApiClient } from '@/lib/adminApi';
+import { apiClient } from '@/lib/api';
 import { SkeletonCard } from '@/components/Skeleton';
 import {
   Video, VideoOff, Phone, PhoneOff, Mic, MicOff, Monitor,
@@ -26,6 +29,12 @@ const InterviewRoomPage = () => {
 
   const [isScoreModalOpen, setScoreModalOpen] = useState(false);
   const [isSavingScore, setIsSavingScore] = useState(false);
+
+  // COI and interview start tracking
+  const [coiModalOpen, setCoiModalOpen] = useState(false);
+  const [isStartingInterview, setIsStartingInterview] = useState(false);
+  const [interviewStarted, setInterviewStarted] = useState(false);
+  const [checkingStatus, setCheckingStatus] = useState(true);
 
   const isAdmin = !!admin;
   const speaker = isAdmin ? 'admin' : 'student';
@@ -85,6 +94,53 @@ const InterviewRoomPage = () => {
     }
   }, [isStudentLoading, isAdminLoading, student, admin, router]);
 
+  // Admin: Check if interview already started, otherwise show COI modal
+  useEffect(() => {
+    if (isAdmin && !isAdminLoading) {
+      const checkInterviewStatus = async () => {
+        try {
+          const status = await apiClient.checkInterviewStatus(Number(interviewId));
+          if (status.started) {
+            setInterviewStarted(true);
+            setCheckingStatus(false);
+          } else {
+            setCoiModalOpen(true);
+            setCheckingStatus(false);
+          }
+        } catch (error) {
+          console.error('Failed to check interview status:', error);
+          setCheckingStatus(false);
+        }
+      };
+
+      checkInterviewStatus();
+    }
+  }, [isAdmin, isAdminLoading, interviewId]);
+
+  // Student: Poll for interview start status
+  useEffect(() => {
+    if (!isAdmin && !isAdminLoading && !isStudentLoading) {
+      const checkInterviewStatus = async () => {
+        try {
+          const status = await apiClient.checkInterviewStatus(Number(interviewId));
+          setInterviewStarted(status.started);
+          setCheckingStatus(false);
+        } catch (error) {
+          console.error('Failed to check interview status:', error);
+          setCheckingStatus(false);
+        }
+      };
+
+      // Initial check
+      checkInterviewStatus();
+
+      // Poll every 5 seconds
+      const interval = setInterval(checkInterviewStatus, 5000);
+
+      return () => clearInterval(interval);
+    }
+  }, [isAdmin, isAdminLoading, isStudentLoading, interviewId]);
+
   useEffect(() => {
     const pc = new RTCPeerConnection({
       iceServers: [{ urls: 'stun:stun.l.google.com:19302' }],
@@ -129,7 +185,8 @@ const InterviewRoomPage = () => {
   }, []);
 
   useEffect(() => {
-    const ws = new WebSocket(`ws://localhost:8000/ws/interview/${interviewId}`);
+    const role = isAdmin ? 'admin' : 'student';
+    const ws = new WebSocket(`ws://localhost:8000/ws/interview/${interviewId}?role=${role}`);
     socketRef.current = ws;
 
     const handleOffer = async (offer: RTCSessionDescriptionInit) => {
@@ -202,7 +259,36 @@ const InterviewRoomPage = () => {
     }
   };
 
+  // COI acceptance handler for admin
+  const handleCOIAccept = async () => {
+    setIsStartingInterview(true);
+    try {
+      await adminApiClient.startInterview(Number(interviewId), {
+        coi_accepted: true,
+      });
+      setInterviewStarted(true);
+      setCoiModalOpen(false);
+    } catch (error) {
+      console.error('Failed to start interview:', error);
+      alert('Failed to start interview. Please try again.');
+    } finally {
+      setIsStartingInterview(false);
+    }
+  };
+
   const startCall = async () => {
+    // Prevent student from starting call
+    if (!isAdmin) {
+      alert('Only the interviewer can start the call');
+      return;
+    }
+
+    // Prevent admin from starting before accepting COI
+    if (!interviewStarted && isAdmin) {
+      alert('Please accept the COI declaration first');
+      return;
+    }
+
     if (peerConnectionRef.current && localStream && !isCallStarted) {
       setIsCallStarted(true);
       setConnectionStatus('connecting');
@@ -270,7 +356,7 @@ const InterviewRoomPage = () => {
     setTimeout(() => endCall(), 10000);
   }, []);
 
-  if (isStudentLoading || isAdminLoading) {
+  if (isStudentLoading || isAdminLoading || checkingStatus) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -281,6 +367,11 @@ const InterviewRoomPage = () => {
         </div>
       </div>
     );
+  }
+
+  // Show waiting screen for students if interview hasn't started
+  if (!isAdmin && !interviewStarted) {
+    return <WaitingScreen />;
   }
 
   return (
@@ -659,6 +750,13 @@ const InterviewRoomPage = () => {
         onClose={handleCloseModal}
         onSave={handleSaveScore}
         isSaving={isSavingScore}
+      />
+
+      {/* COI Modal for Admin */}
+      <COIModal
+        isOpen={coiModalOpen}
+        onAcceptAndStart={handleCOIAccept}
+        isStarting={isStartingInterview}
       />
     </div>
   );

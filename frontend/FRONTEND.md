@@ -468,6 +468,14 @@ Full CRUD interface for managing admission cycles.
 
 ---
 
+### v1.5.1 (2025-10-21) - Interview Room STT & Streaming Fixes
+
+- **Fixed**: Corrected audio streaming logic in the interview room (`/interview/[interviewId]/page.tsx`). Audio is now only captured and streamed to the backend for admin users, preventing unnecessary processing for students and aligning with the system's design.
+- **Improved**: Added a temporary live transcription display for admins during interviews. This shows the real-time output of the STT service for monitoring and debugging, using a new `transcribedText` state in `useInterviewAudio.ts`.
+- **Improved**: Added console logging to the audio streaming hook (`useInterviewAudio.ts`) to provide visibility into chunk size and speaker (`admin`).
+- **Fixed**: Resolved a TypeScript type mismatch error in `useInterviewAudio.ts` by adding a non-null assertion, ensuring safer state updates for transcribed text.
+- **Location**: `src/app/interview/[interviewId]/page.tsx`, `src/hooks/useInterviewAudio.ts`
+
 ### v1.5.0 (2025-10-20) - Automated Pipeline + Interview Integration + Enhanced UX
 
 **MAJOR RELEASE: Streamlined Admin Workflow with Automated Processing Pipeline**

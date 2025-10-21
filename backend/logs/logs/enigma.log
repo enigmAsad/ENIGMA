@@ -25825,3 +25825,1079 @@ DETAIL:  Key (interview_id)=(2) already exists.
 {
     "taskName": null
 }
+2025-10-21 22:54:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 22:54:45 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 22:54:45 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 22:54:49 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-21 22:54:49 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-21 22:54:49 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-21 22:54:49 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-21 22:54:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 22:55:21 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 22:55:59 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 22:56:12 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 22:56:16 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-18"
+}
+2025-10-21 22:56:20 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-18"
+}
+2025-10-21 22:59:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 22:59:57 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:00:18 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:00:36 | INFO     | create_admin | Admin user created successfully: enigma
+{
+    "taskName": null
+}
+2025-10-21 23:01:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:01:05 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 23:01:05 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 23:01:09 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-21 23:01:09 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-21 23:01:09 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-21 23:01:09 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-21 23:01:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:01:37 | ERROR    | database | Database session error: 401: Invalid or expired token
+{
+    "taskName": null
+}
+2025-10-21 23:01:37 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:01:38 | ERROR    | database | Database session error: 401: Invalid or expired token
+{
+    "taskName": null
+}
+2025-10-21 23:01:39 | ERROR    | database | Database session error: 401: Invalid or expired token
+{
+    "taskName": null
+}
+2025-10-21 23:01:40 | ERROR    | database | Database session error: 401: Invalid or expired token
+{
+    "taskName": null
+}
+2025-10-21 23:01:40 | ERROR    | database | Database session error: 401: Invalid or expired token
+{
+    "taskName": null
+}
+2025-10-21 23:01:43 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:01:46 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-18"
+}
+2025-10-21 23:01:49 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-18"
+}
+2025-10-21 23:02:53 | INFO     | api.admin_cycles | Created and opened admission cycle: Fall 25
+{
+    "taskName": "Task-36"
+}
+2025-10-21 23:03:58 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:03:58 | WARNING  | student_auth | PKCE code_challenge mismatch for state vCezydPvC_QM4O--cxoKJQ
+{
+    "taskName": "Task-51"
+}
+2025-10-21 23:03:58 | WARNING  | api.student_auth | Student login failed: Invalid code verifier
+{
+    "taskName": "Task-51"
+}
+2025-10-21 23:03:58 | ERROR    | database | Database session error: 400: Invalid code verifier
+{
+    "taskName": null
+}
+2025-10-21 23:04:01 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:04:08 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:04:12 | INFO     | student_auth | Created new student account STU_BA2E18AC for asadghaffar.dev@gmail.com
+{
+    "taskName": "Task-56"
+}
+2025-10-21 23:04:13 | INFO     | student_auth | Linked OAuth identity google:106830279121320633824 to student STU_BA2E18AC
+{
+    "taskName": "Task-56"
+}
+2025-10-21 23:04:13 | INFO     | student_auth | Issued session STS_3D28CF115A for student STU_BA2E18AC
+{
+    "taskName": "Task-56"
+}
+2025-10-21 23:04:13 | INFO     | student_auth | Student STU_BA2E18AC logged in via Google
+{
+    "taskName": "Task-56"
+}
+2025-10-21 23:04:55 | INFO     | application_collector | Collecting new application from asadghaffar.dev@gmail.com
+{
+    "taskName": "Task-80"
+}
+2025-10-21 23:04:57 | INFO     | audit | AUDIT: create | Application:APP_B5077D31 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-21T18:04:57.019054
+{
+    "taskName": "Task-80"
+}
+2025-10-21 23:04:57 | INFO     | application_collector | Application collected successfully: APP_B5077D31
+{
+    "taskName": "Task-80"
+}
+2025-10-21 23:04:57 | INFO     | api.applications | Application submitted: APP_B5077D31 (Cycle: Fall 25)
+{
+    "taskName": "Task-80"
+}
+2025-10-21 23:05:03 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:05:15 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:05:22 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:05:23 | WARNING  | student_auth | PKCE code_challenge mismatch for state n508Wdulx1pXbxZjTH8FIg
+{
+    "taskName": "Task-107"
+}
+2025-10-21 23:05:23 | WARNING  | api.student_auth | Student login failed: Invalid code verifier
+{
+    "taskName": "Task-107"
+}
+2025-10-21 23:05:23 | ERROR    | database | Database session error: 400: Invalid code verifier
+{
+    "taskName": null
+}
+2025-10-21 23:05:28 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:05:37 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:05:39 | INFO     | student_auth | Created new student account STU_F15223E5 for asadghaffar202020@gmail.com
+{
+    "taskName": "Task-114"
+}
+2025-10-21 23:05:40 | INFO     | student_auth | Linked OAuth identity google:102431640200138901532 to student STU_F15223E5
+{
+    "taskName": "Task-114"
+}
+2025-10-21 23:05:41 | INFO     | student_auth | Issued session STS_D0B2ACDD25 for student STU_F15223E5
+{
+    "taskName": "Task-114"
+}
+2025-10-21 23:05:41 | INFO     | student_auth | Student STU_F15223E5 logged in via Google
+{
+    "taskName": "Task-114"
+}
+2025-10-21 23:06:33 | INFO     | application_collector | Collecting new application from asadghaffar202020@gmail.com
+{
+    "taskName": "Task-137"
+}
+2025-10-21 23:06:34 | INFO     | audit | AUDIT: create | Application:APP_17ABB6C3 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-21T18:06:34.191214
+{
+    "taskName": "Task-137"
+}
+2025-10-21 23:06:34 | INFO     | application_collector | Application collected successfully: APP_17ABB6C3
+{
+    "taskName": "Task-137"
+}
+2025-10-21 23:06:34 | INFO     | api.applications | Application submitted: APP_17ABB6C3 (Cycle: Fall 25)
+{
+    "taskName": "Task-137"
+}
+2025-10-21 23:06:45 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:07:06 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:07:09 | INFO     | student_auth | Created new student account STU_49C26952 for asadghaffar2016@gmail.com
+{
+    "taskName": "Task-157"
+}
+2025-10-21 23:07:10 | INFO     | student_auth | Linked OAuth identity google:103994745142840712370 to student STU_49C26952
+{
+    "taskName": "Task-157"
+}
+2025-10-21 23:07:10 | INFO     | student_auth | Issued session STS_3EFFF4AA8A for student STU_49C26952
+{
+    "taskName": "Task-157"
+}
+2025-10-21 23:07:11 | INFO     | student_auth | Student STU_49C26952 logged in via Google
+{
+    "taskName": "Task-157"
+}
+2025-10-21 23:08:18 | INFO     | application_collector | Collecting new application from asadghaffar2016@gmail.com
+{
+    "taskName": "Task-176"
+}
+2025-10-21 23:08:19 | INFO     | audit | AUDIT: create | Application:APP_960F04F9 | actor=system | details={'stage': 'intake'} | timestamp=2025-10-21T18:08:19.268725
+{
+    "taskName": "Task-176"
+}
+2025-10-21 23:08:19 | INFO     | application_collector | Application collected successfully: APP_960F04F9
+{
+    "taskName": "Task-176"
+}
+2025-10-21 23:08:19 | INFO     | api.applications | Application submitted: APP_960F04F9 (Cycle: Fall 25)
+{
+    "taskName": "Task-176"
+}
+2025-10-21 23:08:25 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-190"
+}
+2025-10-21 23:08:28 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-190"
+}
+2025-10-21 23:08:50 | INFO     | phase_manager | Freezing cycle CYC_20251021_180252 by admin ADM_ENIGMA
+{
+    "taskName": "Task-210"
+}
+2025-10-21 23:08:51 | INFO     | phase_manager | Finalized 3 applications
+{
+    "taskName": "Task-210"
+}
+2025-10-21 23:08:51 | INFO     | phase_manager | Cycle CYC_20251021_180252 frozen successfully
+{
+    "taskName": "Task-210"
+}
+2025-10-21 23:08:51 | INFO     | api.admin_phases | Cycle CYC_20251021_180252 frozen by admin enigma
+{
+    "taskName": "Task-210"
+}
+2025-10-21 23:08:56 | INFO     | phase_manager | Starting preprocessing (scrubbing + metrics) for cycle CYC_20251021_180252
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:08:57 | INFO     | phase_manager | Processing 3 finalized applications
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:08:58 | INFO     | identity_scrubber | Scrubbing application: APP_960F04F9
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:08:58 | INFO     | identity_scrubber | Applied 7 redactions to APP_960F04F9
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:09:01 | INFO     | identity_scrubber | Successfully scrubbed APP_960F04F9 → ANON_1761052138481_699C70
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:09:02 | INFO     | identity_scrubber | Scrubbing application: APP_17ABB6C3
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:09:03 | INFO     | identity_scrubber | Applied 2 redactions to APP_17ABB6C3
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:09:05 | INFO     | identity_scrubber | Successfully scrubbed APP_17ABB6C3 → ANON_1761052143572_37E4B6
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:09:07 | INFO     | identity_scrubber | Scrubbing application: APP_B5077D31
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:09:07 | INFO     | identity_scrubber | Applied 2 redactions to APP_B5077D31
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:09:10 | INFO     | identity_scrubber | Successfully scrubbed APP_B5077D31 → ANON_1761052147987_CB944C
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:09:11 | INFO     | phase_manager | Preprocessing complete for cycle CYC_20251021_180252: 3 scrubbed, 3 metrics computed, 3 marked BATCH_READY, 0 failed
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:09:11 | INFO     | api.admin_phases | Preprocessing started for cycle CYC_20251021_180252 by admin enigma
+{
+    "taskName": "Task-214"
+}
+2025-10-21 23:09:14 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-217"
+}
+2025-10-21 23:09:14 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-217"
+}
+2025-10-21 23:09:14 | INFO     | phase_manager | Starting batch prep for cycle CYC_20251021_180252
+{
+    "taskName": "Task-217"
+}
+2025-10-21 23:09:15 | INFO     | phase_manager | Batch prep phase started for cycle CYC_20251021_180252: 3 applications ready for export
+{
+    "taskName": "Task-217"
+}
+2025-10-21 23:09:15 | INFO     | batch_processor | Exporting BATCH_READY applications for cycle CYC_20251021_180252 to JSONL
+{
+    "taskName": "Task-217"
+}
+2025-10-21 23:09:17 | INFO     | batch_processor | Exported 3 applications to batch_exports\batch_export_CYC_20251021_180252_20251021_180916.jsonl
+{
+    "taskName": "Task-217"
+}
+2025-10-21 23:09:18 | INFO     | api.admin_phases | Batch export completed for cycle CYC_20251021_180252 by admin enigma
+{
+    "taskName": "Task-217"
+}
+2025-10-21 23:09:20 | INFO     | worker_llm | Loaded worker prompt from file
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:09:21 | INFO     | judge_llm | Loaded judge prompt from file
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:09:21 | INFO     | phase_manager | Starting processing for cycle CYC_20251021_180252
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:09:21 | INFO     | phase_manager | Cycle CYC_20251021_180252 now in PROCESSING phase
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:09:24 | INFO     | worker_llm | Evaluating ANON_1761052138481_699C70 (attempt 1)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:09:52 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_F6023180 | actor=worker_llm | details={'anonymized_id': 'ANON_1761052138481_699C70', 'attempt_number': 1, 'total_score': 62.15} | timestamp=2025-10-21T18:09:52.979864
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:09:54 | INFO     | worker_llm | Worker evaluation complete: ANON_1761052138481_699C70 → 62.15/100 (attempt 1)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:09:56 | INFO     | judge_llm | Validating worker evaluation for ANON_1761052138481_699C70 (attempt 1)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:10:20 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_AA92EBEA | actor=judge_llm | details={'anonymized_id': 'ANON_1761052138481_699C70', 'worker_result_id': 'WKR_F6023180', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-21T18:10:20.916670
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:10:22 | INFO     | judge_llm | Judge validation complete: ANON_1761052138481_699C70 → APPROVED  (quality: 88/100)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:10:23 | INFO     | worker_llm | Evaluating ANON_1761052143572_37E4B6 (attempt 1)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:10:40 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_0DED4CD1 | actor=worker_llm | details={'anonymized_id': 'ANON_1761052143572_37E4B6', 'attempt_number': 1, 'total_score': 87.45} | timestamp=2025-10-21T18:10:40.998673
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:10:42 | INFO     | worker_llm | Worker evaluation complete: ANON_1761052143572_37E4B6 → 87.45/100 (attempt 1)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:10:42 | INFO     | judge_llm | Validating worker evaluation for ANON_1761052143572_37E4B6 (attempt 1)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:10:57 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_0A040620 | actor=judge_llm | details={'anonymized_id': 'ANON_1761052143572_37E4B6', 'worker_result_id': 'WKR_0DED4CD1', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-21T18:10:57.161410
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:10:58 | INFO     | judge_llm | Judge validation complete: ANON_1761052143572_37E4B6 → APPROVED  (quality: 90/100)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:10:59 | INFO     | worker_llm | Evaluating ANON_1761052147987_CB944C (attempt 1)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:18 | INFO     | audit | AUDIT: evaluate | WorkerResult:WKR_96E118E5 | actor=worker_llm | details={'anonymized_id': 'ANON_1761052147987_CB944C', 'attempt_number': 1, 'total_score': 90.35} | timestamp=2025-10-21T18:11:18.584329
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:19 | INFO     | worker_llm | Worker evaluation complete: ANON_1761052147987_CB944C → 90.35/100 (attempt 1)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:20 | INFO     | judge_llm | Validating worker evaluation for ANON_1761052147987_CB944C (attempt 1)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:42 | INFO     | audit | AUDIT: evaluate | JudgeResult:JDG_6BCCACD9 | actor=judge_llm | details={'anonymized_id': 'ANON_1761052147987_CB944C', 'worker_result_id': 'WKR_96E118E5', 'decision': 'approved', 'bias_detected': False} | timestamp=2025-10-21T18:11:42.402848
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:43 | INFO     | judge_llm | Judge validation complete: ANON_1761052147987_CB944C → APPROVED  (quality: 90/100)
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:46 | INFO     | audit | AUDIT: update | HashChain:ANON_1761052138481_699C70 | actor=hash_chain_generator | details={'hash': '60fecc8f6dd24f75ad61e4c602783a943abcd07874f0a9b12d462deff7554fd1'} | timestamp=2025-10-21T18:11:46.157405
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:47 | INFO     | hash_chain | Created hash chain entry for ANON_1761052138481_699C70: 60fecc8f6dd24f75...
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:49 | INFO     | audit | AUDIT: update | HashChain:ANON_1761052143572_37E4B6 | actor=hash_chain_generator | details={'hash': '57fb6ce29bf7537ed6c728a9c6fa6aee022c25f211b79025b137a4ce8e1990cf'} | timestamp=2025-10-21T18:11:49.168769
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:50 | INFO     | hash_chain | Created hash chain entry for ANON_1761052143572_37E4B6: 57fb6ce29bf7537e...
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:52 | INFO     | audit | AUDIT: update | HashChain:ANON_1761052147987_CB944C | actor=hash_chain_generator | details={'hash': '4866d1b41f10cf37618faafe495d0c5e5263a6fca24528df93f97ad4974124df'} | timestamp=2025-10-21T18:11:52.192324
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:53 | INFO     | hash_chain | Created hash chain entry for ANON_1761052147987_CB944C: 4866d1b41f10cf37...
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:54 | INFO     | phase_manager | Marking cycle CYC_20251021_180252 as scored
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:55 | INFO     | phase_manager | Cycle CYC_20251021_180252 marked as SCORED
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:55 | INFO     | api.admin_phases | LLM processing completed for cycle CYC_20251021_180252 by admin enigma
+{
+    "taskName": "Task-221"
+}
+2025-10-21 23:11:57 | INFO     | phase_manager | Performing shortlisting for cycle CYC_20251021_180252
+{
+    "taskName": "Task-224"
+}
+2025-10-21 23:11:59 | INFO     | phase_manager | Updated 3 applications to SHORTLISTED status
+{
+    "taskName": "Task-224"
+}
+2025-10-21 23:11:59 | INFO     | phase_manager | Updated 0 applications to NOT_SELECTED status
+{
+    "taskName": "Task-224"
+}
+2025-10-21 23:12:01 | INFO     | phase_manager | Shortlisting complete: 3 shortlisted, 0 not selected. Cycle moved to SELECTION phase.
+{
+    "taskName": "Task-224"
+}
+2025-10-21 23:12:01 | INFO     | api.admin_phases | Shortlisting performed for cycle CYC_20251021_180252 by admin enigma
+{
+    "taskName": "Task-224"
+}
+2025-10-21 23:14:45 | INFO     | api.interviews | Interview 1 scheduled for application APP_960F04F9 by enigma
+{
+    "taskName": "Task-240"
+}
+2025-10-21 23:14:55 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:14:55 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-258"
+}
+2025-10-21 23:14:55 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-264"
+}
+2025-10-21 23:18:26 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-258"
+}
+2025-10-21 23:18:26 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-258"
+}
+2025-10-21 23:18:26 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 1
+{
+    "taskName": "Task-258"
+}
+2025-10-21 23:18:26 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-264"
+}
+2025-10-21 23:18:26 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-264"
+}
+2025-10-21 23:18:28 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:18:30 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-363"
+}
+2025-10-21 23:18:30 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 1
+{
+    "taskName": "Task-369"
+}
+2025-10-21 23:18:56 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:19:14 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:19:19 | INFO     | student_auth | Issued session STS_041328867B for student STU_49C26952
+{
+    "taskName": "Task-392"
+}
+2025-10-21 23:19:19 | INFO     | student_auth | Student STU_49C26952 logged in via Google
+{
+    "taskName": "Task-392"
+}
+2025-10-21 23:20:43 | INFO     | stt_service | AudioStreamManager initialized with silence detection (threshold: -40dBFS, trigger: 1.5s, min: 2.0s, max: 30.0s)
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:20:46 | INFO     | audio_stream | Audio stream connected for interview 1, speaker: admin
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:20:46 | INFO     | stt_service | Started audio stream for interview 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:00 | INFO     | stt_service | Returning 390390 bytes for transcription (duration: 12.20s) for SpeakerEnum.ADMIN in interview 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:00 | INFO     | audio_stream | Processing 390390 bytes for admin
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:00 | INFO     | stt_service | Sending 390434 bytes to Whisper API as WAV
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:12 | INFO     | stt_service | Transcribed: 'Same error layer. Same error layer. Yeah. That is ...' (confidence: 0.90)
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:13 | INFO     | stt_service | Stored transcript 1 for interview 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:14 | INFO     | audio_stream | Running bias analysis for transcript 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:14 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:14 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:14 | INFO     | bias_monitoring_workflow | Analyzing transcript 1 for bias
+{
+    "taskName": null
+}
+2025-10-21 23:21:22 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 23:21:23 | INFO     | bias_monitoring_workflow | Stored bias analysis 1
+{
+    "taskName": null
+}
+2025-10-21 23:21:24 | INFO     | stt_service | Returning 791700 bytes for transcription (duration: 24.74s) for SpeakerEnum.ADMIN in interview 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:24 | INFO     | audio_stream | Processing 791700 bytes for admin
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:24 | INFO     | stt_service | Sending 791744 bytes to Whisper API as WAV
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:35 | INFO     | stt_service | Transcribed: 'Here console is hidden in that room Oh god Let's l...' (confidence: 0.90)
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:37 | INFO     | stt_service | Stored transcript 2 for interview 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:37 | INFO     | audio_stream | Running bias analysis for transcript 2
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:37 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 2
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:37 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 2
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:37 | INFO     | bias_monitoring_workflow | Analyzing transcript 2 for bias
+{
+    "taskName": null
+}
+2025-10-21 23:21:48 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=True, severity=low
+{
+    "taskName": null
+}
+2025-10-21 23:21:49 | INFO     | bias_monitoring_workflow | Stored bias analysis 2
+{
+    "taskName": null
+}
+2025-10-21 23:21:53 | INFO     | nudge_service | Delivered info nudge to admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-451"
+}
+2025-10-21 23:21:53 | INFO     | nudge_connection_manager | Sent nudge to admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:53 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:53 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:53 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:21:59 | INFO     | stt_service | Transcribed: 'Thank you....' (confidence: 0.90)
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:00 | INFO     | stt_service | Stored transcript 3 for interview 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:01 | INFO     | audio_stream | Running bias analysis for transcript 3
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:01 | INFO     | bias_detection_service | Executing bias monitoring workflow for transcript 3
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:01 | INFO     | bias_monitoring_workflow | Executing bias monitoring workflow for transcript 3
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:01 | INFO     | bias_monitoring_workflow | Analyzing transcript 3 for bias
+{
+    "taskName": null
+}
+2025-10-21 23:22:07 | INFO     | bias_monitoring_workflow | Bias analysis result: bias_detected=False, severity=none
+{
+    "taskName": null
+}
+2025-10-21 23:22:08 | INFO     | bias_monitoring_workflow | Stored bias analysis 3
+{
+    "taskName": null
+}
+2025-10-21 23:22:08 | INFO     | stt_service | Returning 65520 bytes for transcription (duration: 2.05s) for SpeakerEnum.ADMIN in interview 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:08 | INFO     | audio_stream | Processing 65520 bytes for admin
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:08 | INFO     | stt_service | Sending 65564 bytes to Whisper API as WAV
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:10 | INFO     | stt_service | Transcribed: 'Thank you for watching!...' (confidence: 0.90)
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:11 | INFO     | stt_service | Stored transcript 4 for interview 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:13 | ERROR    | database | Database transaction error: 
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:13 | INFO     | audio_stream | Audio stream disconnected for interview 1, speaker: admin
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:22:13 | INFO     | stt_service | Stopped audio stream for interview 1
+{
+    "taskName": "Task-427"
+}
+2025-10-21 23:24:08 | INFO     | api.interviews | Score added to interview 1 by admin enigma
+{
+    "taskName": "Task-470"
+}
+2025-10-21 23:24:08 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-369"
+}
+2025-10-21 23:24:08 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-369"
+}
+2025-10-21 23:24:08 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 1
+{
+    "taskName": "Task-369"
+}
+2025-10-21 23:25:57 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-363"
+}
+2025-10-21 23:25:57 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 1
+{
+    "taskName": "Task-363"
+}
+2025-10-21 23:27:17 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:27:20 | INFO     | student_auth | Issued session STS_A6D681EE09 for student STU_BA2E18AC
+{
+    "taskName": "Task-495"
+}
+2025-10-21 23:27:21 | INFO     | student_auth | Student STU_BA2E18AC logged in via Google
+{
+    "taskName": "Task-495"
+}
+2025-10-21 23:27:47 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:27:58 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-531"
+}
+2025-10-21 23:28:02 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-531"
+}
+2025-10-21 23:28:58 | INFO     | api.interviews | Interview 2 scheduled for application APP_B5077D31 by enigma
+{
+    "taskName": "Task-555"
+}
+2025-10-21 23:29:28 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-588"
+}
+2025-10-21 23:29:28 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-21 23:29:28 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-594"
+}
+2025-10-21 23:33:33 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-588"
+}
+2025-10-21 23:33:33 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-588"
+}
+2025-10-21 23:33:33 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 2
+{
+    "taskName": "Task-588"
+}
+2025-10-21 23:33:33 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-594"
+}
+2025-10-21 23:33:33 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-594"
+}
+2025-10-21 23:36:54 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:36:59 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:37:45 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:37:59 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:38:36 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:38:52 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:39:04 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:39:33 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:39:46 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:40:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:40:29 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:45:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:45:14 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 23:45:14 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 23:45:18 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-21 23:45:18 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-21 23:45:18 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-21 23:45:18 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-21 23:45:19 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:45:33 | ERROR    | api.public | Failed to get admission info: Could not determine join condition between parent/child tables on relationship AdminUser.interviews - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+{
+    "taskName": "Task-6"
+}
+2025-10-21 23:45:33 | ERROR    | database | Database session error: 500: Could not determine join condition between parent/child tables on relationship AdminUser.interviews - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+{
+    "taskName": null
+}
+2025-10-21 23:45:33 | ERROR    | database | Database session error: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[AdminUser(admin_users)]'. Original exception was: Could not determine join condition between parent/child tables on relationship AdminUser.interviews - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+{
+    "taskName": null
+}
+2025-10-21 23:45:40 | ERROR    | api.public | Failed to get admission info: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[AdminUser(admin_users)]'. Original exception was: Could not determine join condition between parent/child tables on relationship AdminUser.interviews - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+{
+    "taskName": "Task-12"
+}
+2025-10-21 23:45:40 | ERROR    | database | Database session error: 500: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[AdminUser(admin_users)]'. Original exception was: Could not determine join condition between parent/child tables on relationship AdminUser.interviews - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+{
+    "taskName": null
+}
+2025-10-21 23:45:42 | ERROR    | database | Database session error: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[AdminUser(admin_users)]'. Original exception was: Could not determine join condition between parent/child tables on relationship AdminUser.interviews - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+{
+    "taskName": null
+}
+2025-10-21 23:46:17 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:46:46 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:46:46 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 23:46:46 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 23:46:50 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-21 23:46:50 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-21 23:46:50 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-21 23:46:50 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-21 23:46:51 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:47:04 | ERROR    | api.public | Failed to get admission info: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[AdminUser(admin_users)]'. Original exception was: Could not determine join condition between parent/child tables on relationship AdminUser.interviews - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+{
+    "taskName": "Task-6"
+}
+2025-10-21 23:47:04 | ERROR    | database | Database session error: 500: One or more mappers failed to initialize - can't proceed with initialization of other mappers. Triggering mapper: 'Mapper[AdminUser(admin_users)]'. Original exception was: Could not determine join condition between parent/child tables on relationship AdminUser.interviews - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+{
+    "taskName": null
+}
+2025-10-21 23:47:04 | ERROR    | database | Database session error: Could not determine join condition between parent/child tables on relationship AdminUser.interviews - there are multiple foreign key paths linking the tables.  Specify the 'foreign_keys' argument, providing a list of those columns which should be counted as containing a foreign key reference to the parent table.
+{
+    "taskName": null
+}
+2025-10-21 23:48:23 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:48:41 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:48:53 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:50:05 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:54:09 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-21 23:54:09 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-21 23:54:09 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-21 23:54:14 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-21 23:54:14 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-21 23:54:14 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-21 23:54:14 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-21 23:54:14 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}

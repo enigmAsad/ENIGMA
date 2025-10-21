@@ -134,6 +134,15 @@ async def audio_stream_endpoint(
                 await websocket.close()
                 return
 
+            # Validate interview has started for student connections
+            if speaker == "student" and interview.started_at is None:
+                logger.warning(f"Student attempted to connect to interview {interview_id} before admin started it")
+                await websocket.send_json({
+                    "error": "Interview has not been started yet. Please wait for the interviewer to begin."
+                })
+                await websocket.close()
+                return
+
             speaker_enum = SpeakerEnum.ADMIN if speaker == "admin" else SpeakerEnum.STUDENT
 
             while True:
@@ -276,8 +285,33 @@ async def nudge_stream_endpoint(
 # ==============================================================================
 
 @router.websocket("/ws/interview/{interview_id}")
-async def websocket_endpoint(websocket: WebSocket, interview_id: str):
-    """WebSocket endpoint for WebRTC signaling (peer-to-peer connection setup)."""
+async def websocket_endpoint(
+    websocket: WebSocket,
+    interview_id: str,
+    role: str = Query(default="student"),  # 'admin' or 'student'
+):
+    """WebSocket endpoint for WebRTC signaling (peer-to-peer connection setup).
+
+    Students can only connect after the admin has started the interview.
+    Admins can connect anytime to set up their connection.
+    """
+    # Validate interview start status for students
+    if role == "student":
+        with get_db_context() as db:
+            from src.database.repositories.interview_repository import InterviewRepository
+            interview_repo = InterviewRepository(db)
+            interview = interview_repo.get_by_id(int(interview_id))
+
+            if not interview:
+                logger.warning(f"WebRTC connection attempt to non-existent interview {interview_id}")
+                await websocket.close(code=1008, reason="Interview not found")
+                return
+
+            if interview.started_at is None:
+                logger.warning(f"Student attempted WebRTC connection to interview {interview_id} before admin started it")
+                await websocket.close(code=1008, reason="Interview has not been started yet")
+                return
+
     await manager.connect(websocket, interview_id)
     try:
         while True:

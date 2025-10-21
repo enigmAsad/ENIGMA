@@ -152,6 +152,17 @@ export interface InterviewUpdate {
   notes?: string;
 }
 
+export interface StartInterviewRequest {
+  coi_accepted: boolean;
+}
+
+export interface StartInterviewResponse {
+  success: boolean;
+  message: string;
+  interview_id: number;
+  started_at: string;
+}
+
 export interface ApplicationDetails {
     application_id: string;
     student_id: string | null;
@@ -668,6 +679,24 @@ class AdminAPIClient {
         const error = await response.json();
         throw new Error(error.detail || 'Failed to save score');
     }
+    return response.json();
+  }
+
+  async startInterview(interviewId: number, data: StartInterviewRequest): Promise<StartInterviewResponse> {
+    const response = await fetch(`${API_BASE}/admin/interviews/${interviewId}/start-interview`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        ...this.getAuthHeader(),
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      const error = await response.json();
+      throw new Error(error.detail || 'Failed to start interview');
+    }
+
     return response.json();
   }
 

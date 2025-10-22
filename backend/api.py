@@ -29,9 +29,15 @@ app = FastAPI(
 )
 
 # CORS middleware configuration
+
+origins = [
+    "http://enigma-app.ddns.net:3000"
+    "http://localhost:3000",  
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],  # Frontend URLs
+    allow_origins=origins,  # Frontend URLs
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

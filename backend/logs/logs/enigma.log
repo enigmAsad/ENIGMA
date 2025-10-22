@@ -28341,3 +28341,59 @@ DETAIL:  Key (interview_id)=(2) already exists.
 {
     "taskName": null
 }
+2025-10-22 14:28:49 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-22 14:28:49 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-22 14:28:49 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-22 14:29:00 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-22 14:29:00 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-22 14:29:00 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-22 14:29:00 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-22 14:29:04 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-22 14:29:22 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-22 14:30:01 | INFO     | api.admin_cycles | Created and opened admission cycle: SP22
+{
+    "taskName": "Task-23"
+}
+2025-10-22 14:30:07 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-22 14:30:19 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-22 14:30:29 | INFO     | student_auth | Issued session STS_11D482DC9D for student STU_BA2E18AC
+{
+    "taskName": "Task-39"
+}
+2025-10-22 14:30:29 | INFO     | student_auth | Student STU_BA2E18AC logged in via Google
+{
+    "taskName": "Task-39"
+}

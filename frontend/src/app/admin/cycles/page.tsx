@@ -11,6 +11,9 @@ import Modal, { type ModalType } from '@/components/Modal';
 import PipelineProgressModal, { type PipelineStep } from '@/components/PipelineProgressModal';
 import {
   Calendar,
+  CalendarCheck2,
+  CalendarClock,
+  CalendarRange,
   Plus,
   Sparkles,
   Users,
@@ -670,46 +673,94 @@ export default function AdminCyclesPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Start Date & Time
-                    </label>
-                    <input
-                      type="datetime-local"
-                      value={formData.start_date}
-                      onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                      required
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
-                    />
-                    <p className="text-xs text-gray-500 mt-1.5">When admissions open (local time)</p>
+                  <div className="space-y-2">
+                    <div className="rounded-2xl border border-gray-200 bg-white/70 p-4 shadow-sm transition-all hover:shadow-md focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-100">
+                      <label
+                        htmlFor="start-date-input"
+                        className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                      >
+                        <CalendarClock className="h-4 w-4 text-primary-600" />
+                        Start Date & Time
+                      </label>
+                      <div className="relative mt-3">
+                        <Clock className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-primary-500" />
+                        <input
+                          id="start-date-input"
+                          type="datetime-local"
+                          value={formData.start_date}
+                          onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
+                          required
+                          className="w-full rounded-xl border border-gray-200 bg-gray-50/60 py-3 pl-12 pr-4 text-sm text-gray-900 shadow-inner transition focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-100"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <p>When admissions open (local time)</p>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-2.5 py-1 font-semibold text-primary-700">
+                        <Clock className="h-3 w-3" />
+                        PKT
+                      </span>
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      End Date & Time
-                    </label>
-                    <input
-                      type="datetime-local"
-                      value={formData.end_date}
-                      onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
-                      required
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
-                    />
-                    <p className="text-xs text-gray-500 mt-1.5">Application deadline (local time)</p>
+                  <div className="space-y-2">
+                    <div className="rounded-2xl border border-gray-200 bg-white/70 p-4 shadow-sm transition-all hover:shadow-md focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-100">
+                      <label
+                        htmlFor="end-date-input"
+                        className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                      >
+                        <CalendarRange className="h-4 w-4 text-primary-600" />
+                        End Date & Time
+                      </label>
+                      <div className="relative mt-3">
+                        <Clock className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-primary-500" />
+                        <input
+                          id="end-date-input"
+                          type="datetime-local"
+                          value={formData.end_date}
+                          onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
+                          required
+                          className="w-full rounded-xl border border-gray-200 bg-gray-50/60 py-3 pl-12 pr-4 text-sm text-gray-900 shadow-inner transition focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-100"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <p>Application deadline (local time)</p>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-2.5 py-1 font-semibold text-primary-700">
+                        <Clock className="h-3 w-3" />
+                        PKT
+                      </span>
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Result Date & Time
-                    </label>
-                    <input
-                      type="datetime-local"
-                      value={formData.result_date}
-                      onChange={(e) => setFormData({ ...formData, result_date: e.target.value })}
-                      required
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
-                    />
-                    <p className="text-xs text-gray-500 mt-1.5">When results are published (local time)</p>
+                  <div className="space-y-2">
+                    <div className="rounded-2xl border border-gray-200 bg-white/70 p-4 shadow-sm transition-all hover:shadow-md focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-100">
+                      <label
+                        htmlFor="result-date-input"
+                        className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                      >
+                        <CalendarCheck2 className="h-4 w-4 text-primary-600" />
+                        Result Date & Time
+                      </label>
+                      <div className="relative mt-3">
+                        <Clock className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-primary-500" />
+                        <input
+                          id="result-date-input"
+                          type="datetime-local"
+                          value={formData.result_date}
+                          onChange={(e) => setFormData({ ...formData, result_date: e.target.value })}
+                          required
+                          className="w-full rounded-xl border border-gray-200 bg-gray-50/60 py-3 pl-12 pr-4 text-sm text-gray-900 shadow-inner transition focus:border-primary-500 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-100"
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <p>When results are published (local time)</p>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-2.5 py-1 font-semibold text-primary-700">
+                        <Clock className="h-3 w-3" />
+                        PKT
+                      </span>
+                    </div>
                   </div>
                 </div>
 

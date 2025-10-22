@@ -31,7 +31,7 @@ app = FastAPI(
 # CORS middleware configuration
 
 origins = [
-    "http://enigma-app.ddns.net:3000"
+    "http://enigma-app.ddns.net:8000"
     "http://localhost:3000",  
 ]
 

@@ -33,14 +33,18 @@ app = FastAPI(
 origins = [
     # DEVELOPMENT ORIGINS
     "http://localhost",
-    "http://localhost:3000",  # Local Frontend
+    "http://localhost:3000",   # Local Frontend (Keep HTTP for standard local testing)
     "http://localhost:8080",
     "http://127.0.0.1:8000",
+    # Add HTTPS for local if you ever test with a local proxy/SSL
+    "https://localhost:3000", 
 
-    # DEPLOYMENT ORIGINS (The frontend is running on port 3000)
-    "http://enigma-app.ddns.net",
-    "http://enigma-app.ddns.net:3000",  # <--- This is the essential fix!
+    # DEPLOYMENT ORIGINS (The frontend is served to the user over HTTPS)
+    # The essential fix is changing HTTP to HTTPS here:
+    "https://enigma-app.ddns.net",          # <--- Update to HTTPS
+    "https://enigma-app.ddns.net:3000",     # <--- Update to HTTPS (though this port is probably not used externally)
 ]
+
 
 app.add_middleware(
     CORSMiddleware,

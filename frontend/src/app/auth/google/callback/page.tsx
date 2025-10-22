@@ -1,13 +1,20 @@
-
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { studentApiClient } from '@/lib/studentApi';
 import { useAuth } from '@/hooks/useStudentAuth';
 import { SkeletonCard } from '@/components/Skeleton';
 
 export default function GoogleCallbackPage() {
+  return (
+    <Suspense fallback={<CallbackFallback />}>
+      <CallbackContent />
+    </Suspense>
+  );
+}
+
+function CallbackContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const [error, setError] = useState<string | null>(null);
@@ -75,3 +82,22 @@ export default function GoogleCallbackPage() {
   );
 }
 
+function CallbackFallback() {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-primary-50 to-primary-100">
+      <div className="max-w-md mx-auto px-4 py-12">
+        <div className="space-y-4">
+          <div className="text-center mb-6">
+            <div className="inline-flex gap-1 mb-3">
+              <span className="w-2 h-2 bg-primary-600 rounded-full animate-pulse" style={{ animationDelay: '0ms' }}></span>
+              <span className="w-2 h-2 bg-primary-600 rounded-full animate-pulse" style={{ animationDelay: '150ms' }}></span>
+              <span className="w-2 h-2 bg-primary-600 rounded-full animate-pulse" style={{ animationDelay: '300ms' }}></span>
+            </div>
+            <p className="text-gray-700 font-medium">Completing login...</p>
+          </div>
+          <SkeletonCard />
+        </div>
+      </div>
+    </div>
+  );
+}

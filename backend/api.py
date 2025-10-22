@@ -31,8 +31,15 @@ app = FastAPI(
 # CORS middleware configuration
 
 origins = [
-    "http://enigma-app.ddns.net:8000",
-    "http://localhost:3000",  
+    # DEVELOPMENT ORIGINS
+    "http://localhost",
+    "http://localhost:3000",  # Local Frontend
+    "http://localhost:8080",
+    "http://127.0.0.1:8000",
+
+    # DEPLOYMENT ORIGINS (The frontend is running on port 3000)
+    "http://enigma-app.ddns.net",
+    "http://enigma-app.ddns.net:3000",  # <--- This is the essential fix!
 ]
 
 app.add_middleware(

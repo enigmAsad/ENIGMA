@@ -44,7 +44,8 @@ export function useInterviewAudio({
       return;
     }
 
-    const wsUrl = `${process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8000"}/ws/interview/${interviewId}/audio?speaker=${speaker}`;
+    const wsBase = (process.env.NEXT_PUBLIC_WS_URL || "ws://localhost:8000/api").replace(/\/$/, "");
+    const wsUrl = `${wsBase}/ws/interview/${interviewId}/audio?speaker=${speaker}`;
     console.log(`[useInterviewAudio] Connecting to audio stream: ${wsUrl}`);
     const websocket = new WebSocket(wsUrl);
 

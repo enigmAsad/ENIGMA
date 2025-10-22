@@ -186,7 +186,8 @@ const InterviewRoomPage = () => {
 
   useEffect(() => {
     const role = isAdmin ? 'admin' : 'student';
-    const ws = new WebSocket(`ws://localhost:8000/ws/interview/${interviewId}?role=${role}`);
+    const wsBase = (process.env.NEXT_PUBLIC_WS_URL || 'ws://localhost:8000/api').replace(/\/$/, '');
+    const ws = new WebSocket(`${wsBase}/ws/interview/${interviewId}?role=${role}`);
     socketRef.current = ws;
 
     const handleOffer = async (offer: RTCSessionDescriptionInit) => {

@@ -28397,3 +28397,207 @@ DETAIL:  Key (interview_id)=(2) already exists.
 {
     "taskName": "Task-39"
 }
+2025-10-23 01:36:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-23 01:36:10 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-23 01:36:10 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-23 01:36:15 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-23 01:36:15 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-23 01:36:15 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-23 01:36:15 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-23 01:36:16 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-23 01:36:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:36:52 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:37:44 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:37:45 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:37:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:37:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:37:46 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:38:15 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:38:32 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:38:36 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-86"
+}
+2025-10-23 01:38:40 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-86"
+}
+2025-10-23 01:38:50 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:38:51 | WARNING  | student_auth | PKCE code_challenge mismatch for state cq7_j07Nd4y_p7FN67lTaw
+{
+    "taskName": "Task-105"
+}
+2025-10-23 01:38:51 | WARNING  | api.student_auth | Student login failed: Invalid code verifier
+{
+    "taskName": "Task-105"
+}
+2025-10-23 01:38:51 | ERROR    | database | Database session error: 400: Invalid code verifier
+{
+    "taskName": null
+}
+2025-10-23 01:38:54 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:39:01 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:39:06 | INFO     | student_auth | Issued session STS_1DA695A81F for student STU_7D26691D
+{
+    "taskName": "Task-112"
+}
+2025-10-23 01:39:06 | INFO     | student_auth | Student STU_7D26691D logged in via Google
+{
+    "taskName": "Task-112"
+}
+2025-10-23 01:39:51 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:39:55 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-144"
+}
+2025-10-23 01:39:58 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-144"
+}
+2025-10-23 01:40:45 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:40:46 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-179"
+}
+2025-10-23 01:41:16 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-179"
+}
+2025-10-23 01:41:16 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-179"
+}
+2025-10-23 01:41:16 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 2
+{
+    "taskName": "Task-179"
+}
+2025-10-23 01:41:17 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:41:22 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-224"
+}
+2025-10-23 01:42:06 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-224"
+}
+2025-10-23 01:42:06 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-224"
+}
+2025-10-23 01:42:06 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 2
+{
+    "taskName": "Task-224"
+}
+2025-10-23 01:42:06 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:42:11 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-267"
+}
+2025-10-23 01:42:19 | ERROR    | database | Database transaction error: (<CloseCode.NO_STATUS_RCVD: 1005>, '')
+{
+    "taskName": "Task-267"
+}
+2025-10-23 01:42:19 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-267"
+}
+2025-10-23 01:42:19 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 2
+{
+    "taskName": "Task-267"
+}
+2025-10-23 01:42:50 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-10-23 01:42:53 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA connected to nudge stream for interview 2
+{
+    "taskName": "Task-329"
+}
+2025-10-23 01:44:37 | ERROR    | database | Database transaction error: (1001, '')
+{
+    "taskName": "Task-329"
+}
+2025-10-23 01:44:37 | INFO     | nudge_stream | Nudge stream disconnected for admin ADM_ENIGMA in interview 2
+{
+    "taskName": "Task-329"
+}
+2025-10-23 01:44:37 | INFO     | nudge_connection_manager | Admin ADM_ENIGMA disconnected from nudge stream for interview 2
+{
+    "taskName": "Task-329"
+}
+2025-10-23 01:46:52 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}

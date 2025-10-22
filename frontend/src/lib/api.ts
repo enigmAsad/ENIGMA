@@ -2,7 +2,11 @@
  * API client for ENIGMA Phase 1 backend
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const DEFAULT_API_BASE = 'http://localhost:8000/api';
+
+const normalizeBaseUrl = (url: string) => url.replace(/\/$/, '');
+
+const API_BASE_URL = normalizeBaseUrl(process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_BASE);
 
 export interface ApplicationSubmitRequest {
   name: string;
@@ -80,7 +84,7 @@ class APIClient {
     endpoint: string,
     options: RequestInit = {}
   ): Promise<T> {
-    const url = `${this.baseURL}${endpoint}`;
+    const url = `${this.baseURL}${endpoint.startsWith('/') ? endpoint : `/${endpoint}`}`;
 
     const response = await fetch(url, {
       ...options,

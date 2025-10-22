@@ -2,7 +2,11 @@
  * Admin API Client for ENIGMA
  */
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const DEFAULT_API_BASE = 'http://localhost:8000/api';
+
+const normalizeBaseUrl = (url: string) => url.replace(/\/$/, '');
+
+const API_BASE = normalizeBaseUrl(process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_BASE);
 
 export interface AdminLoginRequest {
   username: string;

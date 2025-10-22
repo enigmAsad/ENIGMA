@@ -3,7 +3,11 @@
  * API client for ENIGMA Student Authentication
  */
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+const DEFAULT_API_BASE = 'http://localhost:8000/api';
+
+const normalizeBaseUrl = (url: string) => url.replace(/\/$/, '');
+
+const API_BASE_URL = normalizeBaseUrl(process.env.NEXT_PUBLIC_API_URL || DEFAULT_API_BASE);
 
 import { ApplicationStatusResponse, ResultsResponse, ApplicationSubmitRequest, ApplicationSubmitResponse } from './api';
 import { InterviewDetails } from './adminApi';

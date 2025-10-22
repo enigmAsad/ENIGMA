@@ -58,35 +58,41 @@ app.add_middleware(
 # Router Registration
 # ==============================================================================
 
+# Create a new router that will hold all the other routers
+from fastapi import APIRouter
+api_router = APIRouter()
+
 # Public routes (no prefix, no authentication required)
-app.include_router(public.router)
+api_router.include_router(public.router)
 
 # Application routes (public submission, status checking)
-app.include_router(applications.router)
+api_router.include_router(applications.router)
 
 # Student authentication and profile routes
-app.include_router(student_auth.router)
+api_router.include_router(student_auth.router)
 
 # Student routes (non-auth: interviews, etc.)
-app.include_router(student.router)
+api_router.include_router(student.router)
 
 # Admin authentication routes
-app.include_router(admin_auth.router)
+api_router.include_router(admin_auth.router)
 
 # Admin cycle management routes
-app.include_router(admin_cycles.router)
+api_router.include_router(admin_cycles.router)
 
 # Admin phase management routes (9-phase workflow)
-app.include_router(admin_phases.router)
+api_router.include_router(admin_phases.router)
 
 # Interview scheduling and management routes
-app.include_router(interviews.router)
+api_router.include_router(interviews.router)
 
 # Bias monitoring dashboard routes (Phase 2)
-app.include_router(bias_monitoring.router)
+api_router.include_router(bias_monitoring.router)
 
 # WebSocket routes (audio, nudges, WebRTC signaling)
-app.include_router(websockets.router)
+api_router.include_router(websockets.router)
+
+app.include_router(api_router, prefix="/api")
 
 
 # ==============================================================================

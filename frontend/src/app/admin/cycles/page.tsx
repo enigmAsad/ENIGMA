@@ -11,6 +11,9 @@ import Modal, { type ModalType } from '@/components/Modal';
 import PipelineProgressModal, { type PipelineStep } from '@/components/PipelineProgressModal';
 import {
   Calendar,
+  CalendarCheck2,
+  CalendarClock,
+  CalendarRange,
   Plus,
   Sparkles,
   Users,
@@ -81,6 +84,41 @@ const getCurrentPKTDatetimeLocal = (): string => {
   return `${year}-${month}-${day}T${hours}:${minutes}`;
 };
 
+type DateErrorState = {
+  start?: string;
+  end?: string;
+  result?: string;
+};
+
+const validateDateOrder = (data: CreateCycleRequest): DateErrorState => {
+  const errors: DateErrorState = {};
+
+  const start = data.start_date ? new Date(data.start_date) : null;
+  const end = data.end_date ? new Date(data.end_date) : null;
+  const result = data.result_date ? new Date(data.result_date) : null;
+
+  if (start && end && end <= start) {
+    errors.end = 'End date must be after the start date and time';
+  }
+
+  if (end && result && result <= end) {
+    errors.result = 'Result date must be after the end date and time';
+  }
+
+  if (!errors.result && start && result && result <= start) {
+    errors.result = 'Result date must be after the start date and time';
+  }
+
+  return errors;
+};
+
+const getDateInputClass = (hasError: boolean) =>
+  `w-full rounded-xl border ${
+    hasError
+      ? 'border-red-400 bg-red-50/60 focus:border-red-500 focus:ring-2 focus:ring-red-100'
+      : 'border-gray-200 bg-gray-50/60 focus:border-primary-500 focus:ring-2 focus:ring-primary-100'
+  } py-3 pl-12 pr-4 text-sm text-gray-900 shadow-inner transition focus:bg-white focus:outline-none`;
+
 export default function AdminCyclesPage() {
   const router = useRouter();
   const { isAuthenticated, isLoading, admin } = useAdminAuth();
@@ -96,6 +134,7 @@ export default function AdminCyclesPage() {
     end_date: '',
   });
   const [formError, setFormError] = useState('');
+  const [dateErrors, setDateErrors] = useState<DateErrorState>({});
   const [processing, setProcessing] = useState<string | null>(null);
   const [expandedCycle, setExpandedCycle] = useState<string | null>(null);
   const [deletingCycleId, setDeletingCycleId] = useState<string | null>(null);
@@ -414,6 +453,16 @@ export default function AdminCyclesPage() {
     setProcessing('create');
 
     try {
+      // ensure valid chronological order before submission
+      const validationErrors = validateDateOrder(formData);
+      setDateErrors(validationErrors);
+
+      if (Object.keys(validationErrors).length > 0) {
+        setFormError('Please resolve the highlighted date issues before creating the cycle.');
+        setProcessing(null);
+        return;
+      }
+
       // Convert local datetime-local values to UTC ISO strings
       // Browser automatically treats input as local time (PKT) and converts to UTC
       const cycleData: CreateCycleRequest = {
@@ -434,6 +483,7 @@ export default function AdminCyclesPage() {
         start_date: '',
         end_date: '',
       });
+      setDateErrors({});
     } catch (error: any) {
       setFormError(error.message || 'Failed to create cycle');
     } finally {
@@ -670,46 +720,112 @@ export default function AdminCyclesPage() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Start Date & Time
-                    </label>
-                    <input
-                      type="datetime-local"
-                      value={formData.start_date}
-                      onChange={(e) => setFormData({ ...formData, start_date: e.target.value })}
-                      required
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
-                    />
-                    <p className="text-xs text-gray-500 mt-1.5">When admissions open (local time)</p>
+                  <div className="space-y-2">
+                    <div className="rounded-2xl border border-gray-200 bg-white/70 p-4 shadow-sm transition-all hover:shadow-md focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-100">
+                      <label
+                        htmlFor="start-date-input"
+                        className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                      >
+                        <CalendarClock className="h-4 w-4 text-primary-600" />
+                        Start Date & Time
+                      </label>
+                      <div className="relative mt-3">
+                        <Clock className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-primary-500" />
+                        <input
+                          id="start-date-input"
+                          type="datetime-local"
+                          value={formData.start_date}
+                          onChange={(e) => {
+                            const updated = { ...formData, start_date: e.target.value };
+                            setFormData(updated);
+                            setDateErrors(validateDateOrder(updated));
+                          }}
+                          required
+                          className={getDateInputClass(Boolean(dateErrors.start))}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <p className={dateErrors.start ? 'font-semibold text-red-600' : ''}>
+                        {dateErrors.start || 'When admissions open (local time)'}
+                      </p>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-2.5 py-1 font-semibold text-primary-700">
+                        <Clock className="h-3 w-3" />
+                        PKT
+                      </span>
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      End Date & Time
-                    </label>
-                    <input
-                      type="datetime-local"
-                      value={formData.end_date}
-                      onChange={(e) => setFormData({ ...formData, end_date: e.target.value })}
-                      required
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
-                    />
-                    <p className="text-xs text-gray-500 mt-1.5">Application deadline (local time)</p>
+                  <div className="space-y-2">
+                    <div className="rounded-2xl border border-gray-200 bg-white/70 p-4 shadow-sm transition-all hover:shadow-md focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-100">
+                      <label
+                        htmlFor="end-date-input"
+                        className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                      >
+                        <CalendarRange className="h-4 w-4 text-primary-600" />
+                        End Date & Time
+                      </label>
+                      <div className="relative mt-3">
+                        <Clock className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-primary-500" />
+                        <input
+                          id="end-date-input"
+                          type="datetime-local"
+                          value={formData.end_date}
+                          onChange={(e) => {
+                            const updated = { ...formData, end_date: e.target.value };
+                            setFormData(updated);
+                            setDateErrors(validateDateOrder(updated));
+                          }}
+                          required
+                          className={getDateInputClass(Boolean(dateErrors.end))}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <p className={dateErrors.end ? 'font-semibold text-red-600' : ''}>
+                        {dateErrors.end || 'Application deadline (local time)'}
+                      </p>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-2.5 py-1 font-semibold text-primary-700">
+                        <Clock className="h-3 w-3" />
+                        PKT
+                      </span>
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-semibold text-gray-700 mb-2">
-                      Result Date & Time
-                    </label>
-                    <input
-                      type="datetime-local"
-                      value={formData.result_date}
-                      onChange={(e) => setFormData({ ...formData, result_date: e.target.value })}
-                      required
-                      className="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent shadow-sm"
-                    />
-                    <p className="text-xs text-gray-500 mt-1.5">When results are published (local time)</p>
+                  <div className="space-y-2">
+                    <div className="rounded-2xl border border-gray-200 bg-white/70 p-4 shadow-sm transition-all hover:shadow-md focus-within:border-primary-400 focus-within:ring-2 focus-within:ring-primary-100">
+                      <label
+                        htmlFor="result-date-input"
+                        className="flex items-center gap-2 text-sm font-semibold text-gray-700"
+                      >
+                        <CalendarCheck2 className="h-4 w-4 text-primary-600" />
+                        Result Date & Time
+                      </label>
+                      <div className="relative mt-3">
+                        <Clock className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-primary-500" />
+                        <input
+                          id="result-date-input"
+                          type="datetime-local"
+                          value={formData.result_date}
+                          onChange={(e) => {
+                            const updated = { ...formData, result_date: e.target.value };
+                            setFormData(updated);
+                            setDateErrors(validateDateOrder(updated));
+                          }}
+                          required
+                          className={getDateInputClass(Boolean(dateErrors.result))}
+                        />
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-between text-xs text-gray-500">
+                      <p className={dateErrors.result ? 'font-semibold text-red-600' : ''}>
+                        {dateErrors.result || 'When results are published (local time)'}
+                      </p>
+                      <span className="inline-flex items-center gap-1 rounded-full bg-primary-50 px-2.5 py-1 font-semibold text-primary-700">
+                        <Clock className="h-3 w-3" />
+                        PKT
+                      </span>
+                    </div>
                   </div>
                 </div>
 

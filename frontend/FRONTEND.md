@@ -287,8 +287,8 @@ Visual progress tracker for admission cycle phases.
   - 🧹 Preprocessing - Scrubbing PII + Metrics
   - 📦 Batch Prep - Export Ready
   - 🤖 Processing - Phase 1 LLM Evaluation
-  - 🎥 **Interviews** - Phase 2 Interviews (2k shortlisted) ← Updated in v1.5.0
-  - 🎯 Selection - Final Selection (k selected)
+  - 🎯 Selection - Final Selection (2k selected)
+  - 🎥 **Interviews** - Phase 2 Interviews (k shortlisted)
   - 📤 Published - Results Live
   - ✅ Completed - Cycle Closed
 - Live progress bar with percentage
@@ -515,10 +515,10 @@ Full CRUD interface for managing admission cycles.
   - Error messages with helpful troubleshooting text
 
 #### **🎥 Interview Integration & Phase Tracking**
-- **Updated**: `PhaseProgress.tsx` component now correctly shows interview phase
+- **Updated**: `PhaseProgress.tsx` component now reflects the corrected interview flow
   - 9-phase workflow visualization with emoji icons
-  - "Scored" phase renamed to "Interviews" with description "Phase 2 Interviews (2k shortlisted)"
-  - "Selection" phase shows "Final Selection (k selected)"
+  - "Scored" phase highlights the shortlist: "Final Selection (2k selected)"
+  - "Selection" phase now displays "Phase 2 Interviews (k shortlisted)"
   - Visual indication that interviews happen DURING the scored phase
   - Updated descriptions to reflect Phase 1 (LLM) vs Phase 2 (Interviews) distinction
 - **Fixed**: Workflow now correctly separates:

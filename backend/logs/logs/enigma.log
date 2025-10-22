@@ -28305,3 +28305,39 @@ DETAIL:  Key (interview_id)=(2) already exists.
 {
     "taskName": null
 }
+2025-10-22 11:18:33 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-22 11:18:33 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-10-22 11:18:33 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-10-22 11:18:49 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-10-22 11:18:49 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-10-22 11:18:49 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-10-22 11:18:49 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-10-22 11:18:50 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-10-22 11:19:45 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}

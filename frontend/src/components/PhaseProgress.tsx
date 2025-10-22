@@ -15,8 +15,8 @@ const PHASES = [
   { id: 'preprocessing', name: 'Preprocessing', description: 'Scrubbing PII + Metrics', icon: '🧹' },
   { id: 'batch_prep', name: 'Batch Prep', description: 'Export Ready', icon: '📦' },
   { id: 'processing', name: 'Processing', description: 'Phase 1 LLM Evaluation', icon: '🤖' },
-  { id: 'scored', name: 'Interviews', description: 'Phase 2 Interviews (2k shortlisted)', icon: '🎥' },
-  { id: 'selection', name: 'Selection', description: 'Final Selection (k selected)', icon: '🎯' },
+  { id: 'scored', name: 'Selection', description: 'Final Selection (2k selected)', icon: '🎯' },
+  { id: 'selection', name: 'Interviews', description: 'Phase 2 Interviews (k shortlisted)', icon: '🎥' },
   { id: 'published', name: 'Published', description: 'Results Live', icon: '📤' },
   { id: 'completed', name: 'Completed', description: 'Cycle Closed', icon: '✅' },
 ];

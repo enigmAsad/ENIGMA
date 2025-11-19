@@ -30140,3 +30140,86 @@ connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.214.78.123), p
 {
     "taskName": "Task-272"
 }
+2025-11-19 10:01:34 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-11-19 10:01:34 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-11-19 10:01:34 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-11-19 10:01:35 | ERROR    | database | Database connection failed: (psycopg2.OperationalError) connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  Tenant or user not found
+connection to server at "aws-1-us-east-1.pooler.supabase.com" (18.213.155.45), port 6543 failed: FATAL:  Tenant or user not found
+
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+{
+    "taskName": null
+}
+2025-11-19 10:01:35 | ERROR    | main | Failed to connect to database
+{
+    "taskName": null
+}
+2025-11-19 10:01:35 | ERROR    | main | Please check your DATABASE_URL in .env file
+{
+    "taskName": null
+}
+2025-11-19 10:09:04 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-11-19 10:09:04 | INFO     | main | Running prerequisite checks...
+{
+    "taskName": null
+}
+2025-11-19 10:09:04 | INFO     | main | Verifying database connection...
+{
+    "taskName": null
+}
+2025-11-19 10:09:10 | INFO     | database | Database connection verified successfully
+{
+    "taskName": null
+}
+2025-11-19 10:09:10 | INFO     | main | ✅ Database connection successful
+{
+    "taskName": null
+}
+2025-11-19 10:09:10 | INFO     | main | Starting ENIGMA Backend on 0.0.0.0:8000
+{
+    "taskName": null
+}
+2025-11-19 10:09:10 | INFO     | main | Development mode: Auto-reload enabled
+{
+    "taskName": null
+}
+2025-11-19 10:09:10 | INFO     | database | Database engine initialized: pool_size=20, max_overflow=0
+{
+    "taskName": null
+}
+2025-11-19 10:09:27 | ERROR    | database | Database session error: 401: Not authenticated
+{
+    "taskName": null
+}
+2025-11-19 10:10:54 | INFO     | admin_auth | Login attempt for username: asad51@gmail.com
+{
+    "taskName": "Task-13"
+}
+2025-11-19 10:10:54 | WARNING  | admin_auth | Login failed: user asad51@gmail.com not found
+{
+    "taskName": "Task-13"
+}
+2025-11-19 10:10:54 | ERROR    | database | Database session error: 401: Invalid credentials
+{
+    "taskName": null
+}
+2025-11-19 10:11:00 | INFO     | admin_auth | Login attempt for username: enigma
+{
+    "taskName": "Task-16"
+}
+2025-11-19 10:11:03 | INFO     | admin_auth | Login successful for enigma
+{
+    "taskName": "Task-16"
+}

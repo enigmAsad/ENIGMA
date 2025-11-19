@@ -1,5 +1,7 @@
 # ENIGMA – AI-Powered Blind Admissions Platform
 
+![ENIGMA Landing Page](docs/images/ENIGMA-Deployed-LandingPage.png)
+
 An end-to-end admissions platform that combines blind merit screening, real-time interview monitoring, and cryptographic audit trails to deliver transparent, bias-resistant admissions decisions.
 
 ## Table of Contents
@@ -36,6 +38,16 @@ The system is designed for high-stakes admissions programs that require demonstr
 - **Cryptographic Audit Trail** – SHA-256 hash chains, public verification portal, and tamper detection across decisions.
 - **Student Self-Service** – Google OAuth with PKCE, application submission, status tracking, interview scheduling, and results.
 - **Admin Operations Suite** – Cycle creation, phase transitions, batch exports/imports, LLM orchestration, and shortlisting tools.
+
+### Interface Previews
+
+| Admin Dashboard | Live Interview Monitoring |
+|:---:|:---:|
+| ![Admin Dashboard](docs/images/ENIGMA-AdminDashboard.png) | ![Live Interview](docs/images/ENIGMA-LiveInterview.png) |
+
+| Student Dashboard | Cycle Management |
+|:---:|:---:|
+| ![Student Dashboard](docs/images/ENIGMA-StudentDashboard.png) | ![Create Cycles](docs/images/ENIGMA-CreateCycles.png) |
 
 ## System Architecture
 - **Frontend:** Next.js App Router, React Server Components, client-side role-aware hooks, Tailwind-style utility classes, lucide-react iconography.
@@ -157,6 +169,8 @@ All path settings (e.g., `PROMPT_DIR`, `LOG_DIR`) are auto-created if missing.
 | `NEXT_PUBLIC_WS_URL` | Optional explicit WebSocket root (falls back to API URL with ws/wss) |
 
 ## Nine-Phase Admissions Workflow
+
+![Admissions Pipeline](docs/images/ENIGMA-Phase1Pipeline.png)
 
 | Phase | Purpose | Primary Endpoint(s) |
 |-------|---------|---------------------|

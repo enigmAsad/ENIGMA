@@ -235,4 +235,5 @@ This repository currently follows an internal workflow. If contributing:
 - Attach screenshots for UI-facing changes and describe API impacts.
 
 ## License
-Proprietary – ENIGMA Project. All rights reserved.
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

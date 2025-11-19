@@ -1,24 +1,44 @@
 'use client';
 
 import React from 'react';
+import type { LucideIcon } from 'lucide-react';
+import {
+  Check,
+  CheckCircle2,
+  Cpu,
+  FileText,
+  Lock,
+  Package,
+  Send,
+  Sparkles,
+  Target,
+  Video,
+} from 'lucide-react';
 
 interface PhaseProgressProps {
   currentPhase: string;
   className?: string;
 }
 
+interface PhaseDefinition {
+  id: string;
+  name: string;
+  description: string;
+  icon: LucideIcon;
+}
+
 // Phase definitions matching backend enum values (lowercase with underscores)
 // Backend has 9 phases - interviews happen DURING the "scored" phase
-const PHASES = [
-  { id: 'submission', name: 'Submission', description: 'Applications Open', icon: '📝' },
-  { id: 'frozen', name: 'Frozen', description: 'Data Locked', icon: '🔒' },
-  { id: 'preprocessing', name: 'Preprocessing', description: 'Scrubbing PII + Metrics', icon: '🧹' },
-  { id: 'batch_prep', name: 'Batch Prep', description: 'Export Ready', icon: '📦' },
-  { id: 'processing', name: 'Processing', description: 'Phase 1 LLM Evaluation', icon: '🤖' },
-  { id: 'scored', name: 'Selection', description: 'Final Selection (2k selected)', icon: '🎯' },
-  { id: 'selection', name: 'Interviews', description: 'Phase 2 Interviews (k shortlisted)', icon: '🎥' },
-  { id: 'published', name: 'Published', description: 'Results Live', icon: '📤' },
-  { id: 'completed', name: 'Completed', description: 'Cycle Closed', icon: '✅' },
+const PHASES: PhaseDefinition[] = [
+  { id: 'submission', name: 'Submission', description: 'Applications Open', icon: FileText },
+  { id: 'frozen', name: 'Frozen', description: 'Data Locked', icon: Lock },
+  { id: 'preprocessing', name: 'Preprocessing', description: 'Scrubbing PII + Metrics', icon: Sparkles },
+  { id: 'batch_prep', name: 'Batch Prep', description: 'Export Ready', icon: Package },
+  { id: 'processing', name: 'Processing', description: 'Phase 1 LLM Evaluation', icon: Cpu },
+  { id: 'scored', name: 'Selection', description: 'Final Selection (2k selected)', icon: Target },
+  { id: 'selection', name: 'Interviews', description: 'Phase 2 Interviews (k shortlisted)', icon: Video },
+  { id: 'published', name: 'Published', description: 'Results Live', icon: Send },
+  { id: 'completed', name: 'Completed', description: 'Cycle Closed', icon: CheckCircle2 },
 ];
 
 export default function PhaseProgress({ currentPhase, className = '' }: PhaseProgressProps) {
@@ -55,6 +75,7 @@ export default function PhaseProgress({ currentPhase, className = '' }: PhasePro
           const isActive = phase.id === currentPhase;
           const isCompleted = getPhaseIndex(phase.id) < currentIndex;
           const isCurrent = getPhaseIndex(phase.id) === currentIndex;
+          const PhaseIcon = phase.icon;
 
           return (
             <div
@@ -74,7 +95,11 @@ export default function PhaseProgress({ currentPhase, className = '' }: PhasePro
                   ? 'bg-green-600 text-white shadow-md'
                   : 'bg-gray-300 text-gray-600'
               }`}>
-                {isCompleted ? '✓' : phase.icon}
+                {isCompleted ? (
+                  <Check className="h-5 w-5" />
+                ) : (
+                  <PhaseIcon className="h-5 w-5" />
+                )}
               </div>
 
               <div className="ml-4 flex-1">

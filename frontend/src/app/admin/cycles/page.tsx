@@ -395,7 +395,7 @@ export default function AdminCyclesPage() {
       case 'submission':
         actions.push({
           key: 'freeze',
-          label: '🔒 Freeze Cycle',
+          label: 'Freeze Cycle',
           variant: 'primary',
           description: 'Close submissions and freeze the cycle for processing'
         });
@@ -408,7 +408,7 @@ export default function AdminCyclesPage() {
         // Phase 1 Pipeline: Runs through shortlisting (2k students)
         actions.push({
           key: 'pipeline',
-          label: phase === 'frozen' ? '⚡ Start Phase 1 Pipeline' : '⚡ Resume Pipeline',
+          label: phase === 'frozen' ? 'Start Phase 1 Pipeline' : 'Resume Pipeline',
           variant: 'primary',
           description: `Automated: Preprocessing → Export → LLM Evaluation → Shortlist ${cycle.max_seats * 2} candidates for interviews`
         });
@@ -418,7 +418,7 @@ export default function AdminCyclesPage() {
         // After shortlisting - waiting for interviews or ready for final selection
         actions.push({
           key: 'final-select',
-          label: '🎯 Perform Final Selection',
+          label: 'Perform Final Selection',
           variant: 'primary',
           description: `Select final ${cycle.max_seats} students from interview pool. Ensure all interviews are completed first!`
         });
@@ -428,7 +428,7 @@ export default function AdminCyclesPage() {
         // Final selection complete, ready to publish
         actions.push({
           key: 'publish',
-          label: '📤 Publish Results',
+          label: 'Publish Results',
           variant: 'primary',
           description: `Make results visible to ${cycle.max_seats} selected applicants`
         });
@@ -437,7 +437,7 @@ export default function AdminCyclesPage() {
       case 'published':
         actions.push({
           key: 'complete',
-          label: '✅ Complete Cycle',
+          label: 'Complete Cycle',
           variant: 'secondary',
           description: 'Archive this cycle and mark it as complete'
         });
@@ -1107,6 +1107,7 @@ export default function AdminCyclesPage() {
                                 const getActionIcon = () => {
                                   if (action.key === 'pipeline') return Zap;
                                   if (action.key === 'freeze') return Lock;
+                                  if (action.key === 'final-select') return Target;
                                   if (action.key === 'publish') return Send;
                                   if (action.key === 'complete') return CheckCheck;
                                   return Settings;

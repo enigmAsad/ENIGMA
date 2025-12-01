@@ -1,4 +1,4 @@
-# ENIGMA – AI-Powered Blind Admissions Platform
+# ENIGMA | AI-Powered Blind Admissions Platform
 
 ![ENIGMA Landing Page](docs/images/ENIGMA-Deployed-LandingPage.png)
 
